@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="@dimen/unlogin_dialog_width"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_simple_dialog">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:gravity="center"
+        android:paddingLeft="@dimen/dp_8"
+        android:paddingRight="@dimen/dp_8"
+        android:text="@string/update"
+        android:textColor="@color/color_808080"
+        android:textSize="@dimen/dp_14"
+        />
+
+    <TextView
+        android:id="@+id/right_tv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:layout_below="@+id/title"
+        android:layout_gravity="center"
+        android:background="@drawable/shape_simple_dialog_blue_bt"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dp_16"/>
+
+</RelativeLayout>

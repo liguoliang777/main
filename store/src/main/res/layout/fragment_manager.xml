@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tabs="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@android:color/white"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_bot_tab"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dm112"
+        android:background="@color/white"
+        >
+
+        <RelativeLayout
+            android:id="@+id/manager_bt_0"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+
+            >
+
+            <ImageView
+                android:id="@+id/manager_top_iv_0"
+                android:layout_width="@dimen/dm036"
+                android:layout_height="@dimen/dm036"
+                android:layout_centerHorizontal="true"
+                android:scaleType="centerInside"
+                android:layout_marginTop="@dimen/dm020"
+                android:src="@drawable/seletor_manager_top_iv_installed"/>
+
+            <TextView
+                android:id="@+id/manager_top_tv_0"
+                android:autoLink="all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/dm020"
+                android:text="已装"
+                android:textColor="@color/manager_top_text_seletor"
+                android:textSize="@dimen/dm024"/>
+
+            <View
+                android:layout_width="@dimen/dm003"
+                android:layout_height="@dimen/dm024"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="@dimen/dm020"
+                android:background="@color/b3"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/manager_bt_1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+
+            >
+
+            <ImageView
+                android:id="@+id/manager_top_iv_1"
+                android:layout_width="@dimen/dm036"
+                android:scaleType="centerInside"
+                android:layout_height="@dimen/dm036"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dm020"
+                android:src="@drawable/seletor_manager_top_iv_like"/>
+
+            <TextView
+                android:id="@+id/manager_top_tv_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/dm020"
+                android:text="喜欢"
+                android:textColor="@color/manager_top_text_seletor"
+                android:textSize="@dimen/dm024"/>
+
+            <View
+                android:layout_width="@dimen/dm003"
+                android:layout_height="@dimen/dm024"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="@dimen/dm020"
+                android:background="@color/b3"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/manager_bt_2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+
+            >
+
+            <ImageView
+                android:id="@+id/manager_top_iv_2"
+                android:layout_width="@dimen/dm036"
+                android:scaleType="centerInside"
+                android:layout_height="@dimen/dm036"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dm020"
+                android:src="@drawable/seletor_manager_top_iv_neccessary"/>
+
+            <TextView
+                android:id="@+id/manager_top_tv_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/dm020"
+                android:text="必备"
+                android:autoLink="all"
+                android:textColor="@color/manager_top_text_seletor"
+                android:textSize="@dimen/dm024"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <include layout="@layout/layout_line_10px_f5"/>
+
+    <FrameLayout
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
+</LinearLayout>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:ngame="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:descendantFocusability="blocksDescendants"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingBottom="@dimen/dm020"
+        android:paddingTop="@dimen/dm016"
+        >
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            xmlns:fresco="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/img_1"
+            android:layout_width="@dimen/dm100"
+            android:layout_height="@dimen/dm100"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dm024"
+            android:scaleType="fitXY"
+            fresco:actualImageScaleType="fitXY"
+            fresco:failureImage="@drawable/ic_def_logo_188_188"
+            fresco:placeholderImage="@drawable/ic_def_logo_188_188"
+            fresco:placeholderImageScaleType="centerCrop"
+            fresco:progressBarImage="@drawable/ic_def_logo_188_188"
+            fresco:roundedCornerRadius="@dimen/dm020"/>
+
+        <ImageView
+            android:id="@+id/manager_installed_more_bt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:paddingBottom="@dimen/dm013"
+            android:paddingLeft="@dimen/dm020"
+            android:paddingRight="@dimen/dm025"
+            android:paddingTop="@dimen/dm013"
+            android:src="@drawable/selector_rank_more_bt"
+            />
+
+        <cn.ngame.store.view.GameLoadProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="58dp"
+            android:layout_height="28dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/manager_installed_more_bt"
+            android:background="@color/white"
+            android:clickable="true"
+            android:text="@string/download"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:visibility="invisible"
+            ngame:progress="0"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dm100"
+            android:layout_marginRight="@dimen/dm010"
+            android:layout_toLeftOf="@+id/progress_bar"
+            android:layout_toRightOf="@+id/img_1">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/color_020202"
+                android:textSize="@dimen/dm028"/>
+
+            <TextView
+                android:id="@+id/tv_version_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingTop="@dimen/dm007"
+                android:textColor="@color/color_020202"
+                android:textSize="@dimen/dm016"
+                />
+
+            <TextView
+                android:id="@+id/tv_length"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:text=""
+                android:textColor="@color/color_020202"
+                android:textSize="@dimen/dm016"
+                />
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

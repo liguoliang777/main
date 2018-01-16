@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/f5f5f5"
+              android:orientation="vertical"
+              android:scrollbars="none">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text="游戏特点"
+            android:textColor="@color/font_808080"
+            android:textSize="@dimen/dp_14"/>
+
+        <GridView
+            android:id="@+id/gridView_remen"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/all_classify_grid_view_height"
+            android:layout_marginLeft="@dimen/dp_4"
+            android:layout_marginRight="@dimen/dp_5"
+            android:horizontalSpacing="@dimen/dp_6"
+            android:listSelector="@color/transparent"
+            android:numColumns="2"
+            android:scrollbars="none"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="@dimen/dp_6"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_30"
+            android:text="游戏类别"
+            android:textColor="@color/font_808080"
+            android:textSize="@dimen/dp_14"/>
+
+        <GridView
+            android:id="@+id/gridView_qiangzhan"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/all_classify_grid_view_height"
+            android:layout_marginLeft="@dimen/dp_4"
+            android:layout_marginRight="@dimen/dp_5"
+            android:horizontalSpacing="@dimen/dp_6"
+            android:listSelector="@color/transparent"
+            android:numColumns="2"
+            android:scrollbars="none"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="@dimen/dp_6"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_30"
+            android:text="厂商"
+            android:textColor="@color/font_808080"
+            android:textSize="@dimen/dp_14"/>
+
+        <GridView
+            android:id="@+id/gridView_maoxian"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/all_classify_grid_view_height"
+            android:layout_marginLeft="@dimen/dp_4"
+            android:layout_marginRight="@dimen/dp_5"
+            android:horizontalSpacing="@dimen/dp_6"
+            android:listSelector="@color/transparent"
+            android:numColumns="2"
+            android:scrollbars="none"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="@dimen/dp_6"
+            />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_30"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_30"
+            android:text="国别"
+            android:textColor="@color/font_808080"
+            android:textSize="@dimen/dp_14"/>
+
+        <GridView
+            android:id="@+id/gridView_dongzuo"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/all_classify_grid_view_height"
+            android:layout_marginLeft="@dimen/dp_4"
+            android:layout_marginRight="@dimen/dp_5"
+            android:horizontalSpacing="@dimen/dp_6"
+            android:listSelector="@color/transparent"
+            android:numColumns="2"
+            android:scrollbars="none"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="@dimen/dp_6"
+            />
+    </LinearLayout>
+</LinearLayout>

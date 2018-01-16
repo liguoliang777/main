@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- APP 基础色 -->
+    <color name="mainColor">#3ecc7a</color>
+
+    <color name="mainColorLight">#553ecc7a</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="red">#FF0000</color>
+    <color name="red_ff3333">#FF0000</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="color000000">#000000</color>
+    <color name="gray_7b">#7b7b7b</color>
+    <color name="gray_dd">#dddddd</color>
+    <color name="gray_bb">#bbbbbb</color>
+    <color name="gray_e9">#e9e9e9</color>
+    <color name="gray_1">#e5e5e5</color>
+    <color name="orange">#f19149</color>
+    <color name="purple">#d879ff</color>
+    <color name="orange_2">#fdab53</color>
+
+    <color name="color_vertical_line">#3ecc7a</color>
+
+    <color name="font_default">#BEBEBE</color>
+    <color name="font_green">#84E9E2</color>
+    <color name="font_gray">#848484</color>
+    <color name="font_gray_2">#CCCCCC</color>
+    <color name="cccccc">#cccccc</color>
+    <color name="color_333333">#333333</color>
+    <color name="color_666666">#666666</color>
+    <color name="color999999">#999999</color>
+
+    <color name="progress_bar_background">#94ffeb</color>
+
+    <!-- 底部菜单字体的颜色 -->
+    <color name="footer_font">#868686</color>
+
+    <color name="see_more" >#66cc90</color>-->
+    <color name="QuickAction_press">#94ffeb</color>
+    <color name="QuickAction_focused">#94ffeb</color>
+    <color name="download_bg">#443ecc7a</color>
+    <color name="color_98e0f1">#443ecc7a</color>
+
+    <color name="color_4d4d4d">#4d4d4d</color>
+    <color name="b3">#b3b3b3</color>
+    <color name="semitransparent">#efff</color>
+
+    <color name="game_name">#1a1a1a</color>
+    <color name="game_detail_tab_tv_seleted">#0a82b5</color>
+    <color name="bg_f2">#f2f2f2</color>
+    <color name="f5f5f5">#f5f5f5</color>
+    <color name="color_1a">#1a1a1a</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="translucent_1affffff">#1affffff</color>
+    <color name="login_bt_pressed">#2e995b</color>
+    <color name="login_bt_nomal">#3ecc7a</color>
+    <color name="register_bt_nomal">#66cc90</color>
+
+    <color name="all_claasify_item_1">#66cc90</color>
+    <color name="all_claasify_item_2">#2e995b</color>
+
+    <color name="transparent_light2">#05000000</color>
+    <color name="transparent_light">#15000000</color>
+    <color name="transparent_medium">#55000000</color>
+    <color name="font_logout_red">#ff6666</color>
+    <color name="color_nomal_4ea7ff">#4ea7ff</color>
+    <color name="color_nomal_a1cefa">#a1cefa</color>
+    <color name="color_pressed_297acc">#297acc</color>
+    <color name="fefefe">#fefefe</color>
+    <color name="font_18b9fe">#18b9fe</color>
+    <color name="color_18b9fe">#18b9fe</color>
+    <color name="download_bt_nomal">#3ecc7a</color>
+    <color name="font_808080">#808080</color>
+    <color name="font_4ac7fc">#4ac7fc</color>
+    <color name="color_tag">#3ecc7a</color>
+    <color name="d9d9d9">#d9d9d9</color>
+    <color name="color_0e6caf">#0e6caf</color>
+    <color name="a6a6a6">#a6a6a6</color>
+    <color name="color_4cc7fc">#4cc7fc</color>
+    <color name="color_189dd6">#189dd6</color>
+    <color name="color_989999">#989999</color>
+    <color name="color_808080">#808080</color>
+    <color name="e5e5e5">#e5e5e5</color>
+    <color name="f6f6f6">#f6f6f6</color>
+    <color name="color_020202">#020202</color>
+    <color name="e6e6e6">#e6e6e6</color>
+    <color name="color_95dfff">#95dfff</color>
+    <color name="color_070707">#070707</color>
+    <color name="f92b2b">#f92b2b</color>
+    <color name="fa702a">#fa702a</color>
+    <color name="fab52a">#fab52a</color>
+    <color name="f7f7f7">#f7f7f7</color>
+    <color name="aaaaaa">#aaaaaa</color>
+    <color name="ee6868">#ee6868</color>
+    <color name="bfbfbf">#bfbfbf</color>
+
+    <color name="feed_bg">#d3d6db</color>
+    <color name="feed_item_bg">#ffffff</color>
+    <color name="feed_item_border">#c2c3c8</color>
+    <color name="link">#0a80d1</color>
+    <color name="timestamp">#808080</color>
+    <color name="subtitle">#d3d3d3</color>
+
+    <color name="black_overlay">#66000000</color>
+    <color name="color_33ccff">#33ccff</color>
+    <color name="dfdfdf">#dfdfdf</color>
+    <color name="edf2ef">#edf2ef</color>
+    <color name="aab3ad">#aab3ad</color>
+    <color name="b8ccc0">#b8ccc0</color>
+</resources>

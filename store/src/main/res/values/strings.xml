@@ -1,0 +1,238 @@
+<resources>
+
+    <!-- Common -->
+    <string name="app_name">方格</string>
+
+    <string name="image_des">图片描述信息</string>
+
+    <string name="back">返回</string>
+    <string name="more">更多</string>
+    <string name="game">游戏</string>
+    <string name="video">视频</string>
+    <string name="sure">确定</string>
+    <string name="cancel">取消</string>
+    <string name="help">帮助</string>
+    <string name="rank">排行榜</string>
+
+
+    <!-- 网络请求时的URL地址 -->
+    <string name="url_update">http://192.168.0.233:10004/app/querycurrentappversion</string>
+
+    <!-- 底部菜单-->
+    <string name="menu_home">首页</string>
+    <string name="menu_game">游戏</string>
+    <string name="menu_video">视频</string>
+    <string name="menu_manager">本地</string>
+
+    <string name="but_comein">立即使用</string>
+    <string name="skip_ad">跳过广告</string>
+
+    <!-- 注册登录 -->
+    <string name="login_now">立即登录</string>
+    <string name="login_name_hint"><font size="16">请输入账号</font></string>
+    <string name="login_pwd_hint"><font size="16">请输入密码</font></string>
+    <string name="login_other">使用更多方式登录</string>
+
+    <string name="find_pwd">找回密码</string>
+    <string name="find_now">立即找回</string>
+    <string name="find_new"><font size="15">请输入6-16位新密码</font></string>
+
+    <string name="register_title">注册</string>
+    <string name="register_mobile"><font size="15">请输入手机号</font></string>
+    <string name="register_captcha"><font size="15">请输入验证码</font></string>
+    <string name="register_get_captcha">获取验证码</string>
+    <string name="register_password"><font size="15">请输入6-16位密码</font></string>
+    <string name="register">立即注册</string>
+    <string name="register_protocol"><font size="12">《Ngame用户隐私协议》</font></string>
+    <string name="register_text">注册代表您同意</string>
+
+    <!-- 侧滑菜单 -->
+    <string name="sliding_un_login">未登录</string>
+    <string name="sliding_wonderful">登录后享更多精彩</string>
+    <string name="sliding_feedback">意见反馈</string>
+    <string name="sliding_about">关于</string>
+
+    <!-- 下载更新 -->
+    <string name="update">更新</string>
+    <string name="update_check">检测更新</string>
+    <string name="update_find_new">发现新的版本 V1.0.1</string>
+    <string name="update_ing">更新中：</string>
+    <string name="update_now">立即更新</string>
+    <string name="update_later">不升级</string>
+    <string name="update_cancel">取消</string>
+    <string name="update_background">后台运行</string>
+    <string name="update_goon">继续更新</string>
+    <string name="update_log"><p font="10">1.重新设计的UI界面</p><br/><p font="10">2.优化后台多线程下载逻辑</p><br/><p font="10">3.修复已知Bug</p></string>
+
+    <string name="download">下载</string>
+
+    <!-- Game相关 -->
+    <string name="game_detail">详情</string>
+    <string name="game_review">评论</string>
+    <string name="game_key">键位</string>
+    <string name="game_strategy">必读</string>
+    <string name="game_summary">简介</string>
+    <string name="game_info">游戏信息</string>
+    <string name="game_version">版本信息：</string>
+    <string name="game_time">更新时间：</string>
+    <string name="game_content">更新内容</string>
+    <string name="game_company">开发商：</string>
+    <!-- 手柄游戏相关 -->
+    <string name="game_sb">手柄游戏</string>
+    <string name="game_cp">触屏游戏</string>
+
+    <!-- game圈 -->
+    <string name="game_hub_jubao">举报</string>
+    <string name="game_hub_detail">帖子详情</string>
+    <string name="game_hub_eygs">恶意灌水</string>
+    <string name="game_hub_ggzp">广告诈骗</string>
+    <string name="game_hub_yhsq">淫秽色情</string>
+    <string name="game_hub_other">其他原因</string>
+    <string name="game_hub_submit">提交</string>
+    <string name="game_hub_choose_module">选择板块</string>
+    <string name="game_hub_choose_game">选择游戏</string>
+    <string name="game_hub_choose_game_expl">&#160;&#160;&#160;&#160;以下游戏目前均没有进行手柄适配，如果您希望这一款游
+        戏支持手柄玩法请将这款游戏加入投票推荐，已经加入投票推荐的游戏无法再次添加进入投票环节。每个
+        自然月参入投票的游戏获得投票最多的游戏将会获得优先手柄适配，已经适配的游戏将不再参入投票。</string>
+    <string name="game_hub_no_find">没找到自己喜欢的游戏？</string>
+    <string name="game_hub_click_hear">点击这里</string>
+    <string name="game_hub_sub_name">提交游戏名字</string>
+
+    <!-- Manager相关 -->
+    <string name="manage_history">历史记录</string>
+    <string name="manage_download">下载记录</string>
+    <string name="manage_contact">联系我们</string>
+    <string name="manage_setting">系统设置</string>
+    <string name="manage_disclaimer">免责声明</string>
+
+    <!-- 用户中心相关 -->
+    <string name="user_info">账号信息</string>
+    <string name="user_photo">我的头像</string>
+    <string name="user_nick_name">我的昵称</string>
+    <string name="user_login_name">Ngame账号</string>
+    <string name="user_level">我的等级</string>
+    <string name="user_nb">我的N币</string>
+    <string name="user_level_nb">等级与N币</string>
+    <string name="user_sex">性别</string>
+    <string name="user_birthday">生日</string>
+    <string name="user_address">地址</string>
+    <string name="user_logout">退出登录</string>
+
+    <!-- VR视频相关 -->
+    <string name="vr_video">VR视频</string>
+    <string name="vr_game">VR游戏</string>
+    <string name="vr_3d_move">3D电影</string>
+
+    <!-- 评论相关 -->
+    <string name="review">评论</string>
+
+    <!-- 搜索相关 -->
+    <string name="search">搜索</string>
+    <string name="search_hot">热门搜索</string>
+    <string name="search_ing">正在搜索...</string>
+    <string name="search_end">未搜索到相关内容</string>
+
+    <!-- 网络加载相关 -->
+    <string name="loading">玩命加载中...</string>
+    <string name="load_end">加载失败，请稍后重试...</string>
+    <string name="reload">重新加载</string>
+
+    <!-- About相关 -->
+    <string name="about">关于</string>
+    <string name="about_code">Ngame 1.01</string>
+    <string name="about_copyright">Ngame 版权所有(c) 2016 宁美国度</string>
+
+    <!-- 免责声明 相关 -->
+    <string name="disclaimer">免责声明</string>
+
+    <!-- 联系我们 相关 -->
+    <string name="contact_us">联系我们</string>
+    <string name="contact_phone">027-88889999</string>
+    <string name="contact_email">zeng@ngame.cn</string>
+    <string name="contact_address">武汉市洪山区广八路天宝佳苑C座</string>
+
+    <!--公司信息-->
+    <string name="company_ad_email">yunlong@iningmei.com</string>
+    <string name="company_ad_phone">13035114192</string>
+    <!-- 意见反馈相关 -->
+    <string name="feedback">意见反馈</string>
+    <string name="feedback_content">反馈内容</string>
+    <string name="feedback_hint">请输入您遇到的问题或者建议...</string>
+    <string name="feedback_contact">联系方式</string>
+    <string name="feedback_submit">提交反馈</string>
+
+    <string name="game_review_btn_text">评论</string>
+
+    <!-- OTA升级 相关 -->
+    <string name="ota_device">我的设备</string>
+
+    <!-- 手柄助手 相关 -->
+    <string name="pad_mapping_sprite">映射精灵</string>
+    <string name="pad_mapping_sprite_ngame">Ngame映射精灵</string>
+    <string name="pad_download">下载</string>
+    <string name="pad_tool_desc">
+        Ngame映射精灵，您的手柄辅助神器！随时随地，战个痛快！\r\n\r\n
+        Ngame映射精灵专门为专业玩家打造的Root触屏映射应用，实现使用Ngame手柄玩触屏操作的所有游戏，升级操控体验。\r\n\r\n
+        【自由映射】自定义按键映射，可DIY按键，告别触屏的束缚。\r\n\r\n
+        【操作简单】免Root，只需要通过蓝牙连接手柄就可以愉快的战斗。\r\n\r\n
+        【极致控制】与Ngame手柄结合，更强、更稳、更准，释放您的战斗力！\r\n\r\n
+        【畅快游戏】全民超神、全民突击、全名破坏神、全民枪战、穿越火线、独立防线、王者联盟、魔龙与勇士、热血传奇、乱斗西游、全名奇迹、自由之战、超级城之光等热门游戏全覆盖，想怎么玩就怎么玩！\r\n\r\n
+    </string>
+
+    <!-- 下拉刷新和上拉加载更多的文本 -->
+    <string name="pushmsg_center_no_more_msg">已经到底了</string>
+    <string name="pushmsg_center_pull_up_text">松开加载更多</string>
+    <string name="pushmsg_center_pull_down_text">下拉可以刷新</string>
+    <string name="pushmsg_center_pull_release_text">松开获取更多</string>
+    <string name="pushmsg_center_pull_down_update_time">上次刷新时间 : </string>
+    <string name="pushmsg_center_load_more_ongoing_text">正在加载中</string>
+    <string name="xsearch_loading">正在刷新…</string>
+    <string name="pull_to_refresh_header_hint_normal">@string/pushmsg_center_pull_down_text</string>
+    <string name="pull_to_refresh_header_hint_normal2">上拉可以刷新</string>
+    <string name="pull_to_refresh_header_hint_ready">松开后刷新</string>
+    <string name="pull_to_refresh_header_hint_loading">@string/pushmsg_center_load_more_ongoing_text</string>
+    <string name="pull_to_refresh_header_last_time">@string/pushmsg_center_pull_down_update_time</string>
+    <string name="pull_to_refresh_footer_hint_ready">松开载入更多</string>
+    <string name="pull_to_refresh_refreshing_label_fan">@string/pull_to_refresh_header_hint_loading</string>
+    <string name="no_more_data">@string/pushmsg_center_no_more_msg</string>
+    <string name="pull_to_refresh_network_error">网络异常，请稍候重试</string>
+    <string name="no_network">网络异常,请检查网络设置</string>
+    <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
+    <string name="about_text_line_1">NGAMEZONE是一个好玩的游戏下载平台。我们提供Android、iOS两种版本的客户端产品。</string>
+    <string name="about_text_line_2">NGAMEZONE收集全球热门、好玩的游戏，每日推荐一些经过编辑独立评测的游戏，玩家在这里可以交流、分享，
+        独特的圈子功能让游戏玩家更加靠近。</string>
+    <string name="about_text_line_3">NGAMEZONE独有的云端存储功能，让热门大作即使更换手机，也能持续畅玩。</string>
+    <string name="about_text_line_4">NGAMEZONE支持数百款游戏的手柄操作，一个游戏，两种玩法，
+        即使那些游戏原生并不支持手柄，通过我们的云映射功能，也能轻松享受。数十家手柄品牌方官方推荐，值得信赖。</string>
+    <string name="see_more">查看更多</string>
+    <string name="ngamezone">NGAMEZONE账号：</string>
+    <string name="requery_failed">请求失败,稍后重试</string>
+    <string name="server_exception">服务器开小差了~</string>
+    <string name="server_exception_2_pullrefresh">服务器开小差了,请下拉刷新一下~</string>
+    <string name="game_hub">圈子</string>
+    <string name="download_count_end">下载</string>
+    <string name="unlogin_msg">您还未登录哦~\n登录后发现更多精彩！</string>
+    <string name="relogin_msg">"您的登录状态已经失效\n请重新登录"</string>
+    <string name="unkonw">--</string>
+    <string name="to_precent">提交评分</string>
+    <string name="precented">已评分</string>
+    <string name="open">打开</string>
+    <string name="no_data">查询无结果</string>
+    <string name="read_1">1.当游戏的标签有“云适配”标签</string>
+    <string name="read_text1">当游戏有“云适配”的标签时，该游戏为云适配版本游戏。安装前请先删除手机上的官方版本，再安装云适配版，游戏按键默认已经调整完美，需要按照自己习惯调整的请打开映射设置。</string>
+    <string name="read_2">2.当游戏的标签有“原生手柄”标签</string>
+    <string name="read_text2">当游戏有“原生手柄”的标签时，无法调出映射。</string>
+    <string name="read_3">3.云适配游戏调出映射</string>
+    <string name="read_text3">当游戏有“云适配”的标签时，该游戏为云适配版本游戏。如何调出映射：“i”键或Start+LB或start+select或back等按键，请根据不同型号手柄使用不同的方式。</string>
+    <string name="read_4">4.云适配游戏映射异常</string>
+    <string name="read_text4">部分游戏无法映射请按home键回到桌面，再进游戏即可呼出映射。</string>
+    <string name="read_5">5.调出键盘异常说明</string>
+    <string name="read_text5">关于部分手机使用手柄后调不出键盘，无法打字的情况，是因为手柄占用了键盘协议， 请断开手机蓝牙，打字后，再开启手机蓝牙，手柄自动回连。</string>
+    <string name="necessary_content_desc">拇指玩的安装器,一键操作.安装指南:谷歌框架指的是谷歌服务框架,谷歌应用商店等4个谷歌出品的APP,是使用谷歌服务的基础.</string>
+    <string name="cancel_like_msg">主人~不再喜欢了我\n我将从"喜欢"列表消失~</string>
+    <string name="install_apk_lost_redownload">安装包文件丢失\n请重新下载</string>
+    <string name="ok">好的</string>
+    <string name="main_tab_04">圈子</string>
+    <string name="share_description">欢迎来到乐游地带。手柄游戏，破解游戏，汉化游戏，应有尽有，快来畅玩吧！</string>
+    <string name="app_download_url_yyb">http://sj.qq.com/myapp/detail.htm?apkName=cn.ngame.store</string>
+</resources>

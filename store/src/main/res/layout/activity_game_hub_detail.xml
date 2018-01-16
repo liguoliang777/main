@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:fresco="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white"
+              android:clipToPadding="false"
+              android:fitsSystemWindows="true"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/mainColor"
+        >
+
+        <Button
+            android:id="@+id/left_bt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dm036"
+            android:background="@null"
+            android:clickable="true"
+            android:drawableLeft="@drawable/ic_back"
+            android:drawablePadding="@dimen/dp_10"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:onClick="onHubItemBackClick"
+            android:paddingLeft="@dimen/title_left_bt_padding_left"
+            android:paddingRight="@dimen/dp_20"
+            android:text="返回"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/title_size"
+            />
+    </RelativeLayout>
+
+    <cn.ngame.store.view.StickyScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/rl_top"
+        android:fillViewport="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollbars="none">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+            <!--  实现图片横向滑动组件声明
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/imagePages"
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/dm350"
+                    android:background="@color/f5f5f5"/>-->
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/game_hub_sdv"
+                android:layout_width="@dimen/dm064"
+                android:layout_height="@dimen/dm064"
+                android:layout_margin="@dimen/dm020"
+                fresco:actualImageScaleType="centerCrop"
+                fresco:failureImage="@drawable/ic_def_logo_188_188"
+                fresco:failureImageScaleType="centerCrop"
+                fresco:placeholderImage="@color/dfdfdf"
+                fresco:placeholderImageScaleType="centerCrop"
+                fresco:roundAsCircle="true"
+                />
+
+            <TextView
+                android:id="@+id/hub_detail_from_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/game_hub_sdv"
+                android:layout_toRightOf="@id/game_hub_sdv"
+                android:paddingTop="@dimen/dm003"
+                android:text=""
+                android:textColor="@color/color_1a"
+                android:textSize="@dimen/dm024"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/hub_detail_time_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/hub_detail_from_tv"
+                android:layout_marginTop="@dimen/dm003"
+                android:layout_toRightOf="@id/game_hub_sdv"
+                android:text=""
+                android:textColor="@color/color_808080"
+                android:textSize="@dimen/dm020"/>
+
+            <View
+                android:id="@+id/game_hub_line"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dm002"
+                android:layout_below="@id/game_hub_sdv"
+                android:background="@color/e6e6e6"/>
+
+            <RelativeLayout
+                android:id="@+id/hub_detail_hub_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/game_hub_line"
+                android:gravity="center_vertical"
+                android:padding="@dimen/dm020">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/hub_detail_hub_iv"
+                    android:layout_width="@dimen/dm030"
+                    android:layout_height="@dimen/dm030"
+                    android:layout_centerVertical="true"
+                    fresco:actualImageScaleType="centerCrop"
+                    fresco:failureImage="@drawable/ic_def_logo_188_188"
+                    fresco:failureImageScaleType="centerCrop"
+                    fresco:placeholderImage="@color/dfdfdf"
+                    fresco:roundedCornerRadius="@dimen/dm005"
+                    />
+
+                <TextView
+                    android:id="@+id/hub_detail_hub_name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dm010"
+                    android:layout_toRightOf="@id/hub_detail_hub_iv"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:maxWidth="@dimen/dm500"
+                    android:text=""
+                    android:textColor="@color/color_808080"
+                    android:textSize="@dimen/dm024"/>
+
+                <ImageView
+                    android:layout_width="@dimen/dm016"
+                    android:layout_height="@dimen/dm028"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_next_blue"/>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dm002"
+                android:layout_below="@id/hub_detail_hub_layout"
+                android:layout_marginLeft="@dimen/dm020"
+                android:layout_marginRight="@dimen/dm020"
+                android:background="@drawable/bg_dash_line"
+                android:layerType="software"/>
+
+
+            <TextView
+                android:id="@+id/game_hub_detail_title_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/hub_detail_hub_layout"
+                android:layout_marginBottom="@dimen/dm020"
+                android:layout_marginLeft="@dimen/dm020"
+                android:layout_marginRight="@dimen/dm020"
+                android:layout_marginTop="@dimen/dm031"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text=""
+                android:textColor="@color/color_333333"
+                android:textSize="@dimen/dm032"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/see_numb_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/game_hub_detail_title_tv"
+                android:layout_marginRight="@dimen/dm020"
+                android:layout_marginTop="@dimen/dm030"
+                android:text=""
+                android:textColor="@color/color_808080"
+                android:textSize="@dimen/dm020"/>
+
+            <ImageView
+                android:layout_width="@dimen/dm028"
+                android:layout_height="@dimen/dm022"
+                android:layout_below="@id/game_hub_detail_title_tv"
+                android:layout_marginRight="@dimen/dm009"
+                android:layout_marginTop="@dimen/dm034"
+                android:layout_toLeftOf="@id/see_numb_tv"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_eyes"/>
+
+            <View
+                android:id="@+id/hub_line_20"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dm020"
+                android:layout_below="@id/see_numb_tv"
+                android:layout_marginTop="@dimen/dm030"
+                android:background="@color/f7f7f7"/>
+
+            <TextView
+                android:id="@+id/game_hub_detail_desc_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/hub_line_20"
+                android:layout_marginLeft="@dimen/dm020"
+                android:layout_marginRight="@dimen/dm020"
+                android:layout_marginTop="@dimen/dm030"
+                android:lineSpacingExtra="@dimen/dm010"
+                android:minHeight="@dimen/dm500"
+                android:text=""
+                android:textColor="@color/color_333333"
+                android:textSize="@dimen/dm024"/>
+
+            <LinearLayout
+                android:id="@+id/hub_item_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/game_hub_detail_desc_tv"
+                android:layout_marginLeft="@dimen/dm020"
+                android:layout_marginRight="@dimen/dm020"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_zan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/hub_item_layout"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/dm120"
+                android:layout_marginTop="@dimen/dm050"
+                android:background="@color/white"
+                >
+
+                <ImageView
+                    android:id="@+id/game_hub_support_bt"
+                    android:layout_width="@dimen/dm086"
+                    android:layout_height="@dimen/dm086"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="@dimen/dm012"
+                    android:background="@drawable/un_zan"
+                    android:clickable="false"
+                    android:scaleType="centerInside"
+                    />
+
+                <TextView
+                    android:id="@+id/game_hub_support_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/game_hub_support_bt"
+                    android:layout_centerHorizontal="true"
+                    android:text=""
+                    android:textColor="@color/color_333333"
+                    android:textSize="@dimen/dm018"/>
+            </RelativeLayout>
+
+            <cn.ngame.store.view.zan.HeartLayout
+                android:id="@+id/heart_layout"
+                android:layout_width="@dimen/dm160"
+                android:layout_height="@dimen/dm200"
+                android:layout_above="@id/layout_zan"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="-15dp"/>
+        </RelativeLayout>
+
+    </cn.ngame.store.view.StickyScrollView>
+
+
+</LinearLayout>

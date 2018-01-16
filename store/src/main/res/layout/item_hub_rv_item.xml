@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tabs="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center_vertical"
+              android:orientation="vertical"
+    >
+
+    <TextView
+        android:id="@+id/singer_item_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/dm032"
+        android:layout_marginTop="@dimen/dm044"
+        android:layout_marginBottom="@dimen/dm008"
+        android:gravity="center_vertical"
+        android:text=""
+        android:textColor="@color/color_666666"
+        android:textSize="@dimen/dm024"/>
+
+    <GridLayout
+        android:id="@+id/layout_tags2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:orientation="horizontal"
+        />
+</LinearLayout>

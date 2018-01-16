@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginTop="6dp">
+
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_centerVertical="true" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:layout_toLeftOf="@+id/iv_eye_img"
+            android:layout_toRightOf="@+id/iv_icon"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="mayn"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="13dp" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="02月14日"
+                android:textColor="@color/color_666666"
+                android:textSize="12dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_comment_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/color_666666"
+            android:text="1267" />
+
+        <ImageView
+            android:id="@+id/iv_comment_img"
+            android:layout_width="16dp"
+            android:layout_height="14dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/tv_comment_num"
+            android:background="@drawable/game_hub_comment" />
+
+        <TextView
+            android:id="@+id/tv_eye_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="15dp"
+            android:layout_toLeftOf="@+id/iv_comment_img"
+            android:textColor="@color/color_666666"
+            android:text="1267" />
+
+        <ImageView
+            android:id="@+id/iv_eye_img"
+            android:layout_width="17dp"
+            android:layout_height="12dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/tv_eye_num"
+            android:background="@drawable/game_hub_eye" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:id="@+id/tv_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_app_open_bt_nomal"
+            android:paddingBottom="2dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="2dp"
+            android:text="攻略"
+            android:textColor="@color/white"
+            android:textSize="11dp" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="怎么我的手柄就是玩不了了玩不了了怎么我的手柄就是玩不了了怎么我的手柄就是玩不玩不了了怎么我的手柄就是玩不了了怎么我的手柄就是玩不"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="13dp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
+        android:lineSpacingExtra="2dp"
+        android:maxLines="3"
+        android:ellipsize="end"
+        android:text="怎么我的手柄就是玩不了了怎么我的手柄就是玩不了了怎么我的手柄就玩不了了怎么我的手柄就是玩不了了怎么我的手柄就是玩不玩不了了怎么我的手柄就是玩不了了怎么我的手柄就是玩不是玩不了了怎么我的手柄就是玩不了了"
+        android:textSize="12dp"
+        android:textColor="@color/color_666666"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp" />
+
+    <LinearLayout
+        android:id="@+id/ll_img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <ImageView
+            android:id="@+id/iv_photo"
+            android:layout_width="85dp"
+            android:layout_height="100dp"
+ />
+
+        <ImageView
+            android:id="@+id/iv_photo_2"
+            android:layout_width="85dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+ />
+
+        <ImageView
+            android:id="@+id/iv_photo_3"
+            android:layout_width="85dp"
+            android:layout_height="100dp"
+ />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/f5f5f5"/>
+</LinearLayout>

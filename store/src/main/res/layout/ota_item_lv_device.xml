@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:paddingBottom="@dimen/dm015"
+                android:paddingLeft="@dimen/dm030"
+                android:paddingRight="@dimen/dm025"
+                android:paddingTop="@dimen/dm015">
+
+    <TextView
+        android:id="@+id/tv_device"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:text="Ngame controller class"
+        android:layout_marginBottom="@dimen/dm010"
+        android:textColor="@color/color_666666"
+        android:textSize="@dimen/dm025"/>
+
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_device"
+        android:text="当前版本:V5456"
+        android:textColor="@color/color999999"
+        android:textSize="@dimen/dm020"/>
+
+    <TextView
+        android:id="@+id/text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_device"
+        android:layout_toRightOf="@id/text1"
+        android:layout_marginLeft="@dimen/dm015"
+        android:maxLines="1"
+        android:textColor="@color/mainColor"
+        android:textSize="@dimen/dm020"/>
+
+    <Button
+        android:id="@+id/but1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/selector_blue_bt"
+        android:paddingBottom="@dimen/dm012"
+        android:paddingLeft="@dimen/dm025"
+        android:paddingRight="@dimen/dm025"
+        android:paddingTop="@dimen/dm012"
+        android:text="更新"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dm025"
+        android:visibility="visible"/>
+
+</RelativeLayout>

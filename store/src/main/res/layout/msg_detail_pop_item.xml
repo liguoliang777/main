@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="220dp"
+        android:layout_height="160dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:text="评论功能需要登录"
+            android:textSize="14sp"
+            android:textColor="@color/color_333333"/>
+        <TextView
+            android:id="@+id/tv_toLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_black_3"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingRight="25dp"
+            android:paddingLeft="25dp"
+            android:text="立即登录"
+            android:textSize="14sp"
+            android:textColor="@color/color_333333"/>
+        <TextView
+            android:id="@+id/tv_toRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_black_3"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingRight="25dp"
+            android:paddingLeft="25dp"
+            android:text="立即注册"
+            android:textSize="14sp"
+            android:textColor="@color/color_333333"/>
+    </LinearLayout>
+</RelativeLayout>

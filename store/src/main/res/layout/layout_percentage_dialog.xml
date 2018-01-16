@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/shape_white_empty"
+              android:orientation="vertical">
+
+    <cn.ngame.store.view.ReviewScoreView
+        android:id="@+id/review_scoreView"
+        layout="@layout/layout_review_score"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        />
+
+    <include layout="@layout/layout_line_05dp_e6e6e6"/>
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        xmlns:fresco="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/ic_percent_icon"
+        android:layout_width="@dimen/dm053"
+        android:layout_height="@dimen/dm053"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dm009"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_def_logo_188_188"
+        fresco:actualImageScaleType="fitXY"
+        fresco:failureImage="@drawable/ic_def_logo_188_188"
+        fresco:failureImageScaleType="centerCrop"
+        fresco:placeholderImage="@drawable/ic_def_logo_188_188"
+        fresco:placeholderImageScaleType="centerCrop"
+        fresco:progressBarImage="@drawable/ic_def_logo_188_188"
+        fresco:progressBarImageScaleType="centerCrop"
+        fresco:roundAsCircle="true"
+        />
+
+    <TextView
+        android:id="@+id/ic_percent_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dm004"
+        android:text="用户名"
+        android:textColor="@color/cccccc"
+        android:textSize="@dimen/dm024"/>
+
+    <!--评分栏-->
+    <RatingBar
+        android:id="@+id/rating_bar"
+        style="@style/RatingBarBig"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dm044"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dm004"
+        android:numStars="5"
+        android:rating="5"
+        android:stepSize="1"/>
+
+    <TextView
+        android:id="@+id/ic_percent_sumbit_bt"
+        android:layout_width="@dimen/dm274"
+        android:layout_height="@dimen/dm054"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/dm024"
+        android:layout_marginTop="@dimen/dm024"
+        android:background="@drawable/shape_corner12px_main_color"
+        android:clickable="true"
+        android:gravity="center"
+        android:text="@string/to_precent"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dm027"/>
+</LinearLayout>

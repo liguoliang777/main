@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:custom="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white"
+              android:descendantFocusability="blocksDescendants"
+              android:orientation="vertical"
+              android:scrollbars="none">
+
+    <cn.ngame.store.view.BannerView
+        android:id="@+id/banner_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/classify_top_banner_image_height"
+        android:background="@drawable/ic_def_logo_720_288"
+        android:clickable="true"
+        custom:auto_scroll="true"
+        custom:current_item="0"
+        custom:scroll_period="7"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/edf2ef"
+        android:paddingLeft="@dimen/main_margin_20px"
+        android:paddingRight="@dimen/main_margin_20px"
+        android:descendantFocusability="blocksDescendants"
+        >
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/discover_head_rv_classify"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:descendantFocusability="blocksDescendants"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/main_margin_bottom_32px"
+        >
+
+        <TextView
+            android:id="@+id/discover_tviv_left_title_tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/main_margin_left_34px"
+            android:paddingTop="@dimen/main_margin_32px"
+            android:scaleType="centerInside"
+            android:text="每日新发现"
+            android:textColor="@color/color_1a"
+            android:textSize="@dimen/dm028"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/everyday_more_tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/discover_tviv_left_title_tv1"
+            android:layout_alignParentRight="true"
+            android:paddingBottom="@dimen/dm008"
+            android:paddingLeft="@dimen/dm020"
+            android:paddingRight="@dimen/main_margin_left_34px"
+            android:paddingTop="@dimen/dm020"
+            android:text="@string/see_more"
+            android:textColor="@color/mainColor"
+            android:textSize="@dimen/dm020"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/everyday_discover_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/discover_tviv_left_title_tv1"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/main_margin_32px"
+            android:scrollbars="none"
+            />
+
+    </RelativeLayout>
+
+    <include layout="@layout/layout_line_1px_e6e6e6"></include>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:descendantFocusability="blocksDescendants"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/main_margin_32px"
+        >
+
+        <TextView
+            android:id="@+id/discover_tviv_left_title_tv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/main_margin_left_34px"
+            android:paddingTop="@dimen/main_margin_32px"
+            android:scaleType="centerInside"
+            android:text="近期最热"
+            android:textColor="@color/color_1a"
+            android:textSize="@dimen/dm028"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/more_hot_recent_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/discover_tviv_left_title_tv2"
+            android:layout_alignParentRight="true"
+            android:paddingBottom="@dimen/dm008"
+            android:paddingLeft="@dimen/dm020"
+            android:paddingRight="@dimen/main_margin_left_34px"
+            android:paddingTop="@dimen/dm020"
+            android:text="@string/see_more"
+            android:textColor="@color/see_more"
+            android:textSize="@dimen/dm020"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_hot_recent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/discover_tviv_left_title_tv2"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/main_margin_32px"
+            android:scrollbars="none"
+            />
+    </RelativeLayout>
+
+    <include layout="@layout/layout_line_1px_e6e6e6"></include>
+    <!--................................专题...................................................-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/main_margin_32px"
+        >
+
+        <TextView
+            android:id="@+id/discover_tviv_left_title_tv3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/main_margin_left_34px"
+            android:paddingTop="@dimen/main_margin_32px"
+            android:scaleType="centerInside"
+            android:text="专题"
+            android:textColor="@color/color_1a"
+            android:textSize="@dimen/dm028"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/more_subject_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/discover_tviv_left_title_tv3"
+            android:layout_alignParentRight="true"
+            android:paddingBottom="@dimen/dm008"
+            android:paddingLeft="@dimen/dm020"
+            android:paddingRight="@dimen/main_margin_left_34px"
+            android:paddingTop="@dimen/dm020"
+            android:text="@string/see_more"
+            android:textColor="@color/see_more"
+            android:textSize="@dimen/dm020"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_subject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/discover_tviv_left_title_tv3"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/main_margin_32px"
+            android:scrollbars="none"
+            />
+    </RelativeLayout>
+    <!--................................大厂...................................................-->
+    <include layout="@layout/layout_line_1px_e6e6e6"></include>
+
+    <!--<RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/discover_margin_bottom"
+        >
+
+        <TextView
+            android:paddingTop="@dimen/discover_margin_bottom"
+            android:id="@+id/discover_tviv_left_title_tv4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/discover_margin_left"
+            android:scaleType="centerInside"
+            android:text="大厂"
+            android:textColor="@color/color000000"
+            android:textSize="@dimen/dm028"/>
+
+        <TextView
+            android:id="@+id/more_big_chang_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/discover_tviv_left_title_tv4"
+            android:layout_alignParentRight="true"
+            android:paddingLeft="@dimen/dm010"
+            android:paddingTop="@dimen/dp_3"
+            android:paddingRight="@dimen/discover_margin_left"
+            android:text="@string/see_more"
+            android:textColor="@color/font_18b9fe"
+            android:textSize="@dimen/dm020"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_big_chang"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/discover_tviv_left_title_tv4"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/discover_margin_bottom"
+            android:scrollbars="none"
+            />
+    </RelativeLayout>
+
+    <include layout="@layout/layout_line_05dp_b3b3b3"></include>-->
+    <!--
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/dp_30"
+            >
+
+            <TextView
+                android:paddingTop="@dimen/dp_20"
+                android:id="@+id/discover_tviv_left_title_tv6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:scaleType="centerInside"
+                android:text="策略"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dp_16"/>
+
+            <TextView
+                android:id="@+id/more_strategy_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/discover_tviv_left_title_tv6"
+                android:layout_alignParentRight="true"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingTop="@dimen/dp_3"
+                android:paddingRight="@dimen/dp_20"
+                android:text="@string/see_more"
+                android:textColor="@color/font_18b9fe"
+                android:textSize="@dimen/dp_12"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_strategy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/discover_tviv_left_title_tv6"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/dp_20"
+                android:scrollbars="none"
+                />
+
+        </RelativeLayout>
+    -->
+
+</LinearLayout>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+    
+    <LinearLayout
+        android:id="@+id/tag_text_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_tag0"
+            android:layout_width="0dp"
+            android:textSize="@dimen/dp_16"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/font_gray"
+            android:text="@string/game_detail"/>
+
+      <!--  <TextView
+            android:id="@+id/tv_tag1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="@dimen/dp_16"
+            android:gravity="center"
+            android:textColor="@color/font_gray"
+            android:text="@string/game_hub" />-->
+
+        <TextView
+            android:id="@+id/tv_tag2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="@dimen/dp_16"
+            android:gravity="center"
+            android:textColor="@color/font_gray"
+            android:text="@string/game_strategy" />
+       <!-- <TextView
+            android:id="@+id/tv_tag3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/font_gray"
+            android:text="@string/game_key" />-->
+
+    </LinearLayout>
+    
+  <!--  <ImageView
+        android:id="@+id/tag_img_cursor"
+        android:layout_width="wrap_content"
+        android:layout_height="0.7dp"
+        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="1dp"
+		android:layout_marginTop="3dp"
+        android:background="@color/game_detail_tab_tv_seleted"
+        android:contentDescription="@string/image_des"/>-->
+
+</RelativeLayout>

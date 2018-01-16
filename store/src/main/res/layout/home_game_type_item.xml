@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ngame="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="vertical">
+    <!--item的时候没有反应，无法获取的焦点-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:id="@+id/img_1"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerHorizontal="true"
+            android:background="@color/white" />
+
+        <!--<TextView-->
+            <!--android:id="@+id/tv_title"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="5dp"-->
+            <!--android:paddingLeft="3dp"-->
+            <!--android:paddingRight="3dp"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:gravity="left"-->
+            <!--android:clickable="false"-->
+            <!--android:maxLines="1"-->
+            <!--android:text="qweqwe"-->
+            <!--android:textColor="@color/font_black_6"-->
+            <!--android:textSize="12sp" />-->
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/img_1"
+            android:layout_marginTop="5dp"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:text="的期望人情味"
+            android:textColor="@color/color_666666"
+            android:maxLines="1"/>
+
+        <cn.ngame.store.view.GameLoadProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="55dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="8dp"
+            android:layout_below="@+id/tv_title"
+            android:background="@color/white"
+            android:layout_centerHorizontal="true"
+            android:clickable="true"
+            android:text="@string/download"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            ngame:progress="0" />
+        <!--@drawable/shape_green_download-->
+    </RelativeLayout>
+
+</LinearLayout>

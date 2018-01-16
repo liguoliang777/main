@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 自定义带动画效果的，viewpager Tab指示器控件 中的属性 -->
+    <declare-styleable name="animationTabWidget">
+        <attr name="current_index" format="integer"></attr>
+        <attr name="tab_num" format="integer"></attr>
+        <attr name="visable_tab_num" format="integer"></attr>
+        <attr name="base_layout" format="reference"></attr>
+    </declare-styleable>
+
+    <!-- 滚动播放控件 -->
+    <declare-styleable name="BannerView">
+        <attr name="current_item" format="integer"></attr>
+        <attr name="auto_scroll" format="boolean"></attr>
+        <attr name="scroll_period" format="integer"></attr>
+    </declare-styleable>
+
+    <!-- 自定义带指示器的viewpager控件的属性 -->
+    <declare-styleable name="SimplePagerView">
+        <attr name="pager_layout" format="reference"></attr>
+    </declare-styleable>
+
+    <!-- 自定义通用TitleBar控件的属性 -->
+    <declare-styleable name="SimpleTitleBar">
+        <attr name="left_but" format="reference"></attr>
+        <attr name="right_but" format="reference"></attr>
+        <attr name="left_text" format="string"></attr>
+        <attr name="left_text_size" format="dimension"></attr>
+        <attr name="right_text" format="string"></attr>
+        <attr name="right_text_size" format="dimension"></attr>
+        <attr name="left_but_visable" format="boolean"></attr>
+        <attr name="right_but_visable" format="boolean"></attr>
+        <attr name="left_tv_visable" format="boolean"></attr>
+        <attr name="right_tv_visable" format="boolean"></attr>
+    </declare-styleable>
+
+    <!-- 自定义通用TitleBar控件的属性 -->
+    <declare-styleable name="BaseTitleBar">
+        <attr name="title_text" format="string"/>
+        <attr name="title_size" format="dimension"/>
+        <attr name="left_but_img" format="reference"/>
+        <attr name="right_but_img" format="reference"/>
+        <attr name="left_but_visible" format="boolean"/>
+        <attr name="right_but_visible" format="boolean"/>
+    </declare-styleable>
+
+    <!-- 自定义进度条控件的属性 -->
+    <declare-styleable name="GameLoadProgressBar2">
+        <attr name="progress" format="integer"></attr>
+    </declare-styleable>
+
+    <!-- 自定义加载动画控件的属性 -->
+    <declare-styleable name="LoadStateView">
+        <attr name="ing" format="string"></attr>
+        <attr name="end" format="string"></attr>
+        <attr name="visible" format="boolean"></attr>
+    </declare-styleable>
+
+    <!-- 自定义无滚动效果listView 的属性 -->
+    <declare-styleable name="NoScrollListView">
+        <attr name="dividerHeight" format="integer"></attr>
+    </declare-styleable>
+
+    <!-- 自定义圆形图片控件的属性 -->
+    <attr name="borderRadius" format="dimension"/>
+    <attr name="type">
+        <enum name="circle" value="0"/>
+        <enum name="round" value="1"/>
+    </attr>
+    <attr name="src" format="reference"></attr>
+
+    <declare-styleable name="CircleImageView">
+        <attr name="borderRadius"/>
+        <attr name="type"/>
+        <attr name="src"/>
+    </declare-styleable>
+
+    <!-- 自定义圆环进度条 -->
+    <declare-styleable name="RoundProgressBar">
+        <attr name="roundColor" format="reference"/>
+        <attr name="roundProgressColor" format="color"/>
+        <attr name="roundWidth" format="dimension"></attr>
+        <attr name="textColor" format="reference"/>
+        <attr name="textSize" format="dimension"/>
+        <attr name="max" format="integer"></attr>
+        <attr name="textIsDisplayable" format="boolean"></attr>
+        <attr name="style">
+            <enum name="STROKE" value="0"></enum>
+            <enum name="FILL" value="1"></enum>
+        </attr>
+    </declare-styleable>
+    <!-- 悬浮 -->
+    <declare-styleable name="StickyScrollView">
+        <attr name="stuckShadowHeight" format="dimension"/>
+        <attr name="stuckShadowDrawable" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="ButtonBarContainerTheme">
+        <attr name="metaButtonBarStyle" format="reference"/>
+        <attr name="metaButtonBarButtonStyle" format="reference"/>
+    </declare-styleable>
+
+    <!-- 飘心动画自定义的属性 -->
+    <declare-styleable name="HeartLayout">
+        <attr name="initX" format="dimension"/>
+        <attr name="initY" format="dimension"/>
+        <attr name="xRand" format="dimension"/>
+        <attr name="animLengthRand" format="dimension"/>
+        <attr name="xPointFactor" format="dimension"/>
+        <attr name="animLength" format="dimension"/>
+        <attr name="heart_width" format="dimension"/>
+        <attr name="heart_height" format="dimension"/>
+        <attr name="bezierFactor" format="integer"/>
+        <attr name="anim_duration" format="integer"/>
+    </declare-styleable>
+</resources>

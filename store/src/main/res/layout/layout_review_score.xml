@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="horizontal"
+              android:paddingLeft="@dimen/dm024"
+    >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dm010"
+        android:layout_marginTop="@dimen/dm018"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_percent"
+            android:layout_width="@dimen/dm100"
+            android:layout_height="@dimen/dm100"
+            android:background="@drawable/ic_pingfen"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/dm036"
+            android:textStyle="bold"/>
+
+        <RatingBar
+            android:id="@+id/sv_rating_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dm015"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dm006"
+            android:numStars="5"
+            android:progressDrawable="@drawable/rating_bar_small2"
+            android:rating="0"
+            android:stepSize="0.1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/content_wrapper"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dm024"
+        android:layout_marginRight="@dimen/dm024"
+        android:layout_marginTop="@dimen/dm030"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/percent_progress_bar_height"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/dm012"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/dm_003"
+                android:gravity="center_horizontal"
+                android:text="5"
+                android:textColor="@color/color_808080"
+                android:textSize="@dimen/dm018"/>
+
+            <ImageView
+                android:layout_width="@dimen/percent_progress_bar_height"
+                android:layout_height="@dimen/percent_progress_bar_height"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dm002"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_small_start2_gray"/>
+
+            <ProgressBar
+                android:id="@+id/progressBar5"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/percent_progress_bar_height"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dp_3"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:max="100"
+                android:progress="0"
+                android:progressDrawable="@drawable/progressbar_comentitem_color"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/percent_progress_bar_height"
+            android:layout_marginTop="@dimen/percent_progress_bar_marginTop"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/dm012"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/dm_003"
+                android:gravity="center_horizontal"
+                android:text="4"
+                android:textColor="@color/color_808080"
+                android:textSize="@dimen/dm018"/>
+
+            <ImageView
+                android:layout_width="@dimen/percent_progress_bar_height"
+                android:layout_height="@dimen/percent_progress_bar_height"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dm002"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_small_start2_gray"/>
+
+            <ProgressBar
+                android:id="@+id/progressBar4"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/percent_progress_bar_height"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dp_4"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:max="100"
+                android:progress="0"
+                android:progressDrawable="@drawable/progressbar_comentitem_color"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/percent_progress_bar_height"
+            android:layout_marginTop="@dimen/percent_progress_bar_marginTop"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/dm012"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/dm_003"
+                android:gravity="center_horizontal"
+                android:text="3"
+                android:textColor="@color/color_808080"
+                android:textSize="@dimen/dm018"/>
+
+            <ImageView
+                android:layout_width="@dimen/percent_progress_bar_height"
+                android:layout_height="@dimen/percent_progress_bar_height"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dm002"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_small_start2_gray"/>
+
+            <ProgressBar
+                android:id="@+id/progressBar3"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/percent_progress_bar_height"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dp_4"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:max="100"
+                android:progress="0"
+                android:progressDrawable="@drawable/progressbar_comentitem_color"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/percent_progress_bar_height"
+            android:layout_marginTop="@dimen/percent_progress_bar_marginTop"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/dm012"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/dm_003"
+                android:gravity="center_horizontal"
+                android:text="2"
+                android:textColor="@color/color_808080"
+                android:textSize="@dimen/dm018"/>
+
+            <ImageView
+                android:layout_width="@dimen/percent_progress_bar_height"
+                android:layout_height="@dimen/percent_progress_bar_height"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dm002"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_small_start2_gray"/>
+
+            <ProgressBar
+                android:id="@+id/progressBar2"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/percent_progress_bar_height"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dp_4"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:max="100"
+                android:progress="0"
+                android:progressDrawable="@drawable/progressbar_comentitem_color"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/percent_progress_bar_height"
+            android:layout_marginTop="@dimen/percent_progress_bar_marginTop"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/dm012"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/dm_003"
+                android:gravity="center_horizontal"
+                android:text="1"
+                android:textColor="@color/color_808080"
+                android:textSize="@dimen/dm018"/>
+
+            <ImageView
+                android:layout_width="@dimen/percent_progress_bar_height"
+                android:layout_height="@dimen/percent_progress_bar_height"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dm002"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_small_start2_gray"/>
+
+            <ProgressBar
+                android:id="@+id/progressBar1"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/percent_progress_bar_height"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dp_4"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:max="100"
+                android:progress="0"
+                android:progressDrawable="@drawable/progressbar_comentitem_color"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

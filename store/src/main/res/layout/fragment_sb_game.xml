@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ngame="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/f5f5f5">
+
+    <!--<cn.ngame.store.view.SimpleTitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/app_title_height"
+        android:layout_alignParentTop="true"
+        ngame:left_but_visable="true"
+        ngame:left_but="@drawable/ic_back"
+        ngame:left_tv_visable="true"
+        ngame:left_text="@string/game_sb"
+        ngame:left_text_size="18sp"
+        ngame:right_but_visable="true"
+        ngame:right_but="@drawable/selector_search_but" />-->
+
+    <cn.ngame.store.view.BaseTitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/app_title_height"
+        ngame:title_text="@string/game_sb"
+        ngame:title_size="22sp"
+        ngame:left_but_visible="true"
+        ngame:left_but_img="@drawable/ic_back"
+        ngame:right_but_visible="true"
+        ngame:right_but_img="@drawable/search_title" />
+
+    <LinearLayout
+        android:id="@+id/layout_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title_bar"
+        android:orientation="horizontal"
+        android:layout_gravity="center_vertical"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tv_all_class"
+            android:layout_width="45dp"
+            android:layout_height="35dp"
+            android:text="分类:"
+            android:textColor="@color/color_666666"
+            android:textSize="16sp"
+            android:gravity="center"/>
+        <TextView
+            android:id="@+id/tv_labName"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:text="游戏1"
+            android:textColor="@color/mainColor"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:visibility="gone"/>
+        <cn.ngame.store.view.ScrollTabView
+            android:id="@+id/auto_tab"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginLeft="5dp"
+            android:scrollbars="none"/>
+
+    </LinearLayout>
+
+    <cn.ngame.store.view.LoadStateView
+        android:id="@+id/loadStateView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/layout_1"
+        ngame:ing="@string/loading"
+        ngame:end="@string/load_end" />
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loadStateView"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:listSelector="#00000000"
+        android:divider="@color/f5f5f5"
+        android:dividerHeight="0dp"
+        android:scrollbars="none"
+        android:scrollingCache="false"
+        android:animationCache="false"
+        android:background="@color/white">
+
+    </ListView>
+
+</RelativeLayout>

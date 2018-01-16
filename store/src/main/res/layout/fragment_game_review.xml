@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/f5f5f5"
+    android:orientation="vertical">
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:id="@+id/horizontalScrollView"
+        android:background="@color/f5f5f5"
+        android:layout_alignParentTop="true">
+
+    </HorizontalScrollView>
+
+    <cn.ngame.store.view.ReviewScoreView
+        android:id="@+id/reviewScoreView"
+        layout="@layout/layout_review_score"
+        android:layout_width="match_parent"
+        android:layout_height="145dp"
+        android:layout_below="@+id/horizontalScrollView" />
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/reviewScoreView"
+        android:layout_above="@+id/but1"
+        android:layout_marginTop="4dp"
+        android:divider="@color/f5f5f5"
+        android:dividerHeight="4dp"
+        android:background="@color/white" />
+
+    <Button
+        android:id="@+id/but1"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:background="@drawable/selector_blue_bt"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:text="@string/review" />
+
+
+</RelativeLayout>

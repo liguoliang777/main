@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="commonwidget:@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/commonwidget.aar/da2bc86ef91f607c3d98418994badae2/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/commonwidget.aar/da2bc86ef91f607c3d98418994badae2/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

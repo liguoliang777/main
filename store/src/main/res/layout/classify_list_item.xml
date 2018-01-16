@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@android:color/white"
+              android:descendantFocusability="blocksDescendants"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/discover18_tviv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/main_margin_left_34px"
+            android:paddingTop="@dimen/main_margin_32px"
+            android:scaleType="centerInside"
+            android:text=""
+            android:textColor="@color/color_1a"
+            android:textSize="@dimen/dm028"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/more_action_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/discover18_tviv_title"
+            android:layout_alignParentRight="true"
+            android:paddingBottom="@dimen/dm008"
+            android:paddingLeft="@dimen/dm020"
+            android:paddingRight="@dimen/main_margin_left_34px"
+            android:paddingTop="@dimen/dm020"
+            android:text="@string/see_more"
+            android:textColor="@color/see_more"
+            android:textSize="@dimen/dm020"/>
+
+        <HorizontalScrollView
+            android:id="@+id/discover18_scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/discover18_tviv_title"
+            android:layout_centerVertical="true"
+            android:paddingBottom="@dimen/main_margin_bottom_32px"
+            android:paddingTop="@dimen/main_margin_bottom_32px"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/horizontalView_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:orientation="horizontal">
+            </LinearLayout>
+        </HorizontalScrollView>
+    </RelativeLayout>
+
+    <include layout="@layout/layout_line_1px_e6e6e6"></include>
+</LinearLayout>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ngame="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/f5f5f5">
+
+    <cn.ngame.store.view.LoadStateView
+        android:id="@+id/loadStateView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/layout_1"
+        ngame:ing="@string/loading"
+        ngame:end="@string/load_end" />
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:divider="@color/f5f5f5"
+        android:dividerHeight="4dp"
+        android:scrollbars="none"
+        android:background="@color/white">
+
+    </ListView>
+
+</LinearLayout>

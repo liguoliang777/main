@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <cn.ngame.store.widget.pulllistview.PullToRefreshListView
+        android:id="@+id/pullListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/dp_15"
+        android:divider="@null"
+        android:scrollbars="none"/>
+    <include
+        android:id="@+id/ll_title"
+        layout="@layout/layout_title_left" />
+</RelativeLayout>

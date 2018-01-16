@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:ads="http://schemas.android.com/tools"
+              xmlns:fresco="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@android:color/white"
+              android:descendantFocusability="blocksDescendants"
+              android:orientation="vertical">
+    <!--item的时候没有反应，无法获取的焦点-->
+    <LinearLayout
+        android:id="@+id/recommend_head_llay_0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dm016"
+            android:layout_marginLeft="@dimen/dm034"
+            android:layout_marginTop="@dimen/dm028"
+            >
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/img_from_1"
+                android:layout_width="@dimen/recommend_item_from_pic"
+                android:layout_height="@dimen/recommend_item_from_pic"
+                fresco:actualImageScaleType="centerCrop"
+                fresco:failureImage="@drawable/ic_def_logo_188_188"
+                fresco:failureImageScaleType="centerCrop"
+                fresco:placeholderImage="@drawable/ic_def_logo_188_188"
+                fresco:placeholderImageScaleType="centerCrop"
+                fresco:progressBarImage="@drawable/ic_def_logo_188_188"
+                fresco:roundedCornerRadius="@dimen/dm008"/>
+
+            <TextView
+                android:id="@+id/tv_gamename_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dm016"
+                android:layout_marginRight="@dimen/dm034"
+                android:layout_toRightOf="@+id/img_from_1"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text=""
+                android:textColor="@color/color_1a"
+                android:textSize="@dimen/dm028"
+                android:textStyle="bold"/>
+
+        </RelativeLayout>
+
+
+        <ImageView
+            android:id="@+id/recommend_game_pic_1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/recommend_item_game_pic_hight"
+            android:scaleType="centerCrop"
+            />
+
+        <TextView
+            android:id="@+id/tv_summary1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dm016"
+            android:layout_marginLeft="@dimen/dm034"
+            android:layout_marginRight="@dimen/dm034"
+            android:layout_marginTop="@dimen/dm016"
+            android:clickable="false"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text=""
+            android:textColor="@color/color999999"
+            android:textSize="@dimen/dm020"/>
+
+        <include layout="@layout/layout_line_10px_e6e6e6"/>
+    </LinearLayout>
+
+    <!-- <TextView
+         android:id="@+id/tv_summary_ad"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+
+         android:layout_marginLeft="9.5dp"
+         android:layout_marginRight="20dp"
+         android:layout_marginTop="13dp"
+         android:clickable="false"
+         android:ellipsize="end"
+         android:maxLines="2"
+         android:text=""
+         android:textColor="@color/color999999"
+         android:textSize="12dp"/>
+-->
+    <!--........................................................................-->
+    <!--广告-->
+    <!--   <LinearLayout
+           android:id="@+id/ad_layout"
+           android:visibility="gone"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical">
+
+           <RelativeLayout
+               android:layout_width="wrap_content"
+               android:layout_height="18dp"
+               android:layout_marginBottom="@dimen/dp_10"
+               android:layout_marginLeft="@dimen/dp_10"
+               android:layout_marginTop="@dimen/dp_10"
+               >
+
+               <com.facebook.drawee.view.SimpleDraweeView
+                   android:id="@+id/img_from_ad"
+                   android:layout_width="@dimen/recommend_item_from_pic"
+                   android:layout_height="@dimen/recommend_item_from_pic"
+                   fresco:actualImageScaleType="fitXY"
+                   fresco:failureImage="@drawable/ic_def_logo_188_188"
+                   fresco:failureImageScaleType="fitXY"
+                   fresco:placeholderImage="@drawable/ic_def_logo_188_188"
+                   fresco:placeholderImageScaleType="fitXY"
+                   fresco:progressBarImage="@drawable/ic_def_logo_188_188"
+                   fresco:roundedCornerRadius="4dp"/>
+
+               <TextView
+                   android:id="@+id/text_from_ad"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_centerVertical="true"
+                   android:layout_marginLeft="6dp"
+                   android:layout_toRightOf="@+id/img_from_ad"
+                   android:ellipsize="end"
+                   android:gravity="center_vertical"
+                   android:maxLines="1"
+                   android:paddingRight="20dp"
+                   android:text="广告"
+                   android:textColor="@color/b3"
+                   android:textSize="12dp"/>
+
+           </RelativeLayout>
+
+           <TextView
+               android:id="@+id/tv_gamename_ad"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginBottom="@dimen/dp_10"
+               android:layout_marginLeft="@dimen/dp_10"
+               android:clickable="false"
+               android:maxLines="1"
+               android:paddingRight="20dp"
+               android:text=""
+               android:textColor="@color/game_name"
+               android:textSize="@dimen/title_size"/>
+
+           <LinearLayout
+               android:id="@+id/banner"
+               android:background="@color/f5f5f5"
+               android:layout_width="match_parent"
+               android:layout_height="@dimen/recommend_item_game_pic_hight"
+               android:gravity="center"
+               android:orientation="horizontal"
+               >
+           </LinearLayout>
+
+           <TextView
+               android:id="@+id/tv_summary_ad"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginBottom="14.5dp"
+               android:layout_marginLeft="9.5dp"
+               android:layout_marginRight="20dp"
+               android:layout_marginTop="13dp"
+               android:clickable="false"
+               android:ellipsize="end"
+               android:maxLines="2"
+               android:text=""
+               android:textColor="@color/color999999"
+               android:textSize="12dp"/>
+
+           <include layout="@laylayout_line_e6e6e610dp10dp"/>
+       </LinearLayout>-->
+    <!--........................................................................-->
+    <LinearLayout
+        android:id="@+id/recommend_head_llay_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dm016"
+            android:layout_marginLeft="@dimen/dm034"
+            android:layout_marginTop="@dimen/dm028"
+            >
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/img_from_2"
+                android:layout_width="@dimen/recommend_item_from_pic"
+                android:layout_height="@dimen/recommend_item_from_pic"
+                fresco:actualImageScaleType="centerCrop"
+                fresco:placeholderImage="@drawable/ic_def_logo_188_188"
+                fresco:placeholderImageScaleType="centerCrop"
+                fresco:progressBarImage="@drawable/ic_def_logo_188_188"
+                fresco:progressBarImageScaleType="centerCrop"
+                fresco:roundedCornerRadius="@dimen/dm008"/>
+
+            <TextView
+                android:id="@+id/tv_gamename_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dm016"
+                android:layout_marginRight="@dimen/dm034"
+                android:layout_toRightOf="@+id/img_from_2"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text=""
+                android:textColor="@color/color_1a"
+                android:textSize="@dimen/dm028"
+                android:textStyle="bold"/>
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/recommend_game_pic_2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/recommend_item_game_pic_hight"
+            android:scaleType="centerCrop"/>
+
+        <TextView
+            android:id="@+id/tv_summary2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dm016"
+            android:layout_marginLeft="@dimen/dm034"
+            android:layout_marginRight="@dimen/dm034"
+            android:layout_marginTop="@dimen/dm016"
+            android:clickable="false"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text=""
+            android:textColor="@color/color999999"
+            android:textSize="@dimen/dm020"/>
+
+        <include layout="@layout/layout_line_10px_e6e6e6"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:descendantFocusability="blocksDescendants">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/dm012"
+            android:paddingLeft="@dimen/dm034"
+            android:paddingTop="@dimen/dm020"
+            android:text="专题"
+            android:textColor="@color/color_1a"
+            android:textSize="@dimen/dm028"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/recommend_topics_more_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:clickable="true"
+            android:paddingBottom="@dimen/dm012"
+            android:paddingLeft="@dimen/dm010"
+            android:paddingRight="@dimen/dm032"
+            android:paddingTop="@dimen/dm028"
+            android:text="@string/see_more"
+            android:textColor="@color/see_more"
+            android:textSize="@dimen/dp_12"/>
+
+    </RelativeLayout>
+
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/dm020"
+        android:paddingRight="@dimen/dm014"
+        android:paddingTop="@dimen/dm020"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/horizontalView_container"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/recommend_horizontal_view_height"
+            android:focusable="false"
+            android:orientation="horizontal">
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <include layout="@layout/layout_line_10px_e6e6e6"/>
+</LinearLayout>

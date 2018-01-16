@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:fresco="http://schemas.android.com/apk/res-auto"
+             xmlns:ngame="http://schemas.android.com/apk/res-auto"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/f7f7f7"
+             android:descendantFocusability="blocksDescendants"
+             android:orientation="vertical">
+
+
+    <cn.ngame.store.view.StickyScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+            <!--大图-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dm340">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/sdv_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dm340"
+                    android:layout_centerVertical="true"
+                    fresco:actualImageScaleType="fitXY"
+                    fresco:failureImage="@drawable/ic_def_logo_720_288"
+                    fresco:failureImageScaleType="centerCrop"
+                    fresco:placeholderImage="@drawable/ic_def_logo_720_288"
+                    fresco:placeholderImageScaleType="centerCrop"
+                    fresco:progressBarImage="@drawable/ic_def_logo_720_288"
+                    fresco:viewAspectRatio="2"/>
+
+                <cn.ngame.store.view.NgameJZVideoPlayerStandard
+                    android:id="@+id/game_detial_ngame_vp"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dm340"
+                    android:visibility="invisible"/>
+
+            </RelativeLayout>
+
+
+            <!--==============================游戏小图,名称,下载   ↓==========================-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingBottom="@dimen/dp_10"
+                android:paddingLeft="@dimen/dp_20"
+                android:paddingRight="@dimen/dp_20"
+                android:paddingTop="@dimen/dp_14">
+
+                <!--游戏小图标-->
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/img_1"
+                    android:layout_width="@dimen/dp_84"
+                    android:layout_height="@dimen/dp_84"
+                    android:layout_marginRight="@dimen/dp_20"
+                    android:scaleType="fitXY"
+                    fresco:actualImageScaleType="fitXY"
+                    fresco:failureImage="@drawable/ic_def_logo_188_188"
+                    fresco:placeholderImage="@drawable/ic_def_logo_188_188"
+                    fresco:placeholderImageScaleType="fitXY"
+                    fresco:progressBarImage="@drawable/ic_def_logo_188_188"
+                    fresco:roundedCornerRadius="@dimen/dp_20"/>
+
+                <!--名字-->
+                <cn.ngame.store.view.MarqueTextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="@dimen/dm270"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/img_1"
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textStyle="bold"
+                    android:textColor="@color/color_1a"
+                    android:textSize="@dimen/dp_18"/>
+                <!--厂商-->
+                <TextView
+                    android:id="@+id/chang_shang"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_title"
+                    android:layout_marginTop="@dimen/dp_6"
+                    android:layout_toRightOf="@id/img_1"
+                    android:lines="1"
+                    android:text="厂商："
+                    android:textColor="@color/mainColor"
+                    android:textSize="@dimen/dp_10"/>
+
+                <TextView
+                    android:id="@+id/game_chang_shang_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_title"
+                    android:layout_marginTop="@dimen/dp_6"
+                    android:layout_toRightOf="@id/chang_shang"
+                    android:lines="1"
+                    android:text=""
+                    android:textColor="@color/mainColor"
+                    android:textSize="@dimen/dp_10"/>
+
+                <!--标签 item-->
+                <HorizontalScrollView
+                    android:id="@+id/game_detail_item_llay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/img_1"
+                    android:layout_toRightOf="@id/img_1"
+                    android:scrollbars="none">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_16"
+                        android:clickable="false"
+                        android:gravity="center"
+                        android:lines="1"
+                        >
+                        <!--原生手柄  云适配  破解  汉化 特色游戏-->
+                        <TextView
+                            android:id="@+id/game_detail_type0"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/dp_16"
+                            android:layout_marginRight="@dimen/dm010"
+                            android:background="@drawable/shape_game_detail_item_white_blue"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:paddingLeft="@dimen/dp_6"
+                            android:paddingRight="@dimen/dp_6"
+                            android:text="原生手柄"
+                            android:textColor="@color/mainColor"
+                            android:textSize="@dimen/dp_10"
+                            android:visibility="gone"/>
+
+                        <TextView
+                            android:id="@+id/game_detail_type1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/dp_16"
+                            android:layout_marginRight="@dimen/dm010"
+                            android:background="@drawable/shape_game_detail_item_white_blue"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:paddingLeft="@dimen/dp_6"
+                            android:paddingRight="@dimen/dp_6"
+                            android:text="云存档"
+                            android:textColor="@color/mainColor"
+                            android:textSize="@dimen/dp_10"
+                            android:visibility="gone"
+                            />
+
+                        <TextView
+                            android:id="@+id/game_detail_type2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/dp_16"
+                            android:layout_marginRight="@dimen/dm010"
+                            android:background="@drawable/shape_game_detail_item_white_blue"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:paddingLeft="@dimen/dp_6"
+                            android:paddingRight="@dimen/dp_6"
+                            android:text="汉化"
+                            android:textColor="@color/mainColor"
+                            android:textSize="@dimen/dp_10"
+                            android:visibility="gone"
+                            />
+
+                        <TextView
+                            android:id="@+id/game_detail_type3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/dp_16"
+                            android:layout_marginRight="@dimen/dm010"
+                            android:background="@drawable/shape_game_detail_item_white_blue"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:paddingLeft="@dimen/dp_6"
+                            android:paddingRight="@dimen/dp_6"
+                            android:text="破解"
+                            android:textColor="@color/mainColor"
+                            android:textSize="@dimen/dp_10"
+                            android:visibility="gone"
+                            />
+
+                        <!--    <TextView
+                                android:id="@+id/game_detail_classify_item_05"
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/dp_16"
+                                android:layout_marginLeft="@dimen/dp_10"
+                                android:background="@drawable/shape_game_detail_item_white_blue"
+                                android:gravity="center"
+                                android:maxLines="1"
+                                android:paddingLeft="@dimen/dp_6"
+                                android:paddingRight="@dimen/dp_6"
+                                android:text="云适配"
+                                android:textColor="@color/color_2abfff"
+                                android:textSize="@dimen/dp_10"
+                                />-->
+                    </LinearLayout>
+                </HorizontalScrollView>
+                <!--下载次数-->
+                <TextView
+                    android:id="@+id/download_count_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/game_detail_item_llay"
+                    android:layout_marginBottom="@dimen/dp_5"
+                    android:layout_toRightOf="@id/img_1"
+                    android:maxLines="1"
+                    android:text="0"
+                    android:textColor="@color/b3"
+                    android:textSize="@dimen/dp_10"/>
+
+                <TextView
+                    android:id="@+id/count_end"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/download_count_tv"
+                    android:layout_toRightOf="@id/download_count_tv"
+                    android:text="下载  "
+                    android:textColor="@color/b3"
+                    android:textSize="@dimen/dp_10"/>
+
+                <TextView
+                    android:id="@+id/game_detail_size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/count_end"
+                    android:layout_toRightOf="@id/count_end"
+                    android:text="0KB"
+                    android:textColor="@color/b3"
+                    android:textSize="@dimen/dp_10"/>
+                <!--下载按钮-->
+                <cn.ngame.store.view.GameLoadProgressBar
+                    android:id="@+id/game_detail_progress_bar"
+                    android:layout_width="48dp"
+                    android:layout_height="26dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/game_detail_item_llay"
+                    android:layout_marginTop="10dp"
+                    android:clickable="true"
+                    android:text="@string/download"
+                    android:textColor="@color/white"
+                    android:textSize="14dp"
+                    ngame:progress="0"/><!--文字大小不能引用 资源的dp-->
+                <TextView
+                    android:id="@+id/game_detail_feedback_bt"
+                    android:layout_width="@dimen/game_detail_feedback_bt_width"
+                    android:layout_height="@dimen/game_detail_feedback_bt_height"
+                    android:layout_below="@id/game_detail_item_llay"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_toLeftOf="@id/game_detail_progress_bar"
+                    android:background="@drawable/shape_corner4dp_white_3ecc7a"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="反馈"
+                    android:textColor="@color/download_bt_nomal"
+                    android:textSize="@dimen/dp_14"
+                    />
+
+                <ImageView
+                    android:id="@+id/game_detail_like_iv"
+                    android:layout_width="@dimen/dm040"
+                    android:layout_height="@dimen/dm036"
+                    android:layout_below="@id/game_detail_item_llay"
+                    android:layout_marginRight="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:layout_toLeftOf="@id/game_detail_feedback_bt"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/selector_game_detail_like_bt"/>
+
+                <TextView
+                    android:id="@+id/game_detail_percentage_tv"
+                    android:layout_width="@dimen/dm086"
+                    android:layout_height="@dimen/dm086"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/dm010"
+                    android:layout_toRightOf="@+id/rating_bar"
+                    android:background="@drawable/ic_pingfen"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/color_333333"
+                    android:textSize="@dimen/dm036"
+                    android:textStyle="bold"/>
+
+            </RelativeLayout>
+
+            <GridLayout
+                android:id="@+id/layout_tags"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:columnCount="2"
+                android:paddingBottom="@dimen/dm016"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/dm001"
+            />
+
+            <!--===============================详情  必读 ↓===========================-->
+
+            <android.support.design.widget.TabLayout
+                xmlns:tabs="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/tablayout"
+                style="@style/MyCustomTabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_48"
+                android:background="@color/f5f5f5"
+                android:tag="sticky"
+                tabs:tabGravity="fill"
+                tabs:tabIndicatorColor="@color/transparent"
+                tabs:tabIndicatorHeight="@dimen/dm002"
+                tabs:tabMaxWidth="0dp"
+                tabs:tabMode="fixed"
+                tabs:tabSelectedTextColor="@color/mainColor"
+                tabs:tabTextColor="@color/aaaaaa"/>
+
+            <cn.ngame.store.view.AutoHeightViewPager
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/f5f5f5"/>
+        </LinearLayout>
+    </cn.ngame.store.view.StickyScrollView>
+
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/mainColor"
+        >
+
+        <Button
+            android:id="@+id/left_bt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:clickable="true"
+            android:drawableLeft="@drawable/ic_back"
+            android:drawablePadding="@dimen/dp_10"
+            android:ellipsize="end"
+            android:focusableInTouchMode="true"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:maxWidth="@dimen/dm400"
+            android:paddingLeft="@dimen/title_left_bt_padding_left"
+            android:paddingRight="@dimen/dp_20"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/title_size"
+            />
+
+        <ImageView
+            android:id="@+id/shareBtClick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            android:ellipsize="end"
+            android:focusableInTouchMode="true"
+            android:maxLines="1"
+            android:paddingLeft="@dimen/dm035"
+            android:paddingRight="@dimen/dp_20"
+            android:paddingTop="@dimen/dp_24"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_game_detail_share"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/title_size"
+            />
+
+    </RelativeLayout>
+</FrameLayout>

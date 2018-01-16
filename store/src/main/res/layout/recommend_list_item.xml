@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:fresco="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@android:color/white"
+              android:descendantFocusability="blocksDescendants"
+              android:orientation="vertical">
+    <!--item的时候没有反应，无法获取的焦点-->
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dm016"
+        android:layout_marginLeft="@dimen/dm034"
+        android:layout_marginTop="@dimen/dm028"
+        >
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/img_1"
+            android:layout_width="@dimen/recommend_item_from_pic"
+            android:layout_height="@dimen/recommend_item_from_pic"
+            fresco:actualImageScaleType="centerCrop"
+            fresco:failureImage="@drawable/ic_def_logo_188_188"
+            fresco:placeholderImage="@drawable/ic_def_logo_188_188"
+            fresco:placeholderImageScaleType="centerCrop"
+            fresco:progressBarImage="@drawable/ic_def_logo_188_188"
+            fresco:roundedCornerRadius="@dimen/dm008"/>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dm016"
+            android:layout_marginRight="@dimen/dm034"
+            android:layout_toRightOf="@+id/img_1"
+            android:ellipsize="end"
+            android:layout_centerVertical="true"
+            android:maxLines="1"
+            android:textStyle="bold"
+            android:text=""
+            android:textColor="@color/color_1a"
+            android:textSize="@dimen/dm028"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/recommend_game_pic"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/recommend_item_game_pic_hight"
+        android:scaleType="centerCrop"/>
+
+    <TextView
+        android:id="@+id/tv_summary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dm016"
+        android:layout_marginLeft="@dimen/dm034"
+        android:layout_marginRight="@dimen/dm034"
+        android:layout_marginTop="@dimen/dm016"
+        android:clickable="false"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text=""
+        android:textColor="@color/color999999"
+        android:textSize="@dimen/dm020"/>
+
+    <include layout="@layout/layout_line_10px_e6e6e6"/>
+
+</LinearLayout>

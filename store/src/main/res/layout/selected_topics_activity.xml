@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white"
+              android:clipToPadding="false"
+              android:fitsSystemWindows="true"
+              android:orientation="vertical">
+
+    <include layout="@layout/layout_title_left"/>
+
+    <GridView
+        android:id="@+id/gview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@color/white"
+        android:horizontalSpacing="@dimen/dp_12"
+        android:listSelector="@color/transparent"
+        android:numColumns="2"
+        android:padding="@dimen/dp_12"
+        android:scrollbars="none"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="@dimen/dp_12"
+        />
+
+    <cn.ngame.store.view.LoadStateView
+        xmlns:ngame="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/load_state_view2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="@dimen/dm125"
+        android:visibility="visible"
+        ngame:end="@string/load_end"
+        ngame:ing=""/>
+</LinearLayout>

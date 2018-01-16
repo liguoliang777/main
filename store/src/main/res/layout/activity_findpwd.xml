@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:ngame="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:clipToPadding="true"
+              android:fitsSystemWindows="true"
+              android:background="@color/f5f5f5"
+              android:orientation="vertical">
+
+    <cn.ngame.store.view.BaseTitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/app_title_height"
+        ngame:left_but_img="@drawable/ic_back"
+        ngame:left_but_visable="true"
+        ngame:title_size="@dimen/title_size"
+        ngame:title_text="@string/find_pwd"/>
+
+
+    <!-- /////////////  用户名 /////////// -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_44"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_20"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/shape_yj_white_rectangle">
+
+        <ImageView
+            android:id="@+id/img_1"
+            android:layout_width="@dimen/dp_32"
+            android:layout_height="@dimen/dp_32"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_6"
+            android:layout_marginRight="@dimen/dp_6"
+            android:background="@drawable/login_phone"
+            android:scaleType="centerInside"/>
+
+        <EditText
+            android:id="@+id/et_login_user"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_44"
+            android:layout_toRightOf="@+id/img_1"
+            android:background="@null"
+            android:hint="@string/register_mobile"
+            android:inputType="phone"
+            android:maxLength="11"
+            android:singleLine="true"
+            android:textColor="@color/color_333333"
+            android:textColorHint="@color/font_default"
+            android:textSize="@dimen/dp_16"
+            />
+
+    </RelativeLayout>
+
+    <!-- /////////////  验证码 /////////// -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_44"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_22"
+        android:background="@drawable/shape_yj_white_rectangle">
+
+        <ImageView
+            android:id="@+id/img_4"
+            android:layout_width="@dimen/dp_28"
+            android:layout_height="@dimen/dp_30"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_8"
+            android:layout_marginRight="@dimen/dp_8"
+            android:background="@drawable/register_msg"
+            android:scaleType="centerInside"/>
+
+        <EditText
+            android:id="@+id/et_captcha"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_44"
+            android:layout_toRightOf="@+id/img_4"
+            android:background="@null"
+            android:hint="@string/register_captcha"
+            android:inputType="number"
+            android:maxLength="4"
+            android:textColor="@color/color_333333"
+            android:textColorHint="@color/font_default"
+            android:textSize="@dimen/dp_16"/>
+
+        <TextView
+            android:id="@+id/tv_captcha"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_20"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_10"
+            android:background="@drawable/shape_bg_verif_code_bt_send"
+            android:gravity="center"
+            android:text="@string/register_get_captcha"
+            android:textColor="@color/fefefe"
+            android:textSize="@dimen/dp_10"/>
+
+    </RelativeLayout>
+
+
+    <!-- /////////////  密码 /////////// -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_44"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_22"
+        android:background="@drawable/shape_yj_white_rectangle">
+
+        <ImageView
+            android:id="@+id/img_2"
+            android:layout_width="@dimen/dp_32"
+            android:layout_height="@dimen/dp_32"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_6"
+            android:layout_marginRight="@dimen/dp_6"
+            android:background="@drawable/login_lock"
+            android:scaleType="centerInside"/>
+
+        <EditText
+            android:id="@+id/et_login_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_44"
+            android:layout_toRightOf="@+id/img_2"
+            android:background="@null"
+            android:hint="@string/find_new"
+            android:inputType="textPassword"
+            android:maxLength="16"
+            android:textColor="@color/color_333333"
+            android:textColorHint="@color/font_default"
+            android:textSize="@dimen/dp_16"/>
+
+        <ImageButton
+            android:id="@+id/bt_show_pwd"
+            android:layout_width="@dimen/dp_32"
+            android:layout_height="@dimen/dp_32"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_22"
+            android:background="@drawable/selector_ic_open_or_close"
+            android:scaleType="centerInside"/>
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/bt_find_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_44"
+        android:layout_marginBottom="@dimen/dp_18"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_22"
+        android:background="@drawable/selector_register_bt"
+        android:onClick="onLoginClick"
+        android:text="@string/find_now"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dp_16"
+        />
+
+    <include layout="@layout/layout__text_ngame_agreement"/>
+
+</LinearLayout>

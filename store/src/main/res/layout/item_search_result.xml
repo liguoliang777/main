@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:paddingLeft="@dimen/dm032"
+              android:background="@drawable/selector_item_bg"
+              android:descendantFocusability="blocksDescendants"
+              android:orientation="horizontal"
+    >
+
+    <ImageView
+        android:layout_width="@dimen/dm036"
+        android:layout_height="@dimen/dm036"
+        android:layout_gravity="center_vertical"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_search_gray"/>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="@dimen/dm024"
+        android:layout_marginBottom="@dimen/dm024"
+        android:layout_marginRight="@dimen/dm024"
+        android:layout_marginLeft="@dimen/dm056"
+        android:singleLine="true"
+        android:text="王者荣耀"
+        android:textColor="@color/color999999"
+        android:textSize="@dimen/dm028"/>
+</LinearLayout>

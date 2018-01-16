@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+    >
+
+    <View
+        android:id="@+id/circle_header_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dm001"
+        android:background="@color/f5f5f5"/>
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/circle_header_imageview"
+        android:layout_width="@dimen/dm100"
+        android:layout_height="@dimen/dm100"
+        android:layout_below="@id/circle_header_line"
+        android:layout_margin="@dimen/dm020"
+        fresco:actualImageScaleType="centerCrop"
+        fresco:failureImage="@color/dfdfdf"
+        fresco:failureImageScaleType="centerCrop"
+        fresco:roundedCornerRadius="@dimen/dm020"
+        />
+
+    <TextView
+        android:id="@+id/circle_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dm026"
+        android:layout_toRightOf="@id/circle_header_imageview"
+        android:maxLines="1"
+        android:text=""
+        android:textColor="@color/color000000"
+        android:textSize="@dimen/dm028"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/circle_post_nub_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/circle_name_tv"
+        android:layout_marginTop="@dimen/dm013"
+        android:layout_toRightOf="@id/circle_header_imageview"
+        android:maxLines="1"
+        android:text=""
+        android:textColor="@color/color_808080"
+        android:textSize="@dimen/dm018"/>
+
+    <LinearLayout
+        android:id="@+id/circle_post_top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/circle_header_imageview"
+        android:background="@color/f5f5f5"
+        android:orientation="vertical">
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ngame="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <cn.ngame.store.view.VideoTypeScrollTabView
+        android:id="@+id/auto_tab"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_alignParentTop="true"
+        android:scrollbars="none" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/auto_tab"
+        android:layout_alignParentBottom="true"
+        android:scrollbars="none">
+
+        <FrameLayout
+            android:id="@+id/layout_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <cn.ngame.store.view.ScrollGridView
+                android:id="@+id/gridView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:gravity="center_horizontal"
+                android:numColumns="3"
+                android:horizontalSpacing="5dp"
+                android:verticalSpacing="5dp"
+
+                android:listSelector="#00000000"
+                android:transcriptMode="alwaysScroll"
+                android:scrollbars="horizontal"
+                android:visibility="gone"/>
+
+            <cn.ngame.store.view.LoadStateView
+                android:id="@+id/loadStateView"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                ngame:ing="@string/loading"
+                ngame:end="@string/load_end" />
+
+        </FrameLayout>
+    </ScrollView>
+
+</RelativeLayout>

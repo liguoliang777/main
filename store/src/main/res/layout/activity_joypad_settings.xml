@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/f5f5f5"
+              android:orientation="vertical">
+
+    <include layout="@layout/layout_title_left_center"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_44"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@drawable/selector_bg_white_f2"
+        android:gravity="center_vertical"
+        android:onClick="onJoypadConnectAndOtaUpdateClick"
+        android:paddingLeft="@dimen/dp_10"
+        android:text="手柄连接与更新"
+        android:textColor="@color/color_1a"
+        android:textSize="@dimen/dp_14"
+        />
+
+    <Button
+        android:background="@drawable/selector_bg_white_f2"
+        android:textColor="@color/color_1a"
+        android:textSize="@dimen/dp_14"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_44"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="@dimen/dp_05"
+        android:gravity="center_vertical"
+        android:onClick="onSupportedJoypadListClick"
+        android:paddingLeft="@dimen/dp_10"
+        android:text="游戏手柄支持列表"
+        />
+    <Button
+        android:textColor="@color/color_1a"
+        android:textSize="@dimen/dp_14"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_44"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="@dimen/dp_05"
+        android:background="@drawable/selector_bg_white_f2"
+        android:gravity="center_vertical"
+        android:onClick="onJoypadPairApplyClick"
+        android:paddingLeft="@dimen/dp_10"
+        android:text="手柄适配申请"
+        />
+</LinearLayout>

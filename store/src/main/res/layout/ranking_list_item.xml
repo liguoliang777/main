@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:fresco="http://schemas.android.com/apk/res-auto"
+              xmlns:ngame="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/white"
+              android:descendantFocusability="blocksDescendants"
+              android:orientation="vertical">
+    <!--item的时候没有反应，无法获取的焦点-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginBottom="@dimen/dp_15"
+        android:layout_marginTop="@dimen/dp_15"
+        >
+
+        <TextView
+            android:id="@+id/tv_position"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:maxLines="1"
+            android:paddingLeft="@dimen/dp_5"
+            android:text=""
+            android:textColor="@color/cccccc"
+            android:textSize="@dimen/dp_16"/>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/img_1"
+            android:layout_width="@dimen/dp_64"
+            android:layout_height="@dimen/dp_64"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/tv_position"
+            android:scaleType="centerCrop"
+            fresco:actualImageScaleType="centerCrop"
+            fresco:failureImage="@drawable/ic_def_logo_188_188"
+            fresco:placeholderImage="@drawable/ic_def_logo_188_188"
+            fresco:placeholderImageScaleType="centerCrop"
+            fresco:progressBarImage="@drawable/ic_def_logo_188_188"
+            fresco:roundedCornerRadius="@dimen/dp_12"/>
+
+        <ImageView
+            android:id="@+id/rank_more_bt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:clickable="true"
+            android:paddingBottom="@dimen/dp_10"
+            android:paddingLeft="@dimen/dp_15"
+            android:paddingRight="@dimen/dm025"
+            android:paddingTop="@dimen/dp_7"
+            android:src="@drawable/selector_rank_more_bt"
+            />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10.5dp"
+            android:layout_marginRight="@dimen/dm010"
+            android:layout_toLeftOf="@id/rank_more_bt"
+            android:layout_toRightOf="@+id/img_1"
+            android:clickable="false"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/color_1a"
+            android:textSize="@dimen/dp_14"/>
+
+        <RatingBar
+            android:id="@+id/rating_bar"
+            style="@style/RatingBarSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_title"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@+id/img_1"
+            android:clickable="false"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:progress="0"
+            android:secondaryProgress="0"/>
+
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_title"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginTop="6.7dp"
+            android:layout_toRightOf="@+id/rating_bar"
+            android:clickable="false"
+            android:textColor="@color/color_1a"
+            android:textSize="@dimen/dp_12"/>
+
+        <View
+            android:layout_width="55dp"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/rank_more_bt"
+            android:clickable="true"/>
+        <!--@drawable/shape_green_download-->
+ <!--       <HorizontalScrollView
+            android:id="@+id/horizontalScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/img_1"
+            android:gravity="center_vertical"
+            android:layout_toLeftOf="@id/rank_more_bt"
+            android:paddingLeft="@dimen/dp_9"
+            android:layout_marginRight="-13dp"
+            android:layout_toRightOf="@+id/img_1"
+            android:scrollbars="none">-->
+
+            <LinearLayout
+                android:id="@+id/tank01234_ll"
+                android:layout_alignBottom="@id/img_1"
+                android:gravity="center_vertical"
+                android:layout_toLeftOf="@id/rank_more_bt"
+                android:paddingLeft="@dimen/dp_9"
+                android:layout_marginRight="-13dp"
+                android:layout_toRightOf="@+id/img_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            </LinearLayout>
+       <!-- </HorizontalScrollView>-->
+                <!--   <TextView
+                       android:id="@+id/tv_shoubing"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_marginLeft="@dimen/dp_10"
+                       android:background="@drawable/shape_corner8dp_2abfff"
+                       android:gravity="center_horizontal"
+                       android:paddingBottom="@dimen/dp_2"
+                       android:paddingLeft="@dimen/dp_7"
+                       android:paddingRight="@dimen/dp_7"
+                       android:visibility="gone"
+                       android:paddingTop="@dimen/dp_2"
+                       android:text="原生手柄"
+                       android:textColor="@color/color_2abfff"
+                       android:textSize="@dimen/dp_10"
+                       />
+
+                   <TextView
+                       android:id="@+id/tv_vr"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_marginLeft="@dimen/dp_10"
+                       android:background="@drawable/shape_corner8dp_2abfff"
+                       android:gravity="center_horizontal"
+                       android:paddingBottom="@dimen/dp_2"
+                       android:paddingLeft="@dimen/dp_7"
+                       android:visibility="gone"
+                       android:paddingRight="@dimen/dp_7"
+                       android:paddingTop="@dimen/dp_2"
+                       android:text="VR"
+                       android:textColor="@color/color_2abfff"
+                       android:textSize="@dimen/dp_10"/>
+
+                   <TextView
+                       android:id="@+id/tv_toukong"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_marginLeft="@dimen/dp_10"
+                       android:background="@drawable/shape_corner8dp_2abfff"
+                       android:gravity="center_horizontal"
+                       android:paddingBottom="@dimen/dp_2"
+                       android:paddingLeft="@dimen/dp_7"
+                       android:paddingRight="@dimen/dp_7"
+                       android:paddingTop="@dimen/dp_2"
+                       android:text="头控"
+                       android:visibility="gone"
+                       android:textColor="@color/color_2abfff"
+                       android:textSize="@dimen/dp_10"/>
+
+                   <TextView
+                       android:id="@+id/tv_yun_duan"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_marginLeft="@dimen/dp_10"
+                       android:background="@drawable/shape_corner8dp_2abfff"
+                       android:gravity="center_horizontal"
+                       android:paddingBottom="@dimen/dp_2"
+                       android:paddingLeft="@dimen/dp_7"
+                       android:paddingRight="@dimen/dp_7"
+                       android:paddingTop="@dimen/dp_2"
+                       android:text="云存档"
+                       android:maxLines="1"
+                       android:visibility="gone"
+                       android:textColor="@color/color_2abfff"
+                       android:textSize="@dimen/dp_10"/>-->
+
+    </RelativeLayout>
+
+    <include layout="@layout/layout_line_1px_e6e6e6"></include>
+</LinearLayout>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:fresco="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@android:color/white"
+              android:descendantFocusability="blocksDescendants"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dm016"
+        android:layout_marginLeft="@dimen/dm016"
+        android:layout_marginTop="@dimen/dm028">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/img_1"
+            android:layout_width="@dimen/dm036"
+            android:layout_height="@dimen/dm036"
+            android:src="@drawable/ic_launcher"
+            fresco:actualImageScaleType="fitXY"
+            fresco:failureImage="@drawable/ic_launcher"
+            fresco:placeholderImage="@drawable/ic_launcher"
+            fresco:placeholderImageScaleType="centerCrop"
+            fresco:progressBarImage="@drawable/ic_launcher"
+            fresco:roundAsCircle="true"
+            fresco:roundedCornerRadius="4dp"/>
+
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dm016"
+            android:layout_marginRight="@dimen/dm016"
+            android:layout_toRightOf="@+id/img_1"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:text=""
+            android:textColor="@color/color_1a"
+            android:textSize="@dimen/dm020"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dm016"
+        android:clickable="false"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingRight="@dimen/dm016"
+        android:text=""
+        android:textColor="@color/game_name"
+        android:textSize="@dimen/dm028"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tv_summary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dm016"
+        android:layout_marginRight="@dimen/dm016"
+        android:layout_marginTop="@dimen/dm016"
+        android:clickable="false"
+        android:ellipsize="end"
+        android:lineSpacingExtra="@dimen/dm016"
+        android:maxLines="2"
+        android:text=""
+        android:textColor="@color/color_808080"
+        android:textSize="@dimen/dm024"/>
+
+    <LinearLayout
+        android:id="@+id/hub_pic_ll"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/recommend_item_game_pic_hight"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dm016"
+        android:paddingRight="@dimen/dm016">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/recommend_game_pic_new_0"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dm004"
+            android:layout_marginRight="@dimen/dm004"
+            android:layout_weight="1"
+            android:scaleType="centerCrop"
+            fresco:actualImageScaleType="centerCrop"
+            fresco:failureImageScaleType="centerCrop"
+            fresco:placeholderImage="@color/f5f5f5"
+            fresco:placeholderImageScaleType="centerCrop"
+            />
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/recommend_game_pic_new_1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dm004"
+            android:layout_marginRight="@dimen/dm004"
+            android:layout_weight="1"
+            android:visibility="gone"
+            fresco:placeholderImage="@color/f5f5f5"
+            fresco:placeholderImageScaleType="centerCrop"
+            android:scaleType="centerCrop"
+            fresco:actualImageScaleType="centerCrop"
+            />
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/recommend_game_pic_new_2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dm004"
+            android:layout_marginRight="@dimen/dm004"
+            android:layout_weight="1"
+            fresco:placeholderImage="@color/f5f5f5"
+            fresco:placeholderImageScaleType="centerCrop"
+            android:visibility="gone"
+            android:scaleType="centerCrop"
+            fresco:actualImageScaleType="centerCrop"
+            />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dm020"
+        android:layout_marginRight="@dimen/dm020"
+        android:layout_marginTop="@dimen/dm016"
+        >
+
+        <TextView
+            android:id="@+id/game_hub_time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dm012"
+            android:maxLines="1"
+            android:text=""
+            android:textColor="@color/color_808080"
+            android:textSize="@dimen/dm020"/>
+
+        <View
+            android:id="@+id/game_hub_time_right_line"
+            android:layout_width="@dimen/dm001"
+            android:layout_height="@dimen/dm017"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/game_hub_time_tv"
+            android:background="@color/color_808080"/>
+
+        <TextView
+            android:id="@+id/game_hub_pos_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/game_hub_time_right_line"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:maxWidth="@dimen/dm300"
+            android:paddingLeft="@dimen/dm012"
+            android:paddingRight="@dimen/dm015"
+            android:paddingTop="@dimen/dm002"
+            android:text=""
+            android:textColor="@color/mainColor"
+            android:textSize="@dimen/dm020"/>
+
+        <TextView
+            android:id="@+id/game_hub_look_nub_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text=""
+            android:textColor="@color/color_808080"
+            android:textSize="@dimen/dm020"/>
+
+        <ImageView
+            android:layout_width="@dimen/dm026"
+            android:layout_height="@dimen/dm018"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dm005"
+            android:layout_toLeftOf="@id/game_hub_look_nub_tv"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_eyes"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dm012"
+        android:layout_marginTop="@dimen/dm028"
+        android:background="@color/f5f5f5"/>
+
+</LinearLayout>

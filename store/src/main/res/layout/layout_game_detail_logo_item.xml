@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center_vertical"
+              android:orientation="horizontal"
+              android:paddingBottom="@dimen/dm002"
+              android:paddingTop="@dimen/dm016">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        xmlns:fresco="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/logo_items_dv"
+        android:layout_width="@dimen/dm040"
+        android:layout_height="@dimen/dm040"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/dp_20"
+        fresco:actualImageScaleType="fitXY"
+        fresco:failureImage="@drawable/ic_def_logo_188_188"
+        fresco:failureImageScaleType="centerCrop"
+        fresco:placeholderImage="@drawable/ic_def_logo_188_188"
+        fresco:placeholderImageScaleType="centerCrop"
+        fresco:progressBarImage="@drawable/ic_def_logo_188_188"
+        fresco:viewAspectRatio="2"
+        fresco:roundAsCircle="true"
+        />
+
+    <TextView
+        android:id="@+id/logo_items_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dm020"
+        android:text="支持手柄"
+        android:textColor="@color/b3"
+        android:textSize="@dimen/dm024"/>
+
+</LinearLayout>

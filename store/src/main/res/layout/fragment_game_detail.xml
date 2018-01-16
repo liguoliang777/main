@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/ll_detail"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/classify_item_llay"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:gravity="center_vertical"
+        android:lines="1"
+        android:paddingLeft="@dimen/dp_20"
+        >
+
+        <TextView
+            android:id="@+id/tag_tv_01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_corner4dp_white_3ecc7a"
+            android:gravity="center"
+            android:maxLines="1"
+            android:paddingBottom="@dimen/dp_3"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"
+            android:paddingTop="@dimen/dp_3"
+            android:text="中文"
+            android:visibility="invisible"
+            android:textColor="@color/color_tag"
+            />
+
+        <TextView
+            android:id="@+id/tag_tv_02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:background="@drawable/shape_corner4dp_white_3ecc7a"
+            android:gravity="center"
+            android:maxLines="1"
+            android:paddingBottom="@dimen/dp_3"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"
+            android:paddingTop="@dimen/dp_3"
+            android:text="角色"
+            android:visibility="invisible"
+            android:textColor="@color/color_tag"
+            />
+
+        <TextView
+            android:id="@+id/tag_tv_03"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:background="@drawable/shape_corner4dp_white_3ecc7a"
+            android:gravity="center"
+            android:maxLines="1"
+            android:paddingBottom="@dimen/dp_3"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"
+            android:paddingTop="@dimen/dp_3"
+            android:text="冒险"
+            android:visibility="invisible"
+            android:textColor="@color/color_tag"
+            />
+
+        <TextView
+            android:id="@+id/tag_tv_04"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:background="@drawable/shape_corner4dp_white_3ecc7a"
+            android:gravity="center"
+            android:maxLines="1"
+            android:paddingBottom="@dimen/dp_3"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"
+            android:paddingTop="@dimen/dp_3"
+            android:text="动作"
+            android:visibility="invisible"
+            android:textColor="@color/color_tag"
+            />
+        <!--
+         <View
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"/>-->
+
+        <Button
+            android:id="@+id/game_detail_next_bt"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_weight="1"
+            android:background="@null"
+            android:drawableRight="@drawable/ic_right_next"
+            android:paddingLeft="@dimen/dp_30"
+            android:paddingRight="@dimen/dp_20"
+            android:scaleType="centerInside"/>
+    </LinearLayout>
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/f5f5f5"
+        android:paddingBottom="@dimen/dp_10"
+        android:paddingTop="@dimen/dp_10"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/img_container"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:background="@drawable/ic_def_logo_720_288"
+            android:focusable="false"
+            android:orientation="horizontal">
+        </LinearLayout>
+    </HorizontalScrollView>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_15"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_20"
+        android:gravity="center_vertical">
+
+        <View
+            android:layout_width="@dimen/dp_2"
+            android:layout_height="@dimen/dp_17"
+            android:layout_marginRight="@dimen/dp_5"
+            android:layout_marginTop="@dimen/dm001"
+            android:background="@color/color_vertical_line"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/game_summary"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/dp_18"/>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv_summary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_28"
+        android:text="暂无"
+        android:lineSpacingExtra="@dimen/dm010"
+        android:textColor="@color/color_666666"
+        android:textSize="@dimen/dp_14"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_show_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:paddingBottom="10dp"
+            android:paddingRight="20dp"
+            android:text="显示全部"
+            android:textColor="@color/color_vertical_line"
+            android:textSize="@dimen/dp_14"
+            android:visibility="invisible"/>
+    </RelativeLayout>
+
+    <include layout="@layout/layout_line_dp10_f5f5f5"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_15"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_20"
+        android:gravity="center_vertical">
+
+        <View
+            android:layout_width="@dimen/dp_2"
+            android:layout_height="@dimen/dp_17"
+            android:layout_marginTop="@dimen/dm001"
+            android:layout_marginRight="@dimen/dp_4"
+            android:background="@color/color_vertical_line"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="更新内容"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/dp_18"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_update_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_28"
+        android:fontFamily="sans-serif"
+        android:text="暂无更新"
+        android:lineSpacingExtra="@dimen/dm010"
+        android:textColor="@color/color_666666"
+        android:textSize="@dimen/dp_14"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp">
+
+        <TextView
+            android:id="@+id/tv_show_all2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:paddingBottom="10dp"
+            android:paddingRight="20dp"
+            android:text="显示全部"
+            android:textColor="@color/color_vertical_line"
+            android:textSize="@dimen/dp_14"
+            android:visibility="invisible"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_15"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_20"
+        android:gravity="center_vertical">
+
+        <View
+            android:layout_width="@dimen/dp_2"
+            android:layout_height="@dimen/dp_17"
+            android:layout_marginRight="@dimen/dp_4"
+            android:layout_marginTop="@dimen/dm001"
+            android:background="@color/color_vertical_line"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="详细信息"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/dp_18"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_9">
+
+        <TextView
+            android:layout_width="@dimen/game_detail_bottom_item_left_width"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="下载量"
+            android:textColor="@color/b3"
+            android:textSize="@dimen/dp_14"/>
+
+        <TextView
+            android:id="@+id/download_count_bottom_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:text="0"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/dp_14"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" 次下载"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/dp_14"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_9">
+
+        <TextView
+            android:layout_width="@dimen/game_detail_bottom_item_left_width"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="当前版本"
+            android:textColor="@color/b3"
+            android:textSize="@dimen/dp_14"/>
+
+        <TextView
+            android:id="@+id/tv_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:text="@string/unkonw"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/dp_14"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_9">
+
+        <TextView
+            android:layout_width="@dimen/game_detail_bottom_item_left_width"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="大小"
+            android:textColor="@color/b3"
+            android:textSize="@dimen/dp_14"/>
+
+        <TextView
+            android:id="@+id/game_size_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:text="0KB"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/dp_14"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_9">
+
+        <TextView
+            android:layout_width="@dimen/game_detail_bottom_item_left_width"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="更新日期"
+            android:textColor="@color/b3"
+            android:textSize="@dimen/dp_14"/>
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:text="@string/unkonw"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/dp_14"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_28">
+
+        <TextView
+            android:layout_width="@dimen/game_detail_bottom_item_left_width"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="厂商"
+            android:textColor="@color/b3"
+            android:textSize="@dimen/dp_14"/>
+
+        <TextView
+            android:id="@+id/tv_company"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:text="不详"
+            android:textColor="@color/mainColor"
+            android:textSize="@dimen/dp_14"/>
+
+    </LinearLayout>
+
+</LinearLayout>

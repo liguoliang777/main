@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/f5f5f5"
+                android:descendantFocusability="blocksDescendants"
+                android:orientation="vertical">
+
+    <cn.ngame.store.widget.pulllistview.PullToRefreshListView
+        android:id="@+id/pullListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="0dp"
+        android:background="@color/f5f5f5"
+        android:divider="@null"
+        android:scrollbars="none"/>
+
+    <cn.ngame.store.view.LoadStateView
+        xmlns:ngame="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/load_state_view2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:paddingBottom="@dimen/dm130"
+        android:visibility="visible"
+        ngame:end="@string/load_end"
+        ngame:ing=""/>
+</RelativeLayout>

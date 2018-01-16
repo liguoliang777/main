@@ -1,0 +1,168 @@
+apply plugin: 'com.android.application'
+
+def releaseTime() {
+    return new Date().format("MMdd", TimeZone.getTimeZone("UTC"))
+}
+android {
+
+    compileSdkVersion 26
+    packagingOptions {
+        exclude 'META-INF/NOTICE' // will not include NOTICE file
+        exclude 'META-INF/LICENSE' // will not include LICENSE file
+        // as noted by @Vishnuvathsan you may also need to include
+        // variations on the file name. It depends on your dependencies.
+        // Some other common variations on notice and license file names
+        exclude 'META-INF/notice'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license'
+        exclude 'META-INF/license.txt'
+    }
+    defaultConfig {
+        applicationId "cn.ngame.store"
+        minSdkVersion 19
+        targetSdkVersion 26
+        versionCode 400005
+        versionName "V4.0.4."
+
+        ndk {
+            moduleName "Crc8Jni"
+            abiFilters "armeabi", "armeabi-v7a", "x86"
+        }
+        // Enabling multidex support.
+        multiDexEnabled true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath true
+            }
+        }
+    }
+    /*  signingConfigs {
+          debug {
+              storeFile file('debug.keystore')
+              storePassword "android"
+              keyAlias "androiddebugkey"
+              keyPassword "android"
+          }
+      }*/
+
+    buildTypes {
+        debug {
+            // 显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            /* //minifyEnabled false
+            // signingConfigs signingConfigs.debug
+            // proguardFiles 'proguard-rules.pro'*/
+//            versionNameSuffix "-debug"
+           // minifyEnabled true
+//            zipAlignEnabled false
+//            shrinkResources false
+            //signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+        }
+        release {
+            //signingConfig signingConfigs.release
+            /*minifyEnabled false
+            signingConfigs signingConfigs.debug
+            proguardFiles 'proguard-rules.pro'*/
+            // 不显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            // 是否进行混淆
+            minifyEnabled true
+            //Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources true
+            //前一部分代表系统默认的android程序的混淆文件，该文件已经包含了基本的混淆声明
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    //编译输出的名字
+    android.applicationVariants.all { variant ->
+            variant.outputs.all {
+                outputFileName = "fangle_${variant.name}_${variant.versionName}${releaseTime() }.apk"
+            }
+    }
+
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+    sourceSets {
+        main {
+            //jni.srcDirs = []                          //设置禁止gradle生成Android.mk
+            //jniLibs.srcDirs = ['src/main/jniLibs']      //设置目标的so存放路径
+          jniLibs.srcDir 'libs'
+            jni.srcDirs = []
+        }
+    }
+    configurations.all {
+        resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
+    }
+    /* productFlavors {
+         c360 {}
+         c360 {}
+         uc {}
+         baidu {}
+         wandoujia {}
+         YingYongBao {}
+
+         productFlavors.all { flavor ->
+             flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+         }
+     }*/
+
+    repositories {
+        flatDir {
+            dirs 'libs' //this way we can find the .aar file in libs folder
+        }
+    }
+
+}
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:recyclerview-v7:26.0.0-alpha1'
+    //RxJava
+    //    compile 'io.reactivex.rxjava2:rxjava:2.0.1'
+    //    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    //引入gson
+    compile 'com.google.code.gson:gson:2.8.0'
+    //图片加载缓存
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    //图片加载+gif
+    compile 'com.facebook.fresco:fresco:0.11.0'
+    compile 'com.facebook.fresco:animated-gif:0.12.0'
+    //zip4j压缩
+    compile 'net.lingala.zip4j:zip4j:1.3.2'
+    //友盟
+    compile 'com.umeng.analytics:analytics:latest.integration'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+    //引入.aar文件
+    compile(name: 'common', ext: 'aar')
+    compile(name: 'commonwidget', ext: 'aar')
+    compile(name: 'videowidget', ext: 'aar')
+    compile project(path: ':RestfulApi')
+    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
+    compile 'com.android.support:design:26.0.0-alpha1'
+    //引入名为imagelib的第三方库（图片截取库）
+    compile project(path: ':imagelib')
+    compile project(':sliding_menu')
+    implementation files('libs/mpermissions.jar')
+    //解决 dex file cannot execute 64K [multidex]
+   // compile 'com.android.support:multidex:1.0.1'
+    compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
+    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+    compile 'se.emilsjolander:stickylistheaders:2.7.0'
+    compile 'com.daimajia.numberprogressbar:library:1.4@aar'
+    //广告
+    //compile 'com.inmobi.monetization:inmobi-ads:7.0.0'
+    //compile files('libs/InMobi-7.0.0-China.jar')
+    compile files('libs/weiboSDKCore.jar')
+
+    compile 'cn.jzvd:jiaozivideoplayer:6.1.1'
+   // compile 'com.android.support:multidex:1.0.0'
+    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.4'
+}
