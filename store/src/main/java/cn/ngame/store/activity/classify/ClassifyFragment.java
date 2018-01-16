@@ -156,7 +156,7 @@ public class ClassifyFragment extends BaseSearchFragment implements View.OnClick
         categroyAllList.add(new ClassifyTopBean("策略",111,R.drawable.ic_sheji));
         categroyAllList.add(new ClassifyTopBean("AR",0,R.drawable.ic_ar));
         categroyAllList.add(new ClassifyTopBean("角色",107,R.drawable.ic_juese));
-        categroyAllList.add(new ClassifyTopBean("卡牌",110,R.drawable.ic_kapai));
+        categroyAllList.add(new ClassifyTopBean("键鼠",0,R.drawable.ic_jianshu));
         categroyAllList.add(new ClassifyTopBean("冒险",109,R.drawable.ic_maoxian));
         categroyAllList.add(new ClassifyTopBean("全部",-1,R.drawable.ic_quanbu));
 
