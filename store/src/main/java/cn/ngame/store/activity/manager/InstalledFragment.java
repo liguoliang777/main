@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -51,19 +50,16 @@ public class InstalledFragment extends BaseSearchFragment {
     private TextView emptyTv;
 
     public InstalledFragment(MainHomeActivity context) {
-        Log.d(TAG, "InstalledFragment: ");
         content=context;
     }
 
     @Override
     protected int getContentViewLayoutID() {
-        Log.d(TAG, "getContentViewLayoutID: ");
         return R.layout.fragment_installed;
     }
 
     @Override
     protected void initViewsAndEvents(View view) {
-        Log.d(TAG, "initViewsAndEvents: ");
         packageManager = content.getPackageManager();
         listView = (ListView) view.findViewById(R.id.listView);
         emptyTv = (TextView) view.findViewById(R.id.empty_tv);
@@ -149,7 +145,6 @@ public class InstalledFragment extends BaseSearchFragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        Log.d(TAG, "onHiddenChanged: ");
         mHidden = hidden;
         if (!mHidden && null != alreadyLvAdapter && null != fileLoad) {
             alreadyLvAdapter.setDate(getLocalApp());
