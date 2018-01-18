@@ -157,7 +157,9 @@ public class BeginActivity extends Activity {
         final long pushMsgId = getIntent().getLongExtra("msgId", 0);
         final int pushMsgType = getIntent().getIntExtra("type", 0);
         final PushMessage msg = (PushMessage) getIntent().getSerializableExtra("msg");
-        if (isFirstInstall) {
+
+        //去掉欢迎的滑动页
+/*        if (isFirstInstall) {
             Log.d(TAG, "skip2Main 滑动页");
             final Intent intent = new Intent(content, GuideViewActivity.class);
             if (pushMsgId > 0) {
@@ -170,7 +172,7 @@ public class BeginActivity extends Activity {
             SPUtils.put(content, Constant.CONFIG_FIRST_INSTALL, false);
             finish();
 
-        } else {
+        } else {*/
             Log.d(TAG, "skip2Main 跳主页面");
             final Intent intent = new Intent(content, MainHomeActivity.class);
             if (pushMsgId > 0) {
@@ -180,7 +182,7 @@ public class BeginActivity extends Activity {
             }
             startActivity(intent);
             finish();
-        }
+        //}
 
     }
     public boolean onKeyDown(int keyCode, KeyEvent event) {

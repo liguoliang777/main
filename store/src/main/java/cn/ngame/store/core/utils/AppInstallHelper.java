@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
+import android.support.v4.content.FileProvider;
 import android.widget.Toast;
 
 import java.io.File;
@@ -85,10 +87,20 @@ public class AppInstallHelper {
         try {
             if (apkName != null && apkName.endsWith(".apk")) {
 
+                File filePath = new File(CommonUtil.getFileLoadBasePath(), apkName);
+
                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                File file = new File(CommonUtil.getFileLoadBasePath(), apkName);
-                intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    String packageName = context.getApplicationContext().getPackageName();
+                    String authority =  new StringBuilder(packageName).append(".provider").toString();
+                    android.util.Log.d("8787", authority);
+                    Uri contentUri = FileProvider.getUriForFile(context, authority, filePath);
+                    intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
+                } else {
+                    intent.setDataAndType(Uri.fromFile(filePath), "application/vnd.android.package-archive");
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                }
                 context.startActivity(intent);
             }
         } catch (NoSDCardException e) {
