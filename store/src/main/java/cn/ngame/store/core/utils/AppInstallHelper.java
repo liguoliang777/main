@@ -94,7 +94,6 @@ public class AppInstallHelper {
                     intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                     String packageName = context.getApplicationContext().getPackageName();
                     String authority =  new StringBuilder(packageName).append(".provider").toString();
-                    android.util.Log.d("8787", authority);
                     Uri contentUri = FileProvider.getUriForFile(context, authority, filePath);
                     intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
                 } else {

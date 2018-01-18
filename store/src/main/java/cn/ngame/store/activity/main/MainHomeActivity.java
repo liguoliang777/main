@@ -7,11 +7,13 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.FileProvider;
 import android.support.v4.view.ViewPager;
 import android.text.format.Formatter;
 import android.view.KeyEvent;
@@ -1086,15 +1088,25 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                             if (isRunningBackground) {
                                 remoteViews.setProgressBar(R.id.progress_bar, 100, (int) process, false);
                                 if (process >= 100) {
-
                                     Intent intent = new Intent(Intent.ACTION_VIEW);
-                                    File file = null;
+
+
+                                    File filePath = null;
                                     try {
-                                        file = new File(CommonUtil.getFileLoadBasePath(), versionInfo.fileName);
+                                        filePath = new File(CommonUtil.getFileLoadBasePath(), versionInfo.fileName);
                                     } catch (NoSDCardException e) {
                                         e.printStackTrace();
                                     }
-                                    intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                        String packageName = context.getApplicationContext().getPackageName();
+                                        String authority =  new StringBuilder(packageName).append(".provider").toString();
+                                        Uri contentUri = FileProvider.getUriForFile(context, authority, filePath);
+                                        intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
+                                    } else {
+                                        intent.setDataAndType(Uri.fromFile(filePath), "application/vnd.android.package-archive");
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    }
 
                                     remoteViews.setTextViewText(R.id.text1, "下载完成");
                                     notification = new Notification.Builder(context)
