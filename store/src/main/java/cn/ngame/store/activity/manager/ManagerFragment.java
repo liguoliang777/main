@@ -41,8 +41,9 @@ public class ManagerFragment extends BaseSearchFragment {
     private ArrayList<ImageView> ivList;
     private ArrayList<TextView> tvList;
     protected final static String TAG = ManagerFragment.class.getSimpleName();
+
     public static ManagerFragment newInstance(MainHomeActivity c) {
-        context=c;
+        context = c;
         Log.d(TAG, "12345 newInstance: ");
         Bundle args = new Bundle();
         ManagerFragment fragment = new ManagerFragment();
@@ -58,19 +59,25 @@ public class ManagerFragment extends BaseSearchFragment {
 
     @Override
     protected void initViewsAndEvents(View view) {//初始化
-        Log.d(TAG, "initViewsAndEvents: ");
-        fragmentManager = getSupportFragmentManager();
+        Log.d(TAG, "6666initViewsAndEvents: ");
+        fragmentManager = getChildFragmentManager();
         transaction = fragmentManager.beginTransaction();
 
-        installedFragment = new InstalledFragment(context);
-        likeFragment = LikeFragment.newInstance(typeValue, 1,context);
-        necessaryFragment = NecessaryFragment.newInstance("1", 3,context);
+        if (installedFragment == null) {
+            installedFragment = InstalledFragment.newInstance("2", 2, context);
+        }
+        if (likeFragment == null) {
+            likeFragment = LikeFragment.newInstance(typeValue, 1, context);
+        }
+        if (necessaryFragment == null) {
+            necessaryFragment = NecessaryFragment.newInstance("1", 3, context);
+        }
 
         transaction.add(R.id.viewpager, installedFragment);
         transaction.add(R.id.viewpager, likeFragment);
         transaction.add(R.id.viewpager, necessaryFragment);
 
-        transaction.show(installedFragment).hide(necessaryFragment).hide(likeFragment);
+        transaction.hide(necessaryFragment).hide(likeFragment).show(installedFragment);
         transaction.commit();
 
         tab0 = view.findViewById(R.id.manager_bt_0);
@@ -173,7 +180,8 @@ public class ManagerFragment extends BaseSearchFragment {
     private void setTabViewPagerData() {
         //没有登录
         pwd = StoreApplication.passWord;
-        if ((pwd != null && !"".endsWith(pwd)) || !Constant.PHONE.equals(StoreApplication.loginType)) {
+        if ((pwd != null && !"".endsWith(pwd)) || !Constant.PHONE.equals(StoreApplication
+                .loginType)) {
             //已登录
             tab1.setVisibility(View.VISIBLE);
         } else {

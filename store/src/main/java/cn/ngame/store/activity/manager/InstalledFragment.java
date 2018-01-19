@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -31,13 +32,13 @@ import cn.ngame.store.view.QuickAction;
  */
 @SuppressLint({"ValidFragment", "WrongConstant"})
 public class InstalledFragment extends BaseSearchFragment {
-
+    final static String TAG = ManagerFragment.class.getSimpleName();
     ListView listView;
     public static int PAGE_SIZE = 10;
     protected QuickAction mItemClickQuickAction;
     private IFileLoad fileLoad;
     private InstalledGameAdapter alreadyLvAdapter;
-    private MainHomeActivity content;
+    private static MainHomeActivity content;
     private boolean mHidden = false;
     private PackageInfo mfileUnstalledInfo;
     private PackageManager packageManager;
@@ -49,8 +50,14 @@ public class InstalledFragment extends BaseSearchFragment {
     private int oldLength;
     private TextView emptyTv;
 
-    public InstalledFragment(MainHomeActivity context) {
-        content=context;
+    public static InstalledFragment newInstance(String type, int arg, MainHomeActivity context) {
+        InstalledFragment fragment = new InstalledFragment();
+        content = context;
+        Bundle bundle = new Bundle();
+        bundle.putString("type", type);
+        bundle.putInt("typeValue", arg);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Override
@@ -139,8 +146,6 @@ public class InstalledFragment extends BaseSearchFragment {
         }
         return localAppList;
     }
-
-    protected final static String TAG = InstalledFragment.class.getSimpleName();
 
     @Override
     public void onHiddenChanged(boolean hidden) {

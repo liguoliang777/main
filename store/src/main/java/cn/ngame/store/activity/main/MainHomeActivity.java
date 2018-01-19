@@ -14,7 +14,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.FileProvider;
-import android.support.v4.view.ViewPager;
 import android.text.format.Formatter;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -129,7 +128,8 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
     private FragmentManager fragmentManager;
     private LinearLayout home, menu_game_hub, video, manager;
     private Button bt_home, bt_game, bt_video, bt_manager;
-    private TextView tv_home, tv_video, tv_manager, mEditProfileTv, tv_notifi_num, menu_gamehub_tv, mSmNicknameTv, mTitleTv;
+    private TextView tv_home, tv_video, tv_manager, mEditProfileTv, tv_notifi_num,
+            menu_gamehub_tv, mSmNicknameTv, mTitleTv;
     private int colorDark;
     private int colorNormal;
     private String imgUrl;
@@ -254,7 +254,8 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
         if (StoreApplication.isReceiveMsg) {
             //启动百度推送
             //PushSettings.enableDebugMode(this, true);       //打开debug开关
-            PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY, Constant.PUSH_API_KEY);
+            PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY,
+                    Constant.PUSH_API_KEY);
             PushManager.disableLbs(this);   //关闭精确LBS推送模式
         }
         //判断App是否从通知栏消息进来，如果是，直接启动消息详情页
@@ -266,7 +267,8 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
         setUserIcon();
 
      /*   if (Build.VERSION.SDK_INT >= 23) {
-            String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,  Manifest.permission.READ_LOGS,
+            String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_LOGS,
              Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.SET_DEBUG_APP, Manifest
                     .permission.SYSTEM_ALERT_WINDOW, Manifest.permission.WRITE_APN_SETTINGS};
             ActivityCompat.requestPermissions(this, mPermissionList, 777);
@@ -276,11 +278,13 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
     }
 
     /*  @Override
-      public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+      public void onRequestPermissionsResult(int requestCode, String permissions[], int[]
+      grantResults) {
           android.util.Log.d(TAG, "onRequest6.0PermissionsResult: " + requestCode);
 
       }*/
-    //DisplayImageOptions roundOptions = FileUtil.getRoundOptions(R.drawable.ic_def_logo_188_188, 360);
+    //DisplayImageOptions roundOptions = FileUtil.getRoundOptions(R.drawable.ic_def_logo_188_188,
+    // 360);
 
     @Override
     protected void onResume() {
@@ -367,7 +371,8 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                     || id == R.id.top_icon_sdv
                     || id == R.id.edit_profile_click
                     ) {//系统设置
-                if (pwd != null && !"".endsWith(pwd) || !Constant.PHONE.equals(StoreApplication.loginType)) {
+                if (pwd != null && !"".endsWith(pwd) || !Constant.PHONE.equals(StoreApplication
+                        .loginType)) {
                     startActivity(new Intent(context, UserCenterActivity.class));
                 } else {
                     startActivity(new Intent(context, LoginActivity.class));
@@ -434,8 +439,10 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
 
     private void setUserIcon() {
         pwd = StoreApplication.passWord;
-        if ((pwd != null && !"".endsWith(pwd)) || !Constant.PHONE.equals(StoreApplication.loginType)) {
-            //DisplayImageOptions roundOptions = FileUtil.getRoundOptions(R.color.colorPrimary, 360);
+        if ((pwd != null && !"".endsWith(pwd)) || !Constant.PHONE.equals(StoreApplication
+                .loginType)) {
+            //DisplayImageOptions roundOptions = FileUtil.getRoundOptions(R.color.colorPrimary,
+            // 360);
             String userHeadUrl = StoreApplication.userHeadUrl;
             mIconIv.setImageURI(userHeadUrl);
             mSmIconIv.setImageURI(userHeadUrl);
@@ -517,35 +524,6 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
     }
 
     /**
-     * 底部切换栏（弃用）
-     *
-     * @param
-     */
-    public void init(ViewPager viewPager, FragmentManager manager) {
-//        this.fragmentManager = manager;
-
-        if (viewPager != null) {
-//            this.viewPager = viewPager;
-            ArrayList<Fragment> list = new ArrayList<>();
-//            mStickyLV.add(SelectedFragment.newInstance(0));
-//            mStickyLV.add(GameFragment.getInstance(manager));
-//            mStickyLV.add(GameHubFragment.getInstance());
-//            mStickyLV.add(VideoFragment.getInstance());
-//            mStickyLV.add(LocalFragment.getInstance());
-
-            list.add(RecommendFragment.newInstance(0));
-            //list.add(RankFragment.newInstance(""));
-            list.add(HubFragment.newInstance(0));
-            list.add(ClassifyFragment.newInstance(""));
-            list.add(ManagerFragment.newInstance(context));
-
-            adapter = new FragmentViewPagerAdapter(manager);
-            adapter.setDate(list);
-            viewPager.setAdapter(adapter);
-        }
-    }
-
-    /**
      * 设置当前选中的菜单项
      *
      * @param currentMenu
@@ -570,15 +548,26 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
 //        }
 //        switchFragment(currentMenu);
         FragmentTransaction transaction = fragmentManager.beginTransaction();
+        if (null == selectedFragment) {
+            selectedFragment = new RecommendFragment();
+            transaction.add(R.id.main_list_fragments, selectedFragment);
+        }
+        if (null == discoverFragment) {
+            discoverFragment = new ClassifyFragment();
+            transaction.add(R.id.main_list_fragments, discoverFragment);
+        }
+        if (null == gameHubFragment) {
+            gameHubFragment = new HubFragment();
+            transaction.add(R.id.main_list_fragments, gameHubFragment);
+        }
+        if (null == administrationFragment) {
+            administrationFragment = ManagerFragment.newInstance(this);
+            transaction.add(R.id.main_list_fragments, administrationFragment);
+        }
         hideFragments(transaction);
         switch (currentMenu) {
             case 0://推荐
-                if (null == selectedFragment) {
-                    selectedFragment = new RecommendFragment();
-                    transaction.add(R.id.main_list_fragments, selectedFragment);
-                } else {
-                    transaction.show(selectedFragment);
-                }
+                transaction.show(selectedFragment);
                 selectedFragment.scroll2Top();
                 selectedFragment.setShow(true);
                 if (null != discoverFragment) {
@@ -617,12 +606,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                 tv_game.setTextColor(colorDark);
                 break;*/
             case 3://分类
-                if (null == discoverFragment) {
-                    discoverFragment = new ClassifyFragment();
-                    transaction.add(R.id.main_list_fragments, discoverFragment);
-                } else {
-                    transaction.show(discoverFragment);
-                }
+                transaction.show(discoverFragment);
                 discoverFragment.scroll2Top();
                 discoverFragment.setShow(true);
                 selectedFragment.setShow(false);
@@ -637,12 +621,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                 MobclickAgent.onEvent(context, UMEventNameConstant.mainDiscoverButtonClickCount);
                 break;
             case 2://圈子
-                if (null == gameHubFragment) {
-                    gameHubFragment = new HubFragment();
-                    transaction.add(R.id.main_list_fragments, gameHubFragment);
-                } else {
-                    transaction.show(gameHubFragment);
-                }
+                transaction.show(gameHubFragment);
                 menu_game_hub_bt.setSelected(true);
                 mTitleTv.setText(R.string.main_tab_04);
                 fl_notifi.setVisibility(View.GONE);
@@ -654,12 +633,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                 MobclickAgent.onEvent(context, UMEventNameConstant.mainCircleButtonClickCount);
                 break;
             case 4://管理
-                if (null == administrationFragment) {
-                    administrationFragment = ManagerFragment.newInstance(context);
-                    transaction.add(R.id.main_list_fragments, administrationFragment);
-                } else {
-                    transaction.show(administrationFragment);
-                }
+                transaction.show(administrationFragment);
                 selectedFragment.setShow(false);
                 if (null != discoverFragment) {
                     discoverFragment.setShow(false);
@@ -728,7 +702,8 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                     }
                     break;*/
                 case R.id.menu_game_hub:
-                    if (currentMenu != R.id.menu_game_hub && event.getAction() == MotionEvent.ACTION_UP) {
+                    if (currentMenu != R.id.menu_game_hub && event.getAction() == MotionEvent
+                            .ACTION_UP) {
                         setCurrentMenu(2);
                     }
                     break;
@@ -797,6 +772,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
 
         }
     }
+
     /**
      * 处理按钮点击事件
      */
@@ -896,7 +872,8 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
         }
 
         String url = Constant.WEB_SITE + Constant.URL_APP_UPDATE;
-        Response.Listener<JsonResult<VersionInfo>> successListener = new Response.Listener<JsonResult<VersionInfo>>() {
+        Response.Listener<JsonResult<VersionInfo>> successListener = new Response
+                .Listener<JsonResult<VersionInfo>>() {
             @Override
             public void onResponse(JsonResult<VersionInfo> result) {
 
@@ -909,10 +886,12 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                 if (versionInfo != null) {
 
                     //如果后台正在升级，则直接显示进度框
-                    GameFileStatus downloadFileInfo = fileLoad.getGameFileLoadStatus(versionInfo.fileName, versionInfo.url,
+                    GameFileStatus downloadFileInfo = fileLoad.getGameFileLoadStatus(versionInfo
+                                    .fileName, versionInfo.url,
                             versionInfo.packageName, versionInfo.versionCode);
                     if (downloadFileInfo != null) {
-                        if (downloadFileInfo.getStatus() == GameFileStatus.STATE_DOWNLOAD || downloadFileInfo.getStatus() ==
+                        if (downloadFileInfo.getStatus() == GameFileStatus.STATE_DOWNLOAD ||
+                                downloadFileInfo.getStatus() ==
                                 GameFileStatus.STATE_PAUSE) {
 
                             showProgressDialog();
@@ -929,7 +908,8 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                         showUpdateDialog();
                         CommonUtil.verifyStoragePermissions(context); //申请读写SD卡权限
                     } else {
-                        //Toast.makeText(MainHomeActivity.this,"当前已是最新版本",Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MainHomeActivity.this,"当前已是最新版本",Toast.LENGTH_SHORT)
+                        // .show();
                     }
                 } else {
                     //Toast.makeText(MainHomeActivity.this,"检测失败：服务端异常！",Toast.LENGTH_SHORT).show();
@@ -948,7 +928,8 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
             }
         };
 
-        Request<JsonResult<VersionInfo>> versionRequest = new GsonRequest<JsonResult<VersionInfo>>(Request.Method.POST, url,
+        Request<JsonResult<VersionInfo>> versionRequest = new
+                GsonRequest<JsonResult<VersionInfo>>(Request.Method.POST, url,
                 successListener, errorListener, new TypeToken<JsonResult<VersionInfo>>() {
         }.getType()) {
             @Override
@@ -980,7 +961,8 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
 
 
         LayoutInflater inflater = getLayoutInflater();
-        LinearLayout contentView = (LinearLayout) inflater.inflate(R.layout.layout_dialog_update, null);
+        LinearLayout contentView = (LinearLayout) inflater.inflate(R.layout.layout_dialog_update,
+                null);
         TextView tv_title = (TextView) contentView.findViewById(R.id.tv_title);
 
         String fileSizeStr = Formatter.formatFileSize(context, versionInfo.fileSize);
@@ -996,7 +978,8 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
             public void onClick(View v) {
                 dialogFragment.dismiss();
 
-                fileLoad.load(versionInfo.fileName, versionInfo.url, versionInfo.md5, versionInfo.packageName, versionInfo
+                fileLoad.load(versionInfo.fileName, versionInfo.url, versionInfo.md5, versionInfo
+                        .packageName, versionInfo
                         .versionCode, versionInfo.fileName, versionInfo.url, versionInfo.id, false);
                 showProgressDialog();   //显示进度条对话框
                 doUpdateUi();           //启动更新进度条线程
@@ -1023,7 +1006,8 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
         dialogFragment.setDialogWidth(255);
 
         LayoutInflater inflater = getLayoutInflater();
-        LinearLayout contentView = (LinearLayout) inflater.inflate(R.layout.layout_dialog_download, null);
+        LinearLayout contentView = (LinearLayout) inflater.inflate(R.layout
+                .layout_dialog_download, null);
         progressBar = (NumberProgressBar) contentView.findViewById(R.id.progress_bar);
 
         dialogFragment.setContentView(contentView);
@@ -1049,12 +1033,14 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
 
                 dialogFragment.dismiss();
 
-                remoteViews = new RemoteViews(getPackageName(), R.layout.layout_notification_download);
+                remoteViews = new RemoteViews(getPackageName(), R.layout
+                .layout_notification_download);
                 notification = new Notification.Builder(context)
                         .setSmallIcon(R.drawable.ic_launcher)
                         .setContent(remoteViews)
                         .build();
-                mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                mNotificationManager = (NotificationManager) getSystemService(Context
+                .NOTIFICATION_SERVICE);
                 mNotificationManager.notify(1, notification);
                 isRunningBackground = true;
 
@@ -1077,7 +1063,8 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                     @Override
                     public void run() {
 
-                        GameFileStatus downloadFileInfo = fileLoad.getGameFileLoadStatus(versionInfo.fileName, versionInfo.url,
+                        GameFileStatus downloadFileInfo = fileLoad.getGameFileLoadStatus
+                                (versionInfo.fileName, versionInfo.url,
                                 versionInfo.packageName, versionInfo.versionCode);
                         if (downloadFileInfo != null) {
 
@@ -1086,25 +1073,32 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                             final double process = finished / length * 100;
 
                             if (isRunningBackground) {
-                                remoteViews.setProgressBar(R.id.progress_bar, 100, (int) process, false);
+                                remoteViews.setProgressBar(R.id.progress_bar, 100, (int) process,
+                                        false);
                                 if (process >= 100) {
                                     Intent intent = new Intent(Intent.ACTION_VIEW);
 
 
                                     File filePath = null;
                                     try {
-                                        filePath = new File(CommonUtil.getFileLoadBasePath(), versionInfo.fileName);
+                                        filePath = new File(CommonUtil.getFileLoadBasePath(),
+                                                versionInfo.fileName);
                                     } catch (NoSDCardException e) {
                                         e.printStackTrace();
                                     }
                                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                                         intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                        String packageName = context.getApplicationContext().getPackageName();
-                                        String authority =  new StringBuilder(packageName).append(".provider").toString();
-                                        Uri contentUri = FileProvider.getUriForFile(context, authority, filePath);
-                                        intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
+                                        String packageName = context.getApplicationContext()
+                                                .getPackageName();
+                                        String authority = new StringBuilder(packageName).append
+                                                (".provider").toString();
+                                        Uri contentUri = FileProvider.getUriForFile(context,
+                                                authority, filePath);
+                                        intent.setDataAndType(contentUri, "application/vnd" +
+                                                ".android.package-archive");
                                     } else {
-                                        intent.setDataAndType(Uri.fromFile(filePath), "application/vnd.android.package-archive");
+                                        intent.setDataAndType(Uri.fromFile(filePath),
+                                                "application/vnd.android.package-archive");
                                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                     }
 
@@ -1112,12 +1106,14 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                                     notification = new Notification.Builder(context)
                                             .setSmallIcon(R.drawable.ic_launcher)
                                             .setContent(remoteViews)
-                                            .setContentIntent(PendingIntent.getActivity(context, 0, intent, 0))
+                                            .setContentIntent(PendingIntent.getActivity(context,
+                                                    0, intent, 0))
                                             .build();
                                     notification.flags = Notification.FLAG_AUTO_CANCEL;
                                     isRunningBackground = false;
                                 } else {
-                                    remoteViews.setTextViewText(R.id.text1, "正在下载: " + (int) process + "%");
+                                    remoteViews.setTextViewText(R.id.text1, "正在下载: " + (int)
+                                            process + "%");
                                 }
                                 mNotificationManager.notify(1, notification);
                             } else {
@@ -1126,8 +1122,10 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                                 }
                                 if (process == 100) {
                                     //处理安装App的操作
-                                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                                    SimpleDialogFragment prev = (SimpleDialogFragment) getSupportFragmentManager()
+                                    FragmentTransaction ft = getSupportFragmentManager()
+                                            .beginTransaction();
+                                    SimpleDialogFragment prev = (SimpleDialogFragment)
+                                            getSupportFragmentManager()
                                             .findFragmentByTag("downloadDialog");
                                     if (prev != null) {
                                         ft.remove(prev);
