@@ -154,8 +154,8 @@ public class RecommendFragment extends BaseSearchFragment {
                                 Resources resources = getResources();
                                 int px20 = resources.getDimensionPixelOffset(R.dimen.dm020);
                                 int px34 = resources.getDimensionPixelOffset(R.dimen.dm034);
-                                int px400 = resources.getDimensionPixelOffset(R.dimen.dm400);
-                                int px180 = resources.getDimensionPixelOffset(R.dimen.dm180);
+                                int pxWidth = resources.getDimensionPixelOffset(R.dimen.dm400);
+                                int pxHeight = resources.getDimensionPixelOffset(R.dimen.recommend_horizontal_view_height);
 
                                 for (int i = 0; i < size; i++) {
                                     final YunduanBean.DataBean info = gameInfo.get(i);
@@ -173,8 +173,8 @@ public class RecommendFragment extends BaseSearchFragment {
                                     //为  PicassoImageView设置属性
                                     hParams = new LinearLayout.LayoutParams(
                                             wrapContent, wrapContent);
-                                    hParams.width = px400;
-                                    hParams.height = px180;
+                                    hParams.width = pxWidth;
+                                    hParams.height = pxHeight;
                                     //有多个图片的话
                                     if (0 == i) {
                                         hParams.setMargins(px34, 0, px20, 0);
