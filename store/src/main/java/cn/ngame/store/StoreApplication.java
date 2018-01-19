@@ -41,7 +41,7 @@ public class StoreApplication extends Application {
     public static String userHeadUrl;   //用户头像URL
     public static String token;
     public static User user;
-    public static String deviceId;  //设备id
+    public static String deviceId="";  //设备id
 
     public static int net_status = 0;
 

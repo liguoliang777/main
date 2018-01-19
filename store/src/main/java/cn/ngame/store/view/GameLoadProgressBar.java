@@ -69,7 +69,7 @@ public class GameLoadProgressBar extends View {
         this.context = context;
 
         downloadedColor = ContextCompat.getColor(context, R.color.download_bg);
-        mStrokeWidth = getResources().getDimensionPixelSize(R.dimen.stroke_line_width);
+        mStrokeWidth = getResources().getDimensionPixelOffset(R.dimen.stroke_line_width);
         mDownloadHeight = CommonUtil.dip2px(context, 1.5f);
         //获取布局文件中的值
         text = context.getResources().getString(attrs.getAttributeResourceValue("http://schemas.android.com/apk/res/android",

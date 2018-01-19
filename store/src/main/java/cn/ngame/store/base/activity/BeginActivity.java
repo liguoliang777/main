@@ -33,14 +33,11 @@ import java.util.TimerTask;
 import cn.ngame.store.R;
 import cn.ngame.store.activity.main.MainHomeActivity;
 import cn.ngame.store.core.fileload.FileLoadService;
-import cn.ngame.store.core.utils.CommonUtil;
 import cn.ngame.store.core.utils.Constant;
 import cn.ngame.store.core.utils.Log;
 import cn.ngame.store.core.utils.SPUtils;
 import cn.ngame.store.push.model.PushMessage;
 import cn.ngame.store.util.ConvUtil;
-
-import static cn.ngame.store.StoreApplication.deviceId;
 
 /**
  * App启动时的等待窗口，处理进入home页时需要预先加载的内容
@@ -71,9 +68,9 @@ public class BeginActivity extends Activity {
         Intent serviceIntent = new Intent(this, FileLoadService.class);
         startService(serviceIntent);
         //得到设备id
-        CommonUtil.verifyStatePermissions(content);
+        //CommonUtil.verifyStatePermissions(content);
         TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        deviceId = telephonyManager.getDeviceId();
+        //deviceId = telephonyManager.getDeviceId();
         //友盟相关
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
         MobclickAgent.setDebugMode(true);

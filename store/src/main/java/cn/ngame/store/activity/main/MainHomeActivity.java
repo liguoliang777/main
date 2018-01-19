@@ -161,7 +161,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
         //首页弹出广告dialog
         // showAdverDialog();
         //得到设备id
-        CommonUtil.verifyStatePermissions(this);
+        //CommonUtil.verifyStatePermissions(this);
         preferences = getSharedPreferences(Constant.CONFIG_FILE_NAME, MODE_PRIVATE);
         editor = preferences.edit();
 //        mfragmentlist = getFragmentList();
