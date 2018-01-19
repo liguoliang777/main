@@ -71,7 +71,7 @@ public class BeginActivity extends Activity {
         Intent serviceIntent = new Intent(this, FileLoadService.class);
         startService(serviceIntent);
         //得到设备id
-        CommonUtil.verifyStatePermissions(this);
+        CommonUtil.verifyStatePermissions(content);
         TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         deviceId = telephonyManager.getDeviceId();
         //友盟相关

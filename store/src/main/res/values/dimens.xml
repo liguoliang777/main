@@ -105,6 +105,7 @@
     <dimen name="dp_45">45dp</dimen>
     <dimen name="dp_55">55dp</dimen>
     <dimen name="unlogin_dialog_width">@dimen/dm376</dimen>
+    <dimen name="stroke_line_width">@dimen/dm001</dimen>
     <dimen name="main_margin_left_34px">@dimen/dm034</dimen>
     <dimen name="main_margin_32px">@dimen/dm032</dimen>
     <dimen name="main_margin_20px">@dimen/dm020</dimen>

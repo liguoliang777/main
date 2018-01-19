@@ -39,7 +39,7 @@ public class GameLoadProgressBar extends View {
     private final int mRadius;
     private final int openColor;
     private final int mDownloadHeight;
-    private final int mStrokeWidth;
+    private final float mStrokeWidth;
     private final Context context;
 
     private GameFileStatus gameFileStatus;
@@ -69,7 +69,7 @@ public class GameLoadProgressBar extends View {
         this.context = context;
 
         downloadedColor = ContextCompat.getColor(context, R.color.download_bg);
-        mStrokeWidth = CommonUtil.dip2px(context, 0.8f);
+        mStrokeWidth = getResources().getDimensionPixelSize(R.dimen.stroke_line_width);
         mDownloadHeight = CommonUtil.dip2px(context, 1.5f);
         //获取布局文件中的值
         text = context.getResources().getString(attrs.getAttributeResourceValue("http://schemas.android.com/apk/res/android",
@@ -282,10 +282,10 @@ public class GameLoadProgressBar extends View {
         super.onDraw(canvas);
         //RectF对象
         mRadiusRect = new RectF();
-        mRadiusRect.left = 0;                                 //左边
-        mRadiusRect.top = 0;                                  //上边
-        mRadiusRect.right = (int) width;                       //右边
-        mRadiusRect.bottom = (int) height;                     //下边*/
+        mRadiusRect.left = mStrokeWidth/2;                                 //左边
+        mRadiusRect.top = mStrokeWidth/2;                                  //上边
+        mRadiusRect.right =  width-mStrokeWidth/2;                       //右边
+        mRadiusRect.bottom = height-mStrokeWidth/2;                     //下边*/
         if (gameFileStatus == null || gameFileStatus.getStatus() == GameFileStatus.STATE_UN_INSTALL) {
             //绘制背景色
             paint.setColor(nomalColor);
@@ -321,7 +321,7 @@ public class GameLoadProgressBar extends View {
                 .STATE_HAS_DOWNLOAD) {
             mRadiusRect = new RectF();
             mRadiusRect.left = 0;                                 //左边
-            mRadiusRect.right = (int) width;                       //右边
+            mRadiusRect.right = width;                       //右边
             mRadiusRect.top = 0;
             mRadiusRect.bottom = height;
             //绘制背景色
@@ -380,10 +380,11 @@ public class GameLoadProgressBar extends View {
             Paint.Style.STROKE ：仅描边*/
             //绘制背景色
             Paint paintStoke = new Paint();
-            paintStoke.setStyle(Paint.Style.STROKE);
             paintStoke.setAntiAlias(true);
             paintStoke.setColor(openColor);
             paintStoke.setStrokeWidth(mStrokeWidth);
+            paintStoke.setStyle(Paint.Style.STROKE);
+
             canvas.drawRoundRect(mRadiusRect, mRadius, mRadius, paintStoke);//圆角
             //canvas.drawRect(0, 0, width, height, paint);
 

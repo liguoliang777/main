@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Common -->
-    <string name="app_name">方格</string>
+    <string name="appName">方格游戏</string>
 
     <string name="image_des">图片描述信息</string>
 
