@@ -9,9 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import java.lang.reflect.Field;
 
@@ -55,15 +53,6 @@ public abstract class BaseLazyFragment extends Fragment {
         super.onCreate(savedInstanceState);
         TAG_LOG = this.getClass().getSimpleName();
 
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (getContentViewLayoutID() != 0) {
-            return inflater.inflate(getContentViewLayoutID(), null);
-        } else {
-            return super.onCreateView(inflater, container, savedInstanceState);
-        }
     }
 
     @Override
