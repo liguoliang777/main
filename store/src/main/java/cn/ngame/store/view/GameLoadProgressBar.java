@@ -1,12 +1,16 @@
 package cn.ngame.store.view;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -28,6 +32,7 @@ import cn.ngame.store.core.utils.CommonUtil;
 import cn.ngame.store.core.utils.KeyConstant;
 import cn.ngame.store.core.utils.UMEventNameConstant;
 import cn.ngame.store.user.view.LoginActivity;
+import cn.ngame.store.util.ToastUtil;
 
 /**
  * 自定义下载进度条
@@ -72,26 +77,36 @@ public class GameLoadProgressBar extends View {
         mStrokeWidth = getResources().getDimensionPixelOffset(R.dimen.stroke_line_width);
         mDownloadHeight = CommonUtil.dip2px(context, 1.5f);
         //获取布局文件中的值
-        text = context.getResources().getString(attrs.getAttributeResourceValue("http://schemas.android.com/apk/res/android",
+        text = context.getResources().getString(attrs.getAttributeResourceValue("http://schemas" +
+                        ".android.com/apk/res/android",
                 "text", 0));
-        String tempSize = attrs.getAttributeValue("http://schemas.android.com/apk/res/android", "textSize");
-        textSize = CommonUtil.dip2px(context, Float.valueOf(tempSize.substring(0, tempSize.length() - 2)));
-        String tempWidth = attrs.getAttributeValue("http://schemas.android.com/apk/res/android", "layout_width");
-        width = CommonUtil.dip2px(context, Float.valueOf(tempWidth.substring(0, tempWidth.length() - 3)));
+        String tempSize = attrs.getAttributeValue("http://schemas.android.com/apk/res/android",
+                "textSize");
+        textSize = CommonUtil.dip2px(context, Float.valueOf(tempSize.substring(0, tempSize.length
+                () - 2)));
+        String tempWidth = attrs.getAttributeValue("http://schemas.android.com/apk/res/android",
+                "layout_width");
+        width = CommonUtil.dip2px(context, Float.valueOf(tempWidth.substring(0, tempWidth.length
+                () - 3)));
         //圆角
         mRadius = CommonUtil.dip2px(context, 4);
 
-        String tempHeight = attrs.getAttributeValue("http://schemas.android.com/apk/res/android", "layout_height");
-        height = CommonUtil.dip2px(context, Float.valueOf(tempHeight.substring(0, tempHeight.length() - 3)));
+        String tempHeight = attrs.getAttributeValue("http://schemas.android.com/apk/res/android",
+                "layout_height");
+        height = CommonUtil.dip2px(context, Float.valueOf(tempHeight.substring(0, tempHeight
+                .length() - 3)));
 
-        textColor = context.getResources().getColor(attrs.getAttributeResourceValue("http://schemas.android" +
-                ".com/apk/res/android", "textColor", -1));
-        //nomalColor = context.getResources().getColor(attrs.getAttributeResourceValue("http://schemas.android
+        textColor = context.getResources().getColor(attrs.getAttributeResourceValue
+                ("http://schemas.android" +
+                        ".com/apk/res/android", "textColor", -1));
+        //nomalColor = context.getResources().getColor(attrs.getAttributeResourceValue
+        // ("http://schemas.android
         // .com/apk/res/android","background",-1));
         nomalColor = ContextCompat.getColor(context, R.color.mainColor);
         openColor = ContextCompat.getColor(context, R.color.mainColor);
 
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.GameLoadProgressBar2);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable
+                .GameLoadProgressBar2);
         //progress = typedArray.getInt(R.styleable.DownLoadProgressBar_progress, 0);
         typedArray.recycle();
 
@@ -108,7 +123,8 @@ public class GameLoadProgressBar extends View {
     public void setLoadState(GameFileStatus status) {
 
         this.gameFileStatus = status;
-        if (gameFileStatus == null || gameFileStatus.getStatus() == GameFileStatus.STATE_UN_INSTALL) {
+        if (gameFileStatus == null || gameFileStatus.getStatus() == GameFileStatus
+                .STATE_UN_INSTALL) {
             text = "下载";
         } else if (gameFileStatus.getStatus() == GameFileStatus.STATE_DOWNLOAD) {         //下载中
             text = "暂停";
@@ -117,8 +133,9 @@ public class GameLoadProgressBar extends View {
         } else if (gameFileStatus.getStatus() == GameFileStatus.STATE_HAS_DOWNLOAD) { //已经下载完成
             //progress = 100;
             text = "安装";
-        } else if (gameFileStatus.getStatus() == GameFileStatus.STATE_HAS_INSTALL || gameFileStatus.getStatus() ==
-                GameFileStatus.STATE_HAS_INSTALL_OLD) {     //已经安装
+        } else if (gameFileStatus.getStatus() == GameFileStatus.STATE_HAS_INSTALL ||
+                gameFileStatus.getStatus() ==
+                        GameFileStatus.STATE_HAS_INSTALL_OLD) {     //已经安装
             text = "打开";
         }
 //        else if(gameFileStatus.getStatus() == GameFileStatus.STATE_HAS_INSTALL_OLD){
@@ -146,9 +163,18 @@ public class GameLoadProgressBar extends View {
      * @return state 进度条当前的状态
      */
     public void toggle() {
-        if (gameFileStatus == null || gameFileStatus.getStatus() == GameFileStatus.STATE_UN_INSTALL) {
+        if (gameFileStatus == null || gameFileStatus.getStatus() == GameFileStatus
+                .STATE_UN_INSTALL) {
             if (CommonUtil.isLogined()) {
-                startDownload();
+                int permission = ActivityCompat.checkSelfPermission(context,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                if (permission != PackageManager.PERMISSION_GRANTED) {
+                    // We don't have permission so prompt the user
+                    ToastUtil.show(context,"检测到手机下载存储权限被拒绝,请打开");
+                    CommonUtil.verifyStoragePermissions((Activity) context);
+                } else {
+                    startDownload();
+                }
             } else {
                 showUnLoginDialog();
             }
@@ -159,8 +185,9 @@ public class GameLoadProgressBar extends View {
         } else if (gameFileStatus.getStatus() == GameFileStatus.STATE_HAS_DOWNLOAD) { //已经下载完成，点击后安装
             Log.d(TAG, "已经下载完成，点击后安装");
             installApp();
-        } else if (gameFileStatus.getStatus() == GameFileStatus.STATE_HAS_INSTALL || gameFileStatus.getStatus() ==
-                GameFileStatus.STATE_HAS_INSTALL_OLD) { //已经安装，点击后打开APP
+        } else if (gameFileStatus.getStatus() == GameFileStatus.STATE_HAS_INSTALL ||
+                gameFileStatus.getStatus() ==
+                        GameFileStatus.STATE_HAS_INSTALL_OLD) { //已经安装，点击后打开APP
             openApp();
         }
 //        else if(gameFileStatus.getStatus() == GameFileStatus.STATE_HAS_INSTALL_OLD){   //已经安装了旧版本
@@ -184,7 +211,8 @@ public class GameLoadProgressBar extends View {
                 context.startActivity(new Intent(context, LoginActivity.class));
             }
         });
-        ((TextView) inflate.findViewById(R.id.title)).setText(getResources().getString(R.string.unlogin_msg));
+        ((TextView) inflate.findViewById(R.id.title)).setText(getResources().getString(R.string
+                .unlogin_msg));
         dialog.setContentView(inflate);//将布局设置给Dialog
 
         Window dialogWindow = dialog.getWindow(); //获取当前Activity所在的窗体
@@ -192,7 +220,8 @@ public class GameLoadProgressBar extends View {
         dialogWindow.setGravity(Gravity.CENTER_HORIZONTAL);//设置Dialog从窗体底部弹出
         WindowManager.LayoutParams params = dialogWindow.getAttributes();   //获得窗体的属性
         //params.y = 20;  Dialog距离底部的距离
-        params.width = getResources().getDimensionPixelSize(R.dimen.unlogin_dialog_width);//设置Dialog距离底部的距离
+        params.width = getResources().getDimensionPixelSize(R.dimen.unlogin_dialog_width);
+        //设置Dialog距离底部的距离
         dialogWindow.setAttributes(params); //将属性设置给窗体
         dialog.show();//显示对话框
     }
@@ -212,6 +241,7 @@ public class GameLoadProgressBar extends View {
         this.text = "暂停";
         this.invalidate();
         if (listener != null) {
+
             listener.onStartDownload(fileLoadInfo);
         }
     }
@@ -282,11 +312,12 @@ public class GameLoadProgressBar extends View {
         super.onDraw(canvas);
         //RectF对象
         mRadiusRect = new RectF();
-        mRadiusRect.left = mStrokeWidth/2;                                 //左边
-        mRadiusRect.top = mStrokeWidth/2;                                  //上边
-        mRadiusRect.right =  width-mStrokeWidth/2;                       //右边
-        mRadiusRect.bottom = height-mStrokeWidth/2;                     //下边*/
-        if (gameFileStatus == null || gameFileStatus.getStatus() == GameFileStatus.STATE_UN_INSTALL) {
+        mRadiusRect.left = mStrokeWidth / 2;                                 //左边
+        mRadiusRect.top = mStrokeWidth / 2;                                  //上边
+        mRadiusRect.right = width - mStrokeWidth / 2;                       //右边
+        mRadiusRect.bottom = height - mStrokeWidth / 2;                     //下边*/
+        if (gameFileStatus == null || gameFileStatus.getStatus() == GameFileStatus
+                .STATE_UN_INSTALL) {
             //绘制背景色
             paint.setColor(nomalColor);
             paint.setAntiAlias(true);
@@ -301,7 +332,7 @@ public class GameLoadProgressBar extends View {
             float baseline = (height - fontMetrics.bottom - fontMetrics.top) / 2;   //设置字体基线
             canvas.drawText(text, width / 2, baseline, paint);
 
-        //} else if (gameFileStatus.getStatus() == GameFileStatus.STATE_HAS_INSTALL_OLD) {
+            //} else if (gameFileStatus.getStatus() == GameFileStatus.STATE_HAS_INSTALL_OLD) {
             //绘制背景色
         /*    paint.setColor(nomalColor);
             paint.setColor(downloadedColor);
@@ -317,7 +348,8 @@ public class GameLoadProgressBar extends View {
             canvas.drawText(text, width / 2, baseline, paint);*/
 
 
-        } else if (gameFileStatus.getStatus() == GameFileStatus.STATE_DOWNLOAD || gameFileStatus.getStatus() == GameFileStatus
+        } else if (gameFileStatus.getStatus() == GameFileStatus.STATE_DOWNLOAD || gameFileStatus
+                .getStatus() == GameFileStatus
                 .STATE_HAS_DOWNLOAD) {
             mRadiusRect = new RectF();
             mRadiusRect.left = 0;                                 //左边
@@ -331,7 +363,8 @@ public class GameLoadProgressBar extends View {
 
             //绘 前景  ----深色的进度//下边*/
             paint.setColor(nomalColor);
-            int downingWidth = (int) (width / gameFileStatus.getLength() * gameFileStatus.getFinished());
+            int downingWidth = (int) (width / gameFileStatus.getLength() * gameFileStatus
+                    .getFinished());
             mRadiusRect.right = downingWidth;
             canvas.drawRoundRect(mRadiusRect, mRadius, mRadius, paint);
             //canvas.drawRect(0, 0,  downingWidth, height, paint);
@@ -360,10 +393,12 @@ public class GameLoadProgressBar extends View {
             mRadiusRect.top = 0;           //绘 前景  ----深色的进度
             mRadiusRect.bottom = height;   //下边*/
             paint.setColor(nomalColor);
-            int pauseWidth = (int) (width / gameFileStatus.getLength() * gameFileStatus.getFinished());
+            int pauseWidth = (int) (width / gameFileStatus.getLength() * gameFileStatus
+                    .getFinished());
             mRadiusRect.right = pauseWidth;
             canvas.drawRoundRect(mRadiusRect, mRadius, mRadius, paint);
-            // canvas.drawRect(0, height / 2 - mDownloadHeight,  pauseWidth, height / 2 + mDownloadHeight, paint);
+            // canvas.drawRect(0, height / 2 - mDownloadHeight,  pauseWidth, height / 2 +
+            // mDownloadHeight, paint);
             //绘前景
 
             //绘制字体
@@ -374,7 +409,9 @@ public class GameLoadProgressBar extends View {
             float baseline = (height - fontMetrics.bottom - fontMetrics.top) / 2;   //设置字体基线
             canvas.drawText(text, width / 2, baseline, paint);
 
-        } else if (gameFileStatus.getStatus() == GameFileStatus.STATE_HAS_INSTALL||gameFileStatus.getStatus() == GameFileStatus.STATE_HAS_INSTALL_OLD) {  //如以下载完成 或已成功安装
+        } else if (gameFileStatus.getStatus() == GameFileStatus.STATE_HAS_INSTALL ||
+                gameFileStatus.getStatus() == GameFileStatus.STATE_HAS_INSTALL_OLD) {  //如以下载完成
+            // 或已成功安装
           /*  Paint.Style.FILL :填充内部
             Paint.Style.FILL_AND_STROKE ：填充内部和描边
             Paint.Style.STROKE ：仅描边*/

@@ -61,7 +61,8 @@ public class CommonUtil {
         // Check if we have write permission
         int permission = ActivityCompat.checkSelfPermission(activity,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
+        android.util.Log.d(TAG, "存储权限: " + permission);
+        android.util.Log.d(TAG, "存储权限是否等于: " + (permission == PackageManager.PERMISSION_GRANTED));
         if (permission != PackageManager.PERMISSION_GRANTED) {
             // We don't have permission so prompt the user
             ActivityCompat.requestPermissions(activity, PERMISSIONS_STORAGE,
@@ -97,7 +98,8 @@ public class CommonUtil {
         boolean sdCardExist = Environment.getExternalStorageState()
                 .equals(android.os.Environment.MEDIA_MOUNTED); //判断sd卡是否存在
         if (sdCardExist) {
-            path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "ngame" + File.separator +
+            path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator +
+                    "ngame" + File.separator +
                     "download" + File.separator;
         } else {
             throw new NoSDCardException("设备上没有找到SDCard");
@@ -116,7 +118,8 @@ public class CommonUtil {
         boolean sdCardExist = Environment.getExternalStorageState()
                 .equals(android.os.Environment.MEDIA_MOUNTED); //判断sd卡是否存在
         if (sdCardExist) {
-            path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "Android" + File.separator;
+            path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator +
+                    "Android" + File.separator;
         } else {
             throw new NoSDCardException("设备上没有找到SDCard");
         }
@@ -134,7 +137,8 @@ public class CommonUtil {
         boolean sdCardExist = Environment.getExternalStorageState()
                 .equals(android.os.Environment.MEDIA_MOUNTED); //判断sd卡是否存在
         if (sdCardExist) {
-            path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "ngame" + File.separator +
+            path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator +
+                    "ngame" + File.separator +
                     "image" + File.separator;
         } else {
             throw new NoSDCardException("设备上没有找到SDCard");
@@ -182,7 +186,8 @@ public class CommonUtil {
 
         int versionCode = -1;
         try {
-            versionCode = context.getPackageManager().getPackageInfo("cn.ngame.store", 0).versionCode;
+            versionCode = context.getPackageManager().getPackageInfo("cn.ngame.store", 0)
+                    .versionCode;
         } catch (PackageManager.NameNotFoundException e) {
             Log.e(TAG, e.getMessage());
             e.printStackTrace();
@@ -260,13 +265,16 @@ public class CommonUtil {
 
     public static boolean isLogined() {
         String pwd = StoreApplication.passWord;
-        return (pwd != null && !"".endsWith(pwd)) || !Constant.PHONE.equals(StoreApplication.loginType);
+        return (pwd != null && !"".endsWith(pwd)) || !Constant.PHONE.equals(StoreApplication
+                .loginType);
     }
 
-    public static void showUnLoginDialog(FragmentManager fm, final Context content, final int showMsgId) {
+    public static void showUnLoginDialog(FragmentManager fm, final Context content, final int
+            showMsgId) {
         final OneBtDialogFragment dialogFragment = new OneBtDialogFragment();
         dialogFragment.setTitle(showMsgId);
-        dialogFragment.setDialogWidth(content.getResources().getDimensionPixelSize(R.dimen.unlogin_dialog_width));
+        dialogFragment.setDialogWidth(content.getResources().getDimensionPixelSize(R.dimen
+                .unlogin_dialog_width));
         dialogFragment.setNegativeButton(R.string.login_now, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
