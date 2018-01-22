@@ -188,7 +188,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:visibility="gone"
         >
 
         <ImageView
@@ -196,9 +195,8 @@
             android:layout_width="@dimen/dp_45"
             android:layout_height="@dimen/dp_45"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
             android:layout_marginBottom="@dimen/dm200"
-            android:layout_marginLeft="@dimen/dm100"
+            android:layout_marginLeft="@dimen/dm170"
             android:scaleType="centerInside"
             android:src="@drawable/user_qq"/>
 
@@ -206,8 +204,9 @@
             android:id="@+id/login_wechat_bt"
             android:layout_width="@dimen/dp_45"
             android:layout_height="@dimen/dp_45"
+            android:layout_marginRight="@dimen/dm170"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
+            android:layout_alignParentRight="true"
             android:layout_marginBottom="@dimen/dm200"
             android:scaleType="centerInside"
             android:src="@drawable/user_wechat"/>
@@ -220,6 +219,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginBottom="@dimen/dm200"
             android:layout_marginRight="@dimen/dm100"
+            android:visibility="gone"
             android:scaleType="centerInside"
             android:src="@drawable/user_weibo"
             />

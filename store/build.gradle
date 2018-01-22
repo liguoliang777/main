@@ -21,7 +21,7 @@ android {
         applicationId "cn.ngame.store"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 400008
+        versionCode 400009
         versionName "V4.0.4."
 
         ndk {
@@ -81,7 +81,7 @@ android {
     //编译输出的名字
     android.applicationVariants.all { variant ->
             variant.outputs.all {
-                outputFileName = "fangle_${variant.name}_${variant.versionName}${releaseTime() }.apk"
+                outputFileName = "fangle_${variant.versionCode}_${variant.versionName}${releaseTime() }.apk"
             }
     }
 

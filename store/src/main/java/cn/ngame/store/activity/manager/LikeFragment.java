@@ -47,7 +47,6 @@ import cn.ngame.store.view.ActionItem;
 import cn.ngame.store.view.QuickAction;
 
 /**
- * 下载更新fragment (懒加载-当滑动到当前fragment时，才去加载。而不是进入到activity时，加载所有fragment)
  * Created by gp on 2017/3/3 0003.
  */
 @SuppressLint("WrongConstant")

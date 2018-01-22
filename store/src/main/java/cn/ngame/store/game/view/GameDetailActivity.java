@@ -207,7 +207,7 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
                 web.setDescription(getString(R.string.share_description));//描述
 
                 new ShareAction(content).setDisplayList(SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA
-                        .WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.SINA).
+                        .WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE).
                         setShareboardclickCallback(new ShareBoardlistener() {
                             @Override
                             public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {

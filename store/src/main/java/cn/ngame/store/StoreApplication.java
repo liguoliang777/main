@@ -85,7 +85,7 @@ public class StoreApplication extends Application {
     }
 
     private void initUmengKey() {
-        PlatformConfig.setWeixin("wxc3fd944502f63476", "15cc8fe486352fee6aac537f3f033066");
+        PlatformConfig.setWeixin("wxd60a30dd49d09626", "0525fb7c7c0dce4aaeba06cf02442605");
         PlatformConfig.setQQZone("1105610048", "cRaNEPSsHj95Ay9p");
         PlatformConfig.setSinaWeibo("3533498134", "28073913cd2521023ef4fcd9bdde88bf", "http://www.ngame.cn/views/platform.html");
 
