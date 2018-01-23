@@ -112,5 +112,5 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dm001"
         android:layout_below="@id/neccessary_content_ll"
-        android:background="@color/f5f5f5"/>
+        android:background="@color/e5e5e5"/>
 </RelativeLayout>
