@@ -833,6 +833,8 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
                     UPDATE_TIPS_OR_DOWNLOAD_EXCEPTION = 2;//下载异常
                     MobclickAgent.onEvent(content, UMEventNameConstant.FeedBack_DownloadException,
                             map);
+                } else {
+                    return;
                 }
                 //提交反馈
                 if (gameInfo != null) {

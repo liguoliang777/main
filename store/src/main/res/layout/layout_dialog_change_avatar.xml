@@ -14,7 +14,7 @@
         android:textSize="@dimen/dp_14"
         />
 
-    <include layout="@layout/layout_line_05dp_f5f5f5"/>
+    <include layout="@layout/layout_line_1px_f5f5f5"/>
 
     <TextView
         android:id="@+id/choose_local_tv"
@@ -27,7 +27,7 @@
         android:textSize="@dimen/dp_18"
         />
 
-    <include layout="@layout/layout_line_05dp_f5f5f5"/>
+    <include layout="@layout/layout_line_1px_f5f5f5"/>
 
     <TextView
         android:id="@+id/choose_recomend_tv"
@@ -40,7 +40,7 @@
         android:textSize="@dimen/dp_18"
         />
 
-    <include layout="@layout/layout_line_05dp_f5f5f5"/>
+    <include layout="@layout/layout_line_1px_f5f5f5"/>
 
     <TextView
         android:id="@+id/choose_camera_tv"
@@ -53,7 +53,7 @@
         android:textSize="@dimen/dp_18"
         />
 
-    <include layout="@layout/layout_line_dp2_f5f5f5"/>
+    <include layout="@layout/layout_line_2px_f5f5f5"/>
 
     <TextView
         android:id="@+id/choose_cancel_tv"
