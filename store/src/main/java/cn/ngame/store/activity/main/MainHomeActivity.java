@@ -63,6 +63,7 @@ import cn.ngame.store.activity.rank.RankFragment;
 import cn.ngame.store.activity.sm.AboutNgameZoneActivity;
 import cn.ngame.store.activity.sm.AdCooperativeActivity;
 import cn.ngame.store.activity.sm.JoypadSettingsActivity;
+import cn.ngame.store.activity.sm.NecessaryActivity;
 import cn.ngame.store.activity.sm.SystemSettingsActivity;
 import cn.ngame.store.adapter.FragmentViewPagerAdapter;
 import cn.ngame.store.bean.JsonResult;
@@ -319,6 +320,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
 
         findSMViewById(R.id.sm_system_settings);
         findSMViewById(R.id.sm_joypad_settings);
+        findSMViewById(R.id.sm_neccessary_tool);
         findSMViewById(R.id.sm_about_us);
         findSMViewById(R.id.sm_ad);
 
@@ -384,6 +386,8 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                 startActivity(new Intent(context, JoypadSettingsActivity.class));
             } else if (id == R.id.sm_about_us) {//关于Ngame
                 startActivity(new Intent(context, AboutNgameZoneActivity.class));
+            }else if (id == R.id.sm_neccessary_tool) {//关于Ngame
+                startActivity(new Intent(context, NecessaryActivity.class));
             } else if (id == R.id.sm_ad) {//广告与合作
                 startActivity(new Intent(context, AdCooperativeActivity.class));
             }

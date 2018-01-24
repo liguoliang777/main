@@ -86,7 +86,7 @@
         android:id="@+id/sm_joypad_settings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dm080"
+        android:layout_marginTop="@dimen/dm052"
         android:gravity="center|left"
         android:paddingLeft="@dimen/dm052"
         >
@@ -109,7 +109,33 @@
             android:textSize="@dimen/dm028"
             />
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/sm_neccessary_tool"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dm052"
+        android:gravity="center|left"
+        android:paddingLeft="@dimen/dm052"
+        >
 
+        <ImageView
+            android:layout_width="@dimen/font_sliding_menu_item"
+            android:layout_height="@dimen/font_sliding_menu_item"
+            android:layout_gravity="center"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_women"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dm012"
+            android:gravity="center"
+            android:text="必备工具"
+            android:textColor="@color/color_4d4d4d"
+            android:textSize="@dimen/dm028"
+            />
+    </LinearLayout>
     <LinearLayout
         android:id="@+id/sm_about_us"
         android:layout_width="match_parent"

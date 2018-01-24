@@ -158,6 +158,7 @@ public class ManagerFragment extends BaseSearchFragment {
     @Override
     public void onStart() {
         super.onStart();
+        Log.d(TAG, "onStart: 开始");
         //是否显示了,显示了就去加载
         if (isNeedLoad) {
             setTabViewPagerData();
@@ -168,6 +169,7 @@ public class ManagerFragment extends BaseSearchFragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
+        Log.d(TAG, "改变"+hidden);
         isNeedLoad = !hidden;
         if (isNeedLoad) {
             setTabViewPagerData();
