@@ -3,16 +3,7 @@
     android:shape="oval"
     android:useLevel="false">
     <solid android:color="@color/font_logout_red" />
-    <padding
-        android:bottom="1dp"
-        android:left="2dp"
-        android:right="2dp"
-        android:top="1dp" />
-    <solid android:color="@color/font_logout_red" />
-    <stroke
-        android:width="0dp"
-        android:color="@android:color/white" />
     <size
-        android:width="@dimen/dm015"
+        android:width="@dimen/dm016"
         android:height="@dimen/dm015" />
 </shape>

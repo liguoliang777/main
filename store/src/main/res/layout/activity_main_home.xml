@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <RelativeLayout
         android:id="@+id/main_home_title_rlay"
@@ -11,8 +11,7 @@
         android:layout_marginTop="0dp"
         android:background="@color/mainColor">
 
-        <com.facebook.drawee.view.SimpleDraweeView
-            xmlns:fresco="http://schemas.android.com/apk/res-auto"
+        <com.facebook.drawee.view.SimpleDraweeView xmlns:fresco="http://schemas.android.com/apk/res-auto"
             android:id="@+id/iv_icon_title"
             android:layout_width="@dimen/dm052"
             android:layout_height="@dimen/dm052"
@@ -24,8 +23,7 @@
             fresco:placeholderImage="@drawable/use_icon_def_120"
             fresco:placeholderImageScaleType="centerCrop"
             fresco:progressBarImage="@drawable/use_icon_def_120"
-            fresco:roundAsCircle="true"
-            />
+            fresco:roundAsCircle="true" />
 
         <TextView
             android:id="@+id/title_tv"
@@ -35,7 +33,7 @@
             android:gravity="center"
             android:textColor="@android:color/white"
             android:textSize="@dimen/title_size"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/im_toSearch"
@@ -47,7 +45,7 @@
             android:layout_marginRight="@dimen/dm032"
             android:gravity="center_vertical"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_sousu"/>
+            android:src="@drawable/ic_sousu" />
 
         <ImageView
             android:id="@+id/main_rank_bt"
@@ -59,52 +57,53 @@
             android:gravity="center_vertical"
             android:scaleType="centerInside"
             android:src="@drawable/ic_paihang"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <FrameLayout
             android:id="@+id/fl_notifi"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/dm032"
+            android:layout_marginRight="@dimen/dm030"
             android:layout_toLeftOf="@id/im_toSearch">
 
             <TextView
                 android:id="@+id/tv_notifi_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dm036"
+                android:layout_marginLeft="@dimen/dm039"
                 android:layout_marginTop="@dimen/dm015"
                 android:background="@drawable/shape_circle_green"
                 android:gravity="center"
-                android:text="31"
+                android:paddingBottom="@dimen/dm001"
+                android:text="0"
                 android:textColor="@color/white"
                 android:textSize="@dimen/dm012"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <ImageView
-                android:layout_width="@dimen/dm030"
-                android:layout_height="@dimen/dm030"
+                android:layout_width="@dimen/dm032"
+                android:layout_height="@dimen/dm032"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
-                android:background="@drawable/ic_tongzhi"
-                android:scaleType="centerInside"/>
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_tongzhi" />
         </FrameLayout>
 
 
         <ImageView
             android:id="@+id/main_download_bt"
-            android:layout_width="@dimen/dm045"
-            android:scaleType="centerInside"
-            android:layout_height="@dimen/dm036"
+            android:layout_width="@dimen/dm076"
+            android:layout_height="@dimen/dm032"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/dp_15"
             android:background="@null"
-            android:paddingLeft="@dimen/dm010"
-            android:src="@drawable/ic_downloadcenter"
+            android:paddingLeft="@dimen/dm012"
+            android:paddingRight="@dimen/dm032"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_download"
             android:textSize="@dimen/dm028"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/main_hub_bt"
@@ -113,11 +112,11 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/dp_15"
-            android:scaleType="centerInside"
             android:background="@null"
+            android:scaleType="centerInside"
             android:src="@drawable/ic_main_hub_bt"
             android:textSize="@dimen/dm028"
-            android:visibility="gone"/>
+            android:visibility="gone" />
     </RelativeLayout>
 
     <LinearLayout
@@ -126,8 +125,7 @@
         android:layout_height="@dimen/dm085"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:background="@color/white"
-        >
+        android:background="@color/white">
 
         <LinearLayout
             android:id="@+id/menu_home_ll"
@@ -145,7 +143,7 @@
                 android:layout_height="@dimen/dm044"
                 android:background="@drawable/seletor_home_bottom_hot_bt"
                 android:clickable="false"
-                android:enabled="false"/>
+                android:enabled="false" />
 
             <TextView
                 android:id="@+id/menu_home_tv"
@@ -155,7 +153,7 @@
                 android:layout_marginTop="2dp"
                 android:text="热门"
                 android:textColor="@color/color_333333"
-                android:textSize="@dimen/dm016"/>
+                android:textSize="@dimen/dm016" />
         </LinearLayout>
 
         <LinearLayout
@@ -176,7 +174,7 @@
                 android:background="@drawable/seletor_home_bottom_category_bt"
                 android:clickable="false"
                 android:enabled="false"
-                android:focusable="false"/>
+                android:focusable="false" />
 
             <TextView
                 android:id="@+id/menu_video_tv"
@@ -186,7 +184,7 @@
                 android:layout_marginTop="2dp"
                 android:text="分类"
                 android:textColor="@color/color_333333"
-                android:textSize="@dimen/dm016"/>
+                android:textSize="@dimen/dm016" />
         </LinearLayout>
 
         <!--        <LinearLayout
@@ -228,9 +226,9 @@
             android:layout_weight="1"
             android:clickable="true"
             android:gravity="center"
-            android:visibility="gone"
             android:orientation="vertical"
-            android:paddingBottom="2dp">
+            android:paddingBottom="2dp"
+            android:visibility="gone">
 
             <Button
                 android:id="@+id/menu_game_hub_bt"
@@ -240,7 +238,7 @@
                 android:background="@drawable/seletor_home_bottom_hub_bt"
                 android:clickable="false"
                 android:enabled="false"
-                android:focusable="false"/>
+                android:focusable="false" />
 
             <TextView
                 android:id="@+id/menu_gamehub_tv"
@@ -251,7 +249,7 @@
                 android:layout_marginTop="2dp"
                 android:text="@string/main_tab_04"
                 android:textColor="@color/color_333333"
-                android:textSize="@dimen/dm016"/>
+                android:textSize="@dimen/dm016" />
         </LinearLayout>
 
         <LinearLayout
@@ -272,7 +270,7 @@
                 android:background="@drawable/seletor_home_bottom_manage_bt"
                 android:clickable="false"
                 android:enabled="false"
-                android:focusable="false"/>
+                android:focusable="false" />
 
             <TextView
                 android:id="@+id/menu_manager_tv"
@@ -282,7 +280,7 @@
                 android:layout_marginTop="2dp"
                 android:text="我的"
                 android:textColor="@color/color_333333"
-                android:textSize="@dimen/dm016"/>
+                android:textSize="@dimen/dm016" />
         </LinearLayout>
     </LinearLayout>
 
@@ -292,13 +290,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/ll_bot_tab"
-        android:layout_below="@id/main_home_title_rlay"
-        />
+        android:layout_below="@id/main_home_title_rlay" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dm001"
         android:layout_above="@id/ll_bot_tab"
-        android:background="@color/e6e6e6"
-        />
+        android:background="@color/e6e6e6" />
 </RelativeLayout>
