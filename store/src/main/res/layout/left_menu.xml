@@ -74,7 +74,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dm012"
+            android:layout_marginLeft="@dimen/dm014"
             android:gravity="center"
             android:text="系统基本设置"
             android:textColor="@color/color_4d4d4d"
@@ -102,7 +102,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dm012"
+            android:layout_marginLeft="@dimen/dm014"
             android:gravity="center"
             android:text="游戏手柄设置"
             android:textColor="@color/color_4d4d4d"
@@ -123,13 +123,13 @@
             android:layout_height="@dimen/font_sliding_menu_item"
             android:layout_gravity="center"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_women"
+            android:src="@drawable/ic_gongjuxiang"
             />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dm012"
+            android:layout_marginLeft="@dimen/dm014"
             android:gravity="center"
             android:text="必备工具"
             android:textColor="@color/color_4d4d4d"
@@ -157,7 +157,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dm012"
+            android:layout_marginLeft="@dimen/dm014"
             android:gravity="center"
             android:text="关于NgameZone"
             android:textColor="@color/color_4d4d4d"

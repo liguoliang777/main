@@ -1,6 +1,6 @@
 package cn.ngame.store.activity.manager;
 
-import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.text.format.Formatter;
 import android.util.Log;
 import android.view.View;
@@ -22,7 +22,7 @@ import java.util.TimerTask;
 
 import cn.ngame.store.R;
 import cn.ngame.store.StoreApplication;
-import cn.ngame.store.activity.main.MainHomeActivity;
+import cn.ngame.store.activity.sm.NecessaryActivity;
 import cn.ngame.store.adapter.NeccssaryFragmentAdapter;
 import cn.ngame.store.base.fragment.BaseSearchFragment;
 import cn.ngame.store.bean.JsonResult;
@@ -48,24 +48,26 @@ public class NecessaryFragment extends BaseSearchFragment {
     private PageAction pageAction;
     public static int PAGE_SIZE = 10;
     protected QuickAction mItemClickQuickAction;
-    /**
-     * 当前点击的列表 1.下载列表 2.完成列表
-     */
     private GameRankListBean gameInfoBean;
-    private static MainHomeActivity content;
+    private FragmentActivity content;
     private NecessaryListInfo.AuxiliaryToolsBean mToolInfo;
     private TextView mEmptyTV;
 
-    public static NecessaryFragment newInstance(String type, int bean, MainHomeActivity context) {
-        NecessaryFragment fragment = new NecessaryFragment();
-        Bundle bundle = new Bundle();
-        content = context;
-        bundle.putString("type", type);
-        bundle.putSerializable("typeValue", bean);
-        fragment.setArguments(bundle);
-        return fragment;
+    public NecessaryFragment(NecessaryActivity necessaryActivity) {
+        content = necessaryActivity;
     }
 
+    /*  public static NecessaryFragment newInstance(String type, int bean, FragmentActivity
+    context) {
+          NecessaryFragment fragment = new NecessaryFragment();
+          Bundle bundle = new Bundle();
+          content = context;
+          bundle.putString("type", type);
+          bundle.putSerializable("typeValue", bean);
+          fragment.setArguments(bundle);
+          return fragment;
+      }
+  */
     @Override
     protected int getContentViewLayoutID() {
         return R.layout.fragment_necessary;
@@ -89,7 +91,8 @@ public class NecessaryFragment extends BaseSearchFragment {
         mStickyLV.setOnItemClickListener(new OnItemClick());
         mStickyLV.setOnItemLongClickListener(new OnPlanItemLongClick());
         mStickyLV.setDividerHeight(0);
-        mNecessaryAdapter = new NeccssaryFragmentAdapter(getActivity(), getSupportFragmentManager(), timerTasks);
+        mNecessaryAdapter = new NeccssaryFragmentAdapter(getActivity(), getSupportFragmentManager
+                (), timerTasks);
         mStickyLV.setAdapter(mNecessaryAdapter);
         getData();
         //initPop();
@@ -131,20 +134,22 @@ public class NecessaryFragment extends BaseSearchFragment {
             }
         };
 
-        Request<JsonResult<List<NecessaryListInfo>>> request = new GsonRequest<JsonResult<List<NecessaryListInfo>>>(Request
-                .Method.POST, url,
-                successListener, errorListener, new TypeToken<JsonResult<List<NecessaryListInfo>>>() {
-        }.getType()) {
+        Request<JsonResult<List<NecessaryListInfo>>> request = new
+                GsonRequest<JsonResult<List<NecessaryListInfo>>>(Request
+                        .Method.POST, url,
+                        successListener, errorListener, new
+                        TypeToken<JsonResult<List<NecessaryListInfo>>>() {
+                        }.getType()) {
 
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
 
-                Map<String, String> params = new HashMap<>();
-                params.put(KeyConstant.APP_TYPE_ID, Constant.APP_TYPE_ID_0_ANDROID);
-                params.put(KeyConstant.parentId, Constant.APP_TYPE_ID_0_ANDROID);
-                return params;
-            }
-        };
+                        Map<String, String> params = new HashMap<>();
+                        params.put(KeyConstant.APP_TYPE_ID, Constant.APP_TYPE_ID_0_ANDROID);
+                        params.put(KeyConstant.parentId, Constant.APP_TYPE_ID_0_ANDROID);
+                        return params;
+                    }
+                };
         StoreApplication.requestQueue.add(request);
     }
 
@@ -181,16 +186,20 @@ public class NecessaryFragment extends BaseSearchFragment {
             NecessaryListInfo necessaryListInfo = necessaryListInfoList.get(i);
             int id = necessaryListInfo.getId();
             String toolName = necessaryListInfo.getToolName();
-            List<NecessaryListInfo.AuxiliaryToolsBean> singeToolList = necessaryListInfo.getAuxiliaryTools();
-            Log.d(TAG, "数据为空: " + singeToolList);
+            List<NecessaryListInfo.AuxiliaryToolsBean> singeToolList = necessaryListInfo
+                    .getAuxiliaryTools();
+            Log.d(TAG, "数据: " + singeToolList.size());
             if (singeToolList != null) {
                 for (int j = 0; j < singeToolList.size(); j++) {
                     mToolInfo = singeToolList.get(j);
-                    mNecessaryList.add(new NecessaryItemData(id + "", toolName, mToolInfo.getId(), mToolInfo.getToolName()
-                            , mToolInfo.getInstallDesc(), Formatter.formatFileSize(content, mToolInfo.getFileSize()),
-                            mToolInfo.getToolLogo(), mToolInfo.getToolURL(), mToolInfo.getMd5(), mToolInfo.getFileName(),
+                    mNecessaryList.add(new NecessaryItemData(id + "", toolName, mToolInfo.getId()
+                            , mToolInfo.getToolName()
+                            , mToolInfo.getInstallDesc(), Formatter.formatFileSize(content,
+                            mToolInfo.getFileSize()),
+                            mToolInfo.getToolLogo(), mToolInfo.getToolURL(), mToolInfo.getMd5(),
+                            mToolInfo.getFileName(),
                             mToolInfo
-                            .getPackages(), mToolInfo.getToolVersion()));
+                                    .getPackages(), mToolInfo.getToolVersion()));
                 }
             }
         }
@@ -207,15 +216,19 @@ public class NecessaryFragment extends BaseSearchFragment {
                 .necessary_content_desc)));
         mNecessaryList.add(new NecessaryItemData("1", "谷歌", "5", "谷歌安装器", "未知", getString(R.string
                 .necessary_content_desc)));
-        mNecessaryList.add(new NecessaryItemData("2", "腾讯", "54", "腾讯助手", "腾讯助手腾讯助手腾讯助手腾讯助手", getString(R.string
+        mNecessaryList.add(new NecessaryItemData("2", "腾讯", "54", "腾讯助手", "腾讯助手腾讯助手腾讯助手腾讯助手",
+        getString(R.string
                 .necessary_content_desc)));
-        mNecessaryList.add(new NecessaryItemData("2", "腾讯", "10", "腾讯助手", "腾讯助手腾讯助手腾讯助手腾讯助手", getString(R.string
+        mNecessaryList.add(new NecessaryItemData("2", "腾讯", "10", "腾讯助手", "腾讯助手腾讯助手腾讯助手腾讯助手",
+        getString(R.string
                 .necessary_content_desc)));
 
 
-        mNecessaryList.add(new NecessaryItemData("5", "百度", "11", "百度助手", "百度助手百度助手百度助手百度助手百度助手", getString(R.string
+        mNecessaryList.add(new NecessaryItemData("5", "百度", "11", "百度助手", "百度助手百度助手百度助手百度助手百度助手",
+         getString(R.string
                 .necessary_content_desc)));
-        mNecessaryList.add(new NecessaryItemData("5", "百度", "16", "百度助手", "百度助手百度助手百度助手百度助手百度助手", getString(R.string
+        mNecessaryList.add(new NecessaryItemData("5", "百度", "16", "百度助手", "百度助手百度助手百度助手百度助手百度助手",
+         getString(R.string
                 .necessary_content_desc)));
 
     }*/
@@ -225,7 +238,8 @@ public class NecessaryFragment extends BaseSearchFragment {
         ActionItem pointItem = new ActionItem(1, "不再喜欢", null);
         mItemClickQuickAction.addActionItem(pointItem);
 
-        mItemClickQuickAction.setOnActionItemClickListener(new QuickAction.OnActionItemClickListener() {
+        mItemClickQuickAction.setOnActionItemClickListener(new QuickAction
+                .OnActionItemClickListener() {
             @Override
             public void onItemClick(QuickAction source, int pos, int actionId) {
                 if (pos == 0) {
@@ -238,17 +252,17 @@ public class NecessaryFragment extends BaseSearchFragment {
         });
     }
 
+
     @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-     /*   if (hidden && null != mNecessaryAdapter) {
+    public void onStop() {
+        super.onStop();
+      /*  if (null != mNecessaryAdapter) {
             for (TimerTask timerTask : timerTasks) {
                 timerTask.cancel();
             }
             timerTasks.clear();
         }*/
     }
-
 
     @Override
     protected void onFirstUserVisible() {

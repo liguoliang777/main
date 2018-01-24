@@ -31,7 +31,7 @@ public class ManagerFragment extends BaseSearchFragment {
     private String pwd;
     private boolean isNeedLoad = true;
     private InstalledFragment installedFragment;
-    private NecessaryFragment necessaryFragment;
+    private LikeFragment necessaryFragment;
     private LikeFragment likeFragment;
     private FragmentManager fragmentManager;
     private RelativeLayout tab0, tab1, tab2;
@@ -70,7 +70,7 @@ public class ManagerFragment extends BaseSearchFragment {
             likeFragment = LikeFragment.newInstance(typeValue, 1, context);
         }
         if (necessaryFragment == null) {
-            necessaryFragment = NecessaryFragment.newInstance("1", 3, context);
+            necessaryFragment = LikeFragment.newInstance("1", 3, context);
         }
 
         transaction.add(R.id.viewpager, installedFragment);

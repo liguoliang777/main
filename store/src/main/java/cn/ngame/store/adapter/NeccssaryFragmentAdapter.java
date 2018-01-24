@@ -186,7 +186,7 @@ public class NeccssaryFragmentAdapter extends BaseAdapter implements StickyListH
                         public void run() {
                             progressBar.setLoadState(fileLoad.getGameFileLoadStatus(toolInfo.getFileName(), toolInfo
                                     .getToolURL(), toolInfo.getPackages(), ConvUtil.NI(toolInfo.getToolVersion())));
-                            progressBar.setVisibility(View.VISIBLE);
+                            //progressBar.setVisibility(View.VISIBLE);
                         }
                     });
                 }
@@ -222,7 +222,7 @@ public class NeccssaryFragmentAdapter extends BaseAdapter implements StickyListH
                     }
                 }
             });
-            progressBar.setVisibility(View.INVISIBLE);
+            //progressBar.setVisibility(View.INVISIBLE);
             //设置进度条状态
             int version = ConvUtil.NI(toolVersion);
             progressBar.setLoadState(fileLoad.getGameFileLoadStatus(toolInfo.getFileName(), toolInfo

@@ -73,7 +73,6 @@
             android:text="@string/download"
             android:textColor="@color/white"
             android:textSize="14dp"
-            android:visibility="invisible"
             ngame:progress="0"
             />
     </RelativeLayout>
