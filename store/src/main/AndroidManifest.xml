@@ -376,7 +376,7 @@
             android:theme="@android:style/Theme.NoTitleBar"
             />
         <activity
-            android:name=".activity.sm.NecessaryActivity"
+            android:name=".activity.sm.NecessaryOrLikeActivity"
             android:launchMode="singleTask"
             android:theme="@android:style/Theme.NoTitleBar"
             />

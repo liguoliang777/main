@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -32,7 +32,6 @@ import java.util.TimerTask;
 
 import cn.ngame.store.R;
 import cn.ngame.store.StoreApplication;
-import cn.ngame.store.activity.main.MainHomeActivity;
 import cn.ngame.store.adapter.LikeFragmentAdapter;
 import cn.ngame.store.base.fragment.BaseSearchFragment;
 import cn.ngame.store.bean.JsonResult;
@@ -57,19 +56,14 @@ public class LikeFragment extends BaseSearchFragment {
     public static int PAGE_SIZE = 15;
     protected QuickAction mItemClickQuickAction;
     private LikeFragmentAdapter likeAdapter;
-    private static MainHomeActivity content;
+    private FragmentActivity content;
     private List<LikeListBean.DataBean.GameListBean> gameList;
     private TextView emptyTv;
 
-    public static LikeFragment newInstance(String type, int arg, MainHomeActivity context) {
-        LikeFragment fragment = new LikeFragment();
-        content = context;
-        Bundle bundle = new Bundle();
-        bundle.putString("type", type);
-        bundle.putInt("typeValue", arg);
-        fragment.setArguments(bundle);
-        return fragment;
+    public LikeFragment(FragmentActivity activity) {
+        content=activity;
     }
+
 
     @Override
     protected int getContentViewLayoutID() {
@@ -82,6 +76,7 @@ public class LikeFragment extends BaseSearchFragment {
     protected void initViewsAndEvents(View view) {
         listView =  view.findViewById(R.id.listView);
         emptyTv =  view.findViewById(R.id.empty_tv);
+        getLikeList();
     }
 
     private void getLikeList() {
@@ -283,18 +278,13 @@ public class LikeFragment extends BaseSearchFragment {
 
     @Override
     protected void onFirstUserVisible() {
-        getLikeList();
+    }
+
+    @Override
+    protected void onUserVisible() {
     }
 
     protected final static String TAG = LikeFragment.class.getSimpleName();
-
-    protected void onUserVisible() {
-      /*  if (null != likeAdapter) {
-            likeAdapter.clean();
-        }*/
-        getLikeList();
-    }
-
 
     @Override
     protected void onUserInvisible() {

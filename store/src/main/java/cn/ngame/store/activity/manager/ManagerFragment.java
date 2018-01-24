@@ -1,215 +1,247 @@
 package cn.ngame.store.activity.manager;
 
 import android.annotation.SuppressLint;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.text.TextPaint;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import cn.ngame.store.R;
-import cn.ngame.store.StoreApplication;
-import cn.ngame.store.activity.main.MainHomeActivity;
+import cn.ngame.store.adapter.InstalledGameAdapter;
 import cn.ngame.store.base.fragment.BaseSearchFragment;
-import cn.ngame.store.core.utils.Constant;
-
+import cn.ngame.store.core.fileload.FileLoadInfo;
+import cn.ngame.store.core.fileload.FileLoadManager;
+import cn.ngame.store.core.fileload.IFileLoad;
+import cn.ngame.store.core.utils.AppInstallHelper;
+import cn.ngame.store.core.utils.FileUtil;
+import cn.ngame.store.view.ActionItem;
+import cn.ngame.store.view.QuickAction;
 
 /**
- * 管理
- * Created by gp on 2017/3/14 0014.
+ * 下载更新fragment (懒加载-当滑动到当前fragment时，才去加载。而不是进入到activity时，加载所有fragment)
+ * Created by gp on 2017/3/3 0003.
  */
-@SuppressLint("WrongConstant")
+@SuppressLint({"ValidFragment", "WrongConstant"})
 public class ManagerFragment extends BaseSearchFragment {
-    String typeValue = "";
-    private static MainHomeActivity context;
-    private String pwd;
-    private boolean isNeedLoad = true;
-    private InstalledFragment installedFragment;
-    private LikeFragment necessaryFragment;
-    private LikeFragment likeFragment;
-    private FragmentManager fragmentManager;
-    private RelativeLayout tab0, tab1, tab2;
-    private FragmentTransaction transaction;
-    private ImageView iv_0, iv_1, iv_2;
-    private TextView tv_0, tv_1, tv_2;
-    private ArrayList<ImageView> ivList;
-    private ArrayList<TextView> tvList;
-    protected final static String TAG = ManagerFragment.class.getSimpleName();
+    final static String TAG = ManagerFragment.class.getSimpleName();
+    ListView listView;
+    public static int PAGE_SIZE = 10;
+    protected QuickAction mItemClickQuickAction;
+    private IFileLoad fileLoad;
+    private InstalledGameAdapter alreadyLvAdapter;
+    private FragmentActivity content;
+    private boolean mHidden = false;
+    private PackageInfo mfileUnstalledInfo;
+    private PackageManager packageManager;
+    private String pkgNameListStr = "";
+    private List<FileLoadInfo> openFileInfoList;
+    private List<PackageInfo> packageInfos = new ArrayList<>();
+    private PackageInfo packageInfo = new PackageInfo();
+    private ApplicationInfo applicationInfo;
+    private int oldLength;
+    private TextView emptyTv;
 
-    public static ManagerFragment newInstance(MainHomeActivity c) {
-        context = c;
-        Log.d(TAG, "12345 newInstance: ");
-        Bundle args = new Bundle();
-        ManagerFragment fragment = new ManagerFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
+
 
     @Override
     protected int getContentViewLayoutID() {
         Log.d(TAG, "getContentViewLayoutID: ");
-        return R.layout.fragment_manager;
+        return R.layout.fragment_installed;
     }
 
     @Override
-    protected void initViewsAndEvents(View view) {//初始化
-        Log.d(TAG, "6666initViewsAndEvents: ");
-        fragmentManager = getChildFragmentManager();
-        transaction = fragmentManager.beginTransaction();
-
-        if (installedFragment == null) {
-            installedFragment = InstalledFragment.newInstance("2", 2, context);
-        }
-        if (likeFragment == null) {
-            likeFragment = LikeFragment.newInstance(typeValue, 1, context);
-        }
-        if (necessaryFragment == null) {
-            necessaryFragment = LikeFragment.newInstance("1", 3, context);
-        }
-
-        transaction.add(R.id.viewpager, installedFragment);
-        transaction.add(R.id.viewpager, likeFragment);
-        transaction.add(R.id.viewpager, necessaryFragment);
-
-        transaction.hide(necessaryFragment).hide(likeFragment).show(installedFragment);
-        transaction.commit();
-
-        tab0 = view.findViewById(R.id.manager_bt_0);
-        tab1 = view.findViewById(R.id.manager_bt_1);
-        tab2 = view.findViewById(R.id.manager_bt_2);
-
-        tab0.setOnClickListener(onTabClickListener);
-        tab1.setOnClickListener(onTabClickListener);
-        tab2.setOnClickListener(onTabClickListener);
-
-        iv_0 = view.findViewById(R.id.manager_top_iv_0);
-        tv_0 = view.findViewById(R.id.manager_top_tv_0);
-        iv_1 = view.findViewById(R.id.manager_top_iv_1);
-        tv_1 = view.findViewById(R.id.manager_top_tv_1);
-        iv_2 = view.findViewById(R.id.manager_top_iv_2);
-        tv_2 = view.findViewById(R.id.manager_top_tv_2);
-
-        iv_0.setSelected(true);
-        tv_0.setSelected(true);
-
-        ivList = new ArrayList<>();
-        ivList.add(0, iv_0);
-        ivList.add(1, iv_1);
-        ivList.add(2, iv_2);
-        tvList = new ArrayList<>();
-        tvList.add(0, tv_0);
-        tvList.add(1, tv_1);
-        tvList.add(2, tv_2);
-
-
+    protected void initViewsAndEvents(View view) {
+        Log.d(TAG, "initViewsAndEvents: ");
+        content = getActivity();
+        packageManager = content.getPackageManager();
+        listView = (ListView) view.findViewById(R.id.listView);
+        emptyTv = (TextView) view.findViewById(R.id.empty_tv);
+        emptyTv.setText("游戏列表为空~");
+        initPop();
+        initListView();
     }
 
-    int IS_TAB = 0;
-    private View.OnClickListener onTabClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            transaction = fragmentManager.beginTransaction();
-            switch (view.getId()) {
-                case R.id.manager_bt_0:
-                    IS_TAB = 0;
-                    transaction.show(installedFragment).hide(likeFragment).hide(necessaryFragment);
-                    break;
-                case R.id.manager_bt_1:
-                    IS_TAB = 1;
-                    likeFragment.onUserVisible();
-                    transaction.show(likeFragment).hide(installedFragment).hide(necessaryFragment);
-                    break;
-                case R.id.manager_bt_2:
-                    IS_TAB = 2;
-                    transaction.show(necessaryFragment).hide(installedFragment).hide(likeFragment);
-                    break;
-            }
-            setTopColor();
-            transaction.commit();
-        }
-    };
+    public void initListView() {
+        alreadyLvAdapter = new InstalledGameAdapter(content, getSupportFragmentManager(),
+                mItemClickQuickAction);
+        listView.setAdapter(alreadyLvAdapter);
+        fileLoad = FileLoadManager.getInstance(content);
+    }
 
-    /**
-     * 设置顶部Tab控件,文字的颜色
-     */
-    private void setTopColor() {
-        for (int i = 0; i < ivList.size(); i++) {
-            ivList.get(i).setSelected(IS_TAB == i ? true : false);
+    private List<PackageInfo> localAppList = new ArrayList<>();
 
-            TextView tabTv = tvList.get(i);
-            TextPaint paint = tabTv.getPaint();
-            if (IS_TAB == i) {
-                tabTv.setSelected(true);
-                paint.setUnderlineText(true);
-                paint.setAntiAlias(true);
-            } else {
-                tabTv.setSelected(false);
-                paint.setUnderlineText(false);
-            }
-        }
+    private JSONArray jsonArray = new JSONArray();
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Log.d(TAG, "onActivityCreated: ");
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        Log.d(TAG, "onStart: 开始");
-        //是否显示了,显示了就去加载
-        if (isNeedLoad) {
-            setTabViewPagerData();
+        Log.d(TAG, "onStart: ");
+        //获取本地
+       try {
+            pkgNameListStr = FileUtil.readFile();
+            if (null != pkgNameListStr) {
+                jsonArray = new JSONArray(pkgNameListStr);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        oldLength = jsonArray.length();
+        //获取数据库 =>  添加
+        openFileInfoList = fileLoad.getOpenFileInfo();
+        for (FileLoadInfo openFileInfo : openFileInfoList) {
+            //String gameName = openFileInfo.getName();
+            String gamePackageName = openFileInfo.getPackageName();
+            if (pkgNameListStr == null || !pkgNameListStr.contains(gamePackageName)) {
+                jsonArray.put(gamePackageName);
+            }
+        }
+        if (jsonArray.length() > oldLength) {
+            FileUtil.writeFile2SDCard(jsonArray.toString());
+            pkgNameListStr = FileUtil.readFile();
+        }
+        if (!mHidden && null != alreadyLvAdapter) {
+            alreadyLvAdapter.setDate(getLocalApp());
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume: ");
+
+    }
+
+    private List<PackageInfo> getLocalApp() {
+        packageInfos = packageManager.getInstalledPackages(0);
+        localAppList.clear();
+        if (pkgNameListStr != null) {
+            for (int i = 0; i < packageInfos.size(); i++) {
+                packageInfo = packageInfos.get(i);
+                applicationInfo = packageInfo.applicationInfo;
+                //非系统应用
+                if (null != applicationInfo) {
+                    if ((applicationInfo.flags & applicationInfo.FLAG_SYSTEM) <= 0) {
+                        String appName = applicationInfo.loadLabel(packageManager).toString();
+                        String packageName = applicationInfo.packageName;
+                        //如果包名
+                        if (pkgNameListStr.contains(packageName) && !"cn.ngame.store".equals
+                                (packageName)) {
+                            localAppList.add(packageInfo);
+                        }
+                    }
+                }
+            }
+            if (localAppList == null || localAppList.size() == 0) {
+                emptyTv.setVisibility(View.VISIBLE);
+            } else {
+                emptyTv.setVisibility(View.GONE);
+            }
+        } else {
+            emptyTv.setVisibility(View.VISIBLE);
+        }
+        return localAppList;
+    }
 
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        Log.d(TAG, "改变"+hidden);
-        isNeedLoad = !hidden;
-        if (isNeedLoad) {
-            setTabViewPagerData();
+        mHidden = hidden;
+        if (!mHidden && null != alreadyLvAdapter && null != fileLoad) {
+            alreadyLvAdapter.setDate(getLocalApp());
         }
-        installedFragment.onHiddenChanged(hidden);
-        likeFragment.onHiddenChanged(hidden);
-        necessaryFragment.onHiddenChanged(hidden);
     }
 
-    private void setTabViewPagerData() {
-        //没有登录
-        pwd = StoreApplication.passWord;
-        if ((pwd != null && !"".endsWith(pwd)) || !Constant.PHONE.equals(StoreApplication
-                .loginType)) {
-            //已登录
-            tab1.setVisibility(View.VISIBLE);
-        } else {
-            //未登录
-            tab1.setVisibility(View.GONE);
-            if (IS_TAB == 1) {
-                IS_TAB = 0;
+    @Override
+    public void onStop() {
+        super.onStop();
+      /*  if (null == jsonArray) {
+            return;
+        }
+        try {
+            boolean has;
+            for (int i = 0; i < jsonArray.length(); i++) {
+                has = false;
+                String sdPkgName = (String) jsonArray.get(i);
+                for (PackageInfo info : localAppList) {
+                    if (sdPkgName.equals(info.packageName)) {
+                        has = true;
+                    }
+                }
+                if (!has) {
+                    jsonArray.remove(i);
+                }
             }
-        }
-        transaction = fragmentManager.beginTransaction();
-        switch (IS_TAB) {
-            case 0:
-                transaction.show(installedFragment).hide(likeFragment).hide(necessaryFragment);
-                break;
-            case 1:
-                transaction.show(likeFragment).hide(installedFragment).hide(necessaryFragment);
-                likeFragment.onUserVisible();
-                break;
-            case 2:
-                transaction.show(necessaryFragment).hide(installedFragment).hide(likeFragment);
-                break;
-        }
-        setTopColor();
-        transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
+
     }
 
+    private void initPop() {
+        // 设置Action
+        mItemClickQuickAction = new QuickAction(content, QuickAction.VERTICAL);
+        ActionItem pointItem = new ActionItem(0, "卸载", null);
+        mItemClickQuickAction.addActionItem(pointItem);
+        mItemClickQuickAction.setOnActionItemClickListener(new QuickAction
+                .OnActionItemClickListener() {
+            @Override
+            public void onItemClick(QuickAction source, int pos, int actionId) {
+                if (pos == 0) {
+                    //删除文件下载任务
+                    mfileUnstalledInfo = alreadyLvAdapter.getItemInfo();
+                    //卸载
+                    String packageName = mfileUnstalledInfo.applicationInfo.packageName;
+
+                    AppInstallHelper.unstallApp(content, packageName);
+
+                    if (null == packageName) {
+                        return;
+                    }
+                    //删除安装包和正在下载的文件
+                    List<FileLoadInfo> loadingFileInfo = fileLoad.getOpenFileInfo();
+                    for (FileLoadInfo fileLoadInfo : loadingFileInfo) {
+                        if (packageName.equals(fileLoadInfo.getPackageName())) {
+                            fileLoad.delete(fileLoadInfo.getUrl());
+                        }
+
+                    }
+
+                   /* try {
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            String pkgName = (String) jsonArray.get(i);
+                            if (packageName.equals(pkgName)) {
+                                jsonArray.remove(i);
+                            }
+                        }
+
+                        FileUtil.writeFile2SDCard(jsonArray.toString());
+                        pkgNameListStr = FileUtil.readFile();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }*/
+                    mItemClickQuickAction.dismiss();
+                    source.dismiss();
+                }
+
+            }
+        });
+    }
 
     @Override
     protected void onFirstUserVisible() {
@@ -230,5 +262,4 @@ public class ManagerFragment extends BaseSearchFragment {
     protected View getLoadView(View view) {
         return null;
     }
-
 }

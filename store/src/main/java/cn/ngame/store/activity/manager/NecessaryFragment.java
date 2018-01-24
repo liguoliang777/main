@@ -22,7 +22,7 @@ import java.util.TimerTask;
 
 import cn.ngame.store.R;
 import cn.ngame.store.StoreApplication;
-import cn.ngame.store.activity.sm.NecessaryActivity;
+import cn.ngame.store.activity.sm.NecessaryOrLikeActivity;
 import cn.ngame.store.adapter.NeccssaryFragmentAdapter;
 import cn.ngame.store.base.fragment.BaseSearchFragment;
 import cn.ngame.store.bean.JsonResult;
@@ -53,7 +53,7 @@ public class NecessaryFragment extends BaseSearchFragment {
     private NecessaryListInfo.AuxiliaryToolsBean mToolInfo;
     private TextView mEmptyTV;
 
-    public NecessaryFragment(NecessaryActivity necessaryActivity) {
+    public NecessaryFragment(NecessaryOrLikeActivity necessaryActivity) {
         content = necessaryActivity;
     }
 

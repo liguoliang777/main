@@ -8,7 +8,6 @@
         android:id="@+id/main_home_title_rlay"
         android:layout_width="match_parent"
         android:layout_height="@dimen/app_title_height"
-        android:layout_marginTop="0dp"
         android:background="@color/mainColor">
 
         <com.facebook.drawee.view.SimpleDraweeView xmlns:fresco="http://schemas.android.com/apk/res-auto"
@@ -104,6 +103,18 @@
             android:src="@drawable/ic_download"
             android:textSize="@dimen/dm028"
             android:visibility="gone" />
+        <ImageView
+            android:id="@+id/main_like_bt"
+            android:layout_width="@dimen/dm062"
+            android:layout_height="@dimen/dm032"
+            android:layout_centerVertical="true"
+            android:paddingRight="@dimen/dm020"
+            android:paddingLeft="@dimen/dm010"
+            android:layout_toLeftOf="@id/main_download_bt"
+            android:gravity="center_vertical"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_xihuanrukou"
+            android:visibility="gone"/>
 
         <ImageView
             android:id="@+id/main_hub_bt"

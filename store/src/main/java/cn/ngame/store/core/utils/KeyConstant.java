@@ -52,4 +52,7 @@ public class KeyConstant {
     public static final String postId = "postId";
     public static final String postCategoryId="postCategoryId";
     public static final String pageIndex="pageIndex";
+    public static final String likeOrNecessaryExtraKey="likeOrNecessaryExtraKey";
+    public static final int EXTRA_LIKE=0;
+    public static final int EXTRA_NECESSARY=1;
 }
