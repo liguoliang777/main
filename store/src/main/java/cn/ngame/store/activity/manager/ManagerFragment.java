@@ -124,17 +124,6 @@ public class ManagerFragment extends Fragment {
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         Log.d(TAG, "onHiddenChanged: ");
-       /* mHidden = hidden;
-        if (!mHidden && null != alreadyLvAdapter && null != fileLoad) {
-            alreadyLvAdapter.setDate(getLocalApp());
-        }*/
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d(TAG, "onResume: ");
-
     }
 
     private List<PackageInfo> getLocalApp() {
@@ -170,26 +159,6 @@ public class ManagerFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-      /*  if (null == jsonArray) {
-            return;
-        }
-        try {
-            boolean has;
-            for (int i = 0; i < jsonArray.length(); i++) {
-                has = false;
-                String sdPkgName = (String) jsonArray.get(i);
-                for (PackageInfo info : localAppList) {
-                    if (sdPkgName.equals(info.packageName)) {
-                        has = true;
-                    }
-                }
-                if (!has) {
-                    jsonArray.remove(i);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
 
     }
 
@@ -221,20 +190,6 @@ public class ManagerFragment extends Fragment {
                         }
 
                     }
-
-                   /* try {
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            String pkgName = (String) jsonArray.get(i);
-                            if (packageName.equals(pkgName)) {
-                                jsonArray.remove(i);
-                            }
-                        }
-
-                        FileUtil.writeFile2SDCard(jsonArray.toString());
-                        pkgNameListStr = FileUtil.readFile();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }*/
                     mItemClickQuickAction.dismiss();
                     source.dismiss();
                 }
