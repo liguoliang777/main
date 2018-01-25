@@ -41,7 +41,8 @@ public class RecommendListAdapter extends BaseAdapter {
     private List<RecommendListBean.DataBean> list;
     private int type;
 
-    public RecommendListAdapter(Context context, FragmentManager fm, List<RecommendListBean.DataBean> list, int type) {
+    public RecommendListAdapter(Context context, FragmentManager fm, List<RecommendListBean
+            .DataBean> list, int type) {
         super();
         this.context = context;
         this.fm = fm;
@@ -80,11 +81,12 @@ public class RecommendListAdapter extends BaseAdapter {
         final RecommendListBean.DataBean gameInfo = (list == null) ? null : list.get(position);
         final ViewHolder holder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.recommend_list_item, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.recommend_list_item,
+                    parent, false);
             holder = new ViewHolder(context, fm);
-            holder.fromIv =  convertView.findViewById(R.id.img_1);
+            holder.fromIv = convertView.findViewById(R.id.img_1);
             holder.game_logo_Iv = convertView.findViewById(R.id.recommend_game_pic);
-            holder.tv_title =  convertView.findViewById(R.id.tv_title);
+            holder.tv_title = convertView.findViewById(R.id.tv_title);
             holder.tv_summary = convertView.findViewById(R.id.tv_summary);
             convertView.setTag(holder);
         } else {
@@ -103,9 +105,11 @@ public class RecommendListAdapter extends BaseAdapter {
         private SimpleDraweeView fromIv;
         private TextView tv_title, tv_summary;
         public ImageView game_logo_Iv;
+        private static Picasso picasso;
 
         public ViewHolder(Context context, FragmentManager fm) {
             this.context = context;
+            picasso = Picasso.with(context);
         }
 
         /**
@@ -119,14 +123,13 @@ public class RecommendListAdapter extends BaseAdapter {
             if (imgUrl != null && imgUrl.trim().equals("")) {
                 imgUrl = null;
             }
-            Picasso.with(context).load(imgUrl).placeholder(R.drawable.ic_def_logo_720_288)
+            picasso.load(imgUrl).placeholder(R.drawable.ic_def_logo_720_288)
                     .error(R.drawable.ic_def_logo_720_288)
-                   // .resize(screenWidth,150)
                     .into(game_logo_Iv);
             fromIv.setImageURI(fromUrl);
 
             String gameName = gameInfo.getGameName();
-            Log.d("图片", gameName+"："+imgUrl);
+            Log.d("图片", gameName + "：" + imgUrl);
             if (!"".equals(gameName)) {
                 tv_title.setText(gameName);
             }

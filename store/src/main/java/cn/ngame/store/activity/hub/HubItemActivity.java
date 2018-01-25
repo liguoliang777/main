@@ -310,7 +310,7 @@ public class HubItemActivity extends BaseFgActivity {
                     @Override
                     public void onError(Throwable e) {
                         mSupportBt.setEnabled(true);
-                        ToastUtil.show(mContext, "点赞失败哦,请稍后重试~");
+                        ToastUtil.show(mContext, "点赞失败,请稍后重试~");
                     }
 
                     @Override
@@ -337,7 +337,7 @@ public class HubItemActivity extends BaseFgActivity {
                             } else {
                             }
                         } else {
-                            ToastUtil.show(mContext, "点赞失败哦,请稍后重试~");
+                            ToastUtil.show(mContext, "点赞失败,请稍后重试~");
                         }
                     }
                 });
