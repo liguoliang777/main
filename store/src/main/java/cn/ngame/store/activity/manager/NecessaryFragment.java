@@ -1,5 +1,6 @@
 package cn.ngame.store.activity.manager;
 
+import android.annotation.SuppressLint;
 import android.support.v4.app.FragmentActivity;
 import android.text.format.Formatter;
 import android.util.Log;
@@ -42,7 +43,7 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
  * 必备
  * Created by gp on 2017/3/3 0003.
  */
-
+@SuppressLint({"ValidFragment", "WrongConstant"})
 public class NecessaryFragment extends BaseSearchFragment {
 
     private PageAction pageAction;

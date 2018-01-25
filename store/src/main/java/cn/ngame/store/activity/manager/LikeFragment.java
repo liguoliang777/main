@@ -48,7 +48,7 @@ import cn.ngame.store.view.QuickAction;
 /**
  * Created by gp on 2017/3/3 0003.
  */
-@SuppressLint("WrongConstant")
+@SuppressLint({"ValidFragment", "WrongConstant"})
 public class LikeFragment extends BaseSearchFragment {
 
     private ListView listView;

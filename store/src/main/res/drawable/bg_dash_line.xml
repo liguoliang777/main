@@ -7,7 +7,7 @@
     当dashGap=0时，就是实线-->
     <stroke
         android:width="@dimen/dm001"
-        android:color="@color/e6e6e6"
+        android:color="@color/f5f5f5"
         android:dashGap="@dimen/dm009"
         android:dashWidth="@dimen/dm010"/>
 </shape>

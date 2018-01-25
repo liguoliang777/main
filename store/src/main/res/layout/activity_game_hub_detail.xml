@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:fresco="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/white"
-              android:clipToPadding="false"
-              android:fitsSystemWindows="true"
-              android:orientation="vertical">
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/rl_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/mainColor"
-        >
+        android:background="@color/mainColor">
 
         <Button
             android:id="@+id/left_bt"
@@ -34,8 +33,7 @@
             android:paddingRight="@dimen/dp_20"
             android:text="返回"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/title_size"
-            />
+            android:textSize="@dimen/title_size" />
     </RelativeLayout>
 
     <cn.ngame.store.view.StickyScrollView
@@ -70,8 +68,7 @@
                 fresco:failureImageScaleType="centerCrop"
                 fresco:placeholderImage="@color/dfdfdf"
                 fresco:placeholderImageScaleType="centerCrop"
-                fresco:roundAsCircle="true"
-                />
+                fresco:roundAsCircle="true" />
 
             <TextView
                 android:id="@+id/hub_detail_from_tv"
@@ -83,7 +80,7 @@
                 android:text=""
                 android:textColor="@color/color_1a"
                 android:textSize="@dimen/dm024"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/hub_detail_time_tv"
@@ -94,14 +91,14 @@
                 android:layout_toRightOf="@id/game_hub_sdv"
                 android:text=""
                 android:textColor="@color/color_808080"
-                android:textSize="@dimen/dm020"/>
+                android:textSize="@dimen/dm020" />
 
             <View
                 android:id="@+id/game_hub_line"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dm002"
                 android:layout_below="@id/game_hub_sdv"
-                android:background="@color/e6e6e6"/>
+                android:background="@color/e6e6e6" />
 
             <RelativeLayout
                 android:id="@+id/hub_detail_hub_layout"
@@ -120,8 +117,7 @@
                     fresco:failureImage="@drawable/ic_def_logo_188_188"
                     fresco:failureImageScaleType="centerCrop"
                     fresco:placeholderImage="@color/dfdfdf"
-                    fresco:roundedCornerRadius="@dimen/dm005"
-                    />
+                    fresco:roundedCornerRadius="@dimen/dm005" />
 
                 <TextView
                     android:id="@+id/hub_detail_hub_name_tv"
@@ -135,14 +131,14 @@
                     android:maxWidth="@dimen/dm500"
                     android:text=""
                     android:textColor="@color/color_808080"
-                    android:textSize="@dimen/dm024"/>
+                    android:textSize="@dimen/dm024" />
 
                 <ImageView
                     android:layout_width="@dimen/dm016"
                     android:layout_height="@dimen/dm028"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/ic_next_blue"/>
+                    android:src="@drawable/ic_next_blue" />
 
             </RelativeLayout>
 
@@ -153,7 +149,7 @@
                 android:layout_marginLeft="@dimen/dm020"
                 android:layout_marginRight="@dimen/dm020"
                 android:background="@drawable/bg_dash_line"
-                android:layerType="software"/>
+                android:layerType="software" />
 
 
             <TextView
@@ -170,7 +166,7 @@
                 android:text=""
                 android:textColor="@color/color_333333"
                 android:textSize="@dimen/dm032"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/see_numb_tv"
@@ -182,7 +178,7 @@
                 android:layout_marginTop="@dimen/dm030"
                 android:text=""
                 android:textColor="@color/color_808080"
-                android:textSize="@dimen/dm020"/>
+                android:textSize="@dimen/dm020" />
 
             <ImageView
                 android:layout_width="@dimen/dm028"
@@ -192,7 +188,7 @@
                 android:layout_marginTop="@dimen/dm034"
                 android:layout_toLeftOf="@id/see_numb_tv"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_eyes"/>
+                android:src="@drawable/ic_eyes" />
 
             <View
                 android:id="@+id/hub_line_20"
@@ -200,7 +196,7 @@
                 android:layout_height="@dimen/dm020"
                 android:layout_below="@id/see_numb_tv"
                 android:layout_marginTop="@dimen/dm030"
-                android:background="@color/f7f7f7"/>
+                android:background="@color/f5f5f5" />
 
             <TextView
                 android:id="@+id/game_hub_detail_desc_tv"
@@ -214,7 +210,7 @@
                 android:minHeight="@dimen/dm500"
                 android:text=""
                 android:textColor="@color/color_333333"
-                android:textSize="@dimen/dm024"/>
+                android:textSize="@dimen/dm024" />
 
             <LinearLayout
                 android:id="@+id/hub_item_layout"
@@ -235,8 +231,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="@dimen/dm120"
                 android:layout_marginTop="@dimen/dm050"
-                android:background="@color/white"
-                >
+                android:background="@color/white">
 
                 <ImageView
                     android:id="@+id/game_hub_support_bt"
@@ -246,8 +241,7 @@
                     android:layout_marginBottom="@dimen/dm012"
                     android:background="@drawable/un_zan"
                     android:clickable="false"
-                    android:scaleType="centerInside"
-                    />
+                    android:scaleType="centerInside" />
 
                 <TextView
                     android:id="@+id/game_hub_support_tv"
@@ -257,7 +251,7 @@
                     android:layout_centerHorizontal="true"
                     android:text=""
                     android:textColor="@color/color_333333"
-                    android:textSize="@dimen/dm018"/>
+                    android:textSize="@dimen/dm018" />
             </RelativeLayout>
 
             <cn.ngame.store.view.zan.HeartLayout
@@ -266,7 +260,7 @@
                 android:layout_height="@dimen/dm200"
                 android:layout_above="@id/layout_zan"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="-15dp"/>
+                android:layout_marginBottom="-15dp" />
         </RelativeLayout>
 
     </cn.ngame.store.view.StickyScrollView>
