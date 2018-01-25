@@ -67,7 +67,7 @@ public class LikeFragment extends BaseSearchFragment {
 
     @Override
     protected int getContentViewLayoutID() {
-        return R.layout.fragment_installed;
+        return R.layout.fragment_download_center;
     }
 
     private List<TimerTask> timerTasks = new ArrayList<>();

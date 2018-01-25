@@ -45,7 +45,7 @@ public class DownloadCenterFragment extends BaseSearchFragment {
 
     @Override
     protected int getContentViewLayoutID() {
-        return R.layout.fragment_installed;
+        return R.layout.fragment_download_center;
     }
 
     @Override

@@ -59,12 +59,13 @@ public class ManagerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
             Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView: ");
-        View view = inflater.inflate(R.layout.fragment_installed, container, false);
-        listView = (ListView) view.findViewById(R.id.listView);
-        emptyTv = (TextView) view.findViewById(R.id.empty_tv);
-        emptyTv.setText("游戏列表为空~");
+        View view = inflater.inflate(R.layout.fragment_manager, container, false);
+        listView = (ListView) view.findViewById(R.id.manager_lv);
+        emptyTv = (TextView) view.findViewById(R.id.manager_empty_tv);
+        emptyTv.setText("列表为空~");
         return view;
     }
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -89,13 +90,12 @@ public class ManagerFragment extends Fragment {
     private JSONArray jsonArray = new JSONArray();
 
 
-
     @Override
     public void onStart() {
         super.onStart();
         Log.d(TAG, "onStart: ");
         //获取本地
-      try {
+        try {
             pkgNameListStr = FileUtil.readFile();
             if (null != pkgNameListStr) {
                 jsonArray = new JSONArray(pkgNameListStr);
@@ -116,10 +116,11 @@ public class ManagerFragment extends Fragment {
             FileUtil.writeFile2SDCard(jsonArray.toString());
             pkgNameListStr = FileUtil.readFile();
         }
-        if ( null != alreadyLvAdapter) {
+        if (null != alreadyLvAdapter) {
             alreadyLvAdapter.setDate(getLocalApp());
         }
     }
+
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
