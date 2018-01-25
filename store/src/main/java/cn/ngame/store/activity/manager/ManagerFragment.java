@@ -161,6 +161,7 @@ public class ManagerFragment extends BaseSearchFragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
+        Log.d(TAG, "onHiddenChanged: ");
         mHidden = hidden;
         if (!mHidden && null != alreadyLvAdapter && null != fileLoad) {
             alreadyLvAdapter.setDate(getLocalApp());

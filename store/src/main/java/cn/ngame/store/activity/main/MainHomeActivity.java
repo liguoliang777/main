@@ -17,7 +17,6 @@ import android.support.v4.content.FileProvider;
 import android.text.format.Formatter;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -136,7 +135,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
     private String imgUrl;
     private List<Fragment> mfragmentlist = new ArrayList<>();
     private int rbIndex;
-    private ImageView im_toSearch, mRankBt, mDownloadBt, mLikeBt,mHubBt;
+    private ImageView im_toSearch, mRankBt, mDownloadBt, mLikeBt, mHubBt;
     private FrameLayout fl_notifi;
     private SimpleDraweeView mIconIv;
     private String pwd;
@@ -223,7 +222,11 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
         fragmentManager = getSupportFragmentManager();
         setCurrentMenu(0);    //当前选中标签
 
-        setOnTouchListener(this.new MenuOnTouchListener());
+        home.setOnClickListener(mTabClickListener);
+        //game.setOnTouchListener(listener);
+        menu_game_hub.setOnClickListener(mTabClickListener);
+        video.setOnClickListener(mTabClickListener);
+        manager.setOnClickListener(mTabClickListener);
 
         pwd = StoreApplication.passWord;
         //如果用户没有主动退出，则重新登录
@@ -267,26 +270,29 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
         initSlidingMenu();
         //头像(只能放在最后)
         setUserIcon();
-
-     /*   if (Build.VERSION.SDK_INT >= 23) {
-            String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.READ_LOGS,
-             Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.SET_DEBUG_APP, Manifest
-                    .permission.SYSTEM_ALERT_WINDOW, Manifest.permission.WRITE_APN_SETTINGS};
-            ActivityCompat.requestPermissions(this, mPermissionList, 777);
-        }*/
-        //Intent intent = new Intent(this, SplashFullscreenActivity.class);
-        //startActivity(intent);
     }
 
-    /*  @Override
-      public void onRequestPermissionsResult(int requestCode, String permissions[], int[]
-      grantResults) {
-          android.util.Log.d(TAG, "onRequest6.0PermissionsResult: " + requestCode);
 
-      }*/
-    //DisplayImageOptions roundOptions = FileUtil.getRoundOptions(R.drawable.ic_def_logo_188_188,
-    // 360);
+    View.OnClickListener mTabClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.menu_home_ll:
+                    setCurrentMenu(0);
+                    break;
+                case R.id.menu_game_hub:
+                    setCurrentMenu(2);
+                    break;
+                case R.id.menu_video:
+                    setCurrentMenu(3);
+                    break;
+                case R.id.menu_manager:
+                    setCurrentMenu(4);
+                    break;
+            }
+        }
+    };
+
 
     @Override
     protected void onResume() {
@@ -387,9 +393,9 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                 startActivity(new Intent(context, JoypadSettingsActivity.class));
             } else if (id == R.id.sm_about_us) {//关于Ngame
                 startActivity(new Intent(context, AboutNgameZoneActivity.class));
-            }else if (id == R.id.sm_neccessary_tool) {//关于Ngame
+            } else if (id == R.id.sm_neccessary_tool) {//关于Ngame
                 Intent intent = new Intent(context, NecessaryOrLikeActivity.class);
-                intent.putExtra(KeyConstant.likeOrNecessaryExtraKey,KeyConstant.EXTRA_NECESSARY);
+                intent.putExtra(KeyConstant.likeOrNecessaryExtraKey, KeyConstant.EXTRA_NECESSARY);
                 startActivity(intent);
             } else if (id == R.id.sm_ad) {//广告与合作
                 startActivity(new Intent(context, AdCooperativeActivity.class));
@@ -571,10 +577,9 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
             administrationFragment = new ManagerFragment();
             transaction.add(R.id.main_list_fragments, administrationFragment);
         }
-        hideFragments(transaction);
         switch (currentMenu) {
             case 0://推荐
-                transaction.show(selectedFragment);
+                transaction.show(selectedFragment).hide(discoverFragment).hide(gameHubFragment).hide(administrationFragment);
                 selectedFragment.scroll2Top();
                 selectedFragment.setShow(true);
                 if (null != discoverFragment) {
@@ -615,7 +620,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                 tv_game.setTextColor(colorDark);
                 break;*/
             case 3://分类
-                transaction.show(discoverFragment);
+                transaction.show(discoverFragment).hide(selectedFragment).hide(gameHubFragment).hide(administrationFragment);
                 discoverFragment.scroll2Top();
                 discoverFragment.setShow(true);
                 selectedFragment.setShow(false);
@@ -631,7 +636,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                 MobclickAgent.onEvent(context, UMEventNameConstant.mainDiscoverButtonClickCount);
                 break;
             case 2://圈子
-                transaction.show(gameHubFragment);
+                transaction.show(gameHubFragment).hide(selectedFragment).hide(discoverFragment).hide(administrationFragment);
                 menu_game_hub_bt.setSelected(true);
                 mTitleTv.setText(R.string.main_tab_04);
                 fl_notifi.setVisibility(View.GONE);
@@ -644,7 +649,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                 MobclickAgent.onEvent(context, UMEventNameConstant.mainCircleButtonClickCount);
                 break;
             case 4://管理
-                transaction.show(administrationFragment);
+                transaction.show(administrationFragment).hide(selectedFragment).hide(gameHubFragment).hide(discoverFragment);
                 selectedFragment.setShow(false);
                 if (null != discoverFragment) {
                     discoverFragment.setShow(false);
@@ -663,76 +668,6 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
         }
         transaction.commitAllowingStateLoss();
     }
-
-    private void hideFragments(FragmentTransaction transaction) {
-        if (null != selectedFragment) {
-            transaction.hide(selectedFragment);
-        }
-     /*   if (null != rankingFragment) {
-            transaction.hide(rankingFragment);
-        }*/
-        if (null != gameHubFragment) {
-            transaction.hide(gameHubFragment);
-        }
-        if (null != discoverFragment) {
-            transaction.hide(discoverFragment);
-        }
-        if (null != administrationFragment) {
-            transaction.hide(administrationFragment);
-        }
-    }
-
-    /**
-     * 设置菜单触摸事件监听器
-     *
-     * @param listener
-     */
-    public void setOnTouchListener(View.OnTouchListener listener) {
-        home.setOnTouchListener(listener);
-        //game.setOnTouchListener(listener);
-        menu_game_hub.setOnTouchListener(listener);
-        video.setOnTouchListener(listener);
-        manager.setOnTouchListener(listener);
-    }
-
-    /**
-     * 内部类用于处理底部菜单点击后页面跳转
-     */
-    public class MenuOnTouchListener implements View.OnTouchListener {
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            int action = event.getAction();
-            switch (v.getId()) {
-                case R.id.menu_home_ll:
-                    if (currentMenu != R.id.menu_home_ll && action == MotionEvent.ACTION_UP) {
-                        setCurrentMenu(0);
-                    }
-                    break;
-             /*   case R.id.menu_game_ll:
-                    if (currentMenu != R.id.menu_game_ll && action == MotionEvent.ACTION_UP) {
-                        setCurrentMenu(1);
-                    }
-                    break;*/
-                case R.id.menu_game_hub:
-                    if (currentMenu != R.id.menu_game_hub && event.getAction() == MotionEvent
-                            .ACTION_UP) {
-                        setCurrentMenu(2);
-                    }
-                    break;
-                case R.id.menu_video:
-                    if (currentMenu != R.id.menu_video && action == MotionEvent.ACTION_UP) {
-                        setCurrentMenu(3);
-                    }
-                    break;
-                case R.id.menu_manager:
-                    if (currentMenu != R.id.menu_manager && action == MotionEvent.ACTION_UP) {
-                        setCurrentMenu(4);
-                    }
-                    break;
-            }
-            return true;
-        }
-    } // 底部切换栏 结束
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -810,7 +745,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                 break;
             case R.id.main_like_bt:
                 Intent intent = new Intent(context, NecessaryOrLikeActivity.class);
-                intent.putExtra(KeyConstant.likeOrNecessaryExtraKey,KeyConstant.EXTRA_LIKE);
+                intent.putExtra(KeyConstant.likeOrNecessaryExtraKey, KeyConstant.EXTRA_LIKE);
                 startActivity(intent);
                 break;
             case R.id.main_hub_bt:
@@ -909,7 +844,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                     if (downloadFileInfo != null) {
                         if (downloadFileInfo.getStatus() == GameFileStatus.STATE_DOWNLOAD ||
                                 downloadFileInfo.getStatus() ==
-                                GameFileStatus.STATE_PAUSE) {
+                                        GameFileStatus.STATE_PAUSE) {
 
                             showProgressDialog();
                             doUpdateUi();
@@ -947,15 +882,15 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
 
         Request<JsonResult<VersionInfo>> versionRequest = new
                 GsonRequest<JsonResult<VersionInfo>>(Request.Method.POST, url,
-                successListener, errorListener, new TypeToken<JsonResult<VersionInfo>>() {
-        }.getType()) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("appType", "0");
-                return params;
-            }
-        };
+                        successListener, errorListener, new TypeToken<JsonResult<VersionInfo>>() {
+                }.getType()) {
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<>();
+                        params.put("appType", "0");
+                        return params;
+                    }
+                };
         StoreApplication.requestQueue.add(versionRequest);
         isChecking = true;
     }
@@ -1082,7 +1017,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
 
                         GameFileStatus downloadFileInfo = fileLoad.getGameFileLoadStatus
                                 (versionInfo.fileName, versionInfo.url,
-                                versionInfo.packageName, versionInfo.versionCode);
+                                        versionInfo.packageName, versionInfo.versionCode);
                         if (downloadFileInfo != null) {
 
                             double finished = downloadFileInfo.getFinished();
@@ -1143,7 +1078,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                                             .beginTransaction();
                                     SimpleDialogFragment prev = (SimpleDialogFragment)
                                             getSupportFragmentManager()
-                                            .findFragmentByTag("downloadDialog");
+                                                    .findFragmentByTag("downloadDialog");
                                     if (prev != null) {
                                         ft.remove(prev);
                                     }
