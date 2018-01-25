@@ -60,8 +60,8 @@ public class ManagerFragment extends Fragment {
             Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView: ");
         View view = inflater.inflate(R.layout.fragment_manager, container, false);
-        listView = (ListView) view.findViewById(R.id.manager_lv);
-        emptyTv = (TextView) view.findViewById(R.id.manager_empty_tv);
+        listView =  view.findViewById(R.id.manager_lv);
+        emptyTv =  view.findViewById(R.id.manager_empty_tv);
         emptyTv.setText("列表为空~");
         return view;
     }
