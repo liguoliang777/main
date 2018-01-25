@@ -151,7 +151,7 @@
         android:background="@color/white">
 
         <LinearLayout
-            android:id="@+id/menu_home_ll"
+            android:id="@+id/main_tab_0"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
@@ -180,7 +180,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/menu_video"
+            android:id="@+id/main_tab_1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
@@ -242,7 +242,7 @@
                 </LinearLayout>-->
 
         <LinearLayout
-            android:id="@+id/menu_game_hub"
+            android:id="@+id/main_tab_2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
@@ -251,7 +251,7 @@
             android:gravity="center"
             android:orientation="vertical"
             android:paddingBottom="2dp"
-            android:visibility="gone">
+            >
 
             <Button
                 android:id="@+id/menu_game_hub_bt"
@@ -276,7 +276,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/menu_manager"
+            android:id="@+id/main_tab_3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"

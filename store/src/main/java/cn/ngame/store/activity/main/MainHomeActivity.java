@@ -119,10 +119,10 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
     private boolean isRunningBackground = false;
     private boolean isDownloading = false;
     private boolean isChecking = false;
-    private RecommendFragment selectedFragment;
+    private RecommendFragment recommendFragment;
     private RankFragment rankingFragment;
-    private ClassifyFragment discoverFragment;
-    private ManagerFragment administrationFragment;
+    private ClassifyFragment classifyFragment;
+    private ManagerFragment managerFragment;
     private int currentMenu;
     private FragmentViewPagerAdapter adapter;
     private FragmentManager fragmentManager;
@@ -178,11 +178,11 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
         rl_top.setBackgroundResource(R.color.transparent);
         int statusBarHeight = ImageUtil.getStatusBarHeight(context);
         rl_top.setPadding(0, statusBarHeight, 0, 0);*/
-        home = (LinearLayout) findViewById(R.id.menu_home_ll);
+        home = (LinearLayout) findViewById(R.id.main_tab_0);
         //game = (LinearLayout) findViewById(R.id.menu_game_ll);
-        menu_game_hub = (LinearLayout) findViewById(R.id.menu_game_hub);
-        video = (LinearLayout) findViewById(R.id.menu_video);
-        manager = (LinearLayout) findViewById(R.id.menu_manager);
+        menu_game_hub = (LinearLayout) findViewById(R.id.main_tab_2);
+        video = (LinearLayout) findViewById(R.id.main_tab_1);
+        manager = (LinearLayout) findViewById(R.id.main_tab_3);
 
         bt_home = (Button) findViewById(R.id.menu_home_bt1);
         //bt_game = (Button) findViewById(R.id.menu_game_bt);
@@ -277,17 +277,17 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.menu_home_ll:
+                case R.id.main_tab_0:
                     setCurrentMenu(0);
                     break;
-                case R.id.menu_game_hub:
+                case R.id.main_tab_1:
+                    setCurrentMenu(1);
+                    break;
+                case R.id.main_tab_2:
                     setCurrentMenu(2);
                     break;
-                case R.id.menu_video:
+                case R.id.main_tab_3:
                     setCurrentMenu(3);
-                    break;
-                case R.id.menu_manager:
-                    setCurrentMenu(4);
                     break;
             }
         }
@@ -561,29 +561,30 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
 //        }
 //        switchFragment(currentMenu);
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        if (null == selectedFragment) {
-            selectedFragment = new RecommendFragment();
-            transaction.add(R.id.main_list_fragments, selectedFragment);
+        if (null == recommendFragment) {
+            recommendFragment = new RecommendFragment();
+            transaction.add(R.id.main_list_fragments, recommendFragment);
         }
-        if (null == discoverFragment) {
-            discoverFragment = new ClassifyFragment();
-            transaction.add(R.id.main_list_fragments, discoverFragment);
+        if (null == classifyFragment) {
+            classifyFragment = new ClassifyFragment();
+            transaction.add(R.id.main_list_fragments, classifyFragment);
         }
         if (null == gameHubFragment) {
             gameHubFragment = new HubFragment();
             transaction.add(R.id.main_list_fragments, gameHubFragment);
         }
-        if (null == administrationFragment) {
-            administrationFragment = new ManagerFragment();
-            transaction.add(R.id.main_list_fragments, administrationFragment);
+        if (null == managerFragment) {
+            managerFragment = new ManagerFragment();
+            transaction.add(R.id.main_list_fragments, managerFragment);
         }
         switch (currentMenu) {
             case 0://推荐
-                transaction.show(selectedFragment).hide(discoverFragment).hide(gameHubFragment).hide(administrationFragment);
-                selectedFragment.scroll2Top();
-                selectedFragment.setShow(true);
-                if (null != discoverFragment) {
-                    discoverFragment.setShow(false);
+                transaction.show(recommendFragment).hide(classifyFragment).hide(gameHubFragment)
+                        .hide(managerFragment);
+                recommendFragment.scroll2Top();
+                recommendFragment.setShow(true);
+                if (null != classifyFragment) {
+                    classifyFragment.setShow(false);
                 }
                 bt_home.setSelected(true);
                 mTitleTv.setText("热门游戏");
@@ -606,10 +607,10 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                 } else {
                     transaction.show(rankingFragment);
                 }
-                if (null != discoverFragment) {
-                    discoverFragment.setShow(false);
+                if (null != classifyFragment) {
+                    classifyFragment.setShow(false);
                 }
-                selectedFragment.setShow(false);
+                recommendFragment.setShow(false);
                 bt_game.setSelected(true);
                 mTitleTv.setText("排行榜");
                 fl_notifi.setVisibility(View.GONE);
@@ -619,11 +620,12 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                 mHubBt.setVisibility(View.GONE);
                 tv_game.setTextColor(colorDark);
                 break;*/
-            case 3://分类
-                transaction.show(discoverFragment).hide(selectedFragment).hide(gameHubFragment).hide(administrationFragment);
-                discoverFragment.scroll2Top();
-                discoverFragment.setShow(true);
-                selectedFragment.setShow(false);
+            case 1://分类
+                transaction.show(classifyFragment).hide(recommendFragment).hide(gameHubFragment)
+                        .hide(managerFragment);
+                classifyFragment.scroll2Top();
+                classifyFragment.setShow(true);
+                recommendFragment.setShow(false);
                 bt_video.setSelected(true);
                 mTitleTv.setText("分类");
                 mDownloadBt.setVisibility(View.GONE);
@@ -636,7 +638,8 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                 MobclickAgent.onEvent(context, UMEventNameConstant.mainDiscoverButtonClickCount);
                 break;
             case 2://圈子
-                transaction.show(gameHubFragment).hide(selectedFragment).hide(discoverFragment).hide(administrationFragment);
+                transaction.show(gameHubFragment).hide(recommendFragment).hide(classifyFragment)
+                        .hide(managerFragment);
                 menu_game_hub_bt.setSelected(true);
                 mTitleTv.setText(R.string.main_tab_04);
                 fl_notifi.setVisibility(View.GONE);
@@ -648,11 +651,14 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                 menu_gamehub_tv.setTextColor(colorDark);
                 MobclickAgent.onEvent(context, UMEventNameConstant.mainCircleButtonClickCount);
                 break;
-            case 4://管理
-                transaction.show(administrationFragment).hide(selectedFragment).hide(gameHubFragment).hide(discoverFragment);
-                selectedFragment.setShow(false);
-                if (null != discoverFragment) {
-                    discoverFragment.setShow(false);
+
+
+            case 3://管理
+                transaction.show(managerFragment).hide(recommendFragment).hide
+                        (gameHubFragment).hide(classifyFragment);
+                recommendFragment.setShow(false);
+                if (null != classifyFragment) {
+                    classifyFragment.setShow(false);
                 }
                 bt_manager.setSelected(true);
                 mTitleTv.setText("管理");
