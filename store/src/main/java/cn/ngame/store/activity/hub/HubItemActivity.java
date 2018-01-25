@@ -1,8 +1,17 @@
 package cn.ngame.store.activity.hub;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LevelListDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.text.Html;
+import android.text.Spanned;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +29,11 @@ import com.jzt.hol.android.jkda.sdk.rx.ObserverWrapper;
 import com.jzt.hol.android.jkda.sdk.services.gamehub.AddPointClient;
 import com.jzt.hol.android.jkda.sdk.services.gamehub.PostDetailClient;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 import cn.ngame.store.R;
@@ -27,6 +41,7 @@ import cn.ngame.store.StoreApplication;
 import cn.ngame.store.activity.BaseFgActivity;
 import cn.ngame.store.bean.User;
 import cn.ngame.store.core.utils.Constant;
+import cn.ngame.store.core.utils.ImageUtil;
 import cn.ngame.store.core.utils.KeyConstant;
 import cn.ngame.store.util.ConvUtil;
 import cn.ngame.store.util.ToastUtil;
@@ -38,8 +53,8 @@ import cn.ngame.store.view.zan.HeartLayout;
  */
 
 public class HubItemActivity extends BaseFgActivity {
-    private HubItemActivity content;
-    private int msgId = 0;
+    private HubItemActivity mContext;
+    private int postId = 0;
     private TextView mTitleTv, mFromTv, mDescTv, mTimeTv, mHubNameTv, mWatchNum, mSupportNumTv;
     private ImageView mSupportBt;
     private HeartLayout heartLayout;
@@ -57,10 +72,11 @@ public class HubItemActivity extends BaseFgActivity {
         setContentView(R.layout.activity_game_hub_detail);
         initView();
         try {
-            msgId = getIntent().getIntExtra(KeyConstant.ID, 0);
+            postId = getIntent().getIntExtra(KeyConstant.ID, 0);
+            Log.d(TAG, "id====: " + postId);
         } catch (Exception e) {
         }
-        content = this;
+        mContext = this;
         //请求数据
         getData();
     }
@@ -85,7 +101,7 @@ public class HubItemActivity extends BaseFgActivity {
     protected static final String TAG = HubItemActivity.class.getSimpleName();
 
     private void setMsgDetail(PostDetailBean result) {
-        PostDetailBean.DataBean data = result.getData();
+        final PostDetailBean.DataBean data = result.getData();
         Log.d(TAG, "获取单条数据: ==" + data);
         if (data == null) {
             return;
@@ -95,7 +111,6 @@ public class HubItemActivity extends BaseFgActivity {
         mTitleTv.setText(data.getPostTitle());
         mTimeTv.setText(String.valueOf(DateUtils.getRelativeTimeSpanString(
                 data.getUpdateTime())).replace(" ", ""));
-        mDescTv.setText(data.getPostContent());
         mSupportNumTv.setText(data.getPointNum() + "赞");
         mWatchNum.setText(String.valueOf(data.getWatchNum()));
         hubInfo = data.getShowPostCategory();
@@ -107,33 +122,35 @@ public class HubItemActivity extends BaseFgActivity {
                 public void onClick(View view) {
                     Intent intent = new Intent();
                     intent.putExtra(KeyConstant.postId, hubInfo.getId());
-                    intent.setClass(content, CircleActivity.class);
+                    intent.setClass(mContext, CircleActivity.class);
                     startActivity(intent);
                 }
             });
         }
-        postImageList = data.getPostImageList();
+
+     /*   postImageList = data.getPostImageList();
         LinearLayout.LayoutParams pointParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, getResources().getDimensionPixelSize(R.dimen.dm300));
+                LinearLayout.LayoutParams.MATCH_PARENT, getResources().getDimensionPixelSize(R
+                .dimen.dm300));
         pointParams.topMargin = getResources().getDimensionPixelSize(R.dimen.dm010);
         if (postImageList != null) {
             for (int i = 0; i < postImageList.size(); i++) {
-                SimpleDraweeView iv = new SimpleDraweeView(content);
+                SimpleDraweeView iv = new SimpleDraweeView(mContext);
                 iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 iv.setLayoutParams(pointParams);
                 iv.setImageURI(postImageList.get(i).getPostImageAddress());
 
                 imageLayout.addView(iv);
             }
-        }
+        }*/
 
         if (data.getIsPoint() == 1) {
             mSupportBt.setBackgroundResource(R.drawable.zan);
-            mSupportNumTv.setTextColor(ContextCompat.getColor(content, R.color.mainColor));
+            mSupportNumTv.setTextColor(ContextCompat.getColor(mContext, R.color.mainColor));
             mSupportBt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ToastUtil.show(content, "已经点过赞了哦~");
+                    ToastUtil.show(mContext, "已经点过赞了哦~");
                     //heartLayout.addFavor();
                 }
             });
@@ -143,10 +160,130 @@ public class HubItemActivity extends BaseFgActivity {
             mSupportBt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    clickAgree(1, msgId);
+                    clickAgree(1, postId);
                     heartLayout.addFavor();
                 }
             });
+        }
+
+
+
+        String postContent = data.getPostContent();
+        //if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {}
+        Log.d(TAG, "4.4===========");
+        Spanned spanned = Html.fromHtml(postContent,new HtmlImageGetter(),null);
+        mDescTv.setText(spanned);
+
+    }
+    /**
+     * 重写图片加载接口
+     *
+     * @author Ruffian
+     * @date 2016年1月15日
+     *
+     */
+    class HtmlImageGetter implements Html.ImageGetter {
+
+        /**
+         * 获取图片
+         */
+        @Override
+        public Drawable getDrawable(String source) {
+            LevelListDrawable d = new LevelListDrawable();
+            Drawable empty = getResources().getDrawable(
+                    R.drawable.ic_def_logo_720_288);
+            d.addLevel(0, 0, empty);
+            d.setBounds(0, 0, ImageUtil.getScreenWidth(mContext),
+                    empty.getIntrinsicHeight());
+            new LoadImage().execute(source, d);
+            return d;
+        }
+
+        /**
+         * 异步下载图片类
+         *
+         * @author Ruffian
+         * @date 2016年1月15日
+         *
+         */
+        class LoadImage extends AsyncTask<Object, Void, Bitmap> {
+
+            private LevelListDrawable mDrawable;
+
+            @Override
+            protected Bitmap doInBackground(Object... params) {
+                String source = (String) params[0];
+                mDrawable = (LevelListDrawable) params[1];
+                try {
+                    InputStream is = new URL(source).openStream();
+                    return BitmapFactory.decodeStream(is);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            /**
+             * 图片下载完成后执行
+             */
+            @Override
+            protected void onPostExecute(Bitmap bitmap) {
+                if (bitmap != null) {
+                    BitmapDrawable d = new BitmapDrawable(bitmap);
+                    mDrawable.addLevel(1, 1, d);
+                    /**
+                     * 适配图片大小 <br/>
+                     * 默认大小：bitmap.getWidth(), bitmap.getHeight()<br/>
+                     * 适配屏幕：getDrawableAdapter
+                     */
+                    mDrawable = getDrawableAdapter(mContext, mDrawable,
+                            bitmap.getWidth(), bitmap.getHeight());
+
+                    // mDrawable.setBounds(0, 0, bitmap.getWidth(),
+                    // bitmap.getHeight());
+
+                    mDrawable.setLevel(1);
+
+                    /**
+                     * 图片下载完成之后重新赋值textView<br/>
+                     * mtvActNewsContent:我项目中使用的textView
+                     *
+                     */
+                    mDescTv.invalidate();
+                    CharSequence t = mDescTv.getText();
+                    mDescTv.setText(t);
+
+                }
+            }
+
+            /**
+             * 加载网络图片,适配大小
+             *
+             * @param context
+             * @param drawable
+             * @param oldWidth
+             * @param oldHeight
+             * @return
+             * @author Ruffian
+             * @date 2016年1月15日
+             */
+            public LevelListDrawable getDrawableAdapter(Context context,
+                                                        LevelListDrawable drawable, int oldWidth, int oldHeight) {
+                LevelListDrawable newDrawable = drawable;
+                long newHeight = 0;// 未知数
+                int newWidth = ImageUtil.getScreenWidth(mContext);
+                newHeight = (newWidth * oldHeight) / oldWidth;
+                // LogUtils.w("oldWidth:" + oldWidth + "oldHeight:" +
+                // oldHeight);
+                // LogUtils.w("newHeight:" + newHeight + "newWidth:" +
+                // newWidth);
+                newDrawable.setBounds(0, 0, newWidth, (int) newHeight);
+                return newDrawable;
+            }
         }
 
     }
@@ -173,32 +310,34 @@ public class HubItemActivity extends BaseFgActivity {
                     @Override
                     public void onError(Throwable e) {
                         mSupportBt.setEnabled(true);
-                        ToastUtil.show(content, "点赞失败哦,请稍后重试~");
+                        ToastUtil.show(mContext, "点赞失败哦,请稍后重试~");
                     }
 
                     @Override
                     public void onNext(NormalDataBean result) {
-                        if (content == null || content.isFinishing()) {
+                        if (mContext == null || mContext.isFinishing()) {
                             return;
                         }
                         mSupportBt.setEnabled(true);
                         if (result != null && result.getCode() == 0) {
                             if (type == 1) { //区分帖子点赞和评论点赞
-                                ToastUtil.show(content, "点赞成功~");
-                                mSupportNumTv.setText(ConvUtil.NI(mSupportNumTv.getText().toString()) + 1 + "赞");
-                                mSupportNumTv.setTextColor(ContextCompat.getColor(content, R.color.mainColor));
+                                ToastUtil.show(mContext, "点赞成功~");
+                                mSupportNumTv.setText(ConvUtil.NI(mSupportNumTv.getText()
+                                        .toString()) + 1 + "赞");
+                                mSupportNumTv.setTextColor(ContextCompat.getColor(mContext, R
+                                        .color.mainColor));
                                 mSupportBt.setBackgroundResource(R.drawable.zan);
                                 mSupportBt.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        ToastUtil.show(content, "已经点过赞了哦~");
+                                        ToastUtil.show(mContext, "已经点过赞了哦~");
                                         //heartLayout.addFavor();
                                     }
                                 });
                             } else {
                             }
                         } else {
-                            ToastUtil.show(content, "点赞失败哦,请稍后重试~");
+                            ToastUtil.show(mContext, "点赞失败哦,请稍后重试~");
                         }
                     }
                 });
@@ -215,7 +354,7 @@ public class HubItemActivity extends BaseFgActivity {
         } else {
             bodyBean.setDeviceOnlyNum(StoreApplication.deviceId);
         }
-        bodyBean.setPostId(msgId);
+        bodyBean.setPostId(postId);
         bodyBean.setAppTypeId(Constant.APP_TYPE_ID_0_ANDROID);
         new PostDetailClient(this, bodyBean).observable()
                 .subscribe(new ObserverWrapper<PostDetailBean>() {
@@ -229,7 +368,7 @@ public class HubItemActivity extends BaseFgActivity {
                         if (result != null && result.getCode() == 0) {
                             setMsgDetail(result);
                         } else {
-                            //ToastUtil.show(content, "获取失败");
+                            //ToastUtil.show(mContext, "获取失败");
                             // mDescTv.setText("获取失败~");
                         }
                     }

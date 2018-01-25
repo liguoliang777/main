@@ -22,17 +22,16 @@ package cn.ngame.store.core.utils;
  * @since 2016年5月3日
  */
 public class Constant {
-    //测试
-    //public static final String WEB_SITE = "http://192.168.0.131";
-    //正式
-    public static final String WEB_SITE = "http://opapi.xflqv.cn";
+
+    public static final String WEB_SITE = "http://192.168.1.231";   //------测试
+
+    //public static final String WEB_SITE = "http://opapi.xflqv.cn";    //------正式
 
    //public static final String WEB_SITE = "http://192.168.0.233:10004";
    //public static final String WEB_SITE = "http://openapi.ngame.cn";
     public static final String WEB_SITE2 = "http://192.168.37.252:20004";      //h5测试
     public static final String WEB_SITE3 = "http://files.ngame.cn";      //h5正式服务器
     public static final String CONFIG_FILE_NAME = "Store.config";
-     //是否第一次安装app
     public static final String CONFIG_FIRST_INSTALL = "FirstInstall";
     public static final String CONFIG_TOKEN = "Token";
     public static final String CONFIG_USER_NAME = "UserName";
@@ -42,7 +41,6 @@ public class Constant {
     public static final String CFG_RECEIVE_MSG = "ReceiveMsg";
     public static final String CFG_DELETE_APK = "DeleteApk";
     public static final String CFG_ALLOW_4G_LOAD = "AllowLoadBy4G";
-//    public static final String PUSH_API_KEY = "ncoPF1KvUO5CVcbqZkwvlXE1";       //测试key
     public static final String PUSH_API_KEY = "LUQUlTLy7fybX0oZOVeg9Pwh";       //生产key
     public static final String URL_HOME_GAME_CATEGORY = "/game/gameSubTypeListByParentId";
     public static final String URL_SUBMIT_FEED_BACK_V4 = "/complaint/submitFeedbackV4";

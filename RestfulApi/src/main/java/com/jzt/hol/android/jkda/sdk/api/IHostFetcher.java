@@ -4,10 +4,10 @@ package com.jzt.hol.android.jkda.sdk.api;
  * Created by tangkun on 16/9/3.
  */
 public interface IHostFetcher {
-    // 测试服务器
-    //String HOST = "192.168.0.131/";
-    //正式
-    String HOST = "opapi.xflqv.cn/";
+
+    String HOST = "192.168.1.231/";// 测试
+
+    //String HOST = "opapi.xflqv.cn/";   //正式
 
 
     //String HOST = "192.168.0.233:10004/";

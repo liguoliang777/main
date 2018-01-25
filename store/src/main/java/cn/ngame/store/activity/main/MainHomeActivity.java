@@ -53,7 +53,6 @@ import cn.ngame.store.R;
 import cn.ngame.store.StoreApplication;
 import cn.ngame.store.activity.BaseFgActivity;
 import cn.ngame.store.activity.classify.ClassifyFragment;
-import cn.ngame.store.activity.hub.HubFragment;
 import cn.ngame.store.activity.hub.HubPostsActivity;
 import cn.ngame.store.activity.manager.DownloadCenterActivity;
 import cn.ngame.store.activity.manager.ManagerFragment;
@@ -144,7 +143,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
     private Button menu_game_hub_bt;
-    private HubFragment gameHubFragment;
+    private MainHubFragment gameMainHubFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -569,9 +568,9 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
             classifyFragment = new ClassifyFragment();
             transaction.add(R.id.main_list_fragments, classifyFragment);
         }
-        if (null == gameHubFragment) {
-            gameHubFragment = new HubFragment();
-            transaction.add(R.id.main_list_fragments, gameHubFragment);
+        if (null == gameMainHubFragment) {
+            gameMainHubFragment = new MainHubFragment();
+            transaction.add(R.id.main_list_fragments, gameMainHubFragment);
         }
         if (null == managerFragment) {
             managerFragment = new ManagerFragment();
@@ -579,7 +578,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
         }
         switch (currentMenu) {
             case 0://推荐
-                transaction.show(recommendFragment).hide(classifyFragment).hide(gameHubFragment)
+                transaction.show(recommendFragment).hide(classifyFragment).hide(gameMainHubFragment)
                         .hide(managerFragment);
                 recommendFragment.scroll2Top();
                 recommendFragment.setShow(true);
@@ -621,7 +620,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                 tv_game.setTextColor(colorDark);
                 break;*/
             case 1://分类
-                transaction.show(classifyFragment).hide(recommendFragment).hide(gameHubFragment)
+                transaction.show(classifyFragment).hide(recommendFragment).hide(gameMainHubFragment)
                         .hide(managerFragment);
                 classifyFragment.scroll2Top();
                 classifyFragment.setShow(true);
@@ -638,7 +637,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                 MobclickAgent.onEvent(context, UMEventNameConstant.mainDiscoverButtonClickCount);
                 break;
             case 2://圈子
-                transaction.show(gameHubFragment).hide(recommendFragment).hide(classifyFragment)
+                transaction.show(gameMainHubFragment).hide(recommendFragment).hide(classifyFragment)
                         .hide(managerFragment);
                 menu_game_hub_bt.setSelected(true);
                 mTitleTv.setText(R.string.main_tab_04);
@@ -655,7 +654,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
 
             case 3://管理
                 transaction.show(managerFragment).hide(recommendFragment).hide
-                        (gameHubFragment).hide(classifyFragment);
+                        (gameMainHubFragment).hide(classifyFragment);
                 recommendFragment.setShow(false);
                 if (null != classifyFragment) {
                     classifyFragment.setShow(false);

@@ -34,6 +34,7 @@ import com.jzt.hol.android.jkda.sdk.bean.gamehub.GameHubMainBean;
 import java.util.List;
 
 import cn.ngame.store.R;
+import cn.ngame.store.activity.main.MainHubFragment;
 import cn.ngame.store.core.utils.KeyConstant;
 
 public class HubFragmentAdapter extends BaseAdapter {
@@ -115,7 +116,7 @@ public class HubFragmentAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public final String TAG = HubFragment.class.getSimpleName();
+    public final String TAG = MainHubFragment.class.getSimpleName();
 
     public class ViewHolder {
         private Context context;

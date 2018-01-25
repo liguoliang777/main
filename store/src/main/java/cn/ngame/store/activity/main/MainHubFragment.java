@@ -1,4 +1,4 @@
-package cn.ngame.store.activity.hub;
+package cn.ngame.store.activity.main;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -25,6 +25,8 @@ import java.util.Date;
 import java.util.List;
 
 import cn.ngame.store.R;
+import cn.ngame.store.activity.hub.HubFragmentAdapter;
+import cn.ngame.store.activity.hub.HubItemActivity;
 import cn.ngame.store.base.fragment.BaseSearchFragment;
 import cn.ngame.store.bean.PageAction;
 import cn.ngame.store.core.utils.KeyConstant;
@@ -40,8 +42,8 @@ import cn.ngame.store.widget.pulllistview.PullToRefreshListView;
  * Created by gp on 2017/3/14 0014.
  */
 @SuppressLint("WrongConstant")
-public class HubFragment extends BaseSearchFragment {
-    public static final String TAG = HubFragment.class.getSimpleName();
+public class MainHubFragment extends BaseSearchFragment {
+    public static final String TAG = MainHubFragment.class.getSimpleName();
     private PullToRefreshListView pullListView;
     private ImageView game_big_pic_1, game_big_pic_2;
     private SimpleDraweeView from_img_1, from_img_2;
@@ -62,8 +64,8 @@ public class HubFragment extends BaseSearchFragment {
     private Picasso picasso;
 
 
-    public static HubFragment newInstance(int arg) {
-        HubFragment fragment = new HubFragment();
+    public static MainHubFragment newInstance(int arg) {
+        MainHubFragment fragment = new MainHubFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("", arg);
         fragment.setArguments(bundle);
