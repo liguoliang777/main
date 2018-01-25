@@ -5,9 +5,13 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -18,7 +22,6 @@ import java.util.List;
 
 import cn.ngame.store.R;
 import cn.ngame.store.adapter.InstalledGameAdapter;
-import cn.ngame.store.base.fragment.BaseSearchFragment;
 import cn.ngame.store.core.fileload.FileLoadInfo;
 import cn.ngame.store.core.fileload.FileLoadManager;
 import cn.ngame.store.core.fileload.IFileLoad;
@@ -32,7 +35,7 @@ import cn.ngame.store.view.QuickAction;
  * Created by gp on 2017/3/3 0003.
  */
 @SuppressLint({"ValidFragment", "WrongConstant"})
-public class ManagerFragment extends BaseSearchFragment {
+public class ManagerFragment extends Fragment {
     final static String TAG = ManagerFragment.class.getSimpleName();
     ListView listView;
     public static int PAGE_SIZE = 10;
@@ -48,31 +51,34 @@ public class ManagerFragment extends BaseSearchFragment {
     private List<PackageInfo> packageInfos = new ArrayList<>();
     private PackageInfo packageInfo = new PackageInfo();
     private ApplicationInfo applicationInfo;
-    private int oldLength;
     private TextView emptyTv;
+    private int oldLength;
 
-
-
+    @Nullable
     @Override
-    protected int getContentViewLayoutID() {
-        Log.d(TAG, "getContentViewLayoutID: ");
-        return R.layout.fragment_installed;
-    }
-
-    @Override
-    protected void initViewsAndEvents(View view) {
-        Log.d(TAG, "initViewsAndEvents: ");
-        content = getActivity();
-        packageManager = content.getPackageManager();
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
+            Bundle savedInstanceState) {
+        Log.d(TAG, "onCreateView: ");
+        View view = inflater.inflate(R.layout.fragment_installed, container, false);
         listView = (ListView) view.findViewById(R.id.listView);
         emptyTv = (TextView) view.findViewById(R.id.empty_tv);
         emptyTv.setText("游戏列表为空~");
+        return view;
+    }
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Log.d(TAG, "onActivityCreated: ");
+        content = getActivity();
+        packageManager = content.getPackageManager();
+
         initPop();
         initListView();
     }
 
+
     public void initListView() {
-        alreadyLvAdapter = new InstalledGameAdapter(content, getSupportFragmentManager(),
+        alreadyLvAdapter = new InstalledGameAdapter(content, content.getSupportFragmentManager(),
                 mItemClickQuickAction);
         listView.setAdapter(alreadyLvAdapter);
         fileLoad = FileLoadManager.getInstance(content);
@@ -82,18 +88,14 @@ public class ManagerFragment extends BaseSearchFragment {
 
     private JSONArray jsonArray = new JSONArray();
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        Log.d(TAG, "onActivityCreated: ");
-    }
+
 
     @Override
     public void onStart() {
         super.onStart();
         Log.d(TAG, "onStart: ");
         //获取本地
-       try {
+      try {
             pkgNameListStr = FileUtil.readFile();
             if (null != pkgNameListStr) {
                 jsonArray = new JSONArray(pkgNameListStr);
@@ -105,7 +107,6 @@ public class ManagerFragment extends BaseSearchFragment {
         //获取数据库 =>  添加
         openFileInfoList = fileLoad.getOpenFileInfo();
         for (FileLoadInfo openFileInfo : openFileInfoList) {
-            //String gameName = openFileInfo.getName();
             String gamePackageName = openFileInfo.getPackageName();
             if (pkgNameListStr == null || !pkgNameListStr.contains(gamePackageName)) {
                 jsonArray.put(gamePackageName);
@@ -115,9 +116,18 @@ public class ManagerFragment extends BaseSearchFragment {
             FileUtil.writeFile2SDCard(jsonArray.toString());
             pkgNameListStr = FileUtil.readFile();
         }
-        if (!mHidden && null != alreadyLvAdapter) {
+        if ( null != alreadyLvAdapter) {
             alreadyLvAdapter.setDate(getLocalApp());
         }
+    }
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        Log.d(TAG, "onHiddenChanged: ");
+       /* mHidden = hidden;
+        if (!mHidden && null != alreadyLvAdapter && null != fileLoad) {
+            alreadyLvAdapter.setDate(getLocalApp());
+        }*/
     }
 
     @Override
@@ -137,7 +147,6 @@ public class ManagerFragment extends BaseSearchFragment {
                 //非系统应用
                 if (null != applicationInfo) {
                     if ((applicationInfo.flags & applicationInfo.FLAG_SYSTEM) <= 0) {
-                        String appName = applicationInfo.loadLabel(packageManager).toString();
                         String packageName = applicationInfo.packageName;
                         //如果包名
                         if (pkgNameListStr.contains(packageName) && !"cn.ngame.store".equals
@@ -156,16 +165,6 @@ public class ManagerFragment extends BaseSearchFragment {
             emptyTv.setVisibility(View.VISIBLE);
         }
         return localAppList;
-    }
-
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        Log.d(TAG, "onHiddenChanged: ");
-        mHidden = hidden;
-        if (!mHidden && null != alreadyLvAdapter && null != fileLoad) {
-            alreadyLvAdapter.setDate(getLocalApp());
-        }
     }
 
     @Override
@@ -242,25 +241,5 @@ public class ManagerFragment extends BaseSearchFragment {
 
             }
         });
-    }
-
-    @Override
-    protected void onFirstUserVisible() {
-
-    }
-
-    @Override
-    protected void onUserVisible() {
-
-    }
-
-    @Override
-    protected void onUserInvisible() {
-
-    }
-
-    @Override
-    protected View getLoadView(View view) {
-        return null;
     }
 }
