@@ -528,7 +528,7 @@
             android:exported="true"/>
 
         <!-- 适配Android N系统必需的ContentProvider声明，写权限包含应用包名-->
-        <provider
+       <provider
             android:name="com.baidu.android.pushservice.PushInfoProvider"
             android:authorities="cn.ngame.store.bdpush"
             android:exported="true"

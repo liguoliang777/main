@@ -152,8 +152,8 @@ dependencies {
     compile project(':sliding_menu')
     implementation files('libs/mpermissions.jar')
     //解决 dex file cannot execute 64K [multidex]
-   // compile 'com.android.support:multidex:1.0.1'
-    compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
+    compile 'com.android.support:multidex:1.0.2'
+    compile 'com.android.support:appcompat-v7:26.0.0-beta1-alpha1'
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     compile 'se.emilsjolander:stickylistheaders:2.7.0'
     compile 'com.daimajia.numberprogressbar:library:1.4@aar'
@@ -163,6 +163,5 @@ dependencies {
     compile files('libs/weiboSDKCore.jar')
 
     compile 'cn.jzvd:jiaozivideoplayer:6.1.1'
-   // compile 'com.android.support:multidex:1.0.0'
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.4'
 }

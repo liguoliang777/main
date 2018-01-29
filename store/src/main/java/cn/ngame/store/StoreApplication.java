@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.multidex.MultiDex;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -147,5 +148,11 @@ public class StoreApplication extends Application {
         // Initialize ImageLoader with configuration.
         // 初始化ImageLoader
         ImageLoader.getInstance().init(config);
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(base);
     }
 }
