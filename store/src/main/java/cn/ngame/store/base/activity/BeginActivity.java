@@ -16,6 +16,7 @@
 package cn.ngame.store.base.activity;
 
 import android.app.Activity;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -60,16 +61,21 @@ public class BeginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //设置全屏
-        // this.setContentView(R.layout.activity_begin);
         setContentView(R.layout.activity_splash_fullscreen);
         content = this;
         //启动后台服务
         skipBt = (Button) findViewById(R.id.skip_bt);
         Intent serviceIntent = new Intent(this, FileLoadService.class);
         startService(serviceIntent);
-        //得到设备id
+
+        //支付宝红包 #吱口令#
+        ClipboardManager clip = (ClipboardManager) getSystemService(Context
+                .CLIPBOARD_SERVICE);
+        clip.setText("7Dl59e13pi");// 复制  // 粘贴 getText()
+
         //CommonUtil.verifyStatePermissions(content);
-        TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context
+                .TELEPHONY_SERVICE);
         //deviceId = telephonyManager.getDeviceId();
         //友盟相关
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
@@ -78,6 +84,7 @@ public class BeginActivity extends Activity {
         //判断是否是安装后第一次启动
         isFirstInstall = ConvUtil.NB(SPUtils.get(this, Constant.CONFIG_FIRST_INSTALL, true));
         timer = new Timer();
+
         skip2Main();
     }
 
@@ -170,18 +177,19 @@ public class BeginActivity extends Activity {
             finish();
 
         } else {*/
-            Log.d(TAG, "skip2Main 跳主页面");
-            final Intent intent = new Intent(content, MainHomeActivity.class);
-            if (pushMsgId > 0) {
-                intent.putExtra("msgId", pushMsgId);
-                intent.putExtra("type", pushMsgType);
-                intent.putExtra("msg", msg);
-            }
-            startActivity(intent);
-            finish();
+        Log.d(TAG, "skip2Main 跳主页面");
+        final Intent intent = new Intent(content, MainHomeActivity.class);
+        if (pushMsgId > 0) {
+            intent.putExtra("msgId", pushMsgId);
+            intent.putExtra("type", pushMsgType);
+            intent.putExtra("msg", msg);
+        }
+        startActivity(intent);
+        finish();
         //}
 
     }
+
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             return true;
