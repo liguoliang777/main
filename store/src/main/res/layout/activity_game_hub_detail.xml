@@ -175,7 +175,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_below="@id/game_hub_detail_title_tv"
                 android:layout_marginRight="@dimen/dm020"
-                android:layout_marginTop="@dimen/dm030"
+                android:layout_marginTop="@dimen/dm022"
                 android:text=""
                 android:textColor="@color/color_808080"
                 android:textSize="@dimen/dm020" />
@@ -185,7 +185,7 @@
                 android:layout_height="@dimen/dm022"
                 android:layout_below="@id/game_hub_detail_title_tv"
                 android:layout_marginRight="@dimen/dm009"
-                android:layout_marginTop="@dimen/dm034"
+                android:layout_marginTop="@dimen/dm026"
                 android:layout_toLeftOf="@id/see_numb_tv"
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_eyes" />
@@ -195,19 +195,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dm020"
                 android:layout_below="@id/see_numb_tv"
-                android:layout_marginTop="@dimen/dm030"
+                android:layout_marginTop="@dimen/dm028"
                 android:background="@color/e6e6e6" />
+
+            <cn.ngame.store.view.NgameJZVideoPlayerStandard
+                android:id="@+id/hub_item_detial_ngame_vp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dm340"
+                android:layout_below="@id/hub_line_20"
+                android:layout_marginTop="@dimen/dm015"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/game_hub_detail_desc_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/hub_line_20"
+                android:layout_below="@id/hub_item_detial_ngame_vp"
                 android:layout_marginLeft="@dimen/dm020"
                 android:layout_marginRight="@dimen/dm020"
                 android:layout_marginTop="@dimen/dm030"
                 android:lineSpacingExtra="@dimen/dm010"
-                android:minHeight="@dimen/dm500"
+                android:minHeight="@dimen/dm375"
                 android:text=""
                 android:textColor="@color/color_333333"
                 android:textSize="@dimen/dm024" />
@@ -229,7 +237,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/hub_item_layout"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="@dimen/dm120"
+                android:layout_marginBottom="@dimen/dm110"
                 android:layout_marginTop="@dimen/dm050"
                 android:background="@color/white">
 

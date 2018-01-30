@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LevelListDrawable;
+import android.media.AudioManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -36,6 +37,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
+import cn.jzvd.JZVideoPlayerStandard;
 import cn.ngame.store.R;
 import cn.ngame.store.StoreApplication;
 import cn.ngame.store.activity.BaseFgActivity;
@@ -43,8 +45,10 @@ import cn.ngame.store.bean.User;
 import cn.ngame.store.core.utils.Constant;
 import cn.ngame.store.core.utils.ImageUtil;
 import cn.ngame.store.core.utils.KeyConstant;
+import cn.ngame.store.core.utils.NetUtil;
 import cn.ngame.store.util.ConvUtil;
 import cn.ngame.store.util.ToastUtil;
+import cn.ngame.store.view.NgameJZVideoPlayerStandard;
 import cn.ngame.store.view.zan.HeartLayout;
 
 
@@ -62,7 +66,9 @@ public class HubItemActivity extends BaseFgActivity {
     private PostDetailBean.DataBean.ShowPostCategoryBean hubInfo;
     private RelativeLayout hubLayout;
     private LinearLayout imageLayout;
+    private NgameJZVideoPlayerStandard jzVideoPlayerStandard;
     private List<PostDetailBean.DataBean.PostImageListBean> postImageList;
+    private AudioManager mAudioManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +79,6 @@ public class HubItemActivity extends BaseFgActivity {
         initView();
         try {
             postId = getIntent().getIntExtra(KeyConstant.ID, 0);
-            Log.d(TAG, "id====: " + postId);
         } catch (Exception e) {
         }
         mContext = this;
@@ -96,6 +101,10 @@ public class HubItemActivity extends BaseFgActivity {
         hubLayout = findViewById(R.id.hub_detail_hub_layout);
 
         imageLayout = findViewById(R.id.hub_item_layout);
+
+        //视频
+        jzVideoPlayerStandard = findViewById(R.id.hub_item_detial_ngame_vp);
+        jzVideoPlayerStandard.topContainer.setVisibility(View.GONE);
     }
 
     protected static final String TAG = HubItemActivity.class.getSimpleName();
@@ -106,6 +115,24 @@ public class HubItemActivity extends BaseFgActivity {
         if (data == null) {
             return;
         }
+        //视频
+        postImageList = data.getPostImageList();
+        if (postImageList != null) {
+            for (PostDetailBean.DataBean.PostImageListBean postImageListBean : postImageList) {
+                if (postImageListBean != null && 9 == postImageListBean.getPostOrderNo()) {
+                    String gameVideoLink = postImageListBean.getPostImageAddress();
+                    jzVideoPlayerStandard.setVisibility(View.VISIBLE);
+                    jzVideoPlayerStandard.setUp(gameVideoLink, JZVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, "");
+                    jzVideoPlayerStandard.backButton.setVisibility(View.GONE);
+                    if (NetUtil.isWifiConnected(mContext)) {
+                        jzVideoPlayerStandard.startVideo();
+                    }
+                    break;
+                }
+            }
+        }
+
+
         mFromIcon.setImageURI(data.getPostRoleHeadPhoto());
         mFromTv.setText(data.getPostRoleName());
         mTitleTv.setText(data.getPostTitle());
@@ -167,20 +194,16 @@ public class HubItemActivity extends BaseFgActivity {
         }
 
 
-
         String postContent = data.getPostContent();
-        //if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {}
-        Log.d(TAG, "4.4===========");
-        Spanned spanned = Html.fromHtml(postContent,new HtmlImageGetter(),null);
+        Spanned spanned = Html.fromHtml(postContent, new HtmlImageGetter(), null);
         mDescTv.setText(spanned);
-
     }
+
     /**
      * 重写图片加载接口
      *
      * @author Ruffian
      * @date 2016年1月15日
-     *
      */
     class HtmlImageGetter implements Html.ImageGetter {
 
@@ -204,7 +227,6 @@ public class HubItemActivity extends BaseFgActivity {
          *
          * @author Ruffian
          * @date 2016年1月15日
-         *
          */
         class LoadImage extends AsyncTask<Object, Void, Bitmap> {
 
@@ -272,7 +294,8 @@ public class HubItemActivity extends BaseFgActivity {
              * @date 2016年1月15日
              */
             public LevelListDrawable getDrawableAdapter(Context context,
-                                                        LevelListDrawable drawable, int oldWidth, int oldHeight) {
+                                                        LevelListDrawable drawable, int oldWidth,
+                                                        int oldHeight) {
                 LevelListDrawable newDrawable = drawable;
                 long newHeight = 0;// 未知数
                 int newWidth = ImageUtil.getScreenWidth(mContext);

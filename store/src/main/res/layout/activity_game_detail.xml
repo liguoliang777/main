@@ -359,7 +359,7 @@
             android:focusableInTouchMode="true"
             android:gravity="center_vertical"
             android:maxLines="1"
-            android:maxWidth="@dimen/dm400"
+            android:maxWidth="@dimen/dm450"
             android:paddingLeft="@dimen/title_left_bt_padding_left"
             android:paddingRight="@dimen/dp_20"
             android:textColor="@android:color/white"
