@@ -63,6 +63,7 @@ public class CircleActivity extends BaseFgActivity {
     private CirclePostsInfo.DataBean.ShowPostCategoryBean showPostCategoryBean;
     private SimpleDraweeView mHeaderSdv;
     private String postCategoryName = "";
+    private TextView mEmptyTv;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -102,6 +103,7 @@ public class CircleActivity extends BaseFgActivity {
         View headerView = LayoutInflater.from(this).inflate(R.layout.item_hub_circle_header, null);
         mTopLayout = headerView.findViewById(R.id.circle_post_top_layout);
         mHeaderSdv = headerView.findViewById(R.id.circle_header_imageview);
+        mEmptyTv = headerView.findViewById(R.id.circle_empty_tv);
         mHeaderName = headerView.findViewById(R.id.circle_name_tv);
         mHeaderPostsNum = headerView.findViewById(R.id.circle_post_nub_tv);
 
@@ -154,7 +156,8 @@ public class CircleActivity extends BaseFgActivity {
 
     private void getDatas(final RefreshLayout refreshLayout) {
         String url = Constant.WEB_SITE + Constant.URL_CIRCLE_POSTS_LIST;
-        Response.Listener<CirclePostsInfo> successListener = new Response.Listener<CirclePostsInfo>() {
+        Response.Listener<CirclePostsInfo> successListener = new Response
+                .Listener<CirclePostsInfo>() {
             @Override
             public void onResponse(CirclePostsInfo result) {
                 if (result == null || result.getCode() != 0) {
@@ -163,38 +166,46 @@ public class CircleActivity extends BaseFgActivity {
                 }
                 List<CirclePostsInfo.DataBean> mDatas = result.getData();
                 if (mDatas != null) {
-                    mTopLayout.setPadding(0, getResources().getDimensionPixelSize(R.dimen.dm012),
-                            0, getResources().getDimensionPixelSize(R.dimen.dm010));
-                    mTopLayout.removeAllViews();
-                    mDataList.clear();
-                    for (final CirclePostsInfo.DataBean mData : mDatas) {
-                        if (mData != null) {
-                            //顶部
-                            if (showPostCategoryBean == null) {
-                                showPostCategoryBean = mData.getShowPostCategory();
-                                mHeaderSdv.setImageURI(showPostCategoryBean.getPostCategoryUrl());
-                                postCategoryName = showPostCategoryBean.getPostCategoryName();
-                                mHeaderName.setText(postCategoryName);
-                                mHeaderPostsNum.setText("帖子：" + showPostCategoryBean.getPostCategoryCount());
-                            }
-                            //置顶帖子
-                            if (mData.getOrderNO() == 1) {
-                                mTopItemBt = LayoutInflater.from(mContext).inflate(R.layout.layout_circle_top_item, null);
-                                mTopTv = mTopItemBt.findViewById(R.id.circle_top_title_tv);
-                                mTopTv.setText(mData.getPostTitle());
-                                mTopItemBt.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        Intent intent = new Intent();
-                                        intent.putExtra(KeyConstant.ID, mData.getId());
-                                        intent.setClass(mContext, HubItemActivity.class);
-                                        mContext.startActivity(intent);
-                                    }
-                                });
-                                mTopLayout.addView(mTopItemBt);
-                            } else {
-                                //不是置顶的帖子
-                                mDataList.add(mData);
+                    int size = mDatas.size();
+                    if (size <= 0) {
+                        mEmptyTv.setVisibility(View.VISIBLE);
+                    } else {
+                        mEmptyTv.setVisibility(View.GONE);
+                        mTopLayout.setPadding(0, getResources().getDimensionPixelSize(R.dimen
+                                .dm012), 0, getResources().getDimensionPixelSize(R.dimen.dm010));
+                        mTopLayout.removeAllViews();
+                        mDataList.clear();
+                        for (final CirclePostsInfo.DataBean mData : mDatas) {
+                            if (mData != null) {
+                                //顶部
+                                if (showPostCategoryBean == null) {
+                                    showPostCategoryBean = mData.getShowPostCategory();
+                                    mHeaderSdv.setImageURI(showPostCategoryBean
+                                            .getPostCategoryUrl());
+                                    postCategoryName = showPostCategoryBean.getPostCategoryName();
+                                    mHeaderName.setText(postCategoryName);
+                                    mHeaderPostsNum.setText("帖子：" + size);
+                                }
+                                //置顶帖子
+                                if (mData.getOrderNO() == 1) {
+                                    mTopItemBt = LayoutInflater.from(mContext).inflate(R.layout
+                                            .layout_circle_top_item, null);
+                                    mTopTv = mTopItemBt.findViewById(R.id.circle_top_title_tv);
+                                    mTopTv.setText(mData.getPostTitle());
+                                    mTopItemBt.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            Intent intent = new Intent();
+                                            intent.putExtra(KeyConstant.ID, mData.getId());
+                                            intent.setClass(mContext, HubItemActivity.class);
+                                            mContext.startActivity(intent);
+                                        }
+                                    });
+                                    mTopLayout.addView(mTopItemBt);
+                                } else {
+                                    //不是置顶的帖子
+                                    mDataList.add(mData);
+                                }
                             }
                         }
                     }
@@ -215,7 +226,8 @@ public class CircleActivity extends BaseFgActivity {
             }
         };
 
-        Request<CirclePostsInfo> request = new GsonRequest<CirclePostsInfo>(Request.Method.POST, url,
+        Request<CirclePostsInfo> request = new GsonRequest<CirclePostsInfo>(Request.Method.POST,
+                url,
                 successListener, errorListener, new TypeToken<CirclePostsInfo>() {
         }.getType()) {
 

@@ -83,12 +83,16 @@ public class HubAdapter extends RecyclerView.Adapter<HubAdapter.ViewHolder> {
         }
         showPostCategoryList = dataBean.getShowPostCategoryList();
         if (showPostCategoryList != null) {
+            int size = showPostCategoryList.size();
+            if (size <= 0) {
+                return;
+            }
             viewHolder.mTxt.setText(dataBean.getPostCategoryName());
+            viewHolder.mTxt.setVisibility(View.VISIBLE);
             viewHolder.mLayoutTags.removeAllViews();
             for (final PostsInfo.DataBean.ShowPostCategoryListBean showPostCategoryListBean :
                     showPostCategoryList) {
-                if (showPostCategoryListBean != null && showPostCategoryListBean
-                        .getPostCategoryCount() > 0) {
+                if (showPostCategoryListBean != null) {
                     itemView = mInflater.inflate(R.layout.layout_hub_gl_item, null);
                     itemView.setLayoutParams(params);
                     //这是显示数据的控件
