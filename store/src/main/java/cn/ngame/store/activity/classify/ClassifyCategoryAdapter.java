@@ -17,7 +17,6 @@ import cn.ngame.store.R;
 import static cn.ngame.store.R.id.tv_content;
 
 /**
- *
  * @author gp
  */
 public class ClassifyCategoryAdapter extends BaseAdapter {
@@ -27,7 +26,8 @@ public class ClassifyCategoryAdapter extends BaseAdapter {
     String type;
     ImageLoader imageLoader = ImageLoader.getInstance();
 
-    public ClassifyCategoryAdapter(Context context, List<AllClassifyBean.DataBean.GameCategoryListBean> list) {
+    public ClassifyCategoryAdapter(Context context, List<AllClassifyBean.DataBean
+            .GameCategoryListBean> list) {
         super();
         this.context = context;
         this.list = list;
@@ -65,8 +65,8 @@ public class ClassifyCategoryAdapter extends BaseAdapter {
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = View.inflate(parent.getContext(), R.layout.classify_gridview_item, null);
-            holder.tv_content = (TextView) convertView.findViewById(tv_content);
-            holder.tv_content .setBackgroundResource(R.drawable.shape_corner4dp_4ac7fc);
+            holder.tv_content = convertView.findViewById(tv_content);
+            holder.tv_content.setBackgroundResource(R.drawable.shape_corner4dp_4ac7fc);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();

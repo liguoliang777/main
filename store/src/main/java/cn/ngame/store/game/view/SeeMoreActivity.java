@@ -63,11 +63,11 @@ public class SeeMoreActivity extends BaseFgActivity {
         pageAction = new PageAction();
         pageAction.setCurrentPage(0);
         pageAction.setPageSize(PAGE_SIZE);
-        content = SeeMoreActivity.this;
+        content =this;
         Intent intent = getIntent();
         String title = intent.getStringExtra(KeyConstant.TITLE);
         mLabelId = intent.getStringExtra(KeyConstant.category_Id);
-        Button leftBt = (Button) findViewById(R.id.left_bt);
+        Button leftBt = findViewById(R.id.left_bt);
         findViewById(R.id.center_tv).setVisibility(View.GONE);
         leftBt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,10 +77,10 @@ public class SeeMoreActivity extends BaseFgActivity {
         });
         leftBt.setText(title);
 
-        loadStateView = (LoadStateView) findViewById(R.id.loadStateView);
+        loadStateView = findViewById(R.id.loadStateView);
         loadStateView.isShowLoadBut(false);
 
-        pullListView = (PullToRefreshListView) findViewById(R.id.pullListView);
+        pullListView = findViewById(R.id.pullListView);
         pullListView.setPullRefreshEnabled(true); //刷新
         pullListView.setPullLoadEnabled(true); //false,不允许上拉加载
         pullListView.setScrollLoadEnabled(false);
@@ -122,14 +122,15 @@ public class SeeMoreActivity extends BaseFgActivity {
         refreshableView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(SeeMoreActivity.this, GameDetailActivity.class);
+                Intent intent = new Intent(content, GameDetailActivity.class);
                 intent.putExtra(KeyConstant.ID, adapter.getItem(position).getId());
                 startActivity(intent);
             }
         });
         gameInfoList = new ArrayList<>();
 
-        adapter = new MoreGameListAdapter(this, getSupportFragmentManager(), timerTasks, gameInfoList);
+        adapter = new MoreGameListAdapter(this, getSupportFragmentManager(), timerTasks,
+                gameInfoList);
         refreshableView.setAdapter(adapter);
         getGameList();//第一次进来加载
     }
@@ -147,7 +148,8 @@ public class SeeMoreActivity extends BaseFgActivity {
                         loadStateView.setVisibility(View.GONE);
                         ToastUtil.show(content, getString(R.string.server_exception));
                     } else {
-                        loadStateView.setState(LoadStateView.STATE_END, getString(R.string.server_exception));
+                        loadStateView.setState(LoadStateView.STATE_END, getString(R.string
+                                .server_exception));
                         loadStateView.setVisibility(View.VISIBLE);
                     }
 
@@ -163,7 +165,8 @@ public class SeeMoreActivity extends BaseFgActivity {
                         //下拉,第一页,数据为空
                         if (gameList == null || gameList.size() == 0) {
                             loadStateView.setVisibility(View.VISIBLE);
-                            loadStateView.setState(LoadStateView.STATE_END, getString(R.string.no_data));
+                            loadStateView.setState(LoadStateView.STATE_END, getString(R.string
+                                    .no_data));
 
                         } else {
                             /*  if (size > 0) {
@@ -210,7 +213,8 @@ public class SeeMoreActivity extends BaseFgActivity {
                             }
                         } else {
                             loadStateView.setVisibility(View.VISIBLE);
-                            loadStateView.setState(LoadStateView.STATE_END, getString(R.string.server_exception_2_pullrefresh));
+                            loadStateView.setState(LoadStateView.STATE_END, getString(R.string
+                                    .server_exception_2_pullrefresh));
                         }
 
                         //下拉停留的位置
@@ -225,14 +229,16 @@ public class SeeMoreActivity extends BaseFgActivity {
                 } else {
                     Log.d(TAG, "HTTP请求成功：服务端返回错误！");
                     if (pageAction.getCurrentPage() == 0) {
-                        loadStateView.setState(LoadStateView.STATE_END, getString(R.string.server_exception_2_pullrefresh));
+                        loadStateView.setState(LoadStateView.STATE_END, getString(R.string
+                                .server_exception_2_pullrefresh));
                     } else {
                         loadStateView.setVisibility(View.GONE);
                         ToastUtil.show(content, getString(R.string.server_exception));
                     }
                 }
                 //设置下位列表
-          /*      if ((gameInfoList.size() == 0 && pageAction.getTotal() == 0) || gameInfoList.size() >= pageAction.getTotal()) {
+          /*      if ((gameInfoList.size() == 0 && pageAction.getTotal() == 0) || gameInfoList
+          .size() >= pageAction.getTotal()) {
                     pullListView.setPullLoadEnabled(false);
                 } else {
                     pullListView.setPullLoadEnabled(true);
@@ -250,7 +256,8 @@ public class SeeMoreActivity extends BaseFgActivity {
                     loadStateView.setVisibility(View.GONE);
                     ToastUtil.show(content, getString(R.string.server_exception));
                 } else {
-                    loadStateView.setState(LoadStateView.STATE_END, getString(R.string.server_exception));
+                    loadStateView.setState(LoadStateView.STATE_END, getString(R.string
+                            .server_exception));
                     loadStateView.setVisibility(View.VISIBLE);
                 }
                 pullListView.onPullUpRefreshComplete();
@@ -258,7 +265,8 @@ public class SeeMoreActivity extends BaseFgActivity {
             }
         };
 
-        Request<LikeListBean> request = new GsonRequest<LikeListBean>(Request.Method.POST, url, successListener, errorListener,
+        Request<LikeListBean> request = new GsonRequest<LikeListBean>(Request.Method.POST, url,
+                successListener, errorListener,
                 new TypeToken<LikeListBean>() {
                 }.getType()) {
             @Override

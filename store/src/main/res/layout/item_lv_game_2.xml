@@ -38,6 +38,7 @@
             android:clickable="false"
             android:ellipsize="end"
             android:maxLines="1"
+            android:textStyle="bold"
             android:textColor="@color/color_1a"
             android:textSize="@dimen/dp_16"/>
         <cn.ngame.store.view.GameLoadProgressBar
