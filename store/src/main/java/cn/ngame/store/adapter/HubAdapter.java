@@ -81,12 +81,14 @@ public class HubAdapter extends RecyclerView.Adapter<HubAdapter.ViewHolder> {
         if (dataBean == null) {
             return;
         }
-        viewHolder.mTxt.setText(dataBean.getPostCategoryName());
-        viewHolder.mLayoutTags.removeAllViews();
         showPostCategoryList = dataBean.getShowPostCategoryList();
         if (showPostCategoryList != null) {
-            for (final PostsInfo.DataBean.ShowPostCategoryListBean showPostCategoryListBean : showPostCategoryList) {
-                if (showPostCategoryListBean != null) {
+            viewHolder.mTxt.setText(dataBean.getPostCategoryName());
+            viewHolder.mLayoutTags.removeAllViews();
+            for (final PostsInfo.DataBean.ShowPostCategoryListBean showPostCategoryListBean :
+                    showPostCategoryList) {
+                if (showPostCategoryListBean != null && showPostCategoryListBean
+                        .getPostCategoryCount() > 0) {
                     itemView = mInflater.inflate(R.layout.layout_hub_gl_item, null);
                     itemView.setLayoutParams(params);
                     //这是显示数据的控件
@@ -94,7 +96,8 @@ public class HubAdapter extends RecyclerView.Adapter<HubAdapter.ViewHolder> {
                     tvPostNum = itemView.findViewById(R.id.hub_gl_item_posts_num_tv);
 
                     tv.setText(showPostCategoryListBean.getPostCategoryName());
-                    tvPostNum.setText(String.valueOf(showPostCategoryListBean.getPostCategoryCount()));
+                    tvPostNum.setText(String.valueOf(showPostCategoryListBean
+                            .getPostCategoryCount()));
 
                     itemView.setOnClickListener(new View.OnClickListener() {
                         @Override

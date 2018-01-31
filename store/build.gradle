@@ -3,8 +3,11 @@ apply plugin: 'com.android.application'
 def releaseTime() {
     return new Date().format("MMdd", TimeZone.getTimeZone("UTC"))
 }
+
 android {
 
+    signingConfigs {
+    }
     compileSdkVersion 26
     packagingOptions {
         exclude 'META-INF/NOTICE' // will not include NOTICE file
@@ -54,7 +57,7 @@ android {
             // signingConfigs signingConfigs.debug
             // proguardFiles 'proguard-rules.pro'*/
 //            versionNameSuffix "-debug"
-           // minifyEnabled true
+            // minifyEnabled true
 //            zipAlignEnabled false
 //            shrinkResources false
             //signingConfig signingConfigs.release
@@ -80,9 +83,9 @@ android {
     }
     //编译输出的名字
     android.applicationVariants.all { variant ->
-            variant.outputs.all {
-                outputFileName = "fangle_${variant.versionCode}_${variant.versionName}${releaseTime() }.apk"
-            }
+        variant.outputs.all {
+            outputFileName = "fangle_${variant.versionCode}_${variant.versionName}${releaseTime()}.apk"
+        }
     }
 
 
@@ -94,7 +97,7 @@ android {
         main {
             //jni.srcDirs = []                          //设置禁止gradle生成Android.mk
             //jniLibs.srcDirs = ['src/main/jniLibs']      //设置目标的so存放路径
-          jniLibs.srcDir 'libs'
+            jniLibs.srcDir 'libs'
             jni.srcDirs = []
         }
     }
@@ -161,7 +164,6 @@ dependencies {
     //compile 'com.inmobi.monetization:inmobi-ads:7.0.0'
     //compile files('libs/InMobi-7.0.0-China.jar')
     compile files('libs/weiboSDKCore.jar')
-
     compile 'cn.jzvd:jiaozivideoplayer:6.1.1'
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.4'
 }

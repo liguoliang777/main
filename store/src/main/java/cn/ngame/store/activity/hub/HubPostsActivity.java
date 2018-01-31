@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -126,6 +127,7 @@ public class HubPostsActivity extends BaseFgActivity {
                     return;
                 }
                 mDatas = result.getData();
+                Log.d(TAG, "7返回:"+ mDatas.size());
                 mAdapter.setData(mDatas);
 
                 refreshLayout.finishRefresh(0);
