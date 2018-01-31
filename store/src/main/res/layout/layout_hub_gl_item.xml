@@ -22,6 +22,7 @@
             android:layout_marginLeft="@dimen/dm024"
             android:layout_marginTop="@dimen/dm014"
             android:maxLines="1"
+            android:textStyle="bold"
             android:maxWidth="@dimen/dm250"
             android:text=""
             android:textColor="@color/color_4d4d4d"
