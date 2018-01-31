@@ -6,14 +6,13 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
+import android.provider.Settings;
 import android.support.v4.content.FileProvider;
 import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
-import cn.ngame.store.exception.NoSDCardException;
 
 /**
  * APP更新工具
@@ -90,19 +89,44 @@ public class AppInstallHelper {
                 File filePath = new File(CommonUtil.getFileLoadBasePath(), apkName);
 
                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    String packageName = context.getApplicationContext().getPackageName();
-                    String authority =  new StringBuilder(packageName).append(".provider").toString();
-                    Uri contentUri = FileProvider.getUriForFile(context, authority, filePath);
-                    intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
-                } else {
-                    intent.setDataAndType(Uri.fromFile(filePath), "application/vnd.android.package-archive");
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {  //6.0以上
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) { // 8.0权限 == 26
+                        boolean canInstalls = context.getPackageManager()
+                                .canRequestPackageInstalls();
+                        if (!canInstalls) {
+                            //请求安装未知应用来源的权限
+                            Intent intent1 = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES);
+                            context.startActivity(intent1);
+
+                        } else {
+                            //直接安装
+                            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                            String packageName = context.getApplicationContext().getPackageName();
+                            String authority = new StringBuilder(packageName).append(".provider")
+                                    .toString();
+                            Uri contentUri = FileProvider.getUriForFile(context, authority, filePath);
+                            intent.setDataAndType(contentUri, "application/vnd.android" +
+                                    ".package-archive");
+                        }
+                    } else {
+                        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        String packageName = context.getApplicationContext().getPackageName();
+                        String authority = new StringBuilder(packageName).append(".provider")
+                                .toString();
+                        Uri contentUri = FileProvider.getUriForFile(context, authority, filePath);
+                        intent.setDataAndType(contentUri, "application/vnd.android" +
+                                ".package-archive");
+                    }
+                } else {//6.0以下
+                    intent.setDataAndType(Uri.fromFile(filePath), "application/vnd.android" +
+                            ".package-archive");
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 }
                 context.startActivity(intent);
             }
-        } catch (NoSDCardException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

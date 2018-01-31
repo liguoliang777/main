@@ -65,6 +65,7 @@
         android:layout_marginLeft="@dimen/dm016"
         android:layout_marginRight="@dimen/dm016"
         android:layout_marginTop="@dimen/dm016"
+        android:layout_marginBottom="@dimen/dm016"
         android:clickable="false"
         android:ellipsize="end"
         android:lineSpacingExtra="@dimen/dm016"
