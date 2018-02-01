@@ -41,12 +41,11 @@ import cn.jzvd.JZVideoPlayerStandard;
 import cn.ngame.store.R;
 import cn.ngame.store.StoreApplication;
 import cn.ngame.store.activity.BaseFgActivity;
-import cn.ngame.store.bean.User;
+import cn.ngame.store.core.utils.CommonUtil;
 import cn.ngame.store.core.utils.Constant;
 import cn.ngame.store.core.utils.ImageUtil;
 import cn.ngame.store.core.utils.KeyConstant;
 import cn.ngame.store.core.utils.NetUtil;
-import cn.ngame.store.util.ConvUtil;
 import cn.ngame.store.util.ToastUtil;
 import cn.ngame.store.view.NgameJZVideoPlayerStandard;
 import cn.ngame.store.view.zan.HeartLayout;
@@ -69,6 +68,8 @@ public class HubItemActivity extends BaseFgActivity {
     private NgameJZVideoPlayerStandard jzVideoPlayerStandard;
     private List<PostDetailBean.DataBean.PostImageListBean> postImageList;
     private AudioManager mAudioManager;
+    private int isPoint = 0;
+    private int pointNum = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +112,6 @@ public class HubItemActivity extends BaseFgActivity {
 
     private void setMsgDetail(PostDetailBean result) {
         final PostDetailBean.DataBean data = result.getData();
-        Log.d(TAG, "获取单条数据: ==" + data);
         if (data == null) {
             return;
         }
@@ -122,7 +122,8 @@ public class HubItemActivity extends BaseFgActivity {
                 if (postImageListBean != null && 9 == postImageListBean.getPostOrderNo()) {
                     String gameVideoLink = postImageListBean.getPostImageAddress();
                     jzVideoPlayerStandard.setVisibility(View.VISIBLE);
-                    jzVideoPlayerStandard.setUp(gameVideoLink, JZVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, "");
+                    jzVideoPlayerStandard.setUp(gameVideoLink, JZVideoPlayerStandard
+                            .SCREEN_LAYOUT_NORMAL, "");
                     jzVideoPlayerStandard.backButton.setVisibility(View.GONE);
                     if (NetUtil.isWifiConnected(mContext)) {
                         jzVideoPlayerStandard.startVideo();
@@ -138,7 +139,8 @@ public class HubItemActivity extends BaseFgActivity {
         mTitleTv.setText(data.getPostTitle());
         mTimeTv.setText(String.valueOf(DateUtils.getRelativeTimeSpanString(
                 data.getUpdateTime())).replace(" ", ""));
-        mSupportNumTv.setText(data.getPointNum() + "赞");
+        pointNum = data.getPointNum();
+        mSupportNumTv.setText(pointNum + "赞");
         mWatchNum.setText(String.valueOf(data.getWatchNum()));
         hubInfo = data.getShowPostCategory();
         if (hubInfo != null) {
@@ -171,32 +173,85 @@ public class HubItemActivity extends BaseFgActivity {
             }
         }*/
 
-        if (data.getIsPoint() == 1) {
-            mSupportBt.setBackgroundResource(R.drawable.zan);
-            mSupportNumTv.setTextColor(ContextCompat.getColor(mContext, R.color.mainColor));
-            mSupportBt.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ToastUtil.show(mContext, "已经点过赞了哦~");
-                    //heartLayout.addFavor();
-                }
-            });
+        isPoint = data.getIsPoint();
+        Log.d(TAG, "isPoint: " + isPoint);
+        if (CommonUtil.isLogined()) {
+            if (isPoint == 1) {
+                mSupportBt.setBackgroundResource(R.drawable.zan);
+                mSupportNumTv.setTextColor(ContextCompat.getColor(mContext, R.color.mainColor));
+                mSupportBt.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ToastUtil.show(mContext, "已经点过赞了哦~");
+                        //heartLayout.addFavor();
+                    }
+                });
+            } else {
+                mSupportBt.setBackgroundResource(R.drawable.un_zan);
+                mSupportBt.setEnabled(true);
+                mSupportBt.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        clickAgree(1, postId);
+                        heartLayout.addFavor();
+                    }
+                });
+            }
         } else {
-            mSupportBt.setBackgroundResource(R.drawable.un_zan);
-            mSupportBt.setEnabled(true);
             mSupportBt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    clickAgree(1, postId);
-                    heartLayout.addFavor();
+                    CommonUtil.showUnLoginDialog(getSupportFragmentManager(), mContext, R.string
+                            .unlogin_msg);
                 }
             });
+
         }
 
 
         String postContent = data.getPostContent();
+        String test = getString(R.string.test);
+        String replace = postContent.replace("<br />", "");
         Spanned spanned = Html.fromHtml(postContent, new HtmlImageGetter(), null);
         mDescTv.setText(spanned);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d(TAG, "重启onRestart: ");
+        if (CommonUtil.isLogined()) {
+            if (isPoint == 1) {
+                mSupportBt.setBackgroundResource(R.drawable.zan);
+                mSupportNumTv.setTextColor(ContextCompat.getColor(mContext, R.color.mainColor));
+                mSupportBt.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ToastUtil.show(mContext, "已经点过赞了哦~");
+                        //heartLayout.addFavor();
+                    }
+                });
+            } else {
+                mSupportBt.setBackgroundResource(R.drawable.un_zan);
+                mSupportBt.setEnabled(true);
+                mSupportBt.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        clickAgree(1, postId);
+                        heartLayout.addFavor();
+                    }
+                });
+            }
+        } else {
+            mSupportBt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CommonUtil.showUnLoginDialog(getSupportFragmentManager(), mContext, R.string
+                            .unlogin_msg);
+                }
+            });
+
+        }
     }
 
     /**
@@ -319,12 +374,8 @@ public class HubItemActivity extends BaseFgActivity {
         mSupportBt.setEnabled(false);
         //帖子id
         AddPointBodyBean bodyBean = new AddPointBodyBean();
-        User user = StoreApplication.user;
-        if (user != null) {
-            bodyBean.setUserCode(user.userCode);
-        } else {
-            bodyBean.setDeviceOnlyNum(StoreApplication.deviceId);
-        }
+        String userCode = StoreApplication.userCode;
+        bodyBean.setUserCode(userCode);
         bodyBean.setAppTypeId(Constant.APP_TYPE_ID_0_ANDROID);
         bodyBean.setPostId(id);  //帖子id
         new AddPointClient(this, bodyBean).observable()
@@ -345,8 +396,7 @@ public class HubItemActivity extends BaseFgActivity {
                         if (result != null && result.getCode() == 0) {
                             if (type == 1) { //区分帖子点赞和评论点赞
                                 ToastUtil.show(mContext, "点赞成功~");
-                                mSupportNumTv.setText(ConvUtil.NI(mSupportNumTv.getText()
-                                        .toString()) + 1 + "赞");
+                                mSupportNumTv.setText(pointNum + 1 + "赞");
                                 mSupportNumTv.setTextColor(ContextCompat.getColor(mContext, R
                                         .color.mainColor));
                                 mSupportBt.setBackgroundResource(R.drawable.zan);
@@ -371,12 +421,8 @@ public class HubItemActivity extends BaseFgActivity {
      */
     private void getData() {
         MsgDetailBodyBean bodyBean = new MsgDetailBodyBean();
-        User user = StoreApplication.user;
-        if (user != null) {
-            bodyBean.setUserCode(user.userCode);
-        } else {
-            bodyBean.setDeviceOnlyNum(StoreApplication.deviceId);
-        }
+        String userCode = StoreApplication.userCode;
+        bodyBean.setUserCode(userCode);
         bodyBean.setPostId(postId);
         bodyBean.setAppTypeId(Constant.APP_TYPE_ID_0_ANDROID);
         new PostDetailClient(this, bodyBean).observable()

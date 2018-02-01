@@ -24,7 +24,7 @@ android {
         applicationId "cn.ngame.store"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 400009
+        versionCode 400010
         versionName "V4.0.4."
 
         ndk {

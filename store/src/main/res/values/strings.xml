@@ -236,4 +236,6 @@
     <string name="share_description">欢迎来到方格游戏。手柄游戏，破解游戏，汉化游戏，应有尽有，快来畅玩吧！</string>
     <string name="app_download_url_yyb">http://sj.qq.com/myapp/detail.htm?apkName=cn.ngame.store</string>
     <string name="alipay_redpackage_content">7Dl59e13pi</string>
+    <string name="test">style="text-indent:2em;color:#333333;font-family:'Microsoft YaHei';font-size:16px;background-color:#FFFFFF;</string>
+    <string name="test1">style="text-indent:2em;color:#333333;font-family:'Microsoft YaHei';font-size:16px;background-color:#FFFFFF;</string>
 </resources>
