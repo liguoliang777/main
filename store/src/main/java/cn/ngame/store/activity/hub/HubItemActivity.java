@@ -111,6 +111,7 @@ public class HubItemActivity extends BaseFgActivity {
     protected static final String TAG = HubItemActivity.class.getSimpleName();
 
     private void setMsgDetail(PostDetailBean result) {
+        mSupportBt.setVisibility(View.VISIBLE);
         final PostDetailBean.DataBean data = result.getData();
         if (data == null) {
             return;
@@ -221,27 +222,50 @@ public class HubItemActivity extends BaseFgActivity {
         super.onRestart();
         Log.d(TAG, "重启onRestart: ");
         if (CommonUtil.isLogined()) {
-            if (isPoint == 1) {
-                mSupportBt.setBackgroundResource(R.drawable.zan);
-                mSupportNumTv.setTextColor(ContextCompat.getColor(mContext, R.color.mainColor));
-                mSupportBt.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ToastUtil.show(mContext, "已经点过赞了哦~");
-                        //heartLayout.addFavor();
-                    }
-                });
-            } else {
-                mSupportBt.setBackgroundResource(R.drawable.un_zan);
-                mSupportBt.setEnabled(true);
-                mSupportBt.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        clickAgree(1, postId);
-                        heartLayout.addFavor();
-                    }
-                });
-            }
+            MsgDetailBodyBean bodyBean = new MsgDetailBodyBean();
+            String userCode = StoreApplication.userCode;
+            bodyBean.setUserCode(userCode);
+            bodyBean.setPostId(postId);
+            bodyBean.setAppTypeId(Constant.APP_TYPE_ID_0_ANDROID);
+            new PostDetailClient(this, bodyBean).observable()
+                    .subscribe(new ObserverWrapper<PostDetailBean>() {
+                        @Override
+                        public void onError(Throwable e) {
+                            //("服务器开小差咯~");
+                        }
+
+                        @Override
+                        public void onNext(PostDetailBean result) {
+                            if (result != null && result.getCode() == 0) {
+                                isPoint = result.getData().getIsPoint();
+                                if (isPoint == 1) {
+                                    mSupportBt.setBackgroundResource(R.drawable.zan);
+                                    mSupportNumTv.setTextColor(ContextCompat.getColor(mContext, R
+                                            .color.mainColor));
+                                    mSupportBt.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            ToastUtil.show(mContext, "已经点过赞了哦~");
+                                            //heartLayout.addFavor();
+                                        }
+                                    });
+                                } else {
+                                    mSupportBt.setBackgroundResource(R.drawable.un_zan);
+                                    mSupportBt.setEnabled(true);
+                                    mSupportBt.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            clickAgree(1, postId);
+                                            heartLayout.addFavor();
+                                        }
+                                    });
+                                }
+                            } else {
+                                //ToastUtil.show(mContext, "获取失败");
+                            }
+                        }
+                    });
+
         } else {
             mSupportBt.setOnClickListener(new View.OnClickListener() {
                 @Override
