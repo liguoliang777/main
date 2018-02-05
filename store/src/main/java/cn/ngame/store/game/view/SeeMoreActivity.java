@@ -67,7 +67,7 @@ public class SeeMoreActivity extends BaseFgActivity {
         Intent intent = getIntent();
         String title = intent.getStringExtra(KeyConstant.TITLE);
         mLabelId = intent.getStringExtra(KeyConstant.category_Id);
-        Button leftBt = findViewById(R.id.left_bt);
+        Button leftBt = (Button) findViewById(R.id.left_bt);
         findViewById(R.id.center_tv).setVisibility(View.GONE);
         leftBt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,10 +77,10 @@ public class SeeMoreActivity extends BaseFgActivity {
         });
         leftBt.setText(title);
 
-        loadStateView = findViewById(R.id.loadStateView);
+        loadStateView = (LoadStateView)findViewById(R.id.loadStateView);
         loadStateView.isShowLoadBut(false);
 
-        pullListView = findViewById(R.id.pullListView);
+        pullListView = (PullToRefreshListView) findViewById(R.id.pullListView);
         pullListView.setPullRefreshEnabled(true); //刷新
         pullListView.setPullLoadEnabled(true); //false,不允许上拉加载
         pullListView.setScrollLoadEnabled(false);

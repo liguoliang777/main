@@ -42,8 +42,8 @@ public class RankActivity extends BaseFgActivity {
     }
 
     private void init() {
-        ll_back = findViewById(R.id.ll_back);
-        titleTv = findViewById(R.id.tv_title);
+        ll_back =(LinearLayout) findViewById(R.id.ll_back);
+        titleTv = (TextView) findViewById(R.id.tv_title);
 
         titleTv.setText("排行榜");
         ll_back.setOnClickListener(new View.OnClickListener() {

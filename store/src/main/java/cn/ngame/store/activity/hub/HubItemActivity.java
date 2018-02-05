@@ -1,5 +1,6 @@
 package cn.ngame.store.activity.hub;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -8,6 +9,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LevelListDrawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +18,8 @@ import android.text.Spanned;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -29,6 +33,7 @@ import com.jzt.hol.android.jkda.sdk.bean.gamehub.PostDetailBean;
 import com.jzt.hol.android.jkda.sdk.rx.ObserverWrapper;
 import com.jzt.hol.android.jkda.sdk.services.gamehub.AddPointClient;
 import com.jzt.hol.android.jkda.sdk.services.gamehub.PostDetailClient;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -73,7 +78,7 @@ public class HubItemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //initStatusBar();
+        initStatusBar();
         setContentView(R.layout.activity_game_hub_detail);
         initView();
         postId = getIntent().getIntExtra(KeyConstant.ID, 0);
@@ -136,7 +141,7 @@ public class HubItemActivity extends AppCompatActivity {
                             .SCREEN_LAYOUT_NORMAL, "");
                     //jzVideoPlayerStandard.backButton.setVisibility(View.GONE);
                     if (NetUtil.isWifiConnected(mContext)) {
-                        jzVideoPlayerStandard.startPlayLogic();
+                        jzVideoPlayerStandard.startVideo();
                     }
                     break;
                 }
@@ -479,5 +484,30 @@ public class HubItemActivity extends AppCompatActivity {
 
     public void onHubItemBackClick(View view) {
         finish();
+    }
+
+    //透明状态栏
+    protected void initStatusBar() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            setTranslucentStatus(true);
+            //tintManager.setStatusBarTintEnabled(true); // 激活导航栏设//
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            tintManager.setStatusBarTintEnabled(true);
+            tintManager.setStatusBarTintResource(R.color.mainColor);//通知栏所需颜色
+        }
+    }
+
+    //沉浸式状态栏
+    @TargetApi(19)
+    protected void setTranslucentStatus(boolean on) {
+        Window win = getWindow();
+        WindowManager.LayoutParams winParams = win.getAttributes();
+        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+        if (on) {
+            winParams.flags |= bits;
+        } else {
+            winParams.flags &= ~bits;
+        }
+        win.setAttributes(winParams);
     }
 }

@@ -77,18 +77,18 @@ public class CircleActivity extends BaseFgActivity {
 
 
     private void init() {
-        ll_back = findViewById(R.id.ll_back);
-        titleTv = findViewById(R.id.tv_title);
+        ll_back = (LinearLayout) findViewById(R.id.ll_back);
+        titleTv = (TextView) findViewById(R.id.tv_title);
         ll_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        RefreshLayout refreshLayout = findViewById(R.id.refreshLayout);
+        RefreshLayout refreshLayout = (RefreshLayout)findViewById(R.id.refreshLayout);
         refreshLayout.setPrimaryColors(Color.WHITE);
         refreshLayout.autoRefresh();
-        mListView = findViewById(R.id.hub_circle_lv);
+        mListView = (ListView) findViewById(R.id.hub_circle_lv);
         mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView absListView, int i) {

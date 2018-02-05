@@ -202,10 +202,10 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
 
         mIconIv = (SimpleDraweeView) findViewById(R.id.iv_icon_title);
         mTitleTv = (TextView) findViewById(R.id.title_tv);
-        mDownloadBt = findViewById(R.id.main_download_bt);
-        mLikeBt = findViewById(R.id.main_like_bt);
-        mHubBt = findViewById(R.id.main_hub_bt);
-        mRankBt = findViewById(R.id.main_rank_bt);
+        mDownloadBt = (ImageView) findViewById(R.id.main_download_bt);
+        mLikeBt = (ImageView)findViewById(R.id.main_like_bt);
+        mHubBt = (ImageView)findViewById(R.id.main_hub_bt);
+        mRankBt = (ImageView)findViewById(R.id.main_rank_bt);
         im_toSearch.setOnClickListener(this);
         fl_notifi.setOnClickListener(this);
         mIconIv.setOnClickListener(this);

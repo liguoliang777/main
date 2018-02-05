@@ -22,6 +22,7 @@
 
 -keep public class * extends android.app.Activity
 -keep public class * extends android.support.v4.app.FragmentActivity
+-keep public class * extends android.support.v7.app.AppCompatActivity
 -keep public class * extends android.support.v4.app.Fragment
 -keep public class * extends android.app.Application
 -keep public class * extends android.app.Service
@@ -244,6 +245,7 @@
  -keep class cn.ngame.store.push.model.ExtraDataBean
  -keep class cn.ngame.store.push.model.MessageDetail
  -keep class cn.ngame.store.activity.main.MainHomeActivity
+ -keep class cn.ngame.store.activity.hub.HubItemActivity
 
  -keep class org.apache.http.** {*; }
  -keep class org.apache.**{*;}
@@ -369,3 +371,5 @@ public *;
  -keep class com.linkedin.** { *; }
  -keep class com.android.dingtalk.share.ddsharemodule.** { *; }
   -keepattributes Signature
+
+

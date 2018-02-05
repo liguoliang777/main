@@ -29,7 +29,7 @@ public class NecessaryOrLikeActivity extends BaseFgActivity {
                 finish();
             }
         });
-        TextView centerTv = findViewById(R.id.center_tv);
+        TextView centerTv =(TextView) findViewById(R.id.center_tv);
 
 
         int EXTRA = getIntent().getIntExtra(KeyConstant.likeOrNecessaryExtraKey, KeyConstant

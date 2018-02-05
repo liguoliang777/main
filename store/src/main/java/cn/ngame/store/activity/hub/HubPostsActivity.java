@@ -63,8 +63,8 @@ public class HubPostsActivity extends BaseFgActivity {
     }
 
     private void init() {
-        ll_back = findViewById(R.id.ll_back);
-        titleTv = findViewById(R.id.tv_title);
+        ll_back = (LinearLayout) findViewById(R.id.ll_back);
+        titleTv = (TextView) findViewById(R.id.tv_title);
 
         titleTv.setText("圈子");
         ll_back.setOnClickListener(new View.OnClickListener() {
@@ -73,10 +73,10 @@ public class HubPostsActivity extends BaseFgActivity {
                 finish();
             }
         });
-        RefreshLayout refreshLayout = findViewById(R.id.refreshLayout);
+        RefreshLayout refreshLayout = (RefreshLayout)findViewById(R.id.refreshLayout);
         refreshLayout.setPrimaryColors(Color.WHITE);
         refreshLayout.autoRefresh();
-        mRecyclerView = findViewById(R.id.recyclerview);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         //设置布局管理器
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);

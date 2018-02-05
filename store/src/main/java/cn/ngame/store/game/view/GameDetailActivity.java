@@ -184,7 +184,7 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
         gameType2 = (TextView) findViewById(R.id.game_detail_type2);
         gameType3 = (TextView) findViewById(R.id.game_detail_type3);
         likeIv = (ImageView) findViewById(R.id.game_detail_like_iv);//喜欢按钮
-        mLayoutTags = findViewById(R.id.layout_tags);//喜欢按钮
+        mLayoutTags = (GridLayout) findViewById(R.id.layout_tags);//喜欢按钮
         progressBar = (GameLoadProgressBar) findViewById(R.id.game_detail_progress_bar);//下载按钮
 
         likeIv.setOnClickListener(gameDetailClickListener);
