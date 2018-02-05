@@ -78,7 +78,7 @@ public class HubItemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        initStatusBar();
+        //initStatusBar();
         setContentView(R.layout.activity_game_hub_detail);
         initView();
         postId = getIntent().getIntExtra(KeyConstant.ID, 0);
