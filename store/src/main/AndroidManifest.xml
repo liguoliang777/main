@@ -52,6 +52,7 @@
     <application
         android:name=".StoreApplication"
         android:allowBackup="false"
+        tools:replace="android:allowBackup"
         android:icon="@drawable/ic_launcher"
         android:label="@string/appName"
         android:supportsRtl="true"

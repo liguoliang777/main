@@ -1035,6 +1035,19 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
         hasStop = true;
         UMShareAPI.get(this).release();
     }
+    @Override
+    public void onBackPressed() {
+        if (JZVideoPlayerStandard.backPress()) {
+            return;
+        }
+        super.onBackPressed();
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        JZVideoPlayerStandard.releaseAllVideos();
+
+    }
 
 }

@@ -24,7 +24,7 @@ android {
         applicationId "cn.ngame.store"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 400010
+        versionCode 400011
         versionName "V4.0.4."
 
         ndk {
@@ -166,4 +166,6 @@ dependencies {
     compile files('libs/weiboSDKCore.jar')
     compile 'cn.jzvd:jiaozivideoplayer:6.1.1'
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.4'
+
+    compile 'fm.jiecao:jiecaovideoplayer:4.8.3'
 }

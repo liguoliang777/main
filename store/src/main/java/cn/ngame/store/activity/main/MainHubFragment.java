@@ -113,9 +113,13 @@ public class MainHubFragment extends BaseSearchFragment {
                         if (result != null && result.getCode() == 0) {
                             listData(result);
                         } else {
-                            loadStateView.setState(LoadStateView.STATE_END, getString(R.string.server_exception));
-                            pullListView.onPullUpRefreshComplete();
-                            pullListView.onPullDownRefreshComplete();
+                            if (list != null && list.size() > 0) {
+                                loadStateView.setVisibility(View.GONE);
+                                ToastUtil.show(context, getString(R.string.server_exception_2_pullrefresh));
+                            } else {
+                                loadStateView.setState(LoadStateView.STATE_END, getString(R.string.server_exception_2_pullrefresh));
+                                loadStateView.setVisibility(View.VISIBLE);
+                            }
                         }
                     }
                 });

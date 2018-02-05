@@ -7,10 +7,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LevelListDrawable;
-import android.media.AudioManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.format.DateUtils;
@@ -37,25 +37,24 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
-import cn.jzvd.JZVideoPlayerStandard;
 import cn.ngame.store.R;
 import cn.ngame.store.StoreApplication;
-import cn.ngame.store.activity.BaseFgActivity;
 import cn.ngame.store.core.utils.CommonUtil;
 import cn.ngame.store.core.utils.Constant;
 import cn.ngame.store.core.utils.ImageUtil;
 import cn.ngame.store.core.utils.KeyConstant;
 import cn.ngame.store.core.utils.NetUtil;
 import cn.ngame.store.util.ToastUtil;
-import cn.ngame.store.view.NgameJZVideoPlayerStandard;
 import cn.ngame.store.view.zan.HeartLayout;
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
 
 /**
  * Created by Administrator on 2017/6/13 0013.
  */
 
-public class HubItemActivity extends BaseFgActivity {
+public class HubItemActivity extends AppCompatActivity {
     private HubItemActivity mContext;
     private int postId = 0;
     private TextView mTitleTv, mFromTv, mDescTv, mTimeTv, mHubNameTv, mWatchNum, mSupportNumTv;
@@ -65,9 +64,8 @@ public class HubItemActivity extends BaseFgActivity {
     private PostDetailBean.DataBean.ShowPostCategoryBean hubInfo;
     private RelativeLayout hubLayout;
     private LinearLayout imageLayout;
-    private NgameJZVideoPlayerStandard jzVideoPlayerStandard;
+    private JCVideoPlayerStandard jzVideoPlayerStandard;
     private List<PostDetailBean.DataBean.PostImageListBean> postImageList;
-    private AudioManager mAudioManager;
     private int isPoint = 0;
     private int pointNum = 0;
 
@@ -75,40 +73,51 @@ public class HubItemActivity extends BaseFgActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        initStatusBar();
+        //initStatusBar();
         setContentView(R.layout.activity_game_hub_detail);
         initView();
-        try {
-            postId = getIntent().getIntExtra(KeyConstant.ID, 0);
-        } catch (Exception e) {
-        }
+        postId = getIntent().getIntExtra(KeyConstant.ID, 0);
         mContext = this;
         //请求数据
         getData();
     }
 
     private void initView() {
-        mFromTv = findViewById(R.id.hub_detail_from_tv);
-        mFromIcon = findViewById(R.id.game_hub_sdv);
-        mTitleTv = findViewById(R.id.game_hub_detail_title_tv);
-        mDescTv = findViewById(R.id.game_hub_detail_desc_tv);
-        mTimeTv = findViewById(R.id.hub_detail_time_tv);
-        mSupportNumTv = findViewById(R.id.game_hub_support_tv);
-        mSupportBt = findViewById(R.id.game_hub_support_bt);
-        mWatchNum = findViewById(R.id.see_numb_tv);
-        mHubNameTv = findViewById(R.id.hub_detail_hub_name_tv);
-        mHubImageView = findViewById(R.id.hub_detail_hub_iv);
-        heartLayout = findViewById(R.id.heart_layout);
-        hubLayout = findViewById(R.id.hub_detail_hub_layout);
+        mFromTv = (TextView) findViewById(R.id.hub_detail_from_tv);
+        mFromIcon = (SimpleDraweeView) findViewById(R.id.game_hub_sdv);
+        mTitleTv = (TextView) findViewById(R.id.game_hub_detail_title_tv);
+        mDescTv = (TextView) findViewById(R.id.game_hub_detail_desc_tv);
+        mTimeTv = (TextView) findViewById(R.id.hub_detail_time_tv);
+        mSupportNumTv = (TextView) findViewById(R.id.game_hub_support_tv);
+        mSupportBt = (ImageView) findViewById(R.id.game_hub_support_bt);
+        mWatchNum = (TextView) findViewById(R.id.see_numb_tv);
+        mHubNameTv = (TextView) findViewById(R.id.hub_detail_hub_name_tv);
+        mHubImageView = (SimpleDraweeView) findViewById(R.id.hub_detail_hub_iv);
+        heartLayout = (HeartLayout) findViewById(R.id.heart_layout);
+        hubLayout = (RelativeLayout) findViewById(R.id.hub_detail_hub_layout);
 
-        imageLayout = findViewById(R.id.hub_item_layout);
+        imageLayout = (LinearLayout) findViewById(R.id.hub_item_layout);
 
         //视频
-        jzVideoPlayerStandard = findViewById(R.id.hub_item_detial_ngame_vp);
+        jzVideoPlayerStandard = (JCVideoPlayerStandard) findViewById(R.id.hub_item_detial_ngame_vp);
         jzVideoPlayerStandard.topContainer.setVisibility(View.GONE);
     }
 
     protected static final String TAG = HubItemActivity.class.getSimpleName();
+
+    @Override
+    public void onBackPressed() {
+        if (JCVideoPlayer.backPress()) {
+            return;
+        }
+        super.onBackPressed();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        JCVideoPlayer.releaseAllVideos();
+    }
 
     private void setMsgDetail(PostDetailBean result) {
         mSupportBt.setVisibility(View.VISIBLE);
@@ -123,11 +132,11 @@ public class HubItemActivity extends BaseFgActivity {
                 if (postImageListBean != null && 9 == postImageListBean.getPostOrderNo()) {
                     String gameVideoLink = postImageListBean.getPostImageAddress();
                     jzVideoPlayerStandard.setVisibility(View.VISIBLE);
-                    jzVideoPlayerStandard.setUp(gameVideoLink, JZVideoPlayerStandard
+                    jzVideoPlayerStandard.setUp(gameVideoLink, JCVideoPlayerStandard
                             .SCREEN_LAYOUT_NORMAL, "");
-                    jzVideoPlayerStandard.backButton.setVisibility(View.GONE);
+                    //jzVideoPlayerStandard.backButton.setVisibility(View.GONE);
                     if (NetUtil.isWifiConnected(mContext)) {
-                        jzVideoPlayerStandard.startVideo();
+                        jzVideoPlayerStandard.startPlayLogic();
                     }
                     break;
                 }

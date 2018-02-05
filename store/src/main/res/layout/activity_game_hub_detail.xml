@@ -198,7 +198,7 @@
                 android:layout_marginTop="@dimen/dm028"
                 android:background="@color/e6e6e6" />
 
-            <cn.ngame.store.view.NgameJZVideoPlayerStandard
+            <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
                 android:id="@+id/hub_item_detial_ngame_vp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dm340"
