@@ -234,8 +234,8 @@ public class HubItemActivity extends AppCompatActivity {
 
         String postContent = data.getPostContent();
         String test = getString(R.string.test);
-        String replace = postContent.replace("<br />", "");
-        Spanned spanned = Html.fromHtml(postContent, new HtmlImageGetter(), null);
+        String replaced = postContent.replace("<br />", "");
+        Spanned spanned = Html.fromHtml(replaced, new HtmlImageGetter(), null);
         mDescTv.setText(spanned);
     }
 

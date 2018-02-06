@@ -128,7 +128,7 @@ public class CircleActivity extends BaseFgActivity {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
                 refreshlayout.finishLoadmore();
-                ToastUtil.show(mContext,getString(R.string.no_more_data));
+                ToastUtil.longShow(mContext,getString(R.string.no_more_data));
                 Log.d(TAG, "加载更多");
             }
         });
