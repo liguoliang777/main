@@ -180,7 +180,7 @@
     </string>
 
     <!-- 下拉刷新和上拉加载更多的文本 -->
-    <string name="pushmsg_center_no_more_msg">已经到底了</string>
+    <string name="pushmsg_center_no_more_msg">已经到底了哦</string>
     <string name="pushmsg_center_pull_up_text">松开加载更多</string>
     <string name="pushmsg_center_pull_down_text">下拉可以刷新</string>
     <string name="pushmsg_center_pull_release_text">松开获取更多</string>

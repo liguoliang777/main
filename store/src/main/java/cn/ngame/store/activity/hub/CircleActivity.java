@@ -85,7 +85,7 @@ public class CircleActivity extends BaseFgActivity {
                 finish();
             }
         });
-        RefreshLayout refreshLayout = (RefreshLayout)findViewById(R.id.refreshLayout);
+        RefreshLayout refreshLayout = (RefreshLayout) findViewById(R.id.refreshLayout);
         refreshLayout.setPrimaryColors(Color.WHITE);
         refreshLayout.autoRefresh();
         mListView = (ListView) findViewById(R.id.hub_circle_lv);
@@ -128,6 +128,7 @@ public class CircleActivity extends BaseFgActivity {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
                 refreshlayout.finishLoadmore();
+                ToastUtil.show(mContext,getString(R.string.no_more_data));
                 Log.d(TAG, "加载更多");
             }
         });
@@ -166,6 +167,7 @@ public class CircleActivity extends BaseFgActivity {
                 }
                 List<CirclePostsInfo.DataBean> mDatas = result.getData();
                 if (mDatas != null) {
+                    mHeaderPostsNum.setText("帖子：" + result.getTotals());
                     int size = mDatas.size();
                     if (size <= 0) {
                         mEmptyTv.setVisibility(View.VISIBLE);
@@ -184,7 +186,6 @@ public class CircleActivity extends BaseFgActivity {
                                             .getPostCategoryUrl());
                                     postCategoryName = showPostCategoryBean.getPostCategoryName();
                                     mHeaderName.setText(postCategoryName);
-                                    mHeaderPostsNum.setText("帖子：" + size);
                                 }
                                 //置顶帖子
                                 if (mData.getOrderNO() == 1) {
