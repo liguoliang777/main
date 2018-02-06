@@ -73,6 +73,7 @@ public class HubItemActivity extends AppCompatActivity {
     private List<PostDetailBean.DataBean.PostImageListBean> postImageList;
     private int isPoint = 0;
     private int pointNum = 0;
+    private String gameVideoLink = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,6 +125,13 @@ public class HubItemActivity extends AppCompatActivity {
         JCVideoPlayer.releaseAllVideos();
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        //清除播放记录
+        JCVideoPlayer.clearSavedProgress(mContext, gameVideoLink);
+    }
+
     private void setMsgDetail(PostDetailBean result) {
         mSupportBt.setVisibility(View.VISIBLE);
         final PostDetailBean.DataBean data = result.getData();
@@ -135,7 +143,7 @@ public class HubItemActivity extends AppCompatActivity {
         if (postImageList != null) {
             for (PostDetailBean.DataBean.PostImageListBean postImageListBean : postImageList) {
                 if (postImageListBean != null && 9 == postImageListBean.getPostOrderNo()) {
-                    String gameVideoLink = postImageListBean.getPostImageAddress();
+                    gameVideoLink = postImageListBean.getPostImageAddress();
                     jzVideoPlayerStandard.setVisibility(View.VISIBLE);
                     jzVideoPlayerStandard.setUp(gameVideoLink, JCVideoPlayerStandard
                             .SCREEN_LAYOUT_NORMAL, "");
