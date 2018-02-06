@@ -59,7 +59,7 @@ public class CircleActivity extends BaseFgActivity {
     private LinearLayout mTopLayout;
     private View mTopItemBt;
     private TextView mTopTv;
-    private int pageSize = 30;
+    private int pageSize = 50;
     private CirclePostsInfo.DataBean.ShowPostCategoryBean showPostCategoryBean;
     private SimpleDraweeView mHeaderSdv;
     private String postCategoryName = "";
