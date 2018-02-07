@@ -235,7 +235,7 @@ public class HubItemActivity extends AppCompatActivity {
         String postContent = data.getPostContent();
         String test = getString(R.string.test);
         String replaced = postContent.replace("<br />", "");
-        Spanned spanned = Html.fromHtml(replaced, new HtmlImageGetter(), null);
+        Spanned spanned = Html.fromHtml(postContent, new HtmlImageGetter(), null);
         mDescTv.setText(spanned);
     }
 
@@ -339,12 +339,16 @@ public class HubItemActivity extends AppCompatActivity {
                 mDrawable = (LevelListDrawable) params[1];
                 try {
                     InputStream is = new URL(source).openStream();
-                    return BitmapFactory.decodeStream(is);
+                    BitmapFactory.Options options = new BitmapFactory.Options();
+                    options.inSampleSize = 2;
+                    return BitmapFactory.decodeStream(is,null,options);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
+                    e.printStackTrace();
+                }  catch (RuntimeException e) {
                     e.printStackTrace();
                 }
                 return null;
