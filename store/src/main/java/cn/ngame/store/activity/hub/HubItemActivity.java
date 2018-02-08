@@ -318,7 +318,7 @@ public class HubItemActivity extends AppCompatActivity {
                     R.color.white);
             d.addLevel(0, 0, empty);
             d.setBounds(0, 0, ImageUtil.getScreenWidth(mContext),
-                    empty.getIntrinsicHeight());
+                    300);
             new LoadImage().execute(source, d);
             return d;
         }
@@ -340,15 +340,17 @@ public class HubItemActivity extends AppCompatActivity {
                 try {
                     InputStream is = new URL(source).openStream();
                     BitmapFactory.Options options = new BitmapFactory.Options();
-                    options.inSampleSize = 2;
-                    return BitmapFactory.decodeStream(is,null,options);
+                    if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
+                        options.inSampleSize = 2;
+                    }
+                    return BitmapFactory.decodeStream(is, null, options);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
-                }  catch (RuntimeException e) {
+                } catch (RuntimeException e) {
                     e.printStackTrace();
                 }
                 return null;
