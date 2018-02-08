@@ -128,7 +128,7 @@ public class CircleActivity extends BaseFgActivity {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
                 refreshlayout.finishLoadmore();
-                ToastUtil.longShow(mContext,getString(R.string.no_more_data));
+                ToastUtil.longShow(mContext, getString(R.string.no_more_data));
                 Log.d(TAG, "加载更多");
             }
         });
@@ -167,11 +167,11 @@ public class CircleActivity extends BaseFgActivity {
                 }
                 List<CirclePostsInfo.DataBean> mDatas = result.getData();
                 if (mDatas != null) {
-                    mHeaderPostsNum.setText("帖子：" + result.getTotals());
                     int size = mDatas.size();
                     if (size <= 0) {
                         mEmptyTv.setVisibility(View.VISIBLE);
                     } else {
+                        mHeaderPostsNum.setText("帖子：" + result.getTotals());
                         mEmptyTv.setVisibility(View.GONE);
                         mTopLayout.setPadding(0, getResources().getDimensionPixelSize(R.dimen
                                 .dm012), 0, getResources().getDimensionPixelSize(R.dimen.dm010));
