@@ -233,7 +233,6 @@ public class HubItemActivity extends AppCompatActivity {
 
 
         String postContent = data.getPostContent();
-        String test = getString(R.string.test);
         String replaced = postContent.replace("<br />", "");
         Spanned spanned = Html.fromHtml(replaced, new HtmlImageGetter(), null);
         mDescTv.setText(spanned);
@@ -315,7 +314,7 @@ public class HubItemActivity extends AppCompatActivity {
         public Drawable getDrawable(String source) {
             LevelListDrawable d = new LevelListDrawable();
             Drawable empty = getResources().getDrawable(
-                    R.color.white);
+                    R.color.transparent);
             d.addLevel(0, 0, empty);
             d.setBounds(0, 0, ImageUtil.getScreenWidth(mContext),
                     300);
