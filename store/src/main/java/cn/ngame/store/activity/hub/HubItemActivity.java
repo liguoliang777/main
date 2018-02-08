@@ -315,7 +315,7 @@ public class HubItemActivity extends AppCompatActivity {
         public Drawable getDrawable(String source) {
             LevelListDrawable d = new LevelListDrawable();
             Drawable empty = getResources().getDrawable(
-                    R.drawable.ic_def_logo_720_288);
+                    R.color.white);
             d.addLevel(0, 0, empty);
             d.setBounds(0, 0, ImageUtil.getScreenWidth(mContext),
                     empty.getIntrinsicHeight());
@@ -403,7 +403,8 @@ public class HubItemActivity extends AppCompatActivity {
                                                         int oldHeight) {
                 LevelListDrawable newDrawable = drawable;
                 long newHeight = 0;// 未知数
-                int newWidth = ImageUtil.getScreenWidth(mContext);
+                int newWidth = ImageUtil.getScreenWidth(mContext) - getResources()
+                        .getDimensionPixelOffset(R.dimen.dm040);
                 newHeight = (newWidth * oldHeight) / oldWidth;
                 // LogUtils.w("oldWidth:" + oldWidth + "oldHeight:" +
                 // oldHeight);
