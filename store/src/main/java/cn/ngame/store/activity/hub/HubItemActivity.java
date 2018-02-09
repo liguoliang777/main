@@ -221,6 +221,7 @@ public class HubItemActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         Log.d(TAG, "重启onRestart: ");
+        postId = getIntent().getIntExtra(KeyConstant.ID, 0);
         if (CommonUtil.isLogined()) {
             MsgDetailBodyBean bodyBean = new MsgDetailBodyBean();
             String userCode = StoreApplication.userCode;
