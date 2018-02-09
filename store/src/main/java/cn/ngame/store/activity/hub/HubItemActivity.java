@@ -176,7 +176,6 @@ public class HubItemActivity extends AppCompatActivity {
             });
         }
         isPoint = data.getIsPoint();
-        Log.d(TAG, "isPoint: " + isPoint);
         if (CommonUtil.isLogined()) {
             if (isPoint == 1) {
                 mSupportBt.setBackgroundResource(R.drawable.zan);
@@ -210,51 +209,48 @@ public class HubItemActivity extends AppCompatActivity {
 
         }
 
-
         String postContent = data.getPostContent();
+        Log.d(TAG, "postContent: " + postContent);
         String replaced = postContent.replace("<br />", "");
         Spanned spanned = Html.fromHtml(replaced, new HtmlImageGetter(), null);
         mDescTv.setText(spanned);
     }
 
+    protected void onNewIntent(Intent intent) {
+
+        super.onNewIntent(intent);
+        setIntent(intent);
+        postId = getIntent().getIntExtra(KeyConstant.ID, 0);
+        Log.d(TAG, "onNewIntent: " + postId);
+
+    }
+
     @Override
     protected void onRestart() {
         super.onRestart();
-        Log.d(TAG, "重启onRestart: ");
-        postId = getIntent().getIntExtra(KeyConstant.ID, 0);
-        if (CommonUtil.isLogined()) {
-            MsgDetailBodyBean bodyBean = new MsgDetailBodyBean();
-            String userCode = StoreApplication.userCode;
-            bodyBean.setUserCode(userCode);
-            bodyBean.setPostId(postId);
-            bodyBean.setAppTypeId(Constant.APP_TYPE_ID_0_ANDROID);
-            new PostDetailClient(this, bodyBean).observable()
-                    .subscribe(new ObserverWrapper<PostDetailBean>() {
-                        @Override
-                        public void onError(Throwable e) {
-                            //("服务器开小差咯~");
+        Log.d(TAG, "重启onRestart: " + postId);
+        MsgDetailBodyBean bodyBean = new MsgDetailBodyBean();
+        String userCode = StoreApplication.userCode;
+        bodyBean.setUserCode(userCode);
+        bodyBean.setPostId(postId);
+        bodyBean.setAppTypeId(Constant.APP_TYPE_ID_0_ANDROID);
+        new PostDetailClient(this, bodyBean).observable()
+                .subscribe(new ObserverWrapper<PostDetailBean>() {
+                    @Override
+                    public void onError(Throwable e) {
+                        //("服务器开小差咯~");
+                    }
+
+                    @Override
+                    public void onNext(PostDetailBean result) {
+                        if (result != null && result.getCode() == 0) {
+                            setMsgDetail(result);
+                        } else {
+                            //ToastUtil.show(mContext, "获取失败");
                         }
+                    }
+                });
 
-                        @Override
-                        public void onNext(PostDetailBean result) {
-                            if (result != null && result.getCode() == 0) {
-                                setMsgDetail(result);
-                            } else {
-                                //ToastUtil.show(mContext, "获取失败");
-                            }
-                        }
-                    });
-
-        } else {
-            mSupportBt.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    CommonUtil.showUnLoginDialog(getSupportFragmentManager(), mContext, R.string
-                            .unlogin_msg);
-                }
-            });
-
-        }
     }
 
     /**

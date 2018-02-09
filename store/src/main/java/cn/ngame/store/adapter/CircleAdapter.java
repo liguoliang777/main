@@ -100,9 +100,8 @@ public class CircleAdapter extends BaseAdapter {
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent();
+                    Intent intent = new Intent(mContext, HubItemActivity.class);
                     intent.putExtra(KeyConstant.ID, postInfo.getId());
-                    intent.setClass(mContext, HubItemActivity.class);
                     mContext.startActivity(intent);
                 }
             });
