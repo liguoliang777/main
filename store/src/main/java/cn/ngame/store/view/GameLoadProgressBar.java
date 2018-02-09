@@ -170,7 +170,7 @@ public class GameLoadProgressBar extends View {
                         Manifest.permission.WRITE_EXTERNAL_STORAGE);
                 if (permission != PackageManager.PERMISSION_GRANTED) {
                     // We don't have permission so prompt the user
-                    ToastUtil.show(context,"检测到手机下载存储权限被拒绝,请打开");
+                    ToastUtil.show(context, "检测到手机下载存储权限被拒绝,请打开");
                     CommonUtil.verifyStoragePermissions((Activity) context);
                 } else {
                     startDownload();
@@ -235,6 +235,7 @@ public class GameLoadProgressBar extends View {
         map.put(KeyConstant.game_Name, fileLoadInfo.getTitle());
         MobclickAgent.onEvent(context, UMEventNameConstant.gameDownloadButton, map);
         if (gameFileStatus == null) {
+            ToastUtil.show(context, "资源异常,无法下载");
             return;
         }
         gameFileStatus.setStatus(GameFileStatus.STATE_DOWNLOAD);
