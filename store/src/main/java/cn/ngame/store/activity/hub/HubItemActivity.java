@@ -1,6 +1,5 @@
 package cn.ngame.store.activity.hub;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -18,8 +17,6 @@ import android.text.Spanned;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -33,7 +30,6 @@ import com.jzt.hol.android.jkda.sdk.bean.gamehub.PostDetailBean;
 import com.jzt.hol.android.jkda.sdk.rx.ObserverWrapper;
 import com.jzt.hol.android.jkda.sdk.services.gamehub.AddPointClient;
 import com.jzt.hol.android.jkda.sdk.services.gamehub.PostDetailClient;
-import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -179,23 +175,6 @@ public class HubItemActivity extends AppCompatActivity {
                 }
             });
         }
-
-     /*   postImageList = data.getPostImageList();
-        LinearLayout.LayoutParams pointParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, getResources().getDimensionPixelSize(R
-                .dimen.dm300));
-        pointParams.topMargin = getResources().getDimensionPixelSize(R.dimen.dm010);
-        if (postImageList != null) {
-            for (int i = 0; i < postImageList.size(); i++) {
-                SimpleDraweeView iv = new SimpleDraweeView(mContext);
-                iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                iv.setLayoutParams(pointParams);
-                iv.setImageURI(postImageList.get(i).getPostImageAddress());
-
-                imageLayout.addView(iv);
-            }
-        }*/
-
         isPoint = data.getIsPoint();
         Log.d(TAG, "isPoint: " + isPoint);
         if (CommonUtil.isLogined()) {
@@ -258,29 +237,7 @@ public class HubItemActivity extends AppCompatActivity {
                         @Override
                         public void onNext(PostDetailBean result) {
                             if (result != null && result.getCode() == 0) {
-                                isPoint = result.getData().getIsPoint();
-                                if (isPoint == 1) {
-                                    mSupportBt.setBackgroundResource(R.drawable.zan);
-                                    mSupportNumTv.setTextColor(ContextCompat.getColor(mContext, R
-                                            .color.mainColor));
-                                    mSupportBt.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            ToastUtil.show(mContext, "已经点过赞了哦~");
-                                            //heartLayout.addFavor();
-                                        }
-                                    });
-                                } else {
-                                    mSupportBt.setBackgroundResource(R.drawable.un_zan);
-                                    mSupportBt.setEnabled(true);
-                                    mSupportBt.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            clickAgree(1, postId);
-                                            heartLayout.addFavor();
-                                        }
-                                    });
-                                }
+                                setMsgDetail(result);
                             } else {
                                 //ToastUtil.show(mContext, "获取失败");
                             }
@@ -498,30 +455,5 @@ public class HubItemActivity extends AppCompatActivity {
 
     public void onHubItemBackClick(View view) {
         finish();
-    }
-
-    //透明状态栏
-    protected void initStatusBar() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            setTranslucentStatus(true);
-            //tintManager.setStatusBarTintEnabled(true); // 激活导航栏设//
-            SystemBarTintManager tintManager = new SystemBarTintManager(this);
-            tintManager.setStatusBarTintEnabled(true);
-            tintManager.setStatusBarTintResource(R.color.mainColor);//通知栏所需颜色
-        }
-    }
-
-    //沉浸式状态栏
-    @TargetApi(19)
-    protected void setTranslucentStatus(boolean on) {
-        Window win = getWindow();
-        WindowManager.LayoutParams winParams = win.getAttributes();
-        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-        if (on) {
-            winParams.flags |= bits;
-        } else {
-            winParams.flags &= ~bits;
-        }
-        win.setAttributes(winParams);
     }
 }
