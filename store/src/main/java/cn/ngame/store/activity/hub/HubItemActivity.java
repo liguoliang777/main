@@ -189,6 +189,7 @@ public class HubItemActivity extends AppCompatActivity {
                 });
             } else {
                 mSupportBt.setBackgroundResource(R.drawable.un_zan);
+                mSupportNumTv.setTextColor(ContextCompat.getColor(mContext, R.color.color_333333));
                 mSupportBt.setEnabled(true);
                 mSupportBt.setOnClickListener(new View.OnClickListener() {
                     @Override
