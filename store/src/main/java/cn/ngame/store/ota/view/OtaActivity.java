@@ -97,6 +97,7 @@ public class OtaActivity extends BaseFgActivity implements View.OnClickListener,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initStatusBar();
         this.setContentView(R.layout.activity_ota);
         context = this;
         initView();

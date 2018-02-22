@@ -23,6 +23,7 @@ public class JoypadAdaptationApplyActivity extends BaseFgActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initStatusBar();
         this.setContentView(R.layout.activity_joypad_adaptation_apply);
 
         Button backBt = (Button) findViewById(R.id.left_bt);

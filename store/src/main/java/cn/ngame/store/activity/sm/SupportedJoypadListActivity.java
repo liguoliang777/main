@@ -31,6 +31,7 @@ public class SupportedJoypadListActivity extends BaseFgActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initStatusBar();
         this.setContentView(R.layout.activity_singe_item_list);
 
         Button backBt = (Button) findViewById(R.id.left_bt);

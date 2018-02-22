@@ -19,6 +19,7 @@ public class JoypadSettingsActivity extends BaseFgActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initStatusBar();
         this.setContentView(R.layout.activity_joypad_settings);
 
         findViewById(R.id.left_bt).setOnClickListener(new View.OnClickListener() {

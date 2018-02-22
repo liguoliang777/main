@@ -39,6 +39,7 @@ public class SystemSettingsActivity extends BaseFgActivity implements CompoundBu
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initStatusBar();
         this.setContentView(R.layout.activity_manager_settings);
         content = this;
         Button left_but = (Button) findViewById(R.id.left_bt);
