@@ -57,6 +57,26 @@ public class OtaActivity extends BaseFgActivity implements View.OnClickListener,
 
     private boolean isUpdating = false;
     private Timer timer = new Timer();
+
+    private OtaService otaService;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initStatusBar();
+        this.setContentView(R.layout.activity_ota);
+        context = this;
+        initView();
+
+        //启动OTA升级后台服务
+        Intent otaService = new Intent(this, OtaService.class);
+        startService(otaService);
+        bindService(otaService, serviceConnection, Context.BIND_AUTO_CREATE);
+        //bindService(intent,conn,flag)->Service:onCreate()->Service:onBind()->Activity:onServiceConnected()
+        //申请下载权限
+        CommonUtil.verifyStoragePermissions(this);
+    }
+
     //OtaService绑定监听
     private ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
@@ -92,23 +112,6 @@ public class OtaActivity extends BaseFgActivity implements View.OnClickListener,
             Log.d(TAG, "OtaService连接断开");
         }
     };
-    private OtaService otaService;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        initStatusBar();
-        this.setContentView(R.layout.activity_ota);
-        context = this;
-        initView();
-        //启动OTA升级后台服务
-        Intent otaService = new Intent(this, OtaService.class);
-        startService(otaService);
-        bindService(otaService, serviceConnection, Context.BIND_AUTO_CREATE);
-        //bindService(intent,conn,flag)->Service:onCreate()->Service:onBind()->Activity:onServiceConnected()
-        //申请下载权限
-        CommonUtil.verifyStoragePermissions(this);
-    }
 
     private void initView() {
         progressBar = (RoundProgressBar) findViewById(R.id.progress_bar);
