@@ -34,6 +34,7 @@ import cn.ngame.store.core.utils.CommonUtil;
 import cn.ngame.store.core.utils.Constant;
 import cn.ngame.store.core.utils.DialogHelper;
 import cn.ngame.store.core.utils.Log;
+import cn.ngame.store.core.utils.NetUtil;
 import cn.ngame.store.exception.NoSDCardException;
 import cn.ngame.store.fragment.OneBtDialogFragment;
 import cn.ngame.store.fragment.SimpleDialogFragment;
@@ -65,6 +66,9 @@ public class ProgressBarStateListener implements GameLoadProgressBar.OnStateChan
                 .getTitle(), info.getPreviewUrl(), info.getServerId(), StoreApplication.allowAnyNet);
         if (res == IFileLoad.RESULT_NO_NET) {
             Toast.makeText(context, "无网络，请检查网络连接", Toast.LENGTH_SHORT).show();
+            if (NetUtil.isNetworkConnected(context)) {
+                updateDownloadCount(info);
+            }
         } else if (res == IFileLoad.RESULT_PARAMES_ERROR) {
             Toast.makeText(context, "资源异常，无法下载", Toast.LENGTH_SHORT).show();
         } else if (res == IFileLoad.RESULT_4G_NET) {
