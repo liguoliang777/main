@@ -20,6 +20,9 @@ android {
         exclude 'META-INF/license'
         exclude 'META-INF/license.txt'
     }
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
     defaultConfig {
         applicationId "cn.ngame.store"
         minSdkVersion 19
@@ -127,12 +130,12 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:recyclerview-v7:26.0.0-alpha1'
+   // compile 'com.android.support:appcompat-v7:26.+'
     //RxJava
     //    compile 'io.reactivex.rxjava2:rxjava:2.0.1'
     //    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     //引入gson
-    compile 'com.google.code.gson:gson:2.8.0'
+
     //图片加载缓存
     compile 'com.squareup.picasso:picasso:2.5.2'
     //图片加载+gif
@@ -166,6 +169,6 @@ dependencies {
     compile files('libs/weiboSDKCore.jar')
     compile 'cn.jzvd:jiaozivideoplayer:6.1.1'
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.4'
-
     compile 'fm.jiecao:jiecaovideoplayer:5.8.1'
+    implementation project(':Pad')
 }

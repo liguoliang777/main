@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <View
+            android:layout_width="1.0dip"
+            android:layout_height="1.0dip"
+            android:layout_weight="1.0" />
+        <ImageView
+            android:id="@+id/iv_key_a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_key_a" />
+        <View
+            android:layout_width="1.0dip"
+            android:layout_height="1.0dip"
+            android:layout_weight="1.0" />
+        <ImageView
+            android:id="@+id/iv_key_b"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_key_b" />
+        <View
+            android:layout_width="1.0dip"
+            android:layout_height="1.0dip"
+            android:layout_weight="1.0" />
+        <ImageView
+            android:id="@+id/iv_key_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_key_up" />
+        <View
+            android:layout_width="1.0dip"
+            android:layout_height="1.0dip"
+            android:layout_weight="1.0" />
+        <ImageView
+            android:id="@+id/iv_key_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_key_down" />
+        <View
+            android:layout_width="1.0dip"
+            android:layout_height="1.0dip"
+            android:layout_weight="1.0" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10.0dip">
+        <View
+            android:layout_width="1.0dip"
+            android:layout_height="1.0dip"
+            android:layout_weight="1.0" />
+        <ImageView
+            android:id="@+id/iv_key_x"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_key_x" />
+        <View
+            android:layout_width="1.0dip"
+            android:layout_height="1.0dip"
+            android:layout_weight="1.0" />
+        <ImageView
+            android:id="@+id/iv_key_y"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_key_y" />
+        <View
+            android:layout_width="1.0dip"
+            android:layout_height="1.0dip"
+            android:layout_weight="1.0" />
+        <ImageView
+            android:id="@+id/iv_key_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_key_left" />
+        <View
+            android:layout_width="1.0dip"
+            android:layout_height="1.0dip"
+            android:layout_weight="1.0" />
+        <ImageView
+            android:id="@+id/iv_key_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_key_right" />
+        <View
+            android:layout_width="1.0dip"
+            android:layout_height="1.0dip"
+            android:layout_weight="1.0" />
+    </LinearLayout>
+
+</LinearLayout>

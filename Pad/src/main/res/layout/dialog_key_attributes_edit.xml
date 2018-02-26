@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/pnl_exit"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="360.0dip"
+        android:layout_height="240.0dip"
+        android:background="@color/black_60">
+
+        <LinearLayout
+            android:layout_width="179.0dip"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10.0dip"
+                android:paddingLeft="20.0dip"
+                android:paddingTop="10.0dip"
+                android:text="@string/key_map_attributes_config"
+                android:textColor="@color/green"
+                android:textSize="13.0sp" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1.0dip"
+                android:background="@mipmap/ic_line_h_long" />
+
+            <TextView
+                android:id="@+id/tv_key_mode_nomal"
+                style="@style/TextWhite.DialogItem"
+                android:text="普通按键" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1.0dip"
+                android:background="@mipmap/ic_line_h_long" />
+
+            <TextView
+                android:id="@+id/tv_key_mode_skill"
+                style="@style/TextWhite.DialogItem"
+                android:text="指向性技能" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1.0dip"
+                android:background="@mipmap/ic_line_h_long" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="24.0dip"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@id/tv_confirm"
+                    style="@style/TextWhite.DialogBtn"
+                    android:text="确认" />
+
+                <TextView
+                    android:id="@id/tv_cancel"
+                    style="@style/TextWhite.DialogBtn"
+                    android:background="@drawable/btn_purple_selector"
+                    android:text="取消" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="1.0dip"
+            android:layout_height="fill_parent"
+            android:background="@mipmap/ic_line_v_long" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10.0dip"
+                android:paddingLeft="20.0dip"
+                android:paddingTop="10.0dip"
+                android:textColor="@color/green"
+                android:textSize="13.0sp" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1.0dip"
+                android:background="@mipmap/ic_line_h_long" />
+
+            <RadioGroup
+                android:id="@id/rg_check"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rb_left_joystick"
+                    style="@style/RadioButton"
+                    android:layout_marginLeft="10.0dip"
+                    android:checked="true"
+                    android:text="左摇杆" />
+
+                <RadioButton
+                    android:id="@+id/rb_right_joystick"
+                    style="@style/RadioButton"
+                    android:layout_marginLeft="20.0dip"
+                    android:text="右摇杆" />
+            </RadioGroup>
+
+            <CheckBox
+                android:id="@+id/cb_reverse"
+                style="@style/PadToolCheckBox"
+                android:text="反向" />
+
+            <View
+                android:id="@id/line"
+                android:layout_width="fill_parent"
+                android:layout_height="1.0dip"
+                android:background="@mipmap/ic_line_h_long" />
+
+            <TextView
+                android:id="@id/tv_desc"
+                style="@style/TextWhite"
+                android:layout_marginLeft="15.0dip"
+                android:layout_marginRight="15.0dip"
+                android:layout_marginTop="10.0dip" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

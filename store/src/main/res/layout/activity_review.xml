@@ -81,7 +81,7 @@
         android:text="发送"
         android:textSize="18sp"
         android:textColor="@color/white"
-        android:background="@drawable/selector_blue_but"
+        android:background="@drawable/selector_blue_bt_no_rectangle"
         android:onClick="onSendCommentClick" />
 
 

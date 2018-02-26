@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/btn_one"
+        android:textSize="20dp"
+        android:background="@mipmap/title_bg"
+        android:focusable="true"
+        android:layout_width="0.0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="1.0dip"
+        android:text="打开"
+        android:layout_weight="1.0"/>
+
+    <Button
+        android:id="@+id/btn_two"
+        android:textSize="20.dp"
+        android:background="@mipmap/title_bg"
+        android:focusable="true"
+        android:layout_width="0.0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="1.0dip"
+        android:text="移除"
+        android:layout_weight="1.0"/>
+
+</LinearLayout>

@@ -14,9 +14,4 @@
         android:width="100dp"
         android:height="50dp"/>
 
-    <!--<corners android:topLeftRadius="1dp"
-             android:topRightRadius="1dp"
-             android:bottomRightRadius="1dp"
-             android:bottomLeftRadius="1dp"/>-->
-
 </shape>

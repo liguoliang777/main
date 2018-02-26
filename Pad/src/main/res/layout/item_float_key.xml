@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fl_item_key"
+    android:background="@mipmap/ic_key_bg_bottom_right"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_key"
+        android:layout_gravity="bottom|center|right"
+        android:layout_width="20.0dip"
+        android:layout_height="20.0dip"
+        android:src="@mipmap/ic_key_b"/>
+
+</FrameLayout>

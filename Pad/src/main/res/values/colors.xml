@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="tools_txt_bg">#ffb0e2fa</color>
+    <color name="grey">#ff9a9b9c</color>
+    <color name="green">#2abfff</color>
+    <color name="white">#fff5f5f5</color>
+    <color name="black_60">#96000000</color>
+
+    <!-- 按键 选定摇杆模式, 滑动模式 -->
+    <color name="green_5dddd4_60">#992abfff</color>
+    <!-- 按键 默认确定 -->
+    <color name="green_dark">#ff1f99cd</color>
+    <!-- 按键点击取消后 -->
+    <color name="purple_dark">#ffd5a446</color>
+    <!-- 按键 默认取消 -->
+    <color name="purple">#fffcc254</color>
+    <color name="black_dark">#ff46545f</color>
+    <!-- 各个按键的背景色 -->
+    <color name="black_40">#aa000000</color>
+    <color name="y1">#fff28b2f</color>
+    <!-- 设置 界面背景色 -->
+    <color name="green_20">#aa9ccceb</color>
+</resources>

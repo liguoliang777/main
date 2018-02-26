@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/view_bg"
+    android:orientation="vertical">
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="0.0dp"
+        android:layout_weight="1.0"
+        layout="@layout/game_head_view"/>
+
+    <GridView
+        android:id="@+id/game_view"
+        android:paddingTop="16.0dp"
+        android:clipToPadding="false"
+        android:layout_width="wrap_content"
+        android:descendantFocusability="blocksDescendants"
+        android:layout_height="0.0dp"
+        android:listSelector="@drawable/selector_style"
+        android:drawSelectorOnTop="false"
+        android:verticalSpacing="6.0dp"
+        android:numColumns="5"
+        android:layout_weight="12.0"/>
+
+    <include
+        android:id="@+id/popup_view_handle"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/popup_view"/>
+
+</LinearLayout>

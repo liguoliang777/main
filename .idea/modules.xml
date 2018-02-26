@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Pad/Pad.iml" filepath="$PROJECT_DIR$/Pad/Pad.iml" />
       <module fileurl="file://$PROJECT_DIR$/RestfulApi/RestfulApi.iml" filepath="$PROJECT_DIR$/RestfulApi/RestfulApi.iml" />
       <module fileurl="file://$PROJECT_DIR$/imagelib/imagelib.iml" filepath="$PROJECT_DIR$/imagelib/imagelib.iml" />
       <module fileurl="file://$PROJECT_DIR$/main.iml" filepath="$PROJECT_DIR$/main.iml" />

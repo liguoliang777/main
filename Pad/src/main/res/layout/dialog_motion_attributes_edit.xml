@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/pnl_exit"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:background="@android:color/transparent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:background="@color/black_60"
+        android:layout_width="360.0dip"
+        android:layout_height="240.0dip">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="179.0dip"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_title"
+                android:textSize="13.0sp"
+                android:textColor="@color/green"
+                android:paddingLeft="20.0dip"
+                android:paddingTop="10.0dip"
+                android:paddingBottom="10.0dip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/key_map_attributes_config" />
+            <View
+                android:background="@mipmap/ic_line_h_long"
+                android:layout_width="fill_parent"
+                android:layout_height="1.0dip" />
+            <TextView
+                android:id="@+id/tv_rock_mode"
+                android:text="摇杆模式"
+                style="@style/TextWhite.DialogItem" />
+            <View
+                android:background="@mipmap/ic_line_h_long"
+                android:layout_width="fill_parent"
+                android:layout_height="1.0dip" />
+            <TextView
+                android:id="@+id/tv_slide_mode"
+                android:text="滑动模式"
+                style="@style/TextWhite.DialogItem" />
+            <View
+                android:background="@mipmap/ic_line_h_long"
+                android:layout_width="fill_parent"
+                android:layout_height="1.0dip" />
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="24.0dip">
+                <TextView
+                    android:id="@+id/tv_confirm"
+                    android:text="确认"
+                    style="@style/TextWhite.DialogBtn" />
+                <TextView
+                    android:id="@+id/tv_cancel"
+                    android:background="@drawable/btn_purple_selector"
+                    android:text="取消"
+                    style="@style/TextWhite.DialogBtn" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:background="@mipmap/ic_line_v_long"
+            android:layout_width="1.0dip"
+            android:layout_height="fill_parent" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="179.0dip"
+            android:layout_height="wrap_content">
+            <RadioGroup
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+                <RadioButton
+                    android:layout_marginLeft="10.0dip"
+                    android:text="左摇杆"
+                    style="@style/RadioButton" />
+                <RadioButton
+                    android:layout_marginLeft="20.0dip"
+                    android:text="右摇杆"
+                    style="@style/RadioButton" />
+            </RadioGroup>
+            <View
+                android:background="@mipmap/ic_line_h_long"
+                android:layout_width="fill_parent"
+                android:layout_height="1.0dip" />
+            <RadioGroup
+                android:id="@+id/rg_check"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+                <RadioButton
+                    android:id="@+id/rb_final"
+                    android:layout_marginLeft="10.0dip"
+                    android:checked="true"
+                    android:text="固定"
+                    style="@style/RadioButton" />
+                <RadioButton
+                    android:id="@+id/rb_dynamic"
+                    android:layout_marginLeft="20.0dip"
+                    android:text="动态"
+                    style="@style/RadioButton" />
+            </RadioGroup>
+            <TextView
+                android:id="@+id/tv_step_title"
+                android:textColor="@color/green"
+                android:layout_marginLeft="15.0dip"
+                android:text="步长（像素）"
+                style="@style/TextWhite" />
+            <LinearLayout
+                android:id="@+id/pnl_step_att"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10.0dip">
+                <ImageView
+                    android:id="@+id/iv_step_increase"
+                    android:paddingLeft="5.0dip"
+                    android:paddingRight="5.0dip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_increase" />
+                <TextView
+                    android:id="@+id/tv_step"
+                    android:gravity="center"
+                    android:minWidth="60.0dip"
+                    style="@style/TextWhite" />
+                <ImageView
+                    android:id="@+id/iv_step_decrease"
+                    android:paddingLeft="5.0dip"
+                    android:paddingRight="5.0dip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_decrease" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/tv_frequency_title"
+                android:textColor="@color/green"
+                android:layout_marginLeft="15.0dip"
+                android:layout_marginTop="10.0dip"
+                android:text="频率（毫秒）"
+                style="@style/TextWhite" />
+            <LinearLayout
+                android:id="@+id/pnl_frequency_att"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10.0dip"
+                android:layout_marginBottom="10.0dip">
+                <ImageView
+                    android:id="@+id/iv_frequency_increase"
+                    android:paddingLeft="5.0dip"
+                    android:paddingRight="5.0dip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_increase" />
+                <TextView
+                    android:id="@+id/tv_frequency"
+                    android:gravity="center"
+                    android:minWidth="60.0dip"
+                    style="@style/TextWhite" />
+                <ImageView
+                    android:id="@+id/iv_frequency_decrease"
+                    android:paddingLeft="5.0dip"
+                    android:paddingRight="5.0dip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_decrease" />
+            </LinearLayout>
+            <View
+                android:id="@+id/line"
+                android:background="@mipmap/ic_line_h_long"
+                android:layout_width="fill_parent"
+                android:layout_height="1.0dip" />
+            <TextView
+                android:id="@+id/tv_desc"
+                android:layout_marginLeft="15.0dip"
+                android:layout_marginTop="10.0dip"
+                android:layout_marginRight="15.0dip"
+                style="@style/TextWhite" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

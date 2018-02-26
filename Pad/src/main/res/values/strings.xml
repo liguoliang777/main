@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Pad</string>
+    <string name="key_map_attributes_config">%s 键 属性</string>
+</resources>

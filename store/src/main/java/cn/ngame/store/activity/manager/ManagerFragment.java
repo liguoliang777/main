@@ -1,10 +1,12 @@
 package cn.ngame.store.activity.manager;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -60,9 +62,17 @@ public class ManagerFragment extends Fragment {
             Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView: ");
         View view = inflater.inflate(R.layout.fragment_manager, container, false);
-        listView =  view.findViewById(R.id.manager_lv);
-        emptyTv =  view.findViewById(R.id.manager_empty_tv);
+        listView = view.findViewById(R.id.manager_lv);
+        emptyTv = view.findViewById(R.id.manager_empty_tv);
         emptyTv.setText("列表为空~");
+
+        view.findViewById(R.id.bluetooth_connect_bt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent bluetoothIntent = new Intent(Settings.ACTION_BLUETOOTH_SETTINGS);
+                startActivity(bluetoothIntent);
+            }
+        });
         return view;
     }
 
