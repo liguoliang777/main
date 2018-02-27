@@ -10,19 +10,23 @@ android {
     }
     compileSdkVersion 26
     packagingOptions {
-        exclude 'META-INF/NOTICE' // will not include NOTICE file
-        exclude 'META-INF/LICENSE' // will not include LICENSE file
-        // as noted by @Vishnuvathsan you may also need to include
-        // variations on the file name. It depends on your dependencies.
-        // Some other common variations on notice and license file names
-        exclude 'META-INF/notice'
-        exclude 'META-INF/notice.txt'
-        exclude 'META-INF/license'
+        exclude '.readme'
+        exclude 'LICENSE.txt'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LGPL2.1'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/README.txt'
+        exclude 'META-INF/dependencies.txt'
         exclude 'META-INF/license.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+        exclude 'META-INF/MANIFEST.MF'
     }
-    dexOptions {
-        javaMaxHeapSize "4g"
-    }
+
     defaultConfig {
         applicationId "cn.ngame.store"
         minSdkVersion 19
@@ -130,10 +134,10 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-   // compile 'com.android.support:appcompat-v7:26.+'
+    // compile 'com.android.support:appcompat-v7:26.+'
     //RxJava
-    //    compile 'io.reactivex.rxjava2:rxjava:2.0.1'
-    //    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    //compile 'io.reactivex.rxjava2:rxjava:2.0.1'
+    //compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     //引入gson
 
     //图片加载缓存
@@ -170,4 +174,5 @@ dependencies {
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.4'
     compile 'fm.jiecao:jiecaovideoplayer:5.8.1'
     implementation project(':Pad')
+
 }
