@@ -8,6 +8,7 @@
     <!-- 实现图片横向滑动组件声明 -->
     <android.support.v4.view.ViewPager
         android:id="@+id/imagePages"
+        android:background="@color/color000000"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
 

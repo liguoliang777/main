@@ -152,14 +152,13 @@ dependencies {
     compile(name: 'videowidget', ext: 'aar')
     compile project(path: ':RestfulApi')
     compile 'com.google.android.gms:play-services-appindexing:8.4.0'
-    compile 'com.android.support:design:26.0.0-alpha1'
+    compile 'com.android.support:design:26.1.0'
     //引入名为imagelib的第三方库（图片截取库）
     compile project(path: ':imagelib')
     compile project(':sliding_menu')
     implementation files('libs/mpermissions.jar')
     //解决 dex file cannot execute 64K [multidex]
     compile 'com.android.support:multidex:1.0.2'
-    compile 'com.android.support:appcompat-v7:26.0.0-beta1-alpha1'
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     compile 'se.emilsjolander:stickylistheaders:2.7.0'
     compile 'com.daimajia.numberprogressbar:library:1.4@aar'

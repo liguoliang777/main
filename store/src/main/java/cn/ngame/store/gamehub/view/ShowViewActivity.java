@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.os.Parcelable;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -22,14 +23,13 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import cn.ngame.store.R;
-import cn.ngame.store.activity.BaseFgActivity;
 import cn.ngame.store.core.utils.DialogHelper;
 import cn.ngame.store.widget.TouchImageView;
 
 /**
  * 帖子详情-查看大图
  */
-public class ShowViewActivity extends BaseFgActivity {
+public class ShowViewActivity extends FragmentActivity {
     // 用于装载4个图片布局View
     private ArrayList<View> imgViews;
 
@@ -62,9 +62,9 @@ public class ShowViewActivity extends BaseFgActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        main = getLayoutInflater().inflate(R.layout.activity_show_view, null);
         content = this;
         imgs = getIntent().getStringArrayListExtra("viewImages");
-        main = getLayoutInflater().inflate(R.layout.activity_show_view, null);
         //7. 通过main layout对象获取图片区域ViewPager
         viewPager = (ViewPager) main.findViewById(R.id.imagePages);
         //8. 通过main layout对象获取导航指示区域
@@ -146,9 +146,6 @@ public class ShowViewActivity extends BaseFgActivity {
                 pointGroup.addView(pointViews[i]);
             }
             handler.sendEmptyMessage(0); //表示下载完毕.
-            if (content != null && !content.isFinishing()) {
-                DialogHelper.hideWaiting(getSupportFragmentManager());
-            }
             Looper.loop();
         }
     }
@@ -288,6 +285,10 @@ public class ShowViewActivity extends BaseFgActivity {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 0: {
+
+                    if (content != null && !content.isFinishing()) {
+                        DialogHelper.hideWaiting(getSupportFragmentManager());
+                    }
                     //11. 设置main布局为当前Activity内容
                     setContentView(main);
                     //12. 设置viewPager 图片切换Adapter,图片最终能够切换就是在Adapter中实现的

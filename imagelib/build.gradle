@@ -14,7 +14,6 @@ android {
         targetSdkVersion 19
 
         testApplicationId 'com.soundcloud.android.crop.test'
-        testInstrumentationRunner 'android.test.InstrumentationTestRunner'
     }
 }
 
