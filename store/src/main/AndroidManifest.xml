@@ -294,6 +294,7 @@
             />
         <activity
             android:name=".gamehub.view.ShowViewActivity"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
             />
         <activity
             android:name=".gamehub.view.SearchPostActivity"
