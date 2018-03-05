@@ -6,7 +6,6 @@ import android.content.IntentFilter;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.lx.pad.util.LLog;
 import com.ngds.pad.IPadCommand;
@@ -134,19 +133,19 @@ public class PadService extends Service {
             if(action != null && !action.isEmpty()){
                 String mac = intent.getStringExtra("param_mac");
                 if(action.equals("com.ngds.pad.server.PadService.Connect")){
-                    LLog.d("PadService->onStartCommand action:" + action);
+                    LLog.d("PadService->onStartCommand 已连接:" + action);
                     DeviceManager.getInstance(this).connect(mac, true);
                 } else if (action.equals("com.ngds.pad.server.PadService.Disconnect")) {
-                    LLog.d("PadService->onStartCommand action:" + action);
+                    LLog.d("PadService->onStartCommand 连接断开:" + action);
                     DeviceManager.getInstance(this).disConnect(mac);
                 } else if (action.equals("com.ngds.pad.server.PadService.Connect.Normal")) {
-                    LLog.d("PadService->onStartCommand action:" + action);
+                    LLog.d("PadService->onStartCommand 连接Normal：" + action);
                     DeviceManager.getInstance(this).connectNormal(mac);
                 } else if (action.equals("com.ngds.pad.server.PadService.Connect.BLE")) {
-                    LLog.d("PadService->onStartCommand action:" + action);
+                    LLog.d("PadService->onStartCommand action:连接..BLE" + action);
                     DeviceManager.getInstance(this).connectBle(mac);
                 } else if (action.equals("com.ngds.pad.server.PadService.SppOff")) {
-                    LLog.d("PadService->onStartCommand action:" + action);
+                    LLog.d("PadService->onStartCommand 连接Spp...OFF" + action);
                     DeviceManager.getInstance(this).execCommand(0, null, null);
                 } else if (action.equals("com.ngds.pad.server.action.USB_DEVICE_CONNECTED")) {
                     LLog.d("PadService->onStartCommand action:" + action);

@@ -7,18 +7,14 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 
-import com.lx.pad.MainActivity;
 import com.lx.pad.util.LLog;
 import com.ngds.pad.BaseEvent;
-import com.ngds.pad.PadKeyEvent;
 import com.ngds.pad.PadSensorEvent;
 import com.ngds.pad.Protocol;
 import com.ngds.pad.utils.Utils;
 
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.TimerTask;
 import java.util.UUID;
 
@@ -201,7 +197,7 @@ public class Device extends BaseDevice {
                             public void run() {
                                 m_queueInit = true;
                                 DeviceManager.getInstance(context).execCommand(8, null, null);
-                                MainActivity.sendHandleMsg(MainActivity.MSG_CMD_BLE_CONNECT_STATE, MainActivity.MSG_VAL_BLE_CONNECTED);
+                                //MainActivity.sendHandleMsg(MainActivity.MSG_CMD_BLE_CONNECT_STATE, MainActivity.MSG_VAL_BLE_CONNECTED);
                                 DeviceManager.getInstance(context).addPadStateEvent(m_mac, m_controllerID, BaseEvent.STATE_CONNECTED, BaseEvent.ACTION_CONNECTED);
                                 LLog.d("Device->Device->timetask function is invalid");
                             }
@@ -232,7 +228,7 @@ public class Device extends BaseDevice {
         m_communicationThread = new CommunicationThread(socket, socketType);
         m_communicationThread.start();
         setState(STATE_CONNECTED);
-        MainActivity.sendHandleMsg(MainActivity.MSG_CMD_BLE_CONNECT_STATE, MainActivity.MSG_VAL_BLE_CONNECTED);
+        //MainActivity.sendHandleMsg(MainActivity.MSG_CMD_BLE_CONNECT_STATE, MainActivity.MSG_VAL_BLE_CONNECTED);
     }
 
     public synchronized void restartSecureSocketThread(){

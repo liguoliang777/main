@@ -3,9 +3,7 @@ package com.ngds.pad.inject;
 import android.net.LocalSocket;
 import android.net.LocalSocketAddress;
 import android.os.Handler;
-import android.os.Message;
 
-import com.lx.pad.MainActivity;
 import com.lx.pad.util.LLog;
 
 import java.io.IOException;
@@ -101,7 +99,7 @@ public class ClientFinally implements Runnable {
         while(true) {
             if(isServerClose()) {
                 if(socketConnect){
-                    MainActivity.sendHandleMsg(MainActivity.MSG_CMD_REMOTE_SOCKET_STATE, MainActivity.MSG_VAL_SOCKET_CLOSE);
+                    //MainActivity.sendHandleMsg(MainActivity.MSG_CMD_REMOTE_SOCKET_STATE, MainActivity.MSG_VAL_SOCKET_CLOSE);
                     socketConnect = false;
                 }
                 LLog.d("ClientFinally->run isServerClose, try restartSocket! ++++++++++++");
@@ -109,7 +107,7 @@ public class ClientFinally implements Runnable {
             }
 
             if(!socketConnect){
-                MainActivity.sendHandleMsg(MainActivity.MSG_CMD_REMOTE_SOCKET_STATE, MainActivity.MSG_VAL_SOCKET_CONNECTED);
+                //MainActivity.sendHandleMsg(MainActivity.MSG_CMD_REMOTE_SOCKET_STATE, MainActivity.MSG_VAL_SOCKET_CONNECTED);
                 socketConnect = true;
             }
 

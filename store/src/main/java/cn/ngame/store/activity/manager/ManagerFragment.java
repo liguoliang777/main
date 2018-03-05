@@ -1,6 +1,8 @@
 package cn.ngame.store.activity.manager;
 
 import android.annotation.SuppressLint;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -17,10 +19,14 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.lx.pad.util.LLog;
+
 import org.json.JSONArray;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import cn.ngame.store.R;
 import cn.ngame.store.adapter.InstalledGameAdapter;
@@ -55,6 +61,7 @@ public class ManagerFragment extends Fragment {
     private ApplicationInfo applicationInfo;
     private TextView emptyTv;
     private int oldLength;
+    private TextView mConnectedTv;
 
     @Nullable
     @Override
@@ -64,6 +71,7 @@ public class ManagerFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_manager, container, false);
         listView = view.findViewById(R.id.manager_lv);
         emptyTv = view.findViewById(R.id.manager_empty_tv);
+        mConnectedTv = view.findViewById(R.id.bluetooth_connect_state_tv);
         emptyTv.setText("列表为空~");
 
         view.findViewById(R.id.bluetooth_connect_bt).setOnClickListener(new View.OnClickListener() {
@@ -85,6 +93,7 @@ public class ManagerFragment extends Fragment {
 
         initPop();
         initListView();
+
     }
 
 
@@ -103,7 +112,7 @@ public class ManagerFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        Log.d(TAG, "onStart: ");
+        Log.d(TAG, "连接888 onStart: ");
         //获取本地
         try {
             pkgNameListStr = FileUtil.readFile();
@@ -134,7 +143,11 @@ public class ManagerFragment extends Fragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        Log.d(TAG, "onHiddenChanged: ");
+        Log.d(TAG, "连接888,onHiddenChanged: "+hidden);
+        if (!hidden) {
+            //获取蓝牙设备
+            getConnectBlueTooth();
+        }
     }
 
     private List<PackageInfo> getLocalApp() {
@@ -207,5 +220,59 @@ public class ManagerFragment extends Fragment {
 
             }
         });
+    }
+
+    private void getConnectBlueTooth() {
+        int connectDevices = 0;
+        BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
+        Class<BluetoothAdapter> bluetoothAdapterClass = BluetoothAdapter.class;
+        //得到BluetoothAdapter的Class对象
+        try {//得到连接状态的方法
+            Method method = bluetoothAdapterClass.getDeclaredMethod("getConnectionState",
+                    (Class[]) null);
+            //打开权限
+            method.setAccessible(true);
+            int state = (int) method.invoke(adapter, (Object[]) null);
+
+            if (state == BluetoothAdapter.STATE_CONNECTED) {
+                LLog.d("BluetoothAdapter.STATE_CONNECTED");
+                Set<BluetoothDevice> devices = adapter.getBondedDevices();
+                LLog.d("devices:" + devices.size());
+
+                for (BluetoothDevice device : devices) {
+                    Method isConnectedMethod = BluetoothDevice.class.getDeclaredMethod
+                            ("isConnected", (Class[]) null);
+                    method.setAccessible(true);
+                    boolean isConnected = (boolean) isConnectedMethod.invoke(device, (Object[])
+                            null);
+                    if (isConnected && device != null) {
+                        connectDevices++;
+                        if (!content.isFinishing() && content != null) {
+                            mConnectedTv.setText(getString(R.string.bt_connect_on) + " " + device
+                                    .getName());
+                        }
+                        LLog.d("连接888,有设备连接:" + device.getName());
+                    }
+                }
+                if (connectDevices == 0) {
+                    LLog.d("连接888,设备连接为0");
+                    if (!content.isFinishing() && content != null) {
+                        mConnectedTv.setText(getString(R.string.bt_connect_off));
+                    }
+                }
+
+            } else {
+                if (connectDevices == 0) {
+                    LLog.d("连接888,无设备连接");
+                    if (!content.isFinishing() && content != null) {
+                        mConnectedTv.setText(getString(R.string.bt_connect_off));
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

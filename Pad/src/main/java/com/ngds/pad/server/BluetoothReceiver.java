@@ -40,7 +40,7 @@ public class BluetoothReceiver extends BroadcastReceiver {
             intentService.setAction("com.ngds.pad.server.PadService.Disconnect");
             context.startService(intentService);
         }else if("android.bluetooth.device.action.UUID".equals(action)){
-            logStr = logStr + " 收到UUID";
+            logStr = logStr + " 收到UUID________777";
             boolean isBle = false;
             Parcelable[] uuids = intent.getParcelableArrayExtra("android.bluetooth.device.extra.UUID");
             if(uuids != null && uuids.length > 0){
@@ -62,8 +62,10 @@ public class BluetoothReceiver extends BroadcastReceiver {
 
             if(isBle){
                 intentService.setAction("com.ngds.pad.server.PadService.Connect.BLE");
+                LLog.d("收到UUID________连接BLE");
             }else{
                 intentService.setAction("com.ngds.pad.server.PadService.Connect.Normal");
+                LLog.d("收到UUID________连接Normal");
             }
 
             context.startService(intentService);

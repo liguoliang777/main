@@ -39,6 +39,7 @@ import com.jzt.hol.android.jkda.sdk.bean.gamehub.AppCarouselBean;
 import com.jzt.hol.android.jkda.sdk.bean.gamehub.BrowseHistoryBodyBean;
 import com.jzt.hol.android.jkda.sdk.rx.ObserverWrapper;
 import com.jzt.hol.android.jkda.sdk.services.gamehub.AppCarouselClient;
+import com.ngds.pad.PadServiceBinder;
 import com.umeng.analytics.MobclickAgent;
 
 import java.io.File;
@@ -203,9 +204,9 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
         mIconIv = (SimpleDraweeView) findViewById(R.id.iv_icon_title);
         mTitleTv = (TextView) findViewById(R.id.title_tv);
         mDownloadBt = (ImageView) findViewById(R.id.main_download_bt);
-        mLikeBt = (ImageView)findViewById(R.id.main_like_bt);
-        mHubBt = (ImageView)findViewById(R.id.main_hub_bt);
-        mRankBt = (ImageView)findViewById(R.id.main_rank_bt);
+        mLikeBt = (ImageView) findViewById(R.id.main_like_bt);
+        mHubBt = (ImageView) findViewById(R.id.main_hub_bt);
+        mRankBt = (ImageView) findViewById(R.id.main_rank_bt);
         im_toSearch.setOnClickListener(this);
         fl_notifi.setOnClickListener(this);
         mIconIv.setOnClickListener(this);
@@ -269,6 +270,13 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
         initSlidingMenu();
         //头像(只能放在最后)
         setUserIcon();
+
+        //开启映射服务
+        startPadService();
+    }
+
+    private void startPadService() {
+        PadServiceBinder.getInstance(getApplicationContext()).initArgs(getPackageName());
     }
 
 

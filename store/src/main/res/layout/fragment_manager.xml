@@ -28,6 +28,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:maxLines="1"
             android:text="@string/bt_connect_off"
             android:textColor="@color/color999999"
             android:textSize="@dimen/dm020" />

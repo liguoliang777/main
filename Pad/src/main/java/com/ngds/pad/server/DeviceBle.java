@@ -13,7 +13,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 
-import com.lx.pad.MainActivity;
 import com.lx.pad.util.LLog;
 import com.ngds.pad.BaseEvent;
 import com.ngds.pad.Protocol;
@@ -224,7 +223,7 @@ public class DeviceBle extends BaseDevice {
             }
         }
         m_queueInit = false;
-        MainActivity.sendHandleMsg(MainActivity.MSG_CMD_BLE_CONNECT_STATE, MainActivity.MSG_VAL_BLE_NONE);
+        //MainActivity.sendHandleMsg(MainActivity.MSG_CMD_BLE_CONNECT_STATE, MainActivity.MSG_VAL_BLE_NONE);
         DeviceManager.getInstance(m_context).addPadStateEvent(m_mac, m_controllerID, BaseEvent.STATE_DISCONNECTED, BaseEvent.ACTION_DISCONNECTED);
     }
 
@@ -311,7 +310,7 @@ public class DeviceBle extends BaseDevice {
                             setState(STATE_CONNECTED);
                             m_handler.obtainMessage(1).sendToTarget();
                             //测试代码，发送蓝牙连接成功的提示
-                            MainActivity.sendHandleMsg(MainActivity.MSG_CMD_BLE_CONNECT_STATE, MainActivity.MSG_VAL_BLE_CONNECTED);
+                            //MainActivity.sendHandleMsg(MainActivity.MSG_CMD_BLE_CONNECT_STATE, MainActivity.MSG_VAL_BLE_CONNECTED);
                         }
                     }else{
                         LLog.d("DeviceBle->resetBleGatt onServicesDiscovered received:" + status);
