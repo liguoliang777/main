@@ -174,5 +174,4 @@ dependencies {
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.4'
     compile 'fm.jiecao:jiecaovideoplayer:5.8.1'
     implementation project(':Pad')
-
 }

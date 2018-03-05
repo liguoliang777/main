@@ -21,6 +21,9 @@ import android.widget.TextView;
 
 import com.lx.pad.util.LLog;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONArray;
 
 import java.lang.reflect.Method;
@@ -94,6 +97,7 @@ public class ManagerFragment extends Fragment {
         initPop();
         initListView();
 
+        EventBus.getDefault().register(this);
     }
 
 
@@ -143,7 +147,7 @@ public class ManagerFragment extends Fragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        Log.d(TAG, "连接888,onHiddenChanged: "+hidden);
+        Log.d(TAG, "连接888,onHiddenChanged: " + hidden);
         if (!hidden) {
             //获取蓝牙设备
             getConnectBlueTooth();
@@ -178,12 +182,6 @@ public class ManagerFragment extends Fragment {
             emptyTv.setVisibility(View.VISIBLE);
         }
         return localAppList;
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
     }
 
     private void initPop() {
@@ -274,5 +272,18 @@ public class ManagerFragment extends Fragment {
             e.printStackTrace();
         }
 
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event(String blueToothMsg) {
+        if (!content.isFinishing() && content != null) {
+            mConnectedTv.setText(blueToothMsg);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }
