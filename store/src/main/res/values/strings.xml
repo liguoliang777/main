@@ -62,7 +62,7 @@
     <string name="update_cancel">取消</string>
     <string name="update_background">后台运行</string>
     <string name="update_goon">继续更新</string>
-    <string name="update_log"><p font="10">1.重新设计的UI界面</p><br/><p font="10">2.优化后台多线程下载逻辑</p><br/><p font="10">3.修复已知Bug</p></string>
+    <string name="update_log"><p font="10">1.重新设计的UI界面</p><br /><p font="10">2.优化后台多线程下载逻辑</p><br /><p font="10">3.修复已知Bug</p></string>
 
     <string name="download">下载</string>
 
@@ -237,10 +237,11 @@
     <string name="app_download_url_yyb">http://sj.qq.com/myapp/detail.htm?apkName=cn.ngame.store</string>
     <string name="alipay_redpackage_content">7Dl59e13pi</string>
     <string name="connect_bluetooth">连接蓝牙</string>
+    <string name="connect_inject_server">开启映射</string>
 
     <string name="bt_connect_off">未连接</string>
     <string name="bt_connect_on">已连接</string>
 
-    <string name="inject_server_state_on">开启</string>
+    <string name="inject_server_state_on">已开启</string>
     <string name="inject_server_state_off">未开启</string>
 </resources>

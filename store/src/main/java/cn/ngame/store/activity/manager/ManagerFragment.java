@@ -38,6 +38,7 @@ import cn.ngame.store.core.fileload.FileLoadManager;
 import cn.ngame.store.core.fileload.IFileLoad;
 import cn.ngame.store.core.utils.AppInstallHelper;
 import cn.ngame.store.core.utils.FileUtil;
+import cn.ngame.store.util.ToastUtil;
 import cn.ngame.store.view.ActionItem;
 import cn.ngame.store.view.QuickAction;
 
@@ -64,7 +65,7 @@ public class ManagerFragment extends Fragment {
     private ApplicationInfo applicationInfo;
     private TextView emptyTv;
     private int oldLength;
-    private TextView mConnectedTv;
+    private TextView mBlueToothConnectedTv, mInjectServerConnectedTv;
 
     @Nullable
     @Override
@@ -74,14 +75,24 @@ public class ManagerFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_manager, container, false);
         listView = view.findViewById(R.id.manager_lv);
         emptyTv = view.findViewById(R.id.manager_empty_tv);
-        mConnectedTv = view.findViewById(R.id.bluetooth_connect_state_tv);
+        mBlueToothConnectedTv = view.findViewById(R.id.bluetooth_connect_state_tv);
+        mInjectServerConnectedTv = view.findViewById(R.id.inject_server_connect_state_tv);
         emptyTv.setText("列表为空~");
 
+        //连接蓝牙
         view.findViewById(R.id.bluetooth_connect_bt).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent bluetoothIntent = new Intent(Settings.ACTION_BLUETOOTH_SETTINGS);
                 startActivity(bluetoothIntent);
+            }
+        });
+        //开启映射
+        view.findViewById(R.id.inject_server_connect_bt).setOnClickListener(new View
+                .OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToastUtil.show(content, "暂时无法使用");
             }
         });
         return view;
@@ -147,7 +158,6 @@ public class ManagerFragment extends Fragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        Log.d(TAG, "连接888,onHiddenChanged: " + hidden);
         if (!hidden) {
             //获取蓝牙设备
             getConnectBlueTooth();
@@ -246,24 +256,22 @@ public class ManagerFragment extends Fragment {
                     if (isConnected && device != null) {
                         connectDevices++;
                         if (!content.isFinishing() && content != null) {
-                            mConnectedTv.setText(getString(R.string.bt_connect_on) + " " + device
+                            mBlueToothConnectedTv.setText(getString(R.string.bt_connect_on) + " "
+                                    + device
                                     .getName());
                         }
-                        LLog.d("连接888,有设备连接:" + device.getName());
                     }
                 }
                 if (connectDevices == 0) {
-                    LLog.d("连接888,设备连接为0");
                     if (!content.isFinishing() && content != null) {
-                        mConnectedTv.setText(getString(R.string.bt_connect_off));
+                        mBlueToothConnectedTv.setText(getString(R.string.bt_connect_off));
                     }
                 }
 
             } else {
                 if (connectDevices == 0) {
-                    LLog.d("连接888,无设备连接");
                     if (!content.isFinishing() && content != null) {
-                        mConnectedTv.setText(getString(R.string.bt_connect_off));
+                        mBlueToothConnectedTv.setText(getString(R.string.bt_connect_off));
                     }
                 }
             }
@@ -276,17 +284,16 @@ public class ManagerFragment extends Fragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void bluetoothEvent(String blueToothMsg) {
-        if (!content.isFinishing() && content != null && mConnectedTv != null) {
-            mConnectedTv.setText(blueToothMsg);
+        if (!content.isFinishing() && content != null && mBlueToothConnectedTv != null) {
+            mBlueToothConnectedTv.setText(blueToothMsg);
         }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void injectServerEvent(Integer state) {
-        LLog.d("映射 收到消息" + state);
-        LLog.d("映射 收到消息" + mConnectedTv);
-        if (!content.isFinishing() && content != null && mConnectedTv != null) {
-            mConnectedTv.setText(getString(state == 0 ? R.string.inject_server_state_on : R.string
+        if (!content.isFinishing() && content != null && mInjectServerConnectedTv != null) {
+            mInjectServerConnectedTv.setText(getString(state == 0 ? R.string
+                    .inject_server_state_on : R.string
                     .inject_server_state_off));
         }
     }

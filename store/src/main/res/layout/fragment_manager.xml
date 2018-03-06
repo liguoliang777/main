@@ -2,9 +2,45 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/f5f5f5"
+    android:background="@color/e5e5e5"
     android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dm100"
+        android:layout_marginTop="@dimen/dm020"
+        android:background="@android:color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dm014"
+        android:paddingRight="@dimen/dm034">
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dm020"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_yingshe" />
+
+        <TextView
+            android:id="@+id/inject_server_connect_state_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:maxLines="1"
+            android:text="@string/inject_server_state_off"
+            android:textColor="@color/color999999"
+            android:textSize="@dimen/dm020" />
+
+        <Button
+            android:background="@drawable/selector_blue_bt_no_rectangle"
+            android:id="@+id/inject_server_connect_bt"
+            android:layout_width="@dimen/dm104"
+            android:layout_height="@dimen/dm044"
+            android:gravity="center"
+            android:text="@string/connect_inject_server"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dm020" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
