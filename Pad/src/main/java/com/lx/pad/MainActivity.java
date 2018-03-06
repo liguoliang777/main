@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button btnTestMsgQueue = null;
 
     boolean bleConnect = false;
-    boolean socketConnect = false;
 
     private static MainActivity activity = null;
     public static Handler handler = new Handler(){
@@ -63,14 +62,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }else if(msg.arg1 == MSG_VAL_BLE_NONE){
                         activity.bleConnect = false;
                     }
-                    activity.updateStatePrompt();
+                   // activity.updateStatePrompt();
                 }else if(msg.what == MSG_CMD_REMOTE_SOCKET_STATE){
-                    if(msg.arg1 == MSG_VAL_SOCKET_CONNECTED){
-                        activity.socketConnect = true;
-                    }else if(msg.arg1 == MSG_VAL_SOCKET_CLOSE){
-                        activity.socketConnect = false;
-                    }
-                    activity.updateStatePrompt();
                 }
             }
         }
@@ -86,19 +79,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         msg.what = cmd;
         msg.arg1 = val;
         handler.sendMessage(msg);
-    }
-
-    public void updateStatePrompt(){
-        String sBle = "蓝牙未连接";
-        String sSocket = "InjectServer未运行";
-        if(bleConnect){
-            sBle = "蓝牙连接成功";
-        }
-        if(socketConnect){
-            sSocket = "InjectServer开启成功";
-        }
-
-        tv.setText(sBle + " | " + sSocket);
     }
 
     @Override
@@ -122,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        looperThread.start();
         LooperEventManager.init();
 
-        updateStatePrompt();
+        //updateStatePrompt();
 //        tv.setText(stringFromJNI());
         btnStartGame.setOnClickListener(this);
         btnStartService.setOnClickListener(this);

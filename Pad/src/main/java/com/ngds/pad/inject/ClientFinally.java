@@ -6,6 +6,8 @@ import android.os.Handler;
 
 import com.lx.pad.util.LLog;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -21,7 +23,7 @@ import java.net.SocketException;
  */
 
 public class ClientFinally implements Runnable {
-    private static final String LOCAL_SOCKET_NAME="ngame_socket_remotesensor";
+    private static final String LOCAL_SOCKET_NAME = "ngame_socket_remotesensor";
     private static final int LOCAL_SOCKET_PORT = 6559;
     private int timeout = 30000;
     LocalSocket client;
@@ -38,29 +40,29 @@ public class ClientFinally implements Runnable {
     }
 
     //获取当前socket的状态，即映射服务是否开启了
-    public boolean getSocketConnectState(){
+    public boolean getSocketConnectState() {
         return socketConnect;
     }
 
-    public boolean send(byte[] data){
-        if(outputStream != null){
-            try{
+    public boolean send(byte[] data) {
+        if (outputStream != null) {
+            try {
                 outputStream.write(data);
                 return true;
-            }catch(SocketException eSocket){
+            } catch (SocketException eSocket) {
                 eSocket.printStackTrace();
-            }catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         return false;
     }
 
-    public void restartSocket(){
+    public void restartSocket() {
         close();
 
         client = new LocalSocket();
-        while(inputStream == null || outputStream == null) {
+        while (inputStream == null || outputStream == null) {
             try {
                 client.connect(new LocalSocketAddress(LOCAL_SOCKET_NAME));
                 LLog.d("ClientFinally->run connect localsocket success!");
@@ -82,11 +84,11 @@ public class ClientFinally implements Runnable {
                     e.printStackTrace();
                 }
             }
-            if(inputStream == null || outputStream == null){
-                try{
+            if (inputStream == null || outputStream == null) {
+                try {
                     LLog.d("ClientFinally->run socket error! connect continue");
                     Thread.sleep(5000);
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -96,25 +98,29 @@ public class ClientFinally implements Runnable {
     @Override
     public void run() {
 
-        while(true) {
-            if(isServerClose()) {
-                if(socketConnect){
-                    //MainActivity.sendHandleMsg(MainActivity.MSG_CMD_REMOTE_SOCKET_STATE, MainActivity.MSG_VAL_SOCKET_CLOSE);
+        while (true) {
+            if (isServerClose()) {
+                if (socketConnect) {
+                    //todo 关闭
                     socketConnect = false;
+                    LLog.d("InjectServer映射服务__未开启");
+                    EventBus.getDefault().post(new Integer(-1));
                 }
                 LLog.d("ClientFinally->run isServerClose, try restartSocket! ++++++++++++");
                 restartSocket();
             }
 
-            if(!socketConnect){
-                //MainActivity.sendHandleMsg(MainActivity.MSG_CMD_REMOTE_SOCKET_STATE, MainActivity.MSG_VAL_SOCKET_CONNECTED);
+            if (!socketConnect) {
+                //todo   开启
+                LLog.d("InjectServer映射服务_开启");
                 socketConnect = true;
+                EventBus.getDefault().post(new Integer(0));
             }
 
-            try{
+            try {
 //                LLog.d("ClientFinally->run heart pkg!");
                 Thread.sleep(3000);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -141,29 +147,29 @@ public class ClientFinally implements Runnable {
 //        LLog.d("ClientFinally->run over!  <<====================== !!!");
     }
 
-    public boolean isServerClose(){
-        if(client != null && outputStream != null){
+    public boolean isServerClose() {
+        if (client != null && outputStream != null) {
             boolean result = send(new byte[]{0, 0});
             return !result;
         }
         return true;
     }
 
-    public void close(){
-        try{
-            if(outputStream != null){
+    public void close() {
+        try {
+            if (outputStream != null) {
                 outputStream.close();
                 outputStream = null;
             }
-            if(inputStream != null){
+            if (inputStream != null) {
                 inputStream.close();
                 inputStream = null;
             }
-            if(client != null){
+            if (client != null) {
                 client.close();
                 client = null;
             }
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

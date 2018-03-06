@@ -4,18 +4,13 @@ import android.os.Handler;
 import android.os.Message;
 
 import com.lx.pad.util.LLog;
-import com.ngame.DabaBase.KeyEnum;
 import com.ngds.pad.BaseEvent;
 
 /**
  * Created by Administrator on 2017/12/12.
  */
 
-/**
- * 为了管理与映射程序的通讯而生成的类
- */
-
-//InjectDataMgr做为管理与映射端通迅的类而存在
+//管理 与映射端通迅  的类
 public class InjectDataMgr {
     public static final byte VERSION = 1;       //版本号   版本号为0时为心跳包
     public static final byte ACTION_PRESS = 0;  //按下

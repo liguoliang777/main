@@ -275,9 +275,19 @@ public class ManagerFragment extends Fragment {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void Event(String blueToothMsg) {
-        if (!content.isFinishing() && content != null) {
+    public void bluetoothEvent(String blueToothMsg) {
+        if (!content.isFinishing() && content != null && mConnectedTv != null) {
             mConnectedTv.setText(blueToothMsg);
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void injectServerEvent(Integer state) {
+        LLog.d("映射 收到消息" + state);
+        LLog.d("映射 收到消息" + mConnectedTv);
+        if (!content.isFinishing() && content != null && mConnectedTv != null) {
+            mConnectedTv.setText(getString(state == 0 ? R.string.inject_server_state_on : R.string
+                    .inject_server_state_off));
         }
     }
 

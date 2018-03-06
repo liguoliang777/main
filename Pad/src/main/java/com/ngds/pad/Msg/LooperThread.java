@@ -11,8 +11,6 @@ import com.ngds.pad.PadMotionEvent;
 import com.ngds.pad.PadStateEvent;
 import com.ngds.pad.utils.ActivityMgrUtils;
 
-import java.util.Random;
-
 /**
  * Created by Administrator on 2017/12/9.
  */
@@ -79,7 +77,7 @@ public class LooperThread extends Thread {
     private void parserPadKeyEvent(int arg1, int arg2, PadKeyEvent event){
         LLog.d("LooperThread->parserPadKeyEvent " + String.format("arg1:%d arg2:%d deviceId:%d keyCode:%d action:%d pressure:%f",
                 arg1, arg2, event.getControllerId(), event.getKeyCode(), event.getAction(), event.getPressure()) );
-
+        //
         ActivityMgrUtils.sDispatchKeyEvent(event.getKeyCode(), event);
     }
 
