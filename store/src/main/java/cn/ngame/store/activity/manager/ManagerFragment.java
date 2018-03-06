@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
@@ -16,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -38,7 +40,9 @@ import cn.ngame.store.core.fileload.FileLoadManager;
 import cn.ngame.store.core.fileload.IFileLoad;
 import cn.ngame.store.core.utils.AppInstallHelper;
 import cn.ngame.store.core.utils.FileUtil;
+import cn.ngame.store.util.AssetsCopyer;
 import cn.ngame.store.util.ToastUtil;
+import cn.ngame.store.util.Utils;
 import cn.ngame.store.view.ActionItem;
 import cn.ngame.store.view.QuickAction;
 
@@ -66,10 +70,12 @@ public class ManagerFragment extends Fragment {
     private TextView emptyTv;
     private int oldLength;
     private TextView mBlueToothConnectedTv, mInjectServerConnectedTv;
+    private Boolean mInjectServerState;
+    private Button mInjectServerBt;
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
+    public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable
             Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView: ");
         View view = inflater.inflate(R.layout.fragment_manager, container, false);
@@ -88,14 +94,58 @@ public class ManagerFragment extends Fragment {
             }
         });
         //开启映射
-        view.findViewById(R.id.inject_server_connect_bt).setOnClickListener(new View
+        mInjectServerBt = view.findViewById(R.id.inject_server_connect_bt);
+        mInjectServerBt.setOnClickListener(new View
                 .OnClickListener() {
             @Override
             public void onClick(View view) {
-                ToastUtil.show(content, "暂时无法使用");
+                if (mInjectServerState) {
+                    ToastUtil.show(content, "映射服务已开启");
+                    return;
+                }
+                mInjectServerBt.setClickable(false);
+                if (Utils.isRooted()) {
+                    String saveDir = "data/local/tmp/";
+                    AssetsCopyer.copyAssets(content, "", saveDir);
+
+                    new AsyncTask<Void, Void, Integer>() {
+                        @Override
+                        protected Integer doInBackground(Void... voids) {
+                            String saveDir = "data/local/tmp/";
+                            String result = Utils.execRootCmd("chmod 777 " + saveDir + getString(R
+                                    .string.inject_server_name));
+                            LLog.d("映射执行:" + result);
+                            String result2 = Utils.execRootCmd("" + saveDir + getString(R.string
+                                    .inject_server_name));
+                            LLog.d("映射执行2:" + result2);
+                            return 0;
+                        }
+
+                        @Override
+                        protected void onPostExecute(Integer isOpened) {
+                            super.onPostExecute(isOpened);
+                            LLog.d("映射执行3:" + isOpened);
+
+                        }
+                    }.execute();
+                } else {
+                    ToastUtil.show(content, "手机没有root管理权限,无法开启映射服务");
+                }
             }
         });
         return view;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void injectServerEvent(Boolean state) {
+        mInjectServerState = state;
+        if (!content.isFinishing() && content != null && mInjectServerConnectedTv != null) {
+            mInjectServerConnectedTv.setText(getString(state ? R.string
+                    .inject_server_state_on : R.string
+                    .inject_server_state_off));
+
+            mInjectServerBt.setClickable(true);
+        }
     }
 
     @Override
@@ -286,15 +336,6 @@ public class ManagerFragment extends Fragment {
     public void bluetoothEvent(String blueToothMsg) {
         if (!content.isFinishing() && content != null && mBlueToothConnectedTv != null) {
             mBlueToothConnectedTv.setText(blueToothMsg);
-        }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void injectServerEvent(Integer state) {
-        if (!content.isFinishing() && content != null && mInjectServerConnectedTv != null) {
-            mInjectServerConnectedTv.setText(getString(state == 0 ? R.string
-                    .inject_server_state_on : R.string
-                    .inject_server_state_off));
         }
     }
 

@@ -104,7 +104,7 @@ public class ClientFinally implements Runnable {
                     //todo 关闭
                     socketConnect = false;
                     LLog.d("InjectServer映射服务__未开启");
-                    EventBus.getDefault().post(new Integer(-1));
+                    EventBus.getDefault().post(new Boolean(false));
                 }
                 LLog.d("ClientFinally->run isServerClose, try restartSocket! ++++++++++++");
                 restartSocket();
@@ -114,7 +114,7 @@ public class ClientFinally implements Runnable {
                 //todo   开启
                 LLog.d("InjectServer映射服务_开启");
                 socketConnect = true;
-                EventBus.getDefault().post(new Integer(0));
+                EventBus.getDefault().post(new Boolean(true));
             }
 
             try {

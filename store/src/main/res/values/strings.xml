@@ -244,4 +244,5 @@
 
     <string name="inject_server_state_on">已开启</string>
     <string name="inject_server_state_off">未开启</string>
+    <string name="inject_server_name">hello</string>
 </resources>
