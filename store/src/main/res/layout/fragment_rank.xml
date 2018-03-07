@@ -11,7 +11,7 @@
         style="@style/Rank_Fragment_TabLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dm074"
-        android:background="@color/bg_f2"
+        android:background="@color/f2f2f2"
         tabs:tabIndicatorColor="@color/mainColor"
         tabs:tabIndicatorHeight="@dimen/dm004"
         tabs:tabGravity="fill"

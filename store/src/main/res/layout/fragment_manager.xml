@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/e5e5e5"
     android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dm100"
@@ -32,10 +33,10 @@
             android:textSize="@dimen/dm020" />
 
         <Button
-            android:background="@drawable/selector_blue_bt_no_rectangle"
             android:id="@+id/inject_server_connect_bt"
             android:layout_width="@dimen/dm104"
             android:layout_height="@dimen/dm044"
+            android:background="@drawable/selector_blue_bt_no_rectangle"
             android:gravity="center"
             android:text="@string/connect_inject_server"
             android:textColor="@color/white"
@@ -70,26 +71,52 @@
             android:textSize="@dimen/dm020" />
 
         <Button
-            android:background="@drawable/selector_blue_bt_no_rectangle"
             android:id="@+id/bluetooth_connect_bt"
             android:layout_width="@dimen/dm104"
             android:layout_height="@dimen/dm044"
+            android:background="@drawable/selector_blue_bt_no_rectangle"
             android:gravity="center"
             android:text="@string/connect_bluetooth"
             android:textColor="@color/white"
             android:textSize="@dimen/dm020" />
     </LinearLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dm025"
+        android:paddingTop="@dimen/dm040">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/dm020"
+            android:text="我的游戏"
+            android:textColor="@color/color_1a"
+            android:textSize="@dimen/dm028"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:paddingRight="@dimen/dm034"
+            android:paddingTop="@dimen/dm007"
+            android:text="@string/add_game"
+            android:textColor="@color/color_1f9952"
+            android:textSize="@dimen/dm024" />
+
+    </RelativeLayout>
+
     <ListView
         android:id="@+id/manager_lv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dm020"
         android:background="@color/white"
         android:divider="@color/e5e5e5"
         android:dividerHeight="@dimen/dm001"
         android:paddingLeft="@dimen/dm025"
-        android:paddingRight="@dimen/dm025"
+        android:paddingRight="@dimen/dm034"
         android:scrollbars="none"></ListView>
 
     <TextView
@@ -98,7 +125,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:gravity="center"
-        android:paddingTop="@dimen/dm100"
+        android:paddingTop="@dimen/dm300"
         android:textColor="@color/color_808080"
         android:textSize="@dimen/dm024"
         android:visibility="gone" />

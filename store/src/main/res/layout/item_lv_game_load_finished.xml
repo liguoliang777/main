@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:ngame="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:descendantFocusability="blocksDescendants"
-                android:paddingBottom="@dimen/dm018">
+    xmlns:ngame="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:descendantFocusability="blocksDescendants"
+    android:paddingBottom="@dimen/dm018">
 
-    <com.facebook.drawee.view.SimpleDraweeView
-        xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    <com.facebook.drawee.view.SimpleDraweeView xmlns:fresco="http://schemas.android.com/apk/res-auto"
         android:id="@+id/img_1"
         android:layout_width="@dimen/dm100"
         android:layout_height="@dimen/dm100"
@@ -21,7 +20,7 @@
         fresco:placeholderImage="@drawable/ic_def_logo_188_188"
         fresco:placeholderImageScaleType="fitXY"
         fresco:progressBarImage="@drawable/ic_def_logo_188_188"
-        fresco:roundedCornerRadius="@dimen/dp_14"/>
+        fresco:roundedCornerRadius="@dimen/dp_14" />
 
     <ImageView
         android:id="@+id/manager_installed_more_bt"
@@ -33,8 +32,7 @@
         android:paddingLeft="@dimen/dp_15"
         android:paddingRight="@dimen/dm028"
         android:paddingTop="@dimen/dm032"
-        android:src="@drawable/selector_rank_more_bt"
-        />
+        android:src="@drawable/selector_rank_more_bt" />
 
     <TextView
         android:id="@+id/installed_open_bt"
@@ -47,8 +45,7 @@
         android:gravity="center"
         android:text="@string/open"
         android:textColor="@color/mainColor"
-        android:textSize="@dimen/dm022"
-        />
+        android:textSize="@dimen/dm022" />
 
     <TextView
         android:id="@+id/tv_install_title"
@@ -57,9 +54,10 @@
         android:layout_marginTop="@dimen/dm018"
         android:layout_toLeftOf="@id/installed_open_bt"
         android:layout_toRightOf="@id/img_1"
+        android:ellipsize="end"
         android:maxLines="1"
         android:text=""
-        android:ellipsize="end"
         android:textColor="@color/color_020202"
-        android:textSize="@dimen/dm028"/>
+        android:textSize="@dimen/dm028"
+        android:textStyle="bold" />
 </RelativeLayout>

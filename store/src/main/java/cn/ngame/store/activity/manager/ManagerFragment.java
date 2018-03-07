@@ -77,7 +77,6 @@ public class ManagerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable
             Bundle savedInstanceState) {
-        Log.d(TAG, "onCreateView: ");
         View view = inflater.inflate(R.layout.fragment_manager, container, false);
         listView = view.findViewById(R.id.manager_lv);
         emptyTv = view.findViewById(R.id.manager_empty_tv);
@@ -112,19 +111,16 @@ public class ManagerFragment extends Fragment {
                         @Override
                         protected Integer doInBackground(Void... voids) {
                             String saveDir = "data/local/tmp/";
-                            String result = Utils.execRootCmd("chmod 777 " + saveDir + getString(R
+                            Utils.execRootCmd("chmod 777 " + saveDir + getString(R
                                     .string.inject_server_name));
-                            LLog.d("映射执行:" + result);
-                            String result2 = Utils.execRootCmd("" + saveDir + getString(R.string
+                            Utils.execRootCmd("" + saveDir + getString(R.string
                                     .inject_server_name));
-                            LLog.d("映射执行2:" + result2);
                             return 0;
                         }
 
                         @Override
                         protected void onPostExecute(Integer isOpened) {
                             super.onPostExecute(isOpened);
-                            LLog.d("映射执行3:" + isOpened);
 
                         }
                     }.execute();
@@ -151,7 +147,6 @@ public class ManagerFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Log.d(TAG, "onActivityCreated: ");
         content = getActivity();
         packageManager = content.getPackageManager();
 
