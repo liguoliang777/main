@@ -8,7 +8,7 @@
     <Button
         android:id="@+id/btn_one"
         android:textSize="20dp"
-        android:background="@mipmap/title_bg"
+        android:background="@color/mainColor"
         android:focusable="true"
         android:layout_width="0.0dp"
         android:layout_height="wrap_content"
@@ -19,8 +19,8 @@
 
     <Button
         android:id="@+id/btn_two"
-        android:textSize="20.dp"
-        android:background="@mipmap/title_bg"
+        android:textSize="20dp"
+        android:background="@color/mainColor"
         android:focusable="true"
         android:textColor="@color/white"
         android:layout_width="0.0dp"

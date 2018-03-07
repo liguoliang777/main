@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/e5e5e5"
+    android:background="@color/f5f5f5"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dm100"
-        android:layout_marginTop="@dimen/dm020"
+        android:layout_height="@dimen/dm085"
+        android:layout_marginTop="@dimen/dm018"
         android:background="@android:color/white"
         android:gravity="center_vertical"
         android:orientation="horizontal"
@@ -45,7 +45,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dm100"
+        android:layout_height="@dimen/dm085"
         android:layout_marginTop="@dimen/dm010"
         android:background="@android:color/white"
         android:gravity="center_vertical"
@@ -85,7 +85,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/dm025"
-        android:paddingTop="@dimen/dm040">
+        android:paddingTop="@dimen/dm038">
 
         <TextView
             android:layout_width="wrap_content"
@@ -102,15 +102,17 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:clickable="true"
-            android:paddingBottom="@dimen/dm010"
+            android:paddingBottom="@dimen/dm008"
             android:paddingLeft="@dimen/dm020"
             android:paddingRight="@dimen/dm034"
-            android:paddingTop="@dimen/dm007"
+            android:paddingTop="@dimen/dm008"
             android:text="@string/add_game"
             android:textColor="@color/manager_add_bt_text_seletor"
             android:textSize="@dimen/dm024" />
 
     </RelativeLayout>
+
+    <include layout="@layout/layout_line_1px_e6e6e6"></include>
 
     <ListView
         android:id="@+id/manager_lv"

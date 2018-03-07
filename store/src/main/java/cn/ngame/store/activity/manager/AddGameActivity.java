@@ -26,10 +26,11 @@ import cn.ngame.store.activity.BaseFgActivity;
  * Created by Administrator on 2017/11/27.
  */
 
-public class AddGameActivity extends BaseFgActivity implements View.OnClickListener, View.OnFocusChangeListener, OnItemClickListener{
-    private List<AppInfo> arrayListAppInfo;
-    private List<String> dbArrayListAppInfo;
-    private ArrayList<AppInfo> arrayListChoiceAppInfo;
+public class AddGameActivity extends BaseFgActivity implements View.OnClickListener, View
+        .OnFocusChangeListener, OnItemClickListener {
+    private List<AppInfo> arrayListAppInfo= new ArrayList<AppInfo>();
+    private List<String> dbArrayListAppInfo= new ArrayList<String>();
+    private ArrayList<AppInfo> arrayListChoiceAppInfo= new ArrayList<AppInfo>();
     private GridView gameView;
     private ChoiceAppInfoAdapter choiceAppInfoAdapter;
     private View popupViewHandle;
@@ -38,33 +39,30 @@ public class AddGameActivity extends BaseFgActivity implements View.OnClickListe
     private GameInfoDbMgr gameInfoDbMgr;
     private ImageView btnBack;
     private TextView headTitleName;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initStatusBar();
         setContentView(R.layout.activity_game_add);
         gameInfoDbMgr = new GameInfoDbMgr(this);
-        initViewControls();
+        initView();
+
         updateArrayListAppInfo();
         initChoiceAdapter();
     }
-    public AddGameActivity(){
-        super();
-        arrayListAppInfo = new ArrayList<AppInfo>();
-        dbArrayListAppInfo = new ArrayList<String>();
-        arrayListChoiceAppInfo = new ArrayList<AppInfo>();
-    }
 
-    private void initViewControls(){
-        gameView = (GridView)findViewById(R.id.game_view);
+
+    private void initView() {
+        gameView = (GridView) findViewById(R.id.game_view);
         findViewById(R.id.ll_back).setOnClickListener(this);
         TextView titleTv = (TextView) findViewById(R.id.tv_title);
         titleTv.setText("选择游戏");
         popupViewHandle = findViewById(R.id.popup_view_handle);
-        popupViewBtnAdd = (Button)findViewById(R.id.btn_two);
+        popupViewBtnAdd = (Button) findViewById(R.id.btn_two);
         popupViewBtnAdd.setText("添加");
         popupViewBtnAdd.setFocusable(true);
-        popupViewBtnCancel = (Button)findViewById(R.id.btn_one);
+        popupViewBtnCancel = (Button) findViewById(R.id.btn_one);
         popupViewBtnCancel.setText("取消");
         popupViewBtnCancel.setOnClickListener(this);
         popupViewBtnAdd.setOnClickListener(this);
@@ -72,23 +70,24 @@ public class AddGameActivity extends BaseFgActivity implements View.OnClickListe
         popupViewBtnCancel.setOnFocusChangeListener(this);
     }
 
-    private void initChoiceAdapter(){
+    private void initChoiceAdapter() {
         choiceAppInfoAdapter = new ChoiceAppInfoAdapter(arrayListAppInfo, this);
         gameView.setAdapter(choiceAppInfoAdapter);
         gameView.setOnItemClickListener(this);
         gameView.setSelector(new ColorDrawable(0));
     }
 
-    private void updateArrayListAppInfo(){
+    private void updateArrayListAppInfo() {
         List<AppInfo> arrayList = PackageList.getAllPackageInfoList(this);
         dbArrayListAppInfo = gameInfoDbMgr.queryAppInfoFromDB();
-        if(dbArrayListAppInfo.size() != 0 && arrayList.size() != 0){
-            for(int nIndex = 0; nIndex < dbArrayListAppInfo.size(); nIndex++){
+        if (dbArrayListAppInfo.size() != 0 && arrayList.size() != 0) {
+            for (int nIndex = 0; nIndex < dbArrayListAppInfo.size(); nIndex++) {
                 int count = 0;
-                while(count < arrayList.size()){
-                    if(arrayList.get(count).getPackageName().equals(dbArrayListAppInfo.get(nIndex))){
+                while (count < arrayList.size()) {
+                    if (arrayList.get(count).getPackageName().equals(dbArrayListAppInfo.get
+                            (nIndex))) {
                         arrayList.remove(count);
-                    }else{
+                    } else {
                         count++;
                         continue;
                     }
@@ -109,7 +108,7 @@ public class AddGameActivity extends BaseFgActivity implements View.OnClickListe
             choiceAppInfoAdapter.initAddFlagsTable();
             arrayListChoiceAppInfo.clear();
             popupViewHandle.setVisibility(View.GONE);
-        } else if (i == R.id.btn_two) {
+        } else if (i == R.id.btn_two) {  //添加
             if (arrayListChoiceAppInfo.size() <= 0) {
                 return;
             }
@@ -161,19 +160,20 @@ public class AddGameActivity extends BaseFgActivity implements View.OnClickListe
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if(choiceAppInfoAdapter.addGameByPosition(position)){
+        if (choiceAppInfoAdapter.addGameByPosition(position)) {
             arrayListChoiceAppInfo.add(arrayListAppInfo.get(position));
-        }else{
-            for(int nIndex = 0; nIndex < arrayListChoiceAppInfo.size(); nIndex++){
-                if(arrayListChoiceAppInfo.get(nIndex).getPackageName().equals(arrayListAppInfo.get(position).getPackageName())){
+        } else {
+            for (int nIndex = 0; nIndex < arrayListChoiceAppInfo.size(); nIndex++) {
+                if (arrayListChoiceAppInfo.get(nIndex).getPackageName().equals(arrayListAppInfo
+                        .get(position).getPackageName())) {
                     arrayListChoiceAppInfo.remove(nIndex);
                 }
             }
         }
 
-        if(arrayListChoiceAppInfo.size() > 0){
+        if (arrayListChoiceAppInfo.size() > 0) {
             popupViewHandle.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             popupViewHandle.setVisibility(View.GONE);
         }
     }

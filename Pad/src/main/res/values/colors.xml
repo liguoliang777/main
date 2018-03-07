@@ -23,4 +23,6 @@
     <color name="y1">#fff28b2f</color>
     <!-- 设置 界面背景色 -->
     <color name="green_20">#aa9ccceb</color>
+
+    <color name="mainColor">#3ecc7a</color>
 </resources>
