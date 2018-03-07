@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="1.0dip"
         android:text="打开"
+        android:textColor="@color/white"
         android:layout_weight="1.0"/>
 
     <Button
@@ -21,6 +22,7 @@
         android:textSize="20.dp"
         android:background="@mipmap/title_bg"
         android:focusable="true"
+        android:textColor="@color/white"
         android:layout_width="0.0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="1.0dip"

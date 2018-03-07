@@ -21,7 +21,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.lx.pad.component.ChoiceGameActivity;
 import com.lx.pad.util.LLog;
 
 import org.greenrobot.eventbus.EventBus;
@@ -70,8 +69,8 @@ public class ManagerFragment extends Fragment {
     private ApplicationInfo applicationInfo;
     private TextView emptyTv;
     private int oldLength;
-    private TextView mBlueToothConnectedTv, mInjectServerConnectedTv,mAddGameTv;
-    private Boolean mInjectServerState;
+    private TextView mBlueToothConnectedTv, mInjectServerConnectedTv, mAddGameTv;
+    private Boolean mInjectServerState = false;
     private Button mInjectServerBt;
 
     @Nullable
@@ -99,7 +98,7 @@ public class ManagerFragment extends Fragment {
         mAddGameTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(content, ChoiceGameActivity.class));
+                startActivity(new Intent(content, AddGameActivity.class));
             }
         });
 
@@ -109,12 +108,12 @@ public class ManagerFragment extends Fragment {
                 .OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mInjectServerState) {
-                    ToastUtil.show(content, "映射服务已开启");
-                    return;
-                }
-                mInjectServerBt.setClickable(false);
                 if (Utils.isRooted()) {
+                    if (mInjectServerState) {
+                        ToastUtil.show(content, "映射服务已开启");
+                        return;
+                    }
+                    mInjectServerBt.setClickable(false);
                     String saveDir = "data/local/tmp/";
                     AssetsCopyer.copyAssets(content, "", saveDir);
 

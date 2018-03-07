@@ -14,7 +14,6 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity"/>
         <activity android:name=".component.MyGameActivity"/>
-        <activity android:name=".component.ChoiceGameActivity"/>
         <activity android:name="com.ngame.app.PadToolGuideActivity"
             android:configChanges="locale|fontScale|keyboard|keyboardHidden|layoutDirection|mcc|mnc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|touchscreen|uiMode"
             android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"

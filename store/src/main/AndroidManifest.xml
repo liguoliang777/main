@@ -403,6 +403,12 @@
             android:theme="@android:style/Theme.NoTitleBar"
             />
         <activity
+            android:name=".activity.manager.AddGameActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden|navigation"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.NoTitleBar"
+            />
+        <activity
             android:name=".activity.sm.NecessaryOrLikeActivity"
             android:configChanges="orientation|keyboard|keyboardHidden|navigation"
             android:launchMode="singleTask"

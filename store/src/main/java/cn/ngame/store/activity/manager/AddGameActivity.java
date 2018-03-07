@@ -1,4 +1,4 @@
-package com.lx.pad.component;
+package cn.ngame.store.activity.manager;
 
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lx.pad.ItemType.AppInfo;
-import com.lx.pad.R;
 import com.lx.pad.adapter.ChoiceAppInfoAdapter;
 import com.lx.pad.util.GameInfoDbMgr;
 import com.lx.pad.util.PackageList;
@@ -20,11 +19,14 @@ import com.lx.pad.util.PackageList;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.ngame.store.R;
+import cn.ngame.store.activity.BaseFgActivity;
+
 /**
  * Created by Administrator on 2017/11/27.
  */
 
-public class ChoiceGameActivity extends BaseActivity  implements View.OnClickListener, View.OnFocusChangeListener, OnItemClickListener{
+public class AddGameActivity extends BaseFgActivity implements View.OnClickListener, View.OnFocusChangeListener, OnItemClickListener{
     private List<AppInfo> arrayListAppInfo;
     private List<String> dbArrayListAppInfo;
     private ArrayList<AppInfo> arrayListChoiceAppInfo;
@@ -36,8 +38,17 @@ public class ChoiceGameActivity extends BaseActivity  implements View.OnClickLis
     private GameInfoDbMgr gameInfoDbMgr;
     private ImageView btnBack;
     private TextView headTitleName;
-
-    public ChoiceGameActivity(){
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initStatusBar();
+        setContentView(R.layout.activity_game_add);
+        gameInfoDbMgr = new GameInfoDbMgr(this);
+        initViewControls();
+        updateArrayListAppInfo();
+        initChoiceAdapter();
+    }
+    public AddGameActivity(){
         super();
         arrayListAppInfo = new ArrayList<AppInfo>();
         dbArrayListAppInfo = new ArrayList<String>();
@@ -46,11 +57,9 @@ public class ChoiceGameActivity extends BaseActivity  implements View.OnClickLis
 
     private void initViewControls(){
         gameView = (GridView)findViewById(R.id.game_view);
-        btnBack = (ImageView)findViewById(R.id.btn_back);
-        headTitleName = (TextView)findViewById(R.id.head_title_name);
-        btnBack.setVisibility(View.VISIBLE);
-        headTitleName.setText("选择游戏");
-        btnBack.setOnClickListener(this);
+        findViewById(R.id.ll_back).setOnClickListener(this);
+        TextView titleTv = (TextView) findViewById(R.id.tv_title);
+        titleTv.setText("选择游戏");
         popupViewHandle = findViewById(R.id.popup_view_handle);
         popupViewBtnAdd = (Button)findViewById(R.id.btn_two);
         popupViewBtnAdd.setText("添加");
@@ -93,7 +102,7 @@ public class ChoiceGameActivity extends BaseActivity  implements View.OnClickLis
     @Override
     public void onClick(View v) {
         int i = v.getId();
-        if (i == R.id.btn_back) {
+        if (i == R.id.ll_back) {
             arrayListChoiceAppInfo.clear();
             finish();
         } else if (i == R.id.btn_one) {
@@ -169,13 +178,4 @@ public class ChoiceGameActivity extends BaseActivity  implements View.OnClickLis
         }
     }
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.game_activity_view);
-        gameInfoDbMgr = new GameInfoDbMgr(this);
-        initViewControls();
-        updateArrayListAppInfo();
-        initChoiceAdapter();
-    }
 }
