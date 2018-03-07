@@ -16,11 +16,14 @@ import com.lx.pad.adapter.ChoiceAppInfoAdapter;
 import com.lx.pad.util.GameInfoDbMgr;
 import com.lx.pad.util.PackageList;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.ngame.store.R;
 import cn.ngame.store.activity.BaseFgActivity;
+import cn.ngame.store.core.utils.FileUtil;
 
 /**
  * Created by Administrator on 2017/11/27.
@@ -28,9 +31,9 @@ import cn.ngame.store.activity.BaseFgActivity;
 
 public class AddGameActivity extends BaseFgActivity implements View.OnClickListener, View
         .OnFocusChangeListener, OnItemClickListener {
-    private List<AppInfo> arrayListAppInfo= new ArrayList<AppInfo>();
-    private List<String> dbArrayListAppInfo= new ArrayList<String>();
-    private ArrayList<AppInfo> arrayListChoiceAppInfo= new ArrayList<AppInfo>();
+    private List<AppInfo> arrayListAppInfo = new ArrayList<AppInfo>();
+    private List<String> dbArrayListAppInfo = new ArrayList<String>();
+    private ArrayList<AppInfo> arrayListChoiceAppInfo = new ArrayList<AppInfo>();
     private GridView gameView;
     private ChoiceAppInfoAdapter choiceAppInfoAdapter;
     private View popupViewHandle;
@@ -39,6 +42,8 @@ public class AddGameActivity extends BaseFgActivity implements View.OnClickListe
     private GameInfoDbMgr gameInfoDbMgr;
     private ImageView btnBack;
     private TextView headTitleName;
+    private JSONArray jsonArray = new JSONArray();
+    private String pkgNameListStr;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -112,13 +117,28 @@ public class AddGameActivity extends BaseFgActivity implements View.OnClickListe
             if (arrayListChoiceAppInfo.size() <= 0) {
                 return;
             }
+            //todo 读取本地
+            try {
+                pkgNameListStr = FileUtil.readFile();
+                if (null != pkgNameListStr) {
+                    jsonArray = new JSONArray(pkgNameListStr);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             for (int nIndex = 0; nIndex < arrayListChoiceAppInfo.size(); nIndex++) {
                 gameInfoDbMgr.insertAppInfoFromDB(arrayListChoiceAppInfo.get(nIndex));
                 int index = 0;
                 while (index < arrayListAppInfo.size()) {
-                    if (arrayListAppInfo.get(index).getPackageName().equals
-                            (arrayListChoiceAppInfo.get(nIndex).getPackageName())) {
+                    String addPackageName = arrayListChoiceAppInfo.get(nIndex).getPackageName();
+                    if (arrayListAppInfo.get(index).getPackageName().equals(addPackageName)) {
                         arrayListAppInfo.remove(index);
+
+                        //todo 添加
+                        if (pkgNameListStr == null || !pkgNameListStr.contains(addPackageName)) {
+                            jsonArray.put(addPackageName);
+                        }
                     } else {
                         index++;
                         continue;
@@ -126,6 +146,8 @@ public class AddGameActivity extends BaseFgActivity implements View.OnClickListe
                     break;
                 }
             }
+            //todo 写入本地
+            FileUtil.writeFile2SDCard(jsonArray.toString());
             if (arrayListAppInfo.size() > 0) {
                 choiceAppInfoAdapter.initArrayListAppInfo(arrayListAppInfo);
                 gameView.setAdapter(choiceAppInfoAdapter);
