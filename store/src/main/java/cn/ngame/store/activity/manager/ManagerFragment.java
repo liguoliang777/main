@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.lx.pad.component.ChoiceGameActivity;
 import com.lx.pad.util.LLog;
 
 import org.greenrobot.eventbus.EventBus;
@@ -69,7 +70,7 @@ public class ManagerFragment extends Fragment {
     private ApplicationInfo applicationInfo;
     private TextView emptyTv;
     private int oldLength;
-    private TextView mBlueToothConnectedTv, mInjectServerConnectedTv;
+    private TextView mBlueToothConnectedTv, mInjectServerConnectedTv,mAddGameTv;
     private Boolean mInjectServerState;
     private Button mInjectServerBt;
 
@@ -82,6 +83,7 @@ public class ManagerFragment extends Fragment {
         emptyTv = view.findViewById(R.id.manager_empty_tv);
         mBlueToothConnectedTv = view.findViewById(R.id.bluetooth_connect_state_tv);
         mInjectServerConnectedTv = view.findViewById(R.id.inject_server_connect_state_tv);
+        mAddGameTv = view.findViewById(R.id.manager_add_game_bt);
         emptyTv.setText("列表为空~");
 
         //连接蓝牙
@@ -92,6 +94,15 @@ public class ManagerFragment extends Fragment {
                 startActivity(bluetoothIntent);
             }
         });
+
+        //添加游戏
+        mAddGameTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(content, ChoiceGameActivity.class));
+            }
+        });
+
         //开启映射
         mInjectServerBt = view.findViewById(R.id.inject_server_connect_bt);
         mInjectServerBt.setOnClickListener(new View

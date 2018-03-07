@@ -215,7 +215,7 @@ public class MyGameActivity extends AppCompatActivity implements View.OnClickLis
             startAppByPkgName(appInfoList.get(position).getPackageName());
         }else if(!bUpdateAppInfo){
             //打开添加游戏界面
-            startActivity(new Intent(this, ChoiceGameActivity.class));
+            //startActivity(new Intent(this, ChoiceGameActivity.class));
         }else{
             Toast.makeText(this, "没有可选游戏", Toast.LENGTH_LONG).show();
         }

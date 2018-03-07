@@ -97,13 +97,17 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/manager_add_game_bt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:clickable="true"
+            android:paddingBottom="@dimen/dm010"
+            android:paddingLeft="@dimen/dm020"
             android:paddingRight="@dimen/dm034"
             android:paddingTop="@dimen/dm007"
             android:text="@string/add_game"
-            android:textColor="@color/color_1f9952"
+            android:textColor="@color/manager_add_bt_text_seletor"
             android:textSize="@dimen/dm024" />
 
     </RelativeLayout>
