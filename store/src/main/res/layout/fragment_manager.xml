@@ -84,7 +84,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/dm025"
+        android:paddingLeft="@dimen/dm030"
         android:paddingTop="@dimen/dm038">
 
         <TextView
@@ -93,7 +93,7 @@
             android:paddingBottom="@dimen/dm020"
             android:text="我的游戏"
             android:textColor="@color/color_1a"
-            android:textSize="@dimen/dm028"
+            android:textSize="@dimen/dm026"
             android:textStyle="bold" />
 
         <TextView
@@ -121,7 +121,7 @@
         android:background="@color/white"
         android:divider="@color/e5e5e5"
         android:dividerHeight="@dimen/dm001"
-        android:paddingLeft="@dimen/dm025"
+        android:paddingLeft="@dimen/dm030"
         android:paddingRight="@dimen/dm034"
         android:scrollbars="none"></ListView>
 
