@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.Set;
 
 import cn.ngame.store.R;
+import cn.ngame.store.adapter.CloudGameAdapter;
 import cn.ngame.store.adapter.InstalledGameAdapter;
 import cn.ngame.store.core.fileload.FileLoadInfo;
 import cn.ngame.store.core.fileload.FileLoadManager;
@@ -72,6 +73,11 @@ public class ManagerFragment extends Fragment {
     private TextView mBlueToothConnectedTv, mInjectServerConnectedTv, mAddGameTv;
     private Boolean mInjectServerState = false;
     private Button mInjectServerBt;
+    private TextView mCloudTabTv, mNativceTabTv;
+    private View mCloudLine, mNativeLine;
+    private ListView mCloudListView;
+    private CloudGameAdapter mCloudGameAdapter;
+    private QuickAction mItemClickQuickActionCloud;
 
     @Nullable
     @Override
@@ -86,61 +92,87 @@ public class ManagerFragment extends Fragment {
         emptyTv.setText("列表为空~");
 
         //连接蓝牙
-        view.findViewById(R.id.bluetooth_connect_bt).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent bluetoothIntent = new Intent(Settings.ACTION_BLUETOOTH_SETTINGS);
-                startActivity(bluetoothIntent);
-            }
-        });
+        view.findViewById(R.id.bluetooth_connect_bt).setOnClickListener(managerOnClikListener);
 
         //添加游戏
-        mAddGameTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(content, AddGameActivity.class));
-            }
-        });
+        mAddGameTv.setOnClickListener(managerOnClikListener);
 
         //开启映射
         mInjectServerBt = view.findViewById(R.id.inject_server_connect_bt);
-        mInjectServerBt.setOnClickListener(new View
-                .OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (Utils.isRooted()) {
-                    if (mInjectServerState) {
-                        ToastUtil.show(content, "映射服务已开启");
-                        return;
-                    }
-                    mInjectServerBt.setClickable(false);
-                    String saveDir = "data/local/tmp/";
-                    AssetsCopyer.copyAssets(content, "", saveDir);
+        mInjectServerBt.setOnClickListener(managerOnClikListener);
 
-                    new AsyncTask<Void, Void, Integer>() {
-                        @Override
-                        protected Integer doInBackground(Void... voids) {
-                            String saveDir = "data/local/tmp/";
-                            Utils.execRootCmd("chmod 777 " + saveDir + getString(R
-                                    .string.inject_server_name));
-                            Utils.execRootCmd("" + saveDir + getString(R.string
-                                    .inject_server_name));
-                            return 0;
-                        }
+        //顶部按钮
+        mCloudTabTv = view.findViewById(R.id.cloud_games_tab_tv);
+        mCloudTabTv.setSelected(true);
+        mNativceTabTv = view.findViewById(R.id.native_games_tab_tv);
 
-                        @Override
-                        protected void onPostExecute(Integer isOpened) {
-                            super.onPostExecute(isOpened);
+        mCloudTabTv.setOnClickListener(managerOnClikListener);
+        mNativceTabTv.setOnClickListener(managerOnClikListener);
 
-                        }
-                    }.execute();
-                } else {
-                    ToastUtil.show(content, "手机没有root管理权限,无法开启映射服务");
-                }
-            }
-        });
+        mCloudLine = view.findViewById(R.id.cloud_games_tab_line);
+        mNativeLine = view.findViewById(R.id.native_games_tab_line);
+
+        mCloudListView = view.findViewById(R.id.manager_cloud_lv);
         return view;
     }
+
+    private View.OnClickListener managerOnClikListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.cloud_games_tab_tv:
+                    setTopTabColor(true);
+
+                    break;
+                case R.id.native_games_tab_tv:
+                    setTopTabColor(false);
+                    break;
+                //添加游戏
+                case R.id.manager_add_game_bt:
+                    startActivity(new Intent(content, AddGameActivity.class));
+                    break;
+                //连接蓝牙
+                case R.id.bluetooth_connect_bt:
+                    Intent bluetoothIntent = new Intent(Settings.ACTION_BLUETOOTH_SETTINGS);
+                    startActivity(bluetoothIntent);
+                    break;
+                //InjectServer
+                case R.id.inject_server_connect_bt:
+                    if (Utils.isRooted()) {
+                        if (mInjectServerState) {
+                            ToastUtil.show(content, "映射服务已开启");
+                            return;
+                        }
+                        mInjectServerBt.setClickable(false);
+                        String saveDir = "data/local/tmp/";
+                        AssetsCopyer.copyAssets(content, "", saveDir);
+
+                        new AsyncTask<Void, Void, Integer>() {
+                            @Override
+                            protected Integer doInBackground(Void... voids) {
+                                String saveDir = "data/local/tmp/";
+                                Utils.execRootCmd("chmod 777 " + saveDir + getString(R
+                                        .string.inject_server_name));
+                                Utils.execRootCmd("" + saveDir + getString(R.string
+                                        .inject_server_name));
+                                return 0;
+                            }
+
+                            @Override
+                            protected void onPostExecute(Integer isOpened) {
+                                super.onPostExecute(isOpened);
+
+                            }
+                        }.execute();
+                    } else {
+                        ToastUtil.show(content, "手机没有root管理权限,无法开启映射服务");
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void injectServerEvent(Boolean state) {
@@ -161,6 +193,7 @@ public class ManagerFragment extends Fragment {
         packageManager = content.getPackageManager();
 
         initPop();
+        initCloudPop();
         initListView();
 
         EventBus.getDefault().register(this);
@@ -170,7 +203,10 @@ public class ManagerFragment extends Fragment {
     public void initListView() {
         alreadyLvAdapter = new InstalledGameAdapter(content, content.getSupportFragmentManager(),
                 mItemClickQuickAction);
+        mCloudGameAdapter = new CloudGameAdapter(content, content.getSupportFragmentManager(),
+                mItemClickQuickActionCloud);
         listView.setAdapter(alreadyLvAdapter);
+        mCloudListView.setAdapter(mCloudGameAdapter);
         fileLoad = FileLoadManager.getInstance(content);
     }
 
@@ -206,7 +242,11 @@ public class ManagerFragment extends Fragment {
             pkgNameListStr = FileUtil.readFile();
         }
         if (null != alreadyLvAdapter) {
-            alreadyLvAdapter.setDate(getLocalApp());
+            getLocalApp();
+            alreadyLvAdapter.setDate(localAppList);
+        }
+        if (mCloudGameAdapter != null) {
+            mCloudGameAdapter.setDate(localAppList);
         }
     }
 
@@ -219,7 +259,7 @@ public class ManagerFragment extends Fragment {
         }
     }
 
-    private List<PackageInfo> getLocalApp() {
+    private void getLocalApp() {
         packageInfos = packageManager.getInstalledPackages(0);
         localAppList.clear();
         if (pkgNameListStr != null) {
@@ -246,7 +286,6 @@ public class ManagerFragment extends Fragment {
         } else {
             emptyTv.setVisibility(View.VISIBLE);
         }
-        return localAppList;
     }
 
     private void initPop() {
@@ -284,7 +323,41 @@ public class ManagerFragment extends Fragment {
             }
         });
     }
+    private void initCloudPop() {
+        // 设置Action
+        mItemClickQuickActionCloud = new QuickAction(content, QuickAction.VERTICAL);
+        ActionItem pointItem = new ActionItem(0, "卸载", null);
+        mItemClickQuickActionCloud.addActionItem(pointItem);
+        mItemClickQuickActionCloud.setOnActionItemClickListener(new QuickAction
+                .OnActionItemClickListener() {
+            @Override
+            public void onItemClick(QuickAction source, int pos, int actionId) {
+                if (pos == 0) {
+                    //删除文件下载任务
+                    mfileUnstalledInfo = mCloudGameAdapter.getItemInfo();
+                    //卸载
+                    String packageName = mfileUnstalledInfo.applicationInfo.packageName;
 
+                    AppInstallHelper.unstallApp(content, packageName);
+
+                    if (null == packageName) {
+                        return;
+                    }
+                    //删除安装包和正在下载的文件
+                    List<FileLoadInfo> loadingFileInfo = fileLoad.getOpenFileInfo();
+                    for (FileLoadInfo fileLoadInfo : loadingFileInfo) {
+                        if (packageName.equals(fileLoadInfo.getPackageName())) {
+                            fileLoad.delete(fileLoadInfo.getUrl());
+                        }
+
+                    }
+                    mItemClickQuickActionCloud.dismiss();
+                    source.dismiss();
+                }
+
+            }
+        });
+    }
     private void getConnectBlueTooth() {
         int connectDevices = 0;
         BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
@@ -348,5 +421,20 @@ public class ManagerFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    /**
+     * 设置顶部导航按钮的颜色切换
+     *
+     * @param isCloudSelected
+     */
+    private void setTopTabColor(boolean isCloudSelected) {
+        mCloudTabTv.setSelected(isCloudSelected);
+        mNativceTabTv.setSelected(!isCloudSelected);
+
+        mCloudLine.setVisibility(isCloudSelected ? View.VISIBLE : View.INVISIBLE);
+        mNativeLine.setVisibility(isCloudSelected ? View.INVISIBLE : View.VISIBLE);
+
+        mCloudListView.setVisibility(isCloudSelected ? View.VISIBLE : View.INVISIBLE);
     }
 }

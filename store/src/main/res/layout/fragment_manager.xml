@@ -21,7 +21,7 @@
         android:paddingBottom="@dimen/dm028"
         android:paddingTop="@dimen/dm028"
         android:text="云适配游戏"
-        android:textColor="@color/color999999"
+        android:textColor="@color/manager_top_bt_text_seletor"
         android:textSize="@dimen/dm024"
         android:textStyle="bold" />
 
@@ -45,7 +45,7 @@
         android:paddingBottom="@dimen/dm028"
         android:paddingTop="@dimen/dm028"
         android:text="原生游戏"
-        android:textColor="@color/color999999"
+        android:textColor="@color/manager_top_bt_text_seletor"
         android:textSize="@dimen/dm024"
         android:textStyle="bold" />
 
@@ -57,7 +57,8 @@
         android:layout_alignRight="@id/native_games_tab_tv"
         android:layout_below="@id/manager_top_center_line_view"
         android:layout_marginTop="@dimen/dm017"
-        android:background="@color/color3ecc7a"></View>
+        android:background="@color/color3ecc7a"
+        android:visibility="invisible"></View>
 
     <View
         android:id="@+id/manager_top_tab_buttom_line"
@@ -112,7 +113,9 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/dm020" />
         </LinearLayout>
+
         <include layout="@layout/layout_line_1px_e6e6e6"></include>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/dm085"
@@ -149,7 +152,9 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/dm020" />
         </LinearLayout>
+
         <include layout="@layout/layout_line_1px_e6e6e6"></include>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -205,4 +210,19 @@
             android:textSize="@dimen/dm024"
             android:visibility="gone" />
     </LinearLayout>
+
+    <!-- ____________云适配__________ -->
+
+
+    <ListView
+        android:id="@+id/manager_cloud_lv"
+        android:layout_width="fill_parent"
+        android:divider="@color/e5e5e5"
+        android:dividerHeight="@dimen/dm001"
+        android:paddingLeft="@dimen/dm020"
+        android:paddingRight="@dimen/dm034"
+        android:scrollbars="none"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/manager_top_tab_buttom_line"
+        android:background="@color/white"></ListView>
 </RelativeLayout>
