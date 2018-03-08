@@ -178,7 +178,7 @@
                 android:clickable="true"
                 android:paddingBottom="@dimen/dm008"
                 android:paddingLeft="@dimen/dm020"
-                android:paddingRight="@dimen/dm034"
+                android:paddingRight="@dimen/dm036"
                 android:paddingTop="@dimen/dm008"
                 android:text="@string/add_game"
                 android:textColor="@color/manager_add_bt_text_seletor"
