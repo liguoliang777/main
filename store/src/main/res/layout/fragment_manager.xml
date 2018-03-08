@@ -71,7 +71,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/dm010"
         android:layout_below="@id/manager_top_tab_buttom_line"
         android:background="@color/f5f5f5"
         android:orientation="vertical">
@@ -113,16 +112,14 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/dm020" />
         </LinearLayout>
-
+        <include layout="@layout/layout_line_1px_e6e6e6"></include>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/dm085"
-            android:layout_marginTop="@dimen/dm010"
             android:background="@android:color/white"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingLeft="@dimen/dm014"
-            android:layout_marginBottom="@dimen/dm010"
             android:paddingRight="@dimen/dm034">
 
             <ImageView
@@ -157,7 +154,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/dm030"
-            android:paddingTop="@dimen/dm035">
+            android:paddingTop="@dimen/dm030">
 
             <TextView
                 android:layout_width="wrap_content"
