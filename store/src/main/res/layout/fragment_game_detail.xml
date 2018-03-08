@@ -133,7 +133,7 @@
             android:layout_height="@dimen/dp_17"
             android:layout_marginRight="@dimen/dp_5"
             android:layout_marginTop="@dimen/dm001"
-            android:background="@color/color_vertical_line"/>
+            android:background="@color/color3ecc7a"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -172,7 +172,7 @@
             android:paddingBottom="10dp"
             android:paddingRight="20dp"
             android:text="显示全部"
-            android:textColor="@color/color_vertical_line"
+            android:textColor="@color/color3ecc7a"
             android:textSize="@dimen/dp_14"
             android:visibility="invisible"/>
     </RelativeLayout>
@@ -192,7 +192,7 @@
             android:layout_height="@dimen/dp_17"
             android:layout_marginTop="@dimen/dm001"
             android:layout_marginRight="@dimen/dp_4"
-            android:background="@color/color_vertical_line"/>
+            android:background="@color/color3ecc7a"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -232,7 +232,7 @@
             android:paddingBottom="10dp"
             android:paddingRight="20dp"
             android:text="显示全部"
-            android:textColor="@color/color_vertical_line"
+            android:textColor="@color/color3ecc7a"
             android:textSize="@dimen/dp_14"
             android:visibility="invisible"/>
     </RelativeLayout>
@@ -250,7 +250,7 @@
             android:layout_height="@dimen/dp_17"
             android:layout_marginRight="@dimen/dp_4"
             android:layout_marginTop="@dimen/dm001"
-            android:background="@color/color_vertical_line"/>
+            android:background="@color/color3ecc7a"/>
 
         <TextView
             android:layout_width="wrap_content"
