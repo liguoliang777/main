@@ -219,7 +219,7 @@
         android:layout_width="fill_parent"
         android:divider="@color/e5e5e5"
         android:dividerHeight="@dimen/dm001"
-        android:paddingLeft="@dimen/dm020"
+        android:paddingLeft="@dimen/dm034"
         android:paddingRight="@dimen/dm034"
         android:scrollbars="none"
         android:layout_height="fill_parent"

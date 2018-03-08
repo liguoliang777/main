@@ -152,6 +152,7 @@ public class AddGameActivity extends BaseFgActivity implements View.OnClickListe
                 choiceAppInfoAdapter.initArrayListAppInfo(arrayListAppInfo);
                 gameView.setAdapter(choiceAppInfoAdapter);
                 popupViewHandle.setVisibility(View.GONE);
+                finish();
                 return;
             }
             arrayListChoiceAppInfo.clear();

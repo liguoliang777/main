@@ -13,7 +13,6 @@ import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,6 +77,7 @@ public class ManagerFragment extends Fragment {
     private ListView mCloudListView;
     private CloudGameAdapter mCloudGameAdapter;
     private QuickAction mItemClickQuickActionCloud;
+    private boolean readException = false;
 
     @Nullable
     @Override
@@ -218,7 +218,11 @@ public class ManagerFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        Log.d(TAG, "连接888 onStart: ");
+        initData();
+
+    }
+
+    private void initData() {
         //获取本地
         try {
             pkgNameListStr = FileUtil.readFile();
@@ -227,6 +231,7 @@ public class ManagerFragment extends Fragment {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            readException = true;
         }
         oldLength = jsonArray.length();
         //获取数据库 =>  添加
@@ -256,6 +261,10 @@ public class ManagerFragment extends Fragment {
         if (!hidden) {
             //获取蓝牙设备
             getConnectBlueTooth();
+            if (readException) {
+                readException = false;
+                initData();
+            }
         }
     }
 
@@ -323,6 +332,7 @@ public class ManagerFragment extends Fragment {
             }
         });
     }
+
     private void initCloudPop() {
         // 设置Action
         mItemClickQuickActionCloud = new QuickAction(content, QuickAction.VERTICAL);
@@ -358,6 +368,7 @@ public class ManagerFragment extends Fragment {
             }
         });
     }
+
     private void getConnectBlueTooth() {
         int connectDevices = 0;
         BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();

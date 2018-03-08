@@ -5,15 +5,15 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:descendantFocusability="blocksDescendants"
-    android:paddingBottom="@dimen/dm026">
+    android:paddingBottom="@dimen/dm020">
 
     <com.facebook.drawee.view.SimpleDraweeView xmlns:fresco="http://schemas.android.com/apk/res-auto"
         android:id="@+id/img_1"
-        android:layout_width="@dimen/dm192"
-        android:layout_height="@dimen/dm108"
+        android:layout_width="@dimen/dm090"
+        android:layout_height="@dimen/dm090"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/dm024"
-        android:layout_marginTop="@dimen/dm026"
+        android:layout_marginTop="@dimen/dm020"
         android:scaleType="fitXY"
         fresco:actualImageScaleType="fitXY"
         fresco:failureImage="@drawable/ic_def_logo_188_188"
