@@ -9,7 +9,7 @@
         android:layout_width="@dimen/dm002"
         android:layout_height="@dimen/dm020"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dm032"
+        android:layout_marginTop="@dimen/dm033"
         android:background="@color/color999999" />
 
     <TextView
