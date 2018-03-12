@@ -161,7 +161,8 @@ public class ManagerFragment extends Fragment {
                             @Override
                             protected void onPostExecute(Integer isOpened) {
                                 super.onPostExecute(isOpened);
-
+                                LLog.d("执行");
+                                mInjectServerBt.setClickable(true);
                             }
                         }.execute();
                     } else {

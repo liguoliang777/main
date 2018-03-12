@@ -17,7 +17,8 @@
         android:layout_height="20.0dp"
         android:layout_alignBottom="@id/icon"
         android:layout_alignLeft="@id/icon"
-        android:background="@mipmap/editable_mode_checked_tag"
+        android:scaleType="centerInside"
+        android:src="@mipmap/editable_mode_checked_tag"
         android:visibility="gone" />
 
     <TextView
