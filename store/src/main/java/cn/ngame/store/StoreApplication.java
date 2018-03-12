@@ -80,7 +80,7 @@ public class StoreApplication extends Application {
         //配置友盟
         UMShareAPI.get(this);
         initUmengKey();
-        Log.setLevel(Log.ERROR);    //设置Log打印级别
+        Log.setLevel(Log.DEBUG);    //设置Log打印级别
         Config.DEBUG = true;
 
     }

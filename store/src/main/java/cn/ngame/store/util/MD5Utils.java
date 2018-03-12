@@ -11,15 +11,16 @@ import java.security.MessageDigest;
  */
 
 public class MD5Utils {
-    public static void getMD5(Context context, String packageName) {
+    public static String getMD5(Context context, String packageName) {
         try {
             PackageManager pm = context.getPackageManager();
             Signature sig = pm.getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
                     .signatures[0];
             String md5Fingerprint = doFingerprint(sig.toByteArray(), "MD5");
-            android.util.Log.d("md5:", md5Fingerprint);
+            return md5Fingerprint;
         } catch (Exception e) {
             e.printStackTrace();
+            return "";
         }
     }
 

@@ -37,7 +37,7 @@ public class KeyConstant {
     public static final String START_INDEX = "startIndex";
     public static final String PAGE_SIZE = "pageSize";
     public static final String index = "index";
-    public static final String start_Record="startRecord";
+    public static final String start_Record = "startRecord";
     public static final String RECORDS = "records";
     public static final String updateOrDownloadTips = "updateOrDownloadTips";
     public static final String gameVersion = "gameVersion";
@@ -48,11 +48,12 @@ public class KeyConstant {
     public static final String system = "system";//手机系统
     public static final String cpu = "cpu";
 
-    public static final String parentId="parentId";
+    public static final String parentId = "parentId";
     public static final String postId = "postId";
-    public static final String postCategoryId="postCategoryId";
-    public static final String pageIndex="pageIndex";
-    public static final String likeOrNecessaryExtraKey="likeOrNecessaryExtraKey";
-    public static final int EXTRA_LIKE=0;
-    public static final int EXTRA_NECESSARY=1;
+    public static final String postCategoryId = "postCategoryId";
+    public static final String pageIndex = "pageIndex";
+    public static final String likeOrNecessaryExtraKey = "likeOrNecessaryExtraKey";
+    public static final int EXTRA_LIKE = 0;
+    public static final int EXTRA_NECESSARY = 1;
+    public static final String signValue = "signValue";
 }

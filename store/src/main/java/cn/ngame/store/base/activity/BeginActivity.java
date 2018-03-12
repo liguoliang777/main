@@ -16,27 +16,41 @@
 package cn.ngame.store.base.activity;
 
 import android.app.Activity;
-import android.content.ClipboardManager;
-import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.telephony.TelephonyManager;
 import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.google.gson.reflect.TypeToken;
 import com.umeng.analytics.MobclickAgent;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import cn.ngame.store.R;
+import cn.ngame.store.StoreApplication;
 import cn.ngame.store.activity.main.MainHomeActivity;
+import cn.ngame.store.bean.JsonResult;
 import cn.ngame.store.core.fileload.FileLoadService;
+import cn.ngame.store.core.net.GsonRequest;
 import cn.ngame.store.core.utils.Constant;
+import cn.ngame.store.core.utils.KeyConstant;
 import cn.ngame.store.core.utils.Log;
+import cn.ngame.store.core.utils.NetUtil;
 import cn.ngame.store.core.utils.SPUtils;
+import cn.ngame.store.core.utils.UrlConstant;
 import cn.ngame.store.push.model.PushMessage;
 import cn.ngame.store.util.ConvUtil;
 
@@ -56,6 +70,8 @@ public class BeginActivity extends Activity {
     private long SHOW_TIME_isFirstInstall = 1000;
     private Button skipBt;
     private FrameLayout adsParent;
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,15 +84,12 @@ public class BeginActivity extends Activity {
         Intent serviceIntent = new Intent(this, FileLoadService.class);
         startService(serviceIntent);
 
-        //支付宝红包 #吱口令#
-        ClipboardManager clip = (ClipboardManager) getSystemService(Context
-                .CLIPBOARD_SERVICE);
-        clip.setText("7Dl59e13pi");// 复制  // 粘贴 getText()
+        //请求签名列表
+        if (NetUtil.isNetworkConnected(content)) {
+            getSignList();
+        }
 
         //CommonUtil.verifyStatePermissions(content);
-        TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context
-                .TELEPHONY_SERVICE);
-        //deviceId = telephonyManager.getDeviceId();
         //友盟相关
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
         MobclickAgent.setDebugMode(true);
@@ -86,6 +99,65 @@ public class BeginActivity extends Activity {
         timer = new Timer();
 
         skip2Main();
+
+    }
+
+    private void getSignList() {
+        preferences = getSharedPreferences(Constant.CONFIG_FILE_NAME, MODE_PRIVATE);
+        editor = preferences.edit();
+        String url = Constant.WEB_SITE + UrlConstant.URL_QUERY_SIGNTOOL_LIST;
+        Response.Listener<JsonResult> successListener =
+                new Response.Listener<JsonResult>() {
+                    @Override
+                    public void onResponse(JsonResult result) {
+                        int code = result.code;
+                        if (code == 0 && result.data != null) {
+                            Set<String> stringSet = new HashSet<>();
+                            try {
+
+                                ArrayList jsonArray = (ArrayList) result.data;
+                                if (jsonArray != null) {
+                                    for (Object o : jsonArray) {
+                                        String object = String.valueOf(((Map) o).get(KeyConstant
+                                                .signValue));
+                                        stringSet.add(object);
+                                    }
+
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            editor.putStringSet(Constant.SIGN_TOOL_KEY, stringSet);
+                            editor.apply();
+                        }
+                    }
+                };
+
+        Response.ErrorListener errorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                volleyError.printStackTrace();
+                Log.d(TAG, "请求签名信息失败:" + volleyError.getMessage());
+            }
+        };
+
+        Request<JsonResult> versionRequest = new GsonRequest<JsonResult>(Request
+                .Method.POST, url,
+                successListener, errorListener, new TypeToken<JsonResult>() {
+        }.getType()) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put(KeyConstant.APP_TYPE_ID, Constant.APP_TYPE_ID_0_ANDROID);
+                return params;
+            }
+        };
+   /*     versionRequest.setRetryPolicy(new DefaultRetryPolicy(30000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));*/
+
+        StoreApplication.requestQueue.add(versionRequest);
+
     }
 
     private void go2Main() {

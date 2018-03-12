@@ -23,12 +23,12 @@ package cn.ngame.store.core.utils;
  */
 public class Constant {
 
-    //public static final String WEB_SITE = "http://192.168.1.231";   //------测试
+    public static final String WEB_SITE = "http://192.168.1.231";   //------测试
 
-    public static final String WEB_SITE = "http://opapi.xflqv.cn";    //------正式
+    //public static final String WEB_SITE = "http://opapi.xflqv.cn";    //------正式
 
-   //public static final String WEB_SITE = "http://192.168.0.233:10004";
-   //public static final String WEB_SITE = "http://openapi.ngame.cn";
+    //public static final String WEB_SITE = "http://192.168.0.233:10004";
+    //public static final String WEB_SITE = "http://openapi.ngame.cn";
     public static final String WEB_SITE2 = "http://192.168.37.252:20004";      //h5测试
     public static final String WEB_SITE3 = "http://files.ngame.cn";      //h5正式服务器
     public static final String CONFIG_FILE_NAME = "Store.config";
@@ -91,4 +91,5 @@ public class Constant {
     public static final String WEIXIN = "3";
     public static final String SINA = "4";//（1手机，2QQ，3微信，4新浪微博）
     public static final String FILE_NAME_SD_CRAD_APP_PKGNAME = "file_name_sd_crad_app_pkgname";
+    public static final String SIGN_TOOL_KEY = "sign_tool_key";
 }

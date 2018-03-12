@@ -13,6 +13,7 @@ import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,8 +40,10 @@ import cn.ngame.store.core.fileload.FileLoadInfo;
 import cn.ngame.store.core.fileload.FileLoadManager;
 import cn.ngame.store.core.fileload.IFileLoad;
 import cn.ngame.store.core.utils.AppInstallHelper;
+import cn.ngame.store.core.utils.Constant;
 import cn.ngame.store.core.utils.FileUtil;
 import cn.ngame.store.util.AssetsCopyer;
+import cn.ngame.store.util.MD5Utils;
 import cn.ngame.store.util.ToastUtil;
 import cn.ngame.store.util.Utils;
 import cn.ngame.store.view.ActionItem;
@@ -78,6 +81,8 @@ public class ManagerFragment extends Fragment {
     private CloudGameAdapter mCloudGameAdapter;
     private QuickAction mItemClickQuickActionCloud;
     private boolean readException = false;
+    private String signData = "";
+    private Set<String> CLOUD_MD5_SET = null;
 
     @Nullable
     @Override
@@ -192,7 +197,6 @@ public class ManagerFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         content = getActivity();
         packageManager = content.getPackageManager();
-
         initPop();
         initCloudPop();
         initListView();
@@ -211,6 +215,7 @@ public class ManagerFragment extends Fragment {
         fileLoad = FileLoadManager.getInstance(content);
     }
 
+    private List<PackageInfo> cloudAppList = new ArrayList<>();
     private List<PackageInfo> localAppList = new ArrayList<>();
 
     private JSONArray jsonArray = new JSONArray();
@@ -219,8 +224,11 @@ public class ManagerFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        Log.d(TAG, "遍历 onStart" + CLOUD_MD5_SET);
+        CLOUD_MD5_SET = content.getSharedPreferences(Constant
+                .CONFIG_FILE_NAME, content.MODE_PRIVATE).getStringSet(Constant
+                .SIGN_TOOL_KEY, null);
         initData();
-
     }
 
     private void initData() {
@@ -247,12 +255,13 @@ public class ManagerFragment extends Fragment {
             FileUtil.writeFile2SDCard(jsonArray.toString());
             pkgNameListStr = FileUtil.readFile();
         }
+        getLocalApp();
         if (null != alreadyLvAdapter) {
-            getLocalApp();
             alreadyLvAdapter.setDate(localAppList);
         }
+        //云端
         if (mCloudGameAdapter != null) {
-            mCloudGameAdapter.setDate(localAppList);
+            mCloudGameAdapter.setDate(cloudAppList);
         }
     }
 
@@ -260,8 +269,17 @@ public class ManagerFragment extends Fragment {
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (!hidden) {
+            Log.d(TAG, "onHiddenChanged:遍历");
             //获取蓝牙设备
             getConnectBlueTooth();
+            Log.d(TAG, "遍历 onHiddenChanged" + CLOUD_MD5_SET);
+            if (CLOUD_MD5_SET == null) {
+                //没读签名
+                CLOUD_MD5_SET = content.getSharedPreferences(Constant
+                        .CONFIG_FILE_NAME, content.MODE_PRIVATE).getStringSet(Constant
+                        .SIGN_TOOL_KEY, null);
+            }
+
             if (readException) {
                 readException = false;
                 initData();
@@ -272,7 +290,8 @@ public class ManagerFragment extends Fragment {
     private void getLocalApp() {
         packageInfos = packageManager.getInstalledPackages(0);
         localAppList.clear();
-        if (pkgNameListStr != null) {
+        cloudAppList.clear();
+        if (pkgNameListStr != null && CLOUD_MD5_SET != null) {
             for (int i = 0; i < packageInfos.size(); i++) {
                 packageInfo = packageInfos.get(i);
                 applicationInfo = packageInfo.applicationInfo;
@@ -283,7 +302,15 @@ public class ManagerFragment extends Fragment {
                         //如果包名
                         if (pkgNameListStr.contains(packageName) && !"cn.ngame.store".equals
                                 (packageName)) {
-                            localAppList.add(packageInfo);
+                            //所有的包
+                            String signPkg = MD5Utils.getMD5(content, packageName);
+                            if (CLOUD_MD5_SET.contains(signPkg)) {
+                                //再云端游戏列表里面
+                                cloudAppList.add(packageInfo);
+                            } else {
+                                //不在,就放在本地
+                                localAppList.add(packageInfo);
+                            }
                         }
                     }
                 }
