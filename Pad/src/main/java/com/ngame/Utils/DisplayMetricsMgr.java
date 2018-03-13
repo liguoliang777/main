@@ -5,10 +5,9 @@ import android.content.res.Configuration;
 import android.graphics.Point;
 import android.os.Build;
 import android.util.DisplayMetrics;
-import android.view.Window;
 import android.view.WindowManager;
 
-import com.lx.pad.MyApplication;
+import com.lx.pad.PadContext;
 
 /**
  * Created by Administrator on 2017/12/5.
@@ -34,7 +33,7 @@ public class DisplayMetricsMgr {
     }
 
     public static Point getDisplayInfo(){
-        WindowManager wm = (WindowManager)MyApplication.getContextObj().getSystemService(Context.WINDOW_SERVICE);
+        WindowManager wm = (WindowManager) PadContext.getContextObj().getSystemService(Context.WINDOW_SERVICE);
         Point pt = new Point();
         pt.x = wm.getDefaultDisplay().getWidth();
         pt.y = wm.getDefaultDisplay().getHeight();
@@ -42,7 +41,7 @@ public class DisplayMetricsMgr {
     }
 
     public static int getLessSide(){
-        WindowManager wm = (WindowManager)MyApplication.getContextObj().getSystemService(Context.WINDOW_SERVICE);
+        WindowManager wm = (WindowManager) PadContext.getContextObj().getSystemService(Context.WINDOW_SERVICE);
         int width = wm.getDefaultDisplay().getWidth();
         int height = wm.getDefaultDisplay().getHeight();
         return (width < height) ? width : height;
@@ -50,7 +49,7 @@ public class DisplayMetricsMgr {
 
     public static int getDisWidthMax(){
         if(width == 0){
-            WindowManager wm = (WindowManager)MyApplication.getContextObj().getSystemService(Context.WINDOW_SERVICE);
+            WindowManager wm = (WindowManager) PadContext.getContextObj().getSystemService(Context.WINDOW_SERVICE);
             int w = wm.getDefaultDisplay().getWidth();
             int h = wm.getDefaultDisplay().getHeight();
             width = (w > h) ? w : h;
@@ -60,7 +59,7 @@ public class DisplayMetricsMgr {
 
     public static int getDisHeightMin(){
         if(height == 0){
-            WindowManager wm = (WindowManager)MyApplication.getContextObj().getSystemService(Context.WINDOW_SERVICE);
+            WindowManager wm = (WindowManager) PadContext.getContextObj().getSystemService(Context.WINDOW_SERVICE);
             int w = wm.getDefaultDisplay().getWidth();
             int h = wm.getDefaultDisplay().getHeight();
             height = (w < h) ? w : h;
@@ -71,19 +70,19 @@ public class DisplayMetricsMgr {
     public static int getOri(){
         int result = 0;
 
-        WindowManager windowManager = (WindowManager) MyApplication.getContextObj().getSystemService(Context.WINDOW_SERVICE);
+        WindowManager windowManager = (WindowManager) PadContext.getContextObj().getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         if(Build.VERSION.SDK_INT >= 17){
             windowManager.getDefaultDisplay().getRealMetrics(displayMetrics);
         }else{
             windowManager.getDefaultDisplay().getMetrics(displayMetrics);
         }
-        if(MyApplication.getContextObj().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+        if(PadContext.getContextObj().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
             return 0;
-        }else if(MyApplication.getContextObj().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+        }else if(PadContext.getContextObj().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
             return 1;
         }else{
-            return MyApplication.getContextObj().getResources().getConfiguration().orientation;
+            return PadContext.getContextObj().getResources().getConfiguration().orientation;
         }
 
 //        return result;

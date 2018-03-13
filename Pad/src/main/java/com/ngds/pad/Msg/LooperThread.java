@@ -30,7 +30,7 @@ public class LooperThread extends Thread {
         mHandler = new Handler(){
             @Override
             public void handleMessage(Message msg) {
-                LLog.d("LooperThread->run handleMessage what:" + msg.what + " arg1:" + msg.arg1);
+                LLog.d("LooperThread->发送消息: what:" + msg.what + " arg1:" + msg.arg1);
                 switch(msg.what){
                     case LooperEventManager.MSG_PAD_NORMAL:{
                         parserNormal(msg.arg1, msg.arg2);
@@ -75,14 +75,14 @@ public class LooperThread extends Thread {
     }
 
     private void parserPadKeyEvent(int arg1, int arg2, PadKeyEvent event){
-        LLog.d("LooperThread->parserPadKeyEvent " + String.format("arg1:%d arg2:%d deviceId:%d keyCode:%d action:%d pressure:%f",
+        LLog.d("LooperThread->手柄按键 " + String.format("arg1:%d arg2:%d deviceId:%d keyCode:%d action:%d pressure:%f",
                 arg1, arg2, event.getControllerId(), event.getKeyCode(), event.getAction(), event.getPressure()) );
         //
         ActivityMgrUtils.sDispatchKeyEvent(event.getKeyCode(), event);
     }
 
     private void parserPadMotionEvent(int arg1, int arg2, PadMotionEvent event){
-        LLog.d("LooperThread->parserPadMotionEvent " + String.format("arg1:%d arg2:%d deviceId:%d keyCode:%d m_x:%f m_y:%f",
+        LLog.d("LooperThread->手柄遥杆 " + String.format("arg1:%d arg2:%d deviceId:%d keyCode:%d m_x:%f m_y:%f",
                 arg1, arg2, event.getControllerId(), event.getKeyCode(), event.getX(), event.getY()) );
 
         ActivityMgrUtils.sDispatchMotionEvent(event.getKeyCode(), event);
@@ -90,7 +90,7 @@ public class LooperThread extends Thread {
 
     //有可能蓝牙突然断掉之类的需要将所有按键进行弹起操作
     private void parserPadStateEvent(int arg1, int arg2, PadStateEvent event){
-        LLog.d("LooperThread->parserPadStateEvent " + String.format("arg1:%d arg2:%d deviceId:%d action:%d state:%d",
+        LLog.d("LooperThread->手柄当前状态: " + String.format("arg1:%d arg2:%d deviceId:%d action:%d state:%d",
                 arg1, arg2, event.getControllerId(), event.getAction(), event.getState()));
 
         ActivityMgrUtils.sDispatchStateEvent(event);

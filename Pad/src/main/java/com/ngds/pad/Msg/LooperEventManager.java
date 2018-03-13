@@ -63,7 +63,7 @@ public class LooperEventManager {
 
     public static void sendEventMsg(int msgType, BaseEvent baseEvent){
         if(looperThread != null){
-            LLog.d("LooperEventManager->sendEventMsg type:" + msgType);
+            LLog.d("LooperEventManager->发送事件类型( 1=按键,2=遥杆) :" + msgType);
             Handler handler = looperThread.mHandler;
             Bundle bundle = new Bundle();
             bundle.putParcelable("event", baseEvent);

@@ -2,16 +2,16 @@ package com.ngds.pad.utils;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Point;
 import android.os.Handler;
 import android.os.Message;
 
 import com.lx.pad.MainActivity;
-import com.lx.pad.MyApplication;
+import com.lx.pad.PadContext;
 import com.lx.pad.util.LLog;
 import com.ngame.Utils.DisplayMetricsMgr;
 import com.ngame.Utils.KeyMgrUtils;
 import com.ngame.Utils.MouseViewMgrUtils;
+import com.ngame.app.KeyboardEditActivity;
 import com.ngds.pad.BaseEvent;
 import com.ngds.pad.PadKeyEvent;
 import com.ngds.pad.PadMotionEvent;
@@ -65,14 +65,14 @@ public class ActivityMgrUtils {
             switch(msg.what){
                 case 1:{
                     if(!MouseViewMgrUtils.sMouseViewState()) {
-                        MouseViewMgrUtils.sAddMouseView(MyApplication.getContextObj());
+                        MouseViewMgrUtils.sAddMouseView(PadContext.getContextObj());
                     }else{
                         MouseViewMgrUtils.sRemoveMouseView();
                     }
                     break;
                 }
                 case 2:{
-                    KeyMgrUtils.promptFrameLayoutView(MyApplication.getContextObj());
+                    KeyMgrUtils.promptFrameLayoutView(PadContext.getContextObj());
                     break;
                 }
                 case 3:{
@@ -91,7 +91,7 @@ public class ActivityMgrUtils {
         int r = KeyMgrUtils.sGetKeyInfoRByKeyCode(keyCode);
         int mode = KeyMgrUtils.sGetKeyInfoModeByKeyCode(keyCode);   //是否摇杆关联
         int flag = KeyMgrUtils.sGetKeyInfoFlagByKeyCode(keyCode);   //是否反向技能
-        LLog.d("ActivityMgrUtils->sDispatchKeyEvent keyCode:" + keyCode + " action:" + (padKeyEvent.getAction() == 0 ? "press " : "up ") +
+        LLog.d("ActivityMgrUtils->按键事件: keyCode:" + keyCode + " action:" + (padKeyEvent.getAction() == 0 ? "press " : "up ") +
                 String.format("x:%d, y:%d, r:%d mode:%d flag:%d",
                 x, y, r, mode, flag));
 
@@ -177,7 +177,7 @@ public class ActivityMgrUtils {
         }
 
         //需要即时操作的放这里
-        Context context = MyApplication.getContextObj();
+        Context context = PadContext.getContextObj();
         if(btnHelpPress){
 //            Intent intent = new Intent();
 //            intent.setPackage(context.getPackageName());
@@ -185,16 +185,23 @@ public class ActivityMgrUtils {
 //            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //            context.startActivity(intent);
 
-            Message msg = new Message();
-            msg.what = MainActivity.MSG_CMD_START_KEYBOARD_EDIT_ACTIVITY;
-            MainActivity.handler.sendMessage(msg);
+
+            //处理i 键 按下
+            final KeyboardEditActivity mKeyboardEditAty = KeyboardEditActivity.getInstance();
+            if(mKeyboardEditAty == null || mKeyboardEditAty.isFinishing()) {
+                Intent intent = new Intent(context, KeyboardEditActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
+                context.startActivity(intent);
+            }else{
+                mKeyboardEditAty.finish();
+            }
             return true;
         }else if(btnThumbL){
 //            KeyMgrUtils.promptFrameLayoutView(context);
 //            return true;
         }else if(btnThumbR){
 //            if(!MouseViewMgrUtils.sMouseViewState()) {
-//                MouseViewMgrUtils.sAddMouseView(MyApplication.getContextObj());
+//                MouseViewMgrUtils.sAddMouseView(PadContext.getContextObj());
 //            }else{
 //                MouseViewMgrUtils.sRemoveMouseView();
 //            }
@@ -228,7 +235,7 @@ public class ActivityMgrUtils {
                 int nTmp = x;
                 x = nLessSide - y;
                 y = nTmp;
-                LLog.d("ActivityMgrUtils->sDispatchKeyEvent ori:" + DisplayMetricsMgr.getOri() + " nLessSide:" + nLessSide);
+                LLog.d("ActivityMgrUtils->按键状态 ori:" + DisplayMetricsMgr.getOri() + " nLessSide:" + nLessSide);
                 if(action == BaseEvent.ACTION_DOWN) {
                     InjectDataMgr.sendKeyInfo(keySid, InjectDataMgr.ACTION_PRESS, x, y);
                 }else if(action == BaseEvent.ACTION_UP){
@@ -663,8 +670,8 @@ public class ActivityMgrUtils {
     }
 
     public static boolean sDispatchStateEvent(PadStateEvent event){
-        LLog.d("ActivityMgrUtils->sDispatchStateEvent state:" + event.getState());
-        DeviceManager.getInstance(MyApplication.getContextObj()).onStateEvent(event);
+        LLog.d("ActivityMgrUtils->手柄状态: state:" + event.getState());
+        DeviceManager.getInstance(PadContext.getContextObj()).onStateEvent(event);
         return true;
     }
 

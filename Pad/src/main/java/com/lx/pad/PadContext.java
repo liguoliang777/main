@@ -1,19 +1,19 @@
 package com.lx.pad;
 
-import android.app.Application;
 import android.content.Context;
+
+import com.lx.pad.util.LLog;
 
 /**
  * Created by Administrator on 2017/12/12.
  */
 
-public class MyApplication extends Application {
+public class PadContext {
     private static Context context = null;
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        context = getApplicationContext();
+    public static void setContext(Context c) {
+        LLog.d("PadContext onCreate");
+        context = c;
     }
 
     public static Context getContextObj(){

@@ -9,6 +9,7 @@ import android.support.multidex.MultiDex;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.lx.pad.PadContext;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -42,7 +43,7 @@ public class StoreApplication extends Application {
     public static String userHeadUrl;   //用户头像URL
     public static String token;
     public static User user;
-    public static String deviceId="";  //设备id
+    public static String deviceId = "";  //设备id
 
     public static int net_status = 0;
 
@@ -83,12 +84,14 @@ public class StoreApplication extends Application {
         Log.setLevel(Log.DEBUG);    //设置Log打印级别
         Config.DEBUG = true;
 
+        PadContext.setContext(getApplicationContext());
     }
 
     private void initUmengKey() {
         PlatformConfig.setWeixin("wxd60a30dd49d09626", "0525fb7c7c0dce4aaeba06cf02442605");
         PlatformConfig.setQQZone("1105610048", "cRaNEPSsHj95Ay9p");
-        PlatformConfig.setSinaWeibo("3533498134", "28073913cd2521023ef4fcd9bdde88bf", "http://www.ngame.cn/views/platform.html");
+        PlatformConfig.setSinaWeibo("3533498134", "28073913cd2521023ef4fcd9bdde88bf", "http://www" +
+                ".ngame.cn/views/platform.html");
 
     }
 
@@ -99,7 +102,8 @@ public class StoreApplication extends Application {
 
     private void checkNetState() {
 
-        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context
+                .CONNECTIVITY_SERVICE);
         NetworkInfo mobileInfo = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
         NetworkInfo wifiInfo = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 
@@ -114,7 +118,8 @@ public class StoreApplication extends Application {
 
     public void initGloalData() {
         // 初始化缓存目录
-//        File cacheDir = StorageUtils.getOwnCacheDirectory(getApplicationContext(), "JZT/Imageloader/Cache");
+//        File cacheDir = StorageUtils.getOwnCacheDirectory(getApplicationContext(),
+// "JZT/Imageloader/Cache");
         // Imageloader的配置信息
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
 
@@ -126,7 +131,8 @@ public class StoreApplication extends Application {
 
                 .denyCacheImageMultipleSizesInMemory()
 
-                .memoryCache(new LruMemoryCache(5 * 1024 * 1024)) // 建议内存设在5-10M,可以有比较好的表现UsingFreqLimitedMemoryCache
+                .memoryCache(new LruMemoryCache(5 * 1024 * 1024)) // 建议内存设在5-10M,
+                // 可以有比较好的表现UsingFreqLimitedMemoryCache
                 // implementation/你可以通过自己的内存缓存实现
                 .memoryCacheSize(5 * 1024 * 1024)
 
@@ -141,7 +147,8 @@ public class StoreApplication extends Application {
                 // 自定义缓存路径
                 .defaultDisplayImageOptions(DisplayImageOptions.createSimple())
 
-                .imageDownloader(new BaseImageDownloader(this, 5 * 1000, 30 * 1000)) // connectTimeout(5s),readTimeout(30 s)超时时间
+                .imageDownloader(new BaseImageDownloader(this, 5 * 1000, 30 * 1000)) //
+                // connectTimeout(5s),readTimeout(30 s)超时时间
 
                 .writeDebugLogs() // Remove for release app
                 .build();// 开始构建

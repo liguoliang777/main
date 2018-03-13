@@ -40,30 +40,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     boolean bleConnect = false;
 
     private static MainActivity activity = null;
-    public static Handler handler = new Handler(){
+    public static Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {    //这个handler只是测试代码的，不
 //            super.handleMessage(msg);
             if (activity != null) {
-                if(msg.what == MSG_CMD_START_KEYBOARD_EDIT_ACTIVITY){
-                    final KeyboardEditActivity ac = KeyboardEditActivity.getInstance();
-                    if(ac == null || ac.isFinishing()) {
-                        Intent intent = new Intent(activity, KeyboardEditActivity.class);
-                        activity.startActivity(intent);
-                    }else{
-                        ac.finish();
-                    }
-                }else if(msg.what == MSG_CMD_BLE_CONNECT_STATE){
+                if (msg.what == MSG_CMD_START_KEYBOARD_EDIT_ACTIVITY) {
+                    //处理i 键按下
+                } else if (msg.what == MSG_CMD_BLE_CONNECT_STATE) {
                     //ble state connected
-    //                Toast.makeText(MyApplication.getContextObj(), "蓝牙连接成功!", Toast.LENGTH_LONG);
+                    //                Toast.makeText(PadContext.getContextObj(), "蓝牙连接成功!",
+                    // Toast.LENGTH_LONG);
                     LLog.d("ble connect success! <<===========================");
-                    if(msg.arg1 == MSG_VAL_BLE_CONNECTED) {
+                    if (msg.arg1 == MSG_VAL_BLE_CONNECTED) {
                         activity.bleConnect = true;
-                    }else if(msg.arg1 == MSG_VAL_BLE_NONE){
+                    } else if (msg.arg1 == MSG_VAL_BLE_NONE) {
                         activity.bleConnect = false;
                     }
-                   // activity.updateStatePrompt();
-                }else if(msg.what == MSG_CMD_REMOTE_SOCKET_STATE){
+                    // activity.updateStatePrompt();
+                } else if (msg.what == MSG_CMD_REMOTE_SOCKET_STATE) {
                 }
             }
         }
@@ -74,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         System.loadLibrary("native-lib");
     }
 
-    public static void sendHandleMsg(int cmd, int val){
+    public static void sendHandleMsg(int cmd, int val) {
         Message msg = new Message();
         msg.what = cmd;
         msg.arg1 = val;
@@ -85,17 +80,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);  //隐藏标题
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);   //设置全屏
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager
+                .LayoutParams.FLAG_FULLSCREEN);   //设置全屏
         setContentView(R.layout.activity_main);
 
         activity = this;
 
         // Example of a call to a native method
         tv = (TextView) findViewById(R.id.sample_text);
-        btnStartGame = (Button)findViewById(R.id.btn_startGame);
-        btnStartService = (Button)findViewById(R.id.btn_startService);
-        btnTestKeyEditActivity = (Button)findViewById(R.id.btn_testKeyEditActivity);
-        btnTestPromptView = (Button)findViewById(R.id.btn_testPromptView);
+        btnStartGame = (Button) findViewById(R.id.btn_startGame);
+        btnStartService = (Button) findViewById(R.id.btn_startService);
+        btnTestKeyEditActivity = (Button) findViewById(R.id.btn_testKeyEditActivity);
+        btnTestPromptView = (Button) findViewById(R.id.btn_testPromptView);
         btnTestMsgQueue = findViewById(R.id.btn_testMsgQueue);
 
 //        looperThread = new LooperThread();
@@ -139,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onDestroy();
     }
 
-    public void startGame(){
+    public void startGame() {
         //首先需要判断后台映射代码是否己启动
 
         //判断手柄是否己连接
