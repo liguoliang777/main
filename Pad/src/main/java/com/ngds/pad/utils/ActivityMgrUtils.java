@@ -186,7 +186,7 @@ public class ActivityMgrUtils {
 //            context.startActivity(intent);
 
 
-            //处理i 键 按下
+            //处理i 键  / start+LB按下
             final KeyboardEditActivity mKeyboardEditAty = KeyboardEditActivity.getInstance();
             if(mKeyboardEditAty == null || mKeyboardEditAty.isFinishing()) {
                 Intent intent = new Intent(context, KeyboardEditActivity.class);

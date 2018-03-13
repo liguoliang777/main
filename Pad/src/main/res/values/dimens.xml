@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="pointer_location_view_circle_radius">15.0dip</dimen>
+    <dimen name="i_buttom_bt_padding">22dip</dimen>
 </resources>
