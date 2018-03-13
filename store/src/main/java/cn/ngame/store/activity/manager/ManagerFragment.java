@@ -94,7 +94,6 @@ public class ManagerFragment extends Fragment {
         mBlueToothConnectedTv = view.findViewById(R.id.bluetooth_connect_state_tv);
         mInjectServerConnectedTv = view.findViewById(R.id.inject_server_connect_state_tv);
         mAddGameTv = view.findViewById(R.id.manager_add_game_bt);
-        emptyTv.setText("列表为空~");
 
         //连接蓝牙
         view.findViewById(R.id.bluetooth_connect_bt).setOnClickListener(managerOnClikListener);
@@ -256,12 +255,17 @@ public class ManagerFragment extends Fragment {
             pkgNameListStr = FileUtil.readFile();
         }
         getLocalApp();
+        //原生
         if (null != alreadyLvAdapter) {
             alreadyLvAdapter.setDate(localAppList);
         }
         //云端
         if (mCloudGameAdapter != null) {
             mCloudGameAdapter.setDate(cloudAppList);
+            //列表为空
+            emptyTv.setVisibility(mCloudTabTv.isSelected() ? cloudAppList.size() == 0 ? View
+                    .VISIBLE : View
+                    .GONE : View.GONE);
         }
     }
 
@@ -315,13 +319,6 @@ public class ManagerFragment extends Fragment {
                     }
                 }
             }
-            if (localAppList == null || localAppList.size() == 0) {
-                emptyTv.setVisibility(View.VISIBLE);
-            } else {
-                emptyTv.setVisibility(View.GONE);
-            }
-        } else {
-            emptyTv.setVisibility(View.VISIBLE);
         }
     }
 
@@ -475,5 +472,8 @@ public class ManagerFragment extends Fragment {
         mNativeLine.setVisibility(isCloudSelected ? View.INVISIBLE : View.VISIBLE);
 
         mCloudListView.setVisibility(isCloudSelected ? View.VISIBLE : View.INVISIBLE);
+
+        emptyTv.setVisibility(isCloudSelected ? cloudAppList.size() == 0 ? View.VISIBLE : View
+                .GONE : View.GONE);
     }
 }

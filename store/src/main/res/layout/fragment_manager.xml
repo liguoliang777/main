@@ -199,16 +199,6 @@
             android:paddingRight="@dimen/dm034"
             android:scrollbars="none"></ListView>
 
-        <TextView
-            android:id="@+id/manager_empty_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:paddingTop="@dimen/dm300"
-            android:textColor="@color/color_808080"
-            android:textSize="@dimen/dm024"
-            android:visibility="gone" />
     </LinearLayout>
 
     <!-- ____________云适配__________ -->
@@ -225,4 +215,16 @@
         android:layout_height="fill_parent"
         android:layout_below="@id/manager_top_tab_buttom_line"
         android:background="@color/white"></ListView>
+
+
+    <TextView
+        android:id="@+id/manager_empty_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:text="列表为空"
+        android:textColor="@color/color_808080"
+        android:textSize="@dimen/dm024"
+        android:visibility="visible" />
 </RelativeLayout>
