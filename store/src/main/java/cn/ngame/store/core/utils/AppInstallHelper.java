@@ -8,11 +8,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
 import android.support.v4.content.FileProvider;
-import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.ngame.store.util.ToastUtil;
 
 /**
  * APP更新工具
@@ -106,7 +107,8 @@ public class AppInstallHelper {
                             String packageName = context.getApplicationContext().getPackageName();
                             String authority = new StringBuilder(packageName).append(".provider")
                                     .toString();
-                            Uri contentUri = FileProvider.getUriForFile(context, authority, filePath);
+                            Uri contentUri = FileProvider.getUriForFile(context, authority,
+                                    filePath);
                             intent.setDataAndType(contentUri, "application/vnd.android" +
                                     ".package-archive");
                         }
@@ -157,7 +159,7 @@ public class AppInstallHelper {
             Intent intent = context.getPackageManager().getLaunchIntentForPackage(packageName);
             context.startActivity(intent);
         } catch (Exception e) {
-            Toast.makeText(context, "没有安装", Toast.LENGTH_LONG).show();
+            ToastUtil.show(context, "该应用未安装或已卸载");
         }
     }
 

@@ -23,9 +23,9 @@ package cn.ngame.store.core.utils;
  */
 public class Constant {
 
-    public static final String WEB_SITE = "http://192.168.1.231";   //------测试
+    //public static final String WEB_SITE = "http://192.168.1.231";   //------测试
 
-    //public static final String WEB_SITE = "http://opapi.xflqv.cn";    //------正式
+    public static final String WEB_SITE = "http://opapi.xflqv.cn";    //------正式
 
     //public static final String WEB_SITE = "http://192.168.0.233:10004";
     //public static final String WEB_SITE = "http://openapi.ngame.cn";

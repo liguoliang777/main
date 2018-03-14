@@ -3,7 +3,7 @@
     android:id="@+id/pnl_exit"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black_dark"
+    android:background="@android:color/black"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -100,7 +100,7 @@
 
                 <RadioButton
                     style="@style/RadioButton"
-                    android:layout_marginLeft="20.0dip"
+                    android:layout_marginLeft="15.0dip"
                     android:text="右摇杆" />
             </RadioGroup>
 
@@ -125,7 +125,7 @@
                 <RadioButton
                     android:id="@+id/rb_dynamic"
                     style="@style/RadioButton"
-                    android:layout_marginLeft="20.0dip"
+                    android:layout_marginLeft="26.3dip"
                     android:text="动态" />
             </RadioGroup>
 
