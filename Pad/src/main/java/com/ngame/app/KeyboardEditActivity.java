@@ -205,11 +205,12 @@ public class KeyboardEditActivity extends BaseFragmentActivity implements ViewDr
                 finish();
             }
         } else if (vId == R.id.tv_sync) {
+            //云端
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.setMessage("请稍等...");
             progressDialog.setIndeterminate(false);
-            progressDialog.setCancelable(false);
+            progressDialog.setCancelable(true);
             progressDialog.show();
             KeyMgrUtils.sUpdateKeyEnumFromHttpServer(this, DeviceManager.getInstance(this)
                     .getGamePackageName(), new IUpdateKeyState() {
@@ -244,6 +245,7 @@ public class KeyboardEditActivity extends BaseFragmentActivity implements ViewDr
                     progressDialog.dismiss();
                 }
             });
+
         } else if (vId == R.id.tv_motion) {
 //            startActivity();
 //            LLog.d("KeyboardEditActivity->viewClick R.id.tv_motion is not realize");
