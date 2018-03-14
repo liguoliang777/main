@@ -15,7 +15,7 @@
         <FrameLayout
             android:id="@+id/fl_keys"
             android:layout_width="205.0dip"
-            android:layout_height="125.0dip">
+            android:layout_height="130.0dip">
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/vp_keys"
@@ -28,7 +28,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center"
-                android:layout_marginBottom="10.0dip"
                 android:orientation="horizontal"
                 android:visibility="gone" />
 
@@ -43,7 +42,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:enabled="false"
-                    android:padding="5.0dip"
+                    android:padding="5dip"
                     android:text="上一页"
                     android:textColor="@color/text_green_color_selector"
                     android:textSize="10.0sp" />
@@ -52,8 +51,8 @@
                     android:id="@+id/tv_next"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10.0dip"
-                    android:padding="5.0dip"
+                    android:layout_marginLeft="38dip"
+                    android:padding="5dip"
                     android:text="下一页"
                     android:textColor="@color/text_green_color_selector"
                     android:textSize="10.0sp" />
@@ -62,7 +61,7 @@
 
         <LinearLayout
             android:layout_width="47dip"
-            android:layout_height="165.0dip"
+            android:layout_height="170dip"
             android:layout_toRightOf="@+id/fl_keys"
             android:background="#aa9ccceb"
             android:gravity="center"
@@ -180,7 +179,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginRight="133dip"
-        android:layout_marginTop="30dip"
+        android:layout_marginRight="134dip"
+        android:layout_marginTop="29dip"
         android:src="@mipmap/ic_menu_close" />
 </FrameLayout>

@@ -19,7 +19,7 @@
         android:drawSelectorOnTop="false"
         android:listSelector="@drawable/selector_style"
         android:numColumns="5"
-        android:paddingTop="16.0dp"
+        android:padding="14dp"
         android:verticalSpacing="6.0dp" />
 
     <include

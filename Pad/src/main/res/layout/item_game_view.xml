@@ -30,7 +30,7 @@
         android:layout_centerHorizontal="true"
         android:ellipsize="end"
         android:gravity="center_horizontal"
-        android:lines="2"
+        android:lines="1"
         android:singleLine="false"
         android:textColor="#999999" />
 
