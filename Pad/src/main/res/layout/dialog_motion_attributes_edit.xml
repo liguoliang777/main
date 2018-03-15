@@ -20,9 +20,9 @@
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="fill_parent"
-                android:gravity="center_vertical"
                 android:layout_height="40dp"
                 android:background="@color/green"
+                android:gravity="center_vertical"
                 android:paddingLeft="20.0dip"
                 android:text="@string/key_map_attributes_config"
                 android:textColor="@color/white"
@@ -129,81 +129,81 @@
                     android:text="动态" />
             </RadioGroup>
 
-            <TextView
-                android:id="@+id/tv_step_title"
-                style="@style/TextWhite"
-                android:layout_marginLeft="15.0dip"
-                android:text="步长（像素）"
-                android:textColor="@color/green" />
 
             <LinearLayout
                 android:id="@+id/pnl_step_att"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10.0dip"
+                android:layout_marginLeft="15dip"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_step_title"
+                    style="@style/TextWhite"
+                    android:text="  步长：\n（像素）"
+                    android:textColor="@color/green" />
 
                 <ImageView
                     android:id="@+id/iv_step_increase"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="5.0dip"
-                    android:paddingRight="5.0dip"
+                    android:paddingLeft="@dimen/motion_step_value"
+                    android:paddingRight="@dimen/motion_step_value"
                     android:src="@mipmap/ic_increase" />
 
                 <TextView
                     android:id="@+id/tv_step"
                     style="@style/TextWhite"
                     android:gravity="center"
-                    android:minWidth="60.0dip" />
+                    android:minWidth="40.0dip" />
 
                 <ImageView
                     android:id="@+id/iv_step_decrease"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="5.0dip"
-                    android:paddingRight="5.0dip"
+                    android:paddingLeft="@dimen/motion_step_value"
+                    android:paddingRight="@dimen/motion_step_value"
                     android:src="@mipmap/ic_decrease" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_frequency_title"
-                style="@style/TextWhite"
-                android:layout_marginLeft="15.0dip"
-                android:layout_marginTop="10.0dip"
-                android:text="频率（毫秒）"
-                android:textColor="@color/green" />
 
             <LinearLayout
                 android:id="@+id/pnl_frequency_att"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10.0dip"
-                android:layout_marginLeft="10.0dip"
+                android:layout_marginLeft="15dip"
+                android:layout_marginTop="12dip"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/tv_frequency_title"
+                    style="@style/TextWhite"
+                    android:text="  频率：\n（毫秒）"
+                    android:textColor="@color/green" />
 
                 <ImageView
                     android:id="@+id/iv_frequency_increase"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="5.0dip"
-                    android:paddingRight="5.0dip"
+                    android:paddingLeft="@dimen/motion_step_value"
+                    android:paddingRight="@dimen/motion_step_value"
                     android:src="@mipmap/ic_increase" />
 
                 <TextView
                     android:id="@+id/tv_frequency"
                     style="@style/TextWhite"
                     android:gravity="center"
-                    android:minWidth="60.0dip" />
+                    android:minWidth="40dip" />
 
                 <ImageView
                     android:id="@+id/iv_frequency_decrease"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="5.0dip"
-                    android:paddingRight="5.0dip"
+                    android:paddingLeft="@dimen/motion_step_value"
+                    android:paddingRight="@dimen/motion_step_value"
                     android:src="@mipmap/ic_decrease" />
             </LinearLayout>
 

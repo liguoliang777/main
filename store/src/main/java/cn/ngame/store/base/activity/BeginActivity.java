@@ -29,6 +29,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.google.gson.reflect.TypeToken;
+import com.lx.pad.util.LLog;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
@@ -120,7 +121,8 @@ public class BeginActivity extends Activity {
                                     for (Object o : jsonArray) {
                                         String object = String.valueOf(((Map) o).get(KeyConstant
                                                 .signValue));
-                                        stringSet.add(object);
+                                        LLog.d("遍历====：" + object.toLowerCase().trim());
+                                        stringSet.add(object.toLowerCase().trim());
                                     }
 
                                 }

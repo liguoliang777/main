@@ -2,4 +2,5 @@
 <resources>
     <dimen name="pointer_location_view_circle_radius">15.0dip</dimen>
     <dimen name="i_buttom_bt_padding">22dip</dimen>
+    <dimen name="motion_step_value">8dip</dimen>
 </resources>

@@ -273,7 +273,6 @@ public class ManagerFragment extends Fragment {
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (!hidden) {
-            Log.d(TAG, "onHiddenChanged:遍历");
             //获取蓝牙设备
             getConnectBlueTooth();
             Log.d(TAG, "遍历 onHiddenChanged" + CLOUD_MD5_SET);
@@ -307,7 +306,8 @@ public class ManagerFragment extends Fragment {
                         if (pkgNameListStr.contains(packageName) && !"cn.ngame.store".equals
                                 (packageName)) {
                             //所有的包
-                            String signPkg = MD5Utils.getMD5(content, packageName);
+                            String signPkg = MD5Utils.getMD5(content, packageName).toLowerCase()
+                                    .trim();
                             if (CLOUD_MD5_SET.contains(signPkg)) {
                                 //再云端游戏列表里面
                                 cloudAppList.add(packageInfo);
