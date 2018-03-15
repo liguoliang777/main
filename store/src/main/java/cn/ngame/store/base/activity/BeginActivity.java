@@ -121,7 +121,6 @@ public class BeginActivity extends Activity {
                                     for (Object o : jsonArray) {
                                         String object = String.valueOf(((Map) o).get(KeyConstant
                                                 .signValue));
-                                        LLog.d("遍历====：" + object.toLowerCase().trim());
                                         stringSet.add(object.toLowerCase().trim());
                                     }
 

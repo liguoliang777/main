@@ -223,7 +223,7 @@ public class ManagerFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        Log.d(TAG, "遍历 onStart" + CLOUD_MD5_SET);
+        Log.d(TAG, "onStart:" + CLOUD_MD5_SET);
         CLOUD_MD5_SET = content.getSharedPreferences(Constant
                 .CONFIG_FILE_NAME, content.MODE_PRIVATE).getStringSet(Constant
                 .SIGN_TOOL_KEY, null);
@@ -275,7 +275,6 @@ public class ManagerFragment extends Fragment {
         if (!hidden) {
             //获取蓝牙设备
             getConnectBlueTooth();
-            Log.d(TAG, "遍历 onHiddenChanged" + CLOUD_MD5_SET);
             if (CLOUD_MD5_SET == null) {
                 //没读签名
                 CLOUD_MD5_SET = content.getSharedPreferences(Constant

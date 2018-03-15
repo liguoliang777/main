@@ -1,7 +1,6 @@
 package com.ngame.app;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -42,7 +41,8 @@ import com.ngds.pad.server.DeviceManager;
  */
 
 public class KeyboardEditActivity extends BaseFragmentActivity implements ViewDragInterface, View
-        .OnDragListener, DragInterface, ScaleInterface, DragImgClickInterface, View.OnClickListener {
+        .OnDragListener, DragInterface, ScaleInterface, DragImgClickInterface, View
+        .OnClickListener {
     private ImageView m_curDragView;
     private static final Class[] m_sClsPageAry = new Class[]{NormalKeyViewMgrUtils.class,
             SpecialKeyViewMgrUtils.class};
@@ -64,10 +64,10 @@ public class KeyboardEditActivity extends BaseFragmentActivity implements ViewDr
     private ImageView[] m_ivAryDraged;  //拖出来的按钮
     private boolean m_isShowTest = false;
 
-    private static KeyboardEditActivity activity = null;
+    private static KeyboardEditActivity context = null;
 
     public static final KeyboardEditActivity getInstance() {
-        return activity;
+        return context;
     }
 
     @Override
@@ -89,7 +89,7 @@ public class KeyboardEditActivity extends BaseFragmentActivity implements ViewDr
         m_tvPrevious = findViewById(R.id.tv_previous);
         m_tvPrevious.setOnClickListener(this);
 
-        activity = this;
+        context = this;
 
         m_tvNext = findViewById(R.id.tv_next);
         m_tvNext.setOnClickListener(this);
@@ -166,7 +166,8 @@ public class KeyboardEditActivity extends BaseFragmentActivity implements ViewDr
                 m_ivArrow.setImageResource(R.mipmap.ic_menu_close);
             }
         } else if (vId == R.id.iv_reset) {
-            AlertDialog.Builder artDlg = new AlertDialog.Builder(this);
+            AlertDialog.Builder artDlg = new AlertDialog.Builder(this, R.style
+                    .Theme_AppCompat_Light_Dialog);
             artDlg.setMessage("即将清空所有按键设置，确认将清除当前映射配置");
             artDlg.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                 @Override
@@ -206,12 +207,12 @@ public class KeyboardEditActivity extends BaseFragmentActivity implements ViewDr
             }
         } else if (vId == R.id.tv_sync) {
             //云端
-            final ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressDialog.setMessage("请稍等...");
-            progressDialog.setIndeterminate(false);
+             AlertDialog.Builder progressDialog = new AlertDialog.Builder(this, R.style
+                    .Theme_AppCompat_DayNight_Dialog);
+            progressDialog.setMessage("   加载中...  ");
             progressDialog.setCancelable(true);
-            progressDialog.show();
+            final  AlertDialog alertDialog = progressDialog.create();
+            alertDialog.show();
             KeyMgrUtils.sUpdateKeyEnumFromHttpServer(this, DeviceManager.getInstance(this)
                     .getGamePackageName(), new IUpdateKeyState() {
                 @Override
@@ -219,11 +220,11 @@ public class KeyboardEditActivity extends BaseFragmentActivity implements ViewDr
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(KeyboardEditActivity.this, "同步云端键位失败", Toast
+                            Toast.makeText(context, "同步云端键位失败", Toast
                                     .LENGTH_SHORT).show();
                         }
                     });
-                    progressDialog.dismiss();
+                    alertDialog.dismiss();
                 }
 
                 @Override
@@ -238,11 +239,11 @@ public class KeyboardEditActivity extends BaseFragmentActivity implements ViewDr
                             updateDragKeyView();
                             m_normalKeyViewMgrUtils.setAllKeyDisImg();
                             m_specialKeyViewMgrUtils.setAllKeyDisImg();
-                            Toast.makeText(KeyboardEditActivity.this, "云端键位已同步", Toast
+                            Toast.makeText(context, "云端键位已同步", Toast
                                     .LENGTH_SHORT).show();
                         }
                     });
-                    progressDialog.dismiss();
+                    alertDialog.dismiss();
                 }
             });
 
@@ -256,6 +257,7 @@ public class KeyboardEditActivity extends BaseFragmentActivity implements ViewDr
             m_viewPagerKeys.setCurrentItem(1);
         }
     }
+
     @Override
     public void setCurDragView(ImageView view) {
         LLog.d("KeyboardEditActivity->setCurDragView");
@@ -521,7 +523,8 @@ public class KeyboardEditActivity extends BaseFragmentActivity implements ViewDr
     }
 
     private void showSaveDlg() {
-        AlertDialog.Builder artDlg = new AlertDialog.Builder(this);
+        AlertDialog.Builder artDlg = new AlertDialog.Builder(this, R.style
+                .Theme_AppCompat_Light_Dialog);
         artDlg.setMessage("您修改了部分参数，是否保存？");
         artDlg.setPositiveButton("是", new DialogInterface.OnClickListener() {
             @Override
@@ -541,6 +544,7 @@ public class KeyboardEditActivity extends BaseFragmentActivity implements ViewDr
         });
         artDlg.create().show();
     }
+
     private void updateDragKeyView() {
         DragImageView dragImageView;
         float dpX = 40f;
