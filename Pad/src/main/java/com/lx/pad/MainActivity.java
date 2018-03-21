@@ -92,9 +92,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnStartService = (Button) findViewById(R.id.btn_startService);
         btnTestKeyEditActivity = (Button) findViewById(R.id.btn_testKeyEditActivity);
         btnTestPromptView = (Button) findViewById(R.id.btn_testPromptView);
-        btnTestMsgQueue = findViewById(R.id.btn_testMsgQueue);
+        btnTestMsgQueue = (Button)findViewById(R.id.btn_testMsgQueue);
 
-//        looperThread = new LooperThread();
+//        looperThread = new LooperThread();LooperThread
 //        looperThread.start();
         LooperEventManager.init();
 

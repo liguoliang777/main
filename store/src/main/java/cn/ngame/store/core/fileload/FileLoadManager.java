@@ -40,8 +40,7 @@ public class FileLoadManager implements IFileLoad {
     private void doBindService(Context context) {
 
         Intent intent = new Intent(context, FileLoadService.class);
-        context.bindService(intent, conn, Context.BIND_AUTO_CREATE);
-        isBindServiceSuccess = true;
+        isBindServiceSuccess = context.bindService(intent, conn, Context.BIND_AUTO_CREATE);
     }
 
     public static FileLoadManager getInstance(Context context) {
@@ -54,7 +53,8 @@ public class FileLoadManager implements IFileLoad {
     private ServiceConnection conn = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            FileLoadService.FileLoadServiceBinder binder = (FileLoadService.FileLoadServiceBinder) service;
+            FileLoadService.FileLoadServiceBinder binder = (FileLoadService
+                    .FileLoadServiceBinder) service;
             fileLoadService = binder.getService();
         }
 
@@ -66,7 +66,6 @@ public class FileLoadManager implements IFileLoad {
     public void destroy() {
 
         if (context != null && isBindServiceSuccess) {
-
             context.unbindService(conn);
             isBindServiceSuccess = false;
         }
@@ -86,7 +85,8 @@ public class FileLoadManager implements IFileLoad {
      * @return 0.正常，1.参数错误，无法下载，
      */
     @Override
-    public int load(String name, String url, String md5, String packageName, int versionCode, String title, String previewUrl,
+    public int load(String name, String url, String md5, String packageName, int versionCode,
+                    String title, String previewUrl,
                     long serverId, boolean allowAnyNet) {
 
         if (TextUtil.isAnyEmpty(name, url, md5, title, previewUrl) || serverId <= 0) {
@@ -103,9 +103,11 @@ public class FileLoadManager implements IFileLoad {
 
         FileLoadInfo info;
         if (TextUtil.isEmpty(packageName)) {
-            info = new FileLoadInfo(name, url, md5, versionCode, title, previewUrl, serverId, FileLoadInfo.TYPE_VIDEO);
+            info = new FileLoadInfo(name, url, md5, versionCode, title, previewUrl, serverId,
+                    FileLoadInfo.TYPE_VIDEO);
         } else {
-            info = new FileLoadInfo(name, url, md5, versionCode, title, previewUrl, serverId, FileLoadInfo.TYPE_GAME);
+            info = new FileLoadInfo(name, url, md5, versionCode, title, previewUrl, serverId,
+                    FileLoadInfo.TYPE_GAME);
             info.setPackageName(packageName);
 //            info.setVersionCode(versionCode);
         }
@@ -188,7 +190,8 @@ public class FileLoadManager implements IFileLoad {
     }
 
     @Override
-    public GameFileStatus getGameFileLoadStatus(String fileName, String fileUrl, String packageName, int versionCode) {
+    public GameFileStatus getGameFileLoadStatus(String fileName, String fileUrl, String
+            packageName, int versionCode) {
 
         GameFileStatus status = null;
         if (FileLoadService.packageInfoMap == null) {
@@ -214,7 +217,8 @@ public class FileLoadManager implements IFileLoad {
                     status.setLength(100);
                     status.setFinished(100);
                 } else {
-                    status = new GameFileStatus(info.getUrl(), info.getFinished(), info.getLength(), GameFileStatus
+                    status = new GameFileStatus(info.getUrl(), info.getFinished(), info.getLength
+                            (), GameFileStatus
                             .STATE_HAS_INSTALL);
                 }
 
@@ -230,23 +234,28 @@ public class FileLoadManager implements IFileLoad {
                 } else {
                     switch (info.getStatus()) {
                         case FileLoadInfo.STATUS_FINISHED:
-                            status = new GameFileStatus(info.getUrl(), info.getFinished(), info.getLength(), GameFileStatus
+                            status = new GameFileStatus(info.getUrl(), info.getFinished(), info
+                                    .getLength(), GameFileStatus
                                     .STATE_HAS_DOWNLOAD);
                             break;
                         case FileLoadInfo.STATUS_LOADING:
-                            status = new GameFileStatus(info.getUrl(), info.getFinished(), info.getLength(), GameFileStatus
+                            status = new GameFileStatus(info.getUrl(), info.getFinished(), info
+                                    .getLength(), GameFileStatus
                                     .STATE_DOWNLOAD);
                             break;
                         case FileLoadInfo.STATUS_PAUSE:
-                            status = new GameFileStatus(info.getUrl(), info.getFinished(), info.getLength(), GameFileStatus
+                            status = new GameFileStatus(info.getUrl(), info.getFinished(), info
+                                    .getLength(), GameFileStatus
                                     .STATE_PAUSE);
                             break;
                         case FileLoadInfo.STATUS_PAUSE_TEMP:
-                            status = new GameFileStatus(info.getUrl(), info.getFinished(), info.getLength(), GameFileStatus
+                            status = new GameFileStatus(info.getUrl(), info.getFinished(), info
+                                    .getLength(), GameFileStatus
                                     .STATE_PAUSE);
                             break;
 //                        case FileLoadInfo.STATUS_UPDATE:
-//                            status = new GameFileStatus(info.getUrl(),info.getFinished(),info.getLength(),GameFileStatus
+//                            status = new GameFileStatus(info.getUrl(),info.getFinished(),info
+// .getLength(),GameFileStatus
 // .STATE_HAS_INSTALL_OLD);
                     }
                 }
@@ -256,30 +265,36 @@ public class FileLoadManager implements IFileLoad {
             if (FileLoadService.gameFileStatusMap == null) {
                 return null;
             }
-           // FileLoadInfo info = FileLoadService.gameFileStatusMap.get(fileUrl == null ? "" : fileUrl);
+            // FileLoadInfo info = FileLoadService.gameFileStatusMap.get(fileUrl == null ? "" :
+            // fileUrl);
             FileLoadInfo info = FileLoadService.gameFileStatusMap.get(fileUrl);
             if (info == null) {
                 status = new GameFileStatus(GameFileStatus.STATE_UN_INSTALL);
             } else {
                 switch (info.getStatus()) {
                     case FileLoadInfo.STATUS_FINISHED:
-                        status = new GameFileStatus(info.getUrl(), info.getFinished(), info.getLength(), GameFileStatus
+                        status = new GameFileStatus(info.getUrl(), info.getFinished(), info
+                                .getLength(), GameFileStatus
                                 .STATE_HAS_DOWNLOAD);
                         break;
                     case FileLoadInfo.STATUS_LOADING:
-                        status = new GameFileStatus(info.getUrl(), info.getFinished(), info.getLength(), GameFileStatus
+                        status = new GameFileStatus(info.getUrl(), info.getFinished(), info
+                                .getLength(), GameFileStatus
                                 .STATE_DOWNLOAD);
                         break;
                     case FileLoadInfo.STATUS_PAUSE:
-                        status = new GameFileStatus(info.getUrl(), info.getFinished(), info.getLength(), GameFileStatus
+                        status = new GameFileStatus(info.getUrl(), info.getFinished(), info
+                                .getLength(), GameFileStatus
                                 .STATE_PAUSE);
                         break;
                     case FileLoadInfo.STATUS_PAUSE_TEMP:
-                        status = new GameFileStatus(info.getUrl(), info.getFinished(), info.getLength(), GameFileStatus
+                        status = new GameFileStatus(info.getUrl(), info.getFinished(), info
+                                .getLength(), GameFileStatus
                                 .STATE_PAUSE);
                         break;
 //                    case FileLoadInfo.STATUS_UPDATE:
-//                        status = new GameFileStatus(info.getUrl(),info.getFinished(),info.getLength(),GameFileStatus
+//                        status = new GameFileStatus(info.getUrl(),info.getFinished(),info
+// .getLength(),GameFileStatus
 // .STATE_HAS_INSTALL_OLD);
                 }
             }
@@ -291,7 +306,8 @@ public class FileLoadManager implements IFileLoad {
     @Override
     public List<FileLoadInfo> getAllFileInfo() {
         ArrayList<FileLoadInfo> infoList = new ArrayList<>();
-        ConcurrentHashMap<String, FileLoadInfo> gameFileStatusMap = FileLoadService.gameFileStatusMap;
+        ConcurrentHashMap<String, FileLoadInfo> gameFileStatusMap = FileLoadService
+                .gameFileStatusMap;
         if (gameFileStatusMap != null) {
             for (FileLoadInfo info : gameFileStatusMap.values()) {
                 infoList.add(info);
@@ -304,7 +320,8 @@ public class FileLoadManager implements IFileLoad {
         ArrayList<FileLoadInfo> infoList = new ArrayList<>();
         if (FileLoadService.gameFileStatusMap != null) {
             for (FileLoadInfo info : FileLoadService.gameFileStatusMap.values()) {
-                if (info.getStatus() == FileLoadInfo.STATUS_LOADING || info.getStatus() == FileLoadInfo.STATUS_PAUSE
+                if (info.getStatus() == FileLoadInfo.STATUS_LOADING || info.getStatus() ==
+                FileLoadInfo.STATUS_PAUSE
                         || info.getStatus() == FileLoadInfo.STATUS_PAUSE_TEMP) {
                     infoList.add(info);
                 }
@@ -316,7 +333,8 @@ public class FileLoadManager implements IFileLoad {
     @Override
     public List<FileLoadInfo> getLoadedFileInfo() {
         ArrayList<FileLoadInfo> infoList = new ArrayList<>();
-        ConcurrentHashMap<String, FileLoadInfo> gameFileStatusMap = FileLoadService.gameFileStatusMap;
+        ConcurrentHashMap<String, FileLoadInfo> gameFileStatusMap = FileLoadService
+                .gameFileStatusMap;
         if (gameFileStatusMap != null) {
             Collection<FileLoadInfo> values = gameFileStatusMap.values();
             for (FileLoadInfo info : values) {
@@ -333,7 +351,8 @@ public class FileLoadManager implements IFileLoad {
     @Override
     public List<FileLoadInfo> getOpenFileInfo() {
         ArrayList<FileLoadInfo> infoList = new ArrayList<>();
-        ConcurrentHashMap<String, FileLoadInfo> gameFileStatusMap = FileLoadService.gameFileStatusMap;
+        ConcurrentHashMap<String, FileLoadInfo> gameFileStatusMap = FileLoadService
+                .gameFileStatusMap;
         if (gameFileStatusMap != null) {
             Collection<FileLoadInfo> loadInfos = gameFileStatusMap.values();
             for (FileLoadInfo info : loadInfos) {

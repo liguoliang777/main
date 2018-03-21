@@ -43,7 +43,7 @@ import cn.ngame.store.widget.pulllistview.PullToRefreshListView;
  */
 @SuppressLint("WrongConstant")
 public class MainHubFragment extends BaseSearchFragment {
-    public static final String TAG = MainHubFragment.class.getSimpleName();
+    public final String TAG = MainHubFragment.class.getSimpleName();
     private PullToRefreshListView pullListView;
     private ImageView game_big_pic_1, game_big_pic_2;
     private SimpleDraweeView from_img_1, from_img_2;
@@ -99,10 +99,14 @@ public class MainHubFragment extends BaseSearchFragment {
                     public void onError(Throwable e) {
                         if (list != null && list.size() > 0) {
                             loadStateView.setVisibility(View.GONE);
-                            ToastUtil.show(context, getString(R.string.server_exception_2_pullrefresh));
+                            ToastUtil.show(context, getString(R.string
+                                    .server_exception_2_pullrefresh));
                         } else {
-                            loadStateView.setState(LoadStateView.STATE_END, getString(R.string.server_exception_2_pullrefresh));
-                            loadStateView.setVisibility(View.VISIBLE);
+                            if (getActivity() != null) {
+                                loadStateView.setState(LoadStateView.STATE_END, getString(R.string
+                                        .server_exception_2_pullrefresh));
+                                loadStateView.setVisibility(View.VISIBLE);
+                            }
                         }
                         pullListView.onPullUpRefreshComplete();
                         pullListView.onPullDownRefreshComplete();
@@ -110,14 +114,20 @@ public class MainHubFragment extends BaseSearchFragment {
 
                     @Override
                     public void onNext(GameHubMainBean result) {
+                        if (getActivity() == null) {
+                            return;
+
+                        }
                         if (result != null && result.getCode() == 0) {
                             listData(result);
                         } else {
                             if (list != null && list.size() > 0) {
                                 loadStateView.setVisibility(View.GONE);
-                                ToastUtil.show(context, getString(R.string.server_exception_2_pullrefresh));
+                                ToastUtil.show(context, getString(R.string
+                                        .server_exception_2_pullrefresh));
                             } else {
-                                loadStateView.setState(LoadStateView.STATE_END, getString(R.string.server_exception_2_pullrefresh));
+                                loadStateView.setState(LoadStateView.STATE_END, getString(R
+                                        .string.server_exception_2_pullrefresh));
                                 loadStateView.setVisibility(View.VISIBLE);
                             }
                         }
@@ -134,8 +144,10 @@ public class MainHubFragment extends BaseSearchFragment {
             return;
         }
         if (pageAction.getCurrentPage() == 0) {//当前页
-            this.list.clear(); //清除数据
-            this.topList.clear();
+            if (list != null && getActivity() != null) {
+                list.clear(); //清除数据
+                topList.clear();
+            }
             if (result.getData() == null || result.getData().size() == 0) {
                 pullListView.onPullUpRefreshComplete();
                 pullListView.onPullDownRefreshComplete();
@@ -147,16 +159,17 @@ public class MainHubFragment extends BaseSearchFragment {
         int totals = result.getTotals();
         if (result.getData().size() > 0) {//刷新后进来
             pageAction.setTotal(totals);
-            this.list.addAll(resultData);
-            this.topList.addAll(resultData);
+            list.addAll(resultData);
+            topList.addAll(resultData);
         }
-        if (result.getData().size() > 0 && pageAction.getCurrentPage() == 0) {
+        if (result.getData().size() > 0 && pageAction.getCurrentPage() == 0 && getActivity() !=
+                null) {
             //第一次进来
-            this.list.clear(); //清除数据
-            this.topList.clear();
+            list.clear(); //清除数据
+            topList.clear();
             pageAction.setTotal(totals);
-            this.list.addAll(resultData); //清除数据
-            this.topList.addAll(resultData);
+            list.addAll(resultData); //清除数据
+            topList.addAll(resultData);
             //设置头部布局
           /*  if (list.size() > 1) {
                 setHeaderInfo(list);
@@ -170,7 +183,8 @@ public class MainHubFragment extends BaseSearchFragment {
         } else {
             adapter.setList(list);
         }
-       /* if ((mStickyLV.size() == 0 && pageAction.getTotal() == 0) || mStickyLV.size() >= pageAction.getTotal()) {
+       /* if ((mStickyLV.size() == 0 && pageAction.getTotal() == 0) || mStickyLV.size() >=
+       pageAction.getTotal()) {
             pullListView.setPullLoadEnabled(true);
         } else {
             pullListView.setPullLoadEnabled(true);
@@ -182,7 +196,8 @@ public class MainHubFragment extends BaseSearchFragment {
             //pullListView.setPullLoadEnabled(false);
             pullListView.getRefreshableView().setSelection(0);
         }
-        if (pageAction.getCurrentPage() > 0 && result.getData().size() > 2) {//// TODO: 2017/7/17 0017
+        if (pageAction.getCurrentPage() > 0 && result.getData().size() > 2) {//// TODO: 2017/7/17
+/// 0017
             int index = pullListView.getRefreshableView().getFirstVisiblePosition();
             View v = pullListView.getRefreshableView().getChildAt(0);
             int top = (v == null) ? 0 : (v.getTop() - v.getHeight());
@@ -197,9 +212,9 @@ public class MainHubFragment extends BaseSearchFragment {
         pageAction = new PageAction();
         pageAction.setCurrentPage(0);
         pageAction.setPageSize(PAGE_SIZE);
-        loadStateView =  view.findViewById(R.id.load_state_view2);
+        loadStateView = view.findViewById(R.id.load_state_view2);
         loadStateView.isShowLoadBut(false);
-        pullListView =  view.findViewById(R.id.pullListView);
+        pullListView = view.findViewById(R.id.pullListView);
         pullListView.setPullLoadEnabled(true);
         pullListView.setPullRefreshEnabled(true);
         pullListView.setScrollLoadEnabled(true);
@@ -221,7 +236,8 @@ public class MainHubFragment extends BaseSearchFragment {
                     } else {
                         ToastUtil.show(context, getString(R.string.no_network));
                         loadStateView.setVisibility(View.VISIBLE);
-                        loadStateView.setState(LoadStateView.STATE_END, getString(R.string.no_network));
+                        loadStateView.setState(LoadStateView.STATE_END, getString(R.string
+                                .no_network));
                     }
                 } else {
                     //下拉请求数据
@@ -239,7 +255,8 @@ public class MainHubFragment extends BaseSearchFragment {
                     pullListView.onPullUpRefreshComplete();
                     return;
                 }
-                if (pageAction.getCurrentPage() * pageAction.getPageSize() < pageAction.getTotal()) {
+                if (pageAction.getCurrentPage() * pageAction.getPageSize() < pageAction.getTotal
+                        ()) {
                     pageAction.setCurrentPage(pageAction.getCurrentPage() == 0 ?
                             pageAction.getCurrentPage() + 2 : pageAction.getCurrentPage() + 1);
                     //上拉请求数据
@@ -256,18 +273,19 @@ public class MainHubFragment extends BaseSearchFragment {
         refreshableView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    /**   pullListView的头部position是0  第一个item 索引是 1
-                     1-1= 0(所以position是1时,要拿list里的0处数据, position是2时,拿1处数据)   */
-                    GameHubMainBean.DataBean dataBean = list.get(position);
-                    //埋点
+                /**   pullListView的头部position是0  第一个item 索引是 1
+                 1-1= 0(所以position是1时,要拿list里的0处数据, position是2时,拿1处数据)   */
+                GameHubMainBean.DataBean dataBean = list.get(position);
+                //埋点
                 /*    HashMap<String, String> map = new HashMap<>();
                     map.put(KeyConstant.index, position + "");
                     map.put(KeyConstant.game_Name, dataBean.getGameName());
-                    MobclickAgent.onEvent(context, UMEventNameConstant.mainRecommendPositionClickCount, map);
+                    MobclickAgent.onEvent(context, UMEventNameConstant
+                    .mainRecommendPositionClickCount, map);
 */
-                    Intent intent = new Intent(context, HubItemActivity.class);
-                    intent.putExtra(KeyConstant.ID, dataBean.getId());
-                    startActivity(intent);
+                Intent intent = new Intent(context, HubItemActivity.class);
+                intent.putExtra(KeyConstant.ID, dataBean.getId());
+                startActivity(intent);
             }
         });
      /*   //滑动事件(搜索栏渐变)
@@ -282,7 +300,8 @@ public class MainHubFragment extends BaseSearchFragment {
 
             //向下头部颜色渐变
             @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount,
+            int totalItemCount) {
             }
         });*/
 
@@ -362,7 +381,7 @@ public class MainHubFragment extends BaseSearchFragment {
         summary_2.setText(dataBean1.getRecommend());
 
         //广告
-       // setAdView();
+        // setAdView();
     }
 
     /**
@@ -371,7 +390,8 @@ public class MainHubFragment extends BaseSearchFragment {
  /*   private void setAdView() {
         InMobiSdk.init(context, Constant.InMobiSdk_Id);
 
-        InMobiNative nativeAd = new InMobiNative(context, Constant.AD_PlacementID_RecommendFragment, new InMobiNative
+        InMobiNative nativeAd = new InMobiNative(context, Constant
+        .AD_PlacementID_RecommendFragment, new InMobiNative
                 .NativeAdListener() {
             @Override
             public void onAdLoadSucceeded(@NonNull InMobiNative inMobiNative) {
@@ -395,7 +415,8 @@ public class MainHubFragment extends BaseSearchFragment {
             }
 
             @Override
-            public void onAdLoadFailed(@NonNull InMobiNative inMobiNative, @NonNull InMobiAdRequestStatus inMobiAdRequestStatus) {
+            public void onAdLoadFailed(@NonNull InMobiNative inMobiNative, @NonNull
+            InMobiAdRequestStatus inMobiAdRequestStatus) {
                 Log.d(TAG, "广告加载失败");
                 adLayout.setVisibility(View.GONE);
             }
@@ -434,7 +455,8 @@ public class MainHubFragment extends BaseSearchFragment {
                 HashMap<String, String> map = new HashMap<>();
                 map.put(KeyConstant.index, 1 + "");
                 map.put(KeyConstant.game_Name, inMobiNative.getAdTitle());
-                MobclickAgent.onEvent(context, UMEventNameConstant.mainRecommendPositionClickCount, map);
+                MobclickAgent.onEvent(context, UMEventNameConstant
+                .mainRecommendPositionClickCount, map);
             }
 
             @Override
@@ -453,7 +475,6 @@ public class MainHubFragment extends BaseSearchFragment {
         nativeAd.setDownloaderEnabled(true);
         nativeAd.load();
     }*/
-
     @Override
     protected void onFirstUserVisible() {
         Log.d(TAG, "onUserVisible:当前 " + pageAction.getCurrentPage());

@@ -142,7 +142,7 @@ public class PadService extends Service {
                     LLog.d("PadService->onStartCommand 连接Normal：" + action);
                     DeviceManager.getInstance(this).connectNormal(mac);
                 } else if (action.equals("com.ngds.pad.server.PadService.Connect.BLE")) {
-                    LLog.d("PadService->onStartCommand action:连接..BLE" + action);
+                    LLog.d("PadService->onStartCommand action:连接..BLE:" + action);
                     DeviceManager.getInstance(this).connectBle(mac);
                 } else if (action.equals("com.ngds.pad.server.PadService.SppOff")) {
                     LLog.d("PadService->onStartCommand 连接Spp...OFF" + action);
