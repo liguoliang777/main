@@ -18,6 +18,7 @@ public class BtnParams {
     }
 
     public final String toString() {
-        return "BtnParams(x: " + this.m_x + ", y: " + this.m_y + ", r: " + this.m_r + ", mode: " + this.m_mode + ", step: " + this.m_step + ", frequency: " + this.m_frequency + ")";
+        return "BtnParams(x: " + this.m_x + ", y: " + this.m_y + ", r: " + this.m_r + ", mode: "
+                + this.m_mode + ", step: " + this.m_step + ", frequency: " + this.m_frequency + ")";
     }
 }

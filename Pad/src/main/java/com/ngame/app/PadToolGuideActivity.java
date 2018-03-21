@@ -1,9 +1,14 @@
 package com.ngame.app;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -11,8 +16,8 @@ import android.widget.ImageView;
 import com.lx.pad.R;
 import com.ngame.Utils.KeyMgrUtils;
 
-import java.util.Arrays;
-import java.util.List;
+import java.io.InputStream;
+import java.util.ArrayList;
 
 /**
  * Created by Administrator on 2017/12/2.
@@ -21,31 +26,37 @@ import java.util.List;
 public class PadToolGuideActivity extends BaseFragmentActivity {
     ViewPager m_viewPager;
     ThePagerAdapter m_thePagerAdapter;
-    private Integer[] m_integerAry;
+    private ArrayList<Integer> m_integerAry = new ArrayList();
 
-    public class ThePagerAdapter<T> extends PagerAdapter{
-        private List<T> m_list;
+    public class ThePagerAdapter extends PagerAdapter {
 
-        public ThePagerAdapter(List<T> list) {
-            super();
-            m_list = list;
-        }
+        private ImageView view;
 
         @Override
         public int getCount() {
-            return (m_list == null) ? 0 : m_list.size();
+            return (m_integerAry == null) ? 0 : m_integerAry.size();
         }
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            ((ViewPager)container).removeView((View)object);
+            ((ViewPager) container).removeView((View) object);
         }
 
         @Override
-        public Object instantiateItem(ViewGroup container, final int position) {
+        public ImageView instantiateItem(ViewGroup container, final int position) {
+            Log.d("图片内存溢出", "====== " + position);
 //            return super.instantiateItem(container, position);
-            ImageView view = getImgViewByIndex(position);
-            if(view != null){
+            if (view != null) {
+                ((BitmapDrawable) view.getDrawable()).getBitmap().recycle();
+            }
+            view = new ImageView(PadToolGuideActivity.this);
+            //view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams
+            // .MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            view.setImageBitmap(readBitMap(PadToolGuideActivity.this, m_integerAry.get(position)));
+            view.setScaleType(ImageView.ScaleType.FIT_XY);
+            view.setFocusable(true);
+            view.setClickable(true);
+            if (view != null) {
                 view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -57,32 +68,43 @@ public class PadToolGuideActivity extends BaseFragmentActivity {
             return view;
         }
 
+
         @Override
         public boolean isViewFromObject(View view, Object object) {
-            return (view == (View)object) ? true : false;
+            return (view == (View) object) ? true : false;
         }
+
     }
 
-    public PadToolGuideActivity(){
-        super();
-        m_integerAry = new Integer[]{Integer.valueOf(R.mipmap.bg_guide_1), Integer.valueOf(R.mipmap.bg_guide_2), Integer.valueOf(R.mipmap.bg_guide_3)};
+    private Bitmap readBitMap(Context context, int resId) {
+
+        BitmapFactory.Options opt = new BitmapFactory.Options();
+        opt.inPreferredConfig = Bitmap.Config.RGB_565;
+        opt.inPurgeable = true;
+        opt.inInputShareable = true;
+        // 获取资源图片
+        InputStream is = context.getResources().openRawResource(resId);
+
+        return BitmapFactory.decodeStream(is, null, opt);
+
     }
 
-    public final ImageView getImgViewByIndex(int nIndex){
-        ImageView pagerItemImgView = (ImageView)getLayoutInflater().inflate(R.layout.pager_item_image, null);
-        pagerItemImgView.setImageResource(m_integerAry[nIndex].intValue());
+    public final ImageView getImgViewByIndex(int nIndex) {
+        ImageView pagerItemImgView = (ImageView) getLayoutInflater().inflate(R.layout
+                .pager_item_image, null);
+        //pagerItemImgView.setImageResource(m_integerAry[nIndex]);
         return pagerItemImgView;
     }
 
-    private void sSetPrefFirstGuideFalse(){
+    private void sSetPrefFirstGuideFalse() {
         KeyMgrUtils.sPutPrefBooleanVal(this, "tool_config", "key_first_guide", false);
         finish();
     }
 
-    public void setCurrentPageView(int nIndex){
-        if(nIndex < m_integerAry.length - 1){
+    public void setCurrentPageView(int nIndex) {
+        if (nIndex < m_integerAry.size() - 1) {
             m_viewPager.setCurrentItem(nIndex + 1, true);
-        }else{
+        } else {
             sSetPrefFirstGuideFalse();
         }
     }
@@ -91,15 +113,20 @@ public class PadToolGuideActivity extends BaseFragmentActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide_padtool);
+        m_integerAry.add(R.mipmap.bg_guide_1);
+        m_integerAry.add(R.mipmap.bg_guide_2);
+        m_integerAry.add(R.mipmap.bg_guide_3);
         m_viewPager = findViewById(R.id.vp_guid);
-        m_thePagerAdapter = new ThePagerAdapter(Arrays.asList(m_integerAry));
+        m_thePagerAdapter = new ThePagerAdapter();
         m_viewPager.setAdapter(m_thePagerAdapter);
-        m_viewPager.setOffscreenPageLimit(m_integerAry.length - 1);
-        m_viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        m_viewPager.setOffscreenPageLimit(1);
+        m_viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             boolean press = true;
             int position = 0;
+
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onPageScrolled(int position, float positionOffset, int
+                    positionOffsetPixels) {
                 this.position = position;
             }
 
@@ -110,14 +137,14 @@ public class PadToolGuideActivity extends BaseFragmentActivity {
 
             @Override
             public void onPageScrollStateChanged(int state) {
-                if(state == ViewPager.OVER_SCROLL_NEVER){
+                if (state == ViewPager.OVER_SCROLL_NEVER) {
                     press = false;
-                }else{
-                    if(state == ViewPager.OVER_SCROLL_ALWAYS && press){
-                        if(position == m_integerAry.length - 1){
+                } else {
+                    if (state == ViewPager.OVER_SCROLL_ALWAYS && press) {
+                        if (position == m_integerAry.size() - 1) {
                             sSetPrefFirstGuideFalse();
                         }
-                        return ;
+                        return;
                     }
                     press = true;
                 }

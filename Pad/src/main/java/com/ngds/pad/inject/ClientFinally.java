@@ -23,7 +23,7 @@ import java.net.SocketException;
  */
 
 public class ClientFinally implements Runnable {
-    private static final String LOCAL_SOCKET_NAME = "ngame_socket_remotesensor";
+    private static final String LOCAL_SOCKET_NAME = "fangle_socket_remotesensor";
     private static final int LOCAL_SOCKET_PORT = 6559;
     private int timeout = 30000;
     LocalSocket client;
