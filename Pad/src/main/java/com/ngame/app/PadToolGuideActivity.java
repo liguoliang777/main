@@ -53,7 +53,7 @@ public class PadToolGuideActivity extends BaseFragmentActivity {
             //view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams
             // .MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             view.setImageBitmap(readBitMap(mContext, m_integerAry[position]));
-            view.setScaleType(ImageView.ScaleType.FIT_XY);
+            view.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
             view.setFocusable(true);
             view.setClickable(true);
             if (view != null) {

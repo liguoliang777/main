@@ -202,25 +202,19 @@ public class InstalledGameAdapter extends BaseAdapter {
         public  Drawable getIconFromPackageName(String packageName, Context context)
         {
             PackageManager pm = context.getPackageManager();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
-            {
-                try
-                {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+                try {
                     PackageInfo pi = pm.getPackageInfo(packageName, 0);
                     Context otherAppCtx = context.createPackageContext(packageName, Context.CONTEXT_IGNORE_SECURITY);
                     int displayMetrics[] = {DisplayMetrics.DENSITY_XHIGH, DisplayMetrics.DENSITY_HIGH, DisplayMetrics.DENSITY_TV};
-                    for (int displayMetric : displayMetrics)
-                    {
-                        try
-                        {
+                    for (int displayMetric : displayMetrics) {
+                        try {
                             Drawable d = otherAppCtx.getResources().getDrawableForDensity(pi.applicationInfo.icon, displayMetric);
-                            if (d != null)
-                            {
+                            if (d != null) {
                                 return d;
                             }
                         }
-                        catch (Resources.NotFoundException e)
-                        {
+                        catch (Resources.NotFoundException e) {
                             continue;
                         }
                     }
@@ -241,39 +235,7 @@ public class InstalledGameAdapter extends BaseAdapter {
             }
             return appInfo.loadIcon(pm);
         }
-        /*private void init() {
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    uiHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            GameFileStatus fileStatus = fileLoad.getGameFileLoadStatus(fileInfo.getName(), fileInfo.getUrl(),
-                                    fileInfo.getPackageName(), fileInfo.getVersionCode());
-                            if (fileStatus == null) {
-                                return;
-                            }
-                            int status = fileStatus.getStatus();
-                            if (status == GameFileStatus.STATE_HAS_INSTALL) {
-                                tv_size.setVisibility(View.INVISIBLE);
-                                tv_state.setText("已安装");
-                                progressBar.setLoadState(fileStatus);
-                                progressBar.setVisibility(View.VISIBLE);
-                            } else if (status == GameFileStatus.STATE_HAS_DOWNLOAD) {//安装
-                                tv_size.setVisibility(View.VISIBLE);
-                                tv_state.setText("下载完成");
-                                progressBar.setLoadState(fileStatus);
-                                progressBar.setVisibility(View.VISIBLE);
-                            } else {
-                                tv_size.setVisibility(View.INVISIBLE);
-                                tv_state.setText("");
-                                progressBar.setVisibility(View.INVISIBLE);
-                            }
-                        }
-                    });
-                }
-            }, 0, 300);
-        }*/
+
     }
 }
 
