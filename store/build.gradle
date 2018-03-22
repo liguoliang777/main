@@ -139,12 +139,10 @@ dependencies {
     //compile 'io.reactivex.rxjava2:rxjava:2.0.1'
     //compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     //引入gson
-
     //图片加载缓存
     compile 'com.squareup.picasso:picasso:2.5.2'
     //图片加载+gif
     compile 'com.facebook.fresco:fresco:0.11.0'
-    compile 'com.facebook.fresco:animated-gif:0.12.0'
     //zip4j压缩
     compile 'net.lingala.zip4j:zip4j:1.3.2'
     //友盟
@@ -169,7 +167,6 @@ dependencies {
     //广告
     //compile 'com.inmobi.monetization:inmobi-ads:7.0.0'
     //compile files('libs/InMobi-7.0.0-China.jar')
-    compile files('libs/weiboSDKCore.jar')
     compile 'cn.jzvd:jiaozivideoplayer:6.1.1'
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.4'
     compile 'fm.jiecao:jiecaovideoplayer:5.8.1'

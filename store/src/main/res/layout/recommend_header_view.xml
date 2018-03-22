@@ -41,7 +41,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/dm016"
                 android:layout_marginRight="@dimen/dm034"
-                android:layout_toRightOf="@+id/img_from_1"
+                android:layout_toRightOf="@+id/sdv_img_from_1"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text=""

@@ -95,6 +95,7 @@ public class InjectDataMgr {
     //keySid  keyCode --> keySid (keyCode对应的一个索引ID，用于在底层将触控操作分离开来，即支持多点触控)
     //keyAction 按下、移动、弹起
     public static void sendKeyInfo(byte keySid, byte keyAction, int x, int y){
+        LLog.d("InjectDataMgr:sendKeyInfo:"+ keySid+","+keyAction+","+x+","+y);
         byte[] bAry = new byte[30];
         bAry[1] = VERSION;
         bAry[2] = keySid;

@@ -47,6 +47,12 @@ public class ClientFinally implements Runnable {
     public boolean send(byte[] data) {
         if (outputStream != null) {
             try {
+                if(data.length > 0){
+                    LLog.d("ClientFinally->send:data[0] => " + data[0]);
+                    if(data[0] == 0){
+                        new Exception("send error!").printStackTrace();
+                    }
+                }
                 outputStream.write(data);
                 return true;
             } catch (SocketException eSocket) {

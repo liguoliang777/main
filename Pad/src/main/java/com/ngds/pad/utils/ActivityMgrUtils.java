@@ -287,7 +287,7 @@ public class ActivityMgrUtils {
             final int nLessSide = DisplayMetricsMgr.getLessSide();
             if(mode == KeyMgrUtils.MOTION_MODE_NONE || mode == KeyMgrUtils.MOTION_MODE_NORMAL) {    //常规摇杆模式 ----------------------------
                 if (keyCode == BaseEvent.KEYCODE_LEFT_STICK) {
-                    if (relateLeftStickKeyCode >= 0) {
+                    if (relateLeftStickKeyCode >= 0) {  //大于0表示有与左摇杆的按键
                         x = KeyMgrUtils.sGetKeyInfoXByKeyCode(relateLeftStickKeyCode);
                         y = KeyMgrUtils.sGetKeyInfoYByKeyCode(relateLeftStickKeyCode);
                         relateKeyCode = relateLeftStickKeyCode;

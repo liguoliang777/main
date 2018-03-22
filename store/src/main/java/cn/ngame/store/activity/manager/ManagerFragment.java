@@ -155,10 +155,13 @@ public class ManagerFragment extends Fragment {
                             @Override
                             protected Integer doInBackground(Void... voids) {
                                 String saveDir = "data/local/tmp/";
-                                Utils.execRootCmd("chmod 777 " + saveDir + getString(R
-                                        .string.inject_server_name));
-                                Utils.execRootCmd("" + saveDir + getString(R.string
-                                        .inject_server_name));
+                                try {
+                                    Utils.execRootCmd("chmod 777 " + saveDir + getString(R
+                                            .string.inject_server_name));
+                                    Utils.execRootCmd("" + saveDir + getString(R.string
+                                            .inject_server_name));
+                                } catch (Exception e) {
+                                }
                                 return 0;
                             }
 
