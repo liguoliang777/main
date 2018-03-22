@@ -66,7 +66,10 @@ public class FileLoadManager implements IFileLoad {
     public void destroy() {
 
         if (context != null && isBindServiceSuccess) {
-            context.unbindService(conn);
+            try {
+                context.unbindService(conn);
+            } catch (Exception e) {
+            }
             isBindServiceSuccess = false;
         }
     }

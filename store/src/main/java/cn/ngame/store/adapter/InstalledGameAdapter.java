@@ -125,7 +125,7 @@ public class InstalledGameAdapter extends BaseAdapter {
         if (convertView == null) {
             holder = new ViewHolder(context, fm);
             convertView = LayoutInflater.from(context).inflate(R.layout.item_lv_game_load_finished, parent, false);
-            holder.img = (SimpleDraweeView) convertView.findViewById(R.id.img_1);
+            holder.imgIcon = (SimpleDraweeView) convertView.findViewById(R.id.finished_img_icon);
             holder.tv_title = (TextView) convertView.findViewById(R.id.tv_install_title);
             holder.more_bt = (ImageView) convertView.findViewById(R.id.manager_installed_more_bt);
             holder.openBt = (TextView) convertView.findViewById(R.id.installed_open_bt);
@@ -160,7 +160,7 @@ public class InstalledGameAdapter extends BaseAdapter {
         private FragmentManager fm;
         private FileLoadInfo fileInfo;
 
-        private SimpleDraweeView img;
+        private SimpleDraweeView imgIcon;
         private ImageView more_bt;
         private TextView tv_title, openBt, tv_size;
         private IFileLoad fileLoad;
@@ -187,7 +187,7 @@ public class InstalledGameAdapter extends BaseAdapter {
                     .placeholder(drawable)
                     .resizeDimen(R.dimen.dm100, R.dimen.dm100)
                     .into(img);*/
-            GenericDraweeHierarchy hierarchy = img.getHierarchy();
+            GenericDraweeHierarchy hierarchy = imgIcon.getHierarchy();
             hierarchy.setPlaceholderImage(drawable, ScalingUtils.ScaleType.FIT_XY);
             openBt.setOnClickListener(new View.OnClickListener() {
                 @Override

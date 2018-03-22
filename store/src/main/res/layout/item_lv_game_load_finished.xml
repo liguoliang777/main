@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ngame="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:descendantFocusability="blocksDescendants"
     android:paddingBottom="@dimen/dm015">
 
-    <com.facebook.drawee.view.SimpleDraweeView xmlns:fresco="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/img_1"
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/finished_img_icon"
         android:layout_width="@dimen/dm085"
         android:layout_height="@dimen/dm085"
         android:layout_centerVertical="true"
@@ -53,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dm025"
         android:layout_toLeftOf="@id/installed_open_bt"
-        android:layout_toRightOf="@id/img_1"
+        android:layout_toRightOf="@id/finished_img_icon"
         android:ellipsize="end"
         android:maxLines="1"
         android:text=""

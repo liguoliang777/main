@@ -418,7 +418,7 @@ public class RecommendFragment extends BaseSearchFragment {
 
     //顶部2个位置
     private void initHeadView(View view) {
-        from_img_1 = (SimpleDraweeView) view.findViewById(R.id.img_from_1);//来自 头像
+        from_img_1 = (SimpleDraweeView) view.findViewById(R.id.sdv_img_from_1);//来自 头像
         from_img_2 = (SimpleDraweeView) view.findViewById(R.id.img_from_2);
 
         gamename_1 = (TextView) view.findViewById(R.id.tv_gamename_1);//游戏名字
