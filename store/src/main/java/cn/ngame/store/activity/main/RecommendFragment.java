@@ -56,7 +56,7 @@ public class RecommendFragment extends BaseSearchFragment {
     public static final String TAG = RecommendFragment.class.getSimpleName();
     private PullToRefreshListView pullListView;
     private ImageView game_big_pic_1, game_big_pic_2;
-    private SimpleDraweeView from_img_1, from_img_ad, from_img_2;
+    private SimpleDraweeView fromImg_1, from_img_ad, from_img_2;
     private TextView gamename_1, gamename_2, summary_2, summary_ad, title_ad;
     private TextView summary_1;
     private LoadStateView loadStateView;
@@ -418,7 +418,7 @@ public class RecommendFragment extends BaseSearchFragment {
 
     //顶部2个位置
     private void initHeadView(View view) {
-        from_img_1 = (SimpleDraweeView) view.findViewById(R.id.sdv_img_from_1);//来自 头像
+        fromImg_1 = (SimpleDraweeView) view.findViewById(R.id.sdv_img_from_iv);//来自 头像
         from_img_2 = (SimpleDraweeView) view.findViewById(R.id.img_from_2);
 
         gamename_1 = (TextView) view.findViewById(R.id.tv_gamename_1);//游戏名字
@@ -484,7 +484,7 @@ public class RecommendFragment extends BaseSearchFragment {
             return;
         }
 
-        from_img_1.setImageURI(dataBean0.getGameLogo());//来自...头像
+        fromImg_1.setImageURI(dataBean0.getGameLogo());//来自...头像
         picasso.load(dataBean0.getGameRecommendImg()).placeholder(R.drawable.ic_def_logo_720_288)
                 .error(R.drawable.ic_def_logo_720_288)
                 // .resize(screenWidth,150)

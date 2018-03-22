@@ -23,7 +23,7 @@
             >
 
             <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/sdv_img_from_1"
+                android:id="@+id/sdv_img_from_iv"
                 android:layout_width="@dimen/recommend_item_from_pic"
                 android:layout_height="@dimen/recommend_item_from_pic"
                 fresco:actualImageScaleType="centerCrop"
@@ -41,7 +41,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/dm016"
                 android:layout_marginRight="@dimen/dm034"
-                android:layout_toRightOf="@+id/sdv_img_from_1"
+                android:layout_toRightOf="@id/sdv_img_from_iv"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text=""
