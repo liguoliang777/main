@@ -50,7 +50,7 @@ public class ClientFinally implements Runnable {
                 if(data.length > 0){
                     LLog.d("ClientFinally->send:data[0] => " + data[0]);
                     if(data[0] == 0){
-                        new Exception("send error!").printStackTrace();
+                        new Exception("send error !======================").printStackTrace();
                     }
                 }
                 outputStream.write(data);
