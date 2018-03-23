@@ -139,9 +139,8 @@ public class KeyboardEditActivity extends BaseFragmentActivity implements ViewDr
         findViewById(R.id.tv_sync).setOnClickListener(this);
         findViewById(R.id.tv_motion).setOnClickListener(this);
 
-        KeyMgrUtils.sUpdateKeyEnumHashMap(this);
+        KeyMgrUtils.sUpdateKeyEnumHashMap(context);
         updateDragKeyView();
-        updateIsShowState();
         showTestView();
 
         if (KeyMgrUtils.sGetPrefBoolean(this, "tool_config", "key_first_guide", true)) {
@@ -490,7 +489,11 @@ public class KeyboardEditActivity extends BaseFragmentActivity implements ViewDr
     }
 
     private void showTestView() {
-        LLog.d("KeyboardEditActivity->showTestView not realize");
+
+        LLog.d("KeyboardEditActivity->更新： 当前界面显示的状态");
+        m_isShowTest = getIntent().getBooleanExtra("is_show", false);
+
+        LLog.d("KeyboardEditActivity->showTestView 未初始化");
         if (m_isShowTest) {
             m_viewPointerLocation.bringToFront();
             m_frameLayoutMenu.bringToFront();
@@ -517,11 +520,6 @@ public class KeyboardEditActivity extends BaseFragmentActivity implements ViewDr
         }
     }
 
-    private void updateIsShowState() {
-        LLog.d("KeyboardEditActivity->updateIsShowState");
-        m_isShowTest = getIntent().getBooleanExtra("is_show", false);
-    }
-
     private void showSaveDlg() {
         AlertDialog.Builder artDlg = new AlertDialog.Builder(this, R.style
                 .Theme_AppCompat_Light_Dialog);
@@ -537,7 +535,7 @@ public class KeyboardEditActivity extends BaseFragmentActivity implements ViewDr
         artDlg.setNegativeButton("否", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                KeyMgrUtils.sUpdateKeyEnumHashMap(KeyboardEditActivity.this);
+                KeyMgrUtils.sUpdateKeyEnumHashMap(context);
                 dialog.dismiss();
                 KeyboardEditActivity.this.finish();
             }

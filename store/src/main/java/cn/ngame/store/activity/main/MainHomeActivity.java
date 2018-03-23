@@ -39,6 +39,7 @@ import com.jzt.hol.android.jkda.sdk.bean.gamehub.AppCarouselBean;
 import com.jzt.hol.android.jkda.sdk.bean.gamehub.BrowseHistoryBodyBean;
 import com.jzt.hol.android.jkda.sdk.rx.ObserverWrapper;
 import com.jzt.hol.android.jkda.sdk.services.gamehub.AppCarouselClient;
+import com.ngame.Utils.KeyMgrUtils;
 import com.ngds.pad.PadServiceBinder;
 import com.umeng.analytics.MobclickAgent;
 
@@ -106,7 +107,7 @@ import cn.ngame.store.view.DialogModel;
 @SuppressLint("WrongConstant")
 public class MainHomeActivity extends BaseFgActivity implements View.OnClickListener {
     public String TAG = MainHomeActivity.class.getSimpleName();
-    private static MainHomeActivity context;
+    private MainHomeActivity context;
     private boolean isExit = false;     //是否安装后第一次启动
     private IFileLoad fileLoad;
     private Timer timer = new Timer();
@@ -277,6 +278,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
 
     private void startPadService() {
         PadServiceBinder.getInstance(getApplicationContext()).initArgs(getPackageName());
+        KeyMgrUtils.sUpdateKeyEnumHashMap(getApplicationContext());
     }
 
 
@@ -785,6 +787,10 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
         stopService(new Intent(this, OtaService.class));
         super.onDestroy();
         MobclickAgent.onKillProcess(context);
+
+        if (fileLoad != null) {
+            FileLoadManager.getInstance(this).destroy();
+        }
     }
 
     @Override
@@ -810,8 +816,9 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                 }
             }, 2000);
         } else {
-            FileLoadManager manager = FileLoadManager.getInstance(this);
-            manager.destroy();
+            if (fileLoad != null) {
+                FileLoadManager.getInstance(this).destroy();
+            }
             finish();
         }
     }
