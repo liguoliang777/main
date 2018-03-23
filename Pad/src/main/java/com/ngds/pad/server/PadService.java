@@ -8,6 +8,7 @@ import android.os.RemoteException;
 import android.support.annotation.Nullable;
 
 import com.lx.pad.util.LLog;
+import com.ngame.Utils.KeyMgrUtils;
 import com.ngds.pad.IPadCommand;
 import com.ngds.pad.Msg.LooperEventManager;
 import com.ngds.pad.PadInfo;
@@ -72,7 +73,8 @@ public class PadService extends Service {
         }
 
         @Override
-        public boolean setVibrate(int controllerID, float left, float right) throws RemoteException {
+        public boolean setVibrate(int controllerID, float left, float right) throws
+                RemoteException {
             LLog.d("PadService->IPadCommandStub->setVibrate");
             return false;
         }
@@ -90,20 +92,19 @@ public class PadService extends Service {
         }
     };
 
-    public PadService(){
-        super();
-        m_bleReceiver = new BluetoothReceiver();
-    }
 
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
+        LLog.d("PadService->onBind");
         return m_IPadCommandStub;
     }
 
     @Override
     public void onCreate() {
-//        super.onCreate();
+        if (m_bleReceiver == null) {
+            m_bleReceiver = new BluetoothReceiver();
+        }
         LLog.d("PadService->onCreate");
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("android.bluetooth.device.action.FOUND");
@@ -115,6 +116,8 @@ public class PadService extends Service {
 
         //初始化按键映射消息队列
         LooperEventManager.init();
+
+        KeyMgrUtils.sUpdateKeyEnumHashMap(getApplicationContext());
     }
 
     @Override
@@ -127,12 +130,13 @@ public class PadService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 //        return super.onStartCommand(intent, flags, startId);
+        LLog.d("PadService->onStartCommand");
 
-        if(intent != null){
+        if (intent != null) {
             String action = intent.getAction();
-            if(action != null && !action.isEmpty()){
+            if (action != null && !action.isEmpty()) {
                 String mac = intent.getStringExtra("param_mac");
-                if(action.equals("com.ngds.pad.server.PadService.Connect")){
+                if (action.equals("com.ngds.pad.server.PadService.Connect")) {
                     LLog.d("PadService->onStartCommand 已连接:" + action);
                     DeviceManager.getInstance(this).connect(mac, true);
                 } else if (action.equals("com.ngds.pad.server.PadService.Disconnect")) {
@@ -156,12 +160,12 @@ public class PadService extends Service {
                 } else if (action.equals("com.ngds.pad.server.PadService.Home")) {
                     LLog.d("PadService->onStartCommand action:" + action);
                     DeviceManager.getInstance(this).execCommand(0, null, null);
-                }else{
+                } else {
                     LLog.d("PadService->onStartCommand else action:" + action);
                 }
             }
         }
 
-        return Service.START_STICKY;
+        return Service.START_REDELIVER_INTENT;
     }
 }
