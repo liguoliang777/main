@@ -1,5 +1,6 @@
 package cn.ngame.store.gamehub.view;
 
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -62,6 +63,7 @@ public class ShowViewActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//强制竖屏
         main = getLayoutInflater().inflate(R.layout.activity_show_view, null);
         content = this;
         imgs = getIntent().getStringArrayListExtra("viewImages");
@@ -99,7 +101,7 @@ public class ShowViewActivity extends FragmentActivity {
             Looper.prepare();
             //5. 通过网络方式下载图片,并最终放在集合中
             for (int i = 0; i < imgs.size(); i++) {
-                iv = new TouchImageView(ShowViewActivity.this);
+                iv = new TouchImageView(content);
                 Bitmap bitmap = getHttpBitmap(imgs.get(i));
                 //从网上取图片
                 iv.setImageBitmap(bitmap);
@@ -108,7 +110,7 @@ public class ShowViewActivity extends FragmentActivity {
                 iv.setOnImageClickListener(new TouchImageView.OnClickListener() {
                     @Override
                     public void onClick() {
-                        ShowViewActivity.this.finish();
+                        content.finish();
                     }
                 });
             }
@@ -133,7 +135,7 @@ public class ShowViewActivity extends FragmentActivity {
                 } else {
                     pointParams.setMargins(10, 0, 0, 0);
                 }
-                ImageView iv = new ImageView(ShowViewActivity.this);
+                ImageView iv = new ImageView(content);
                 iv.setLayoutParams(pointParams);
                 pointViews[i] = iv;
                 if (i == 0) {

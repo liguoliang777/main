@@ -55,7 +55,8 @@ public class GameDetailFragment extends Fragment implements View.OnClickListener
     private Activity context;
     private LinearLayout ll_detail;
     private GameInfo gameInfo;
-    private TextView tv_summary, updateMsgTv, tv_version, tv_time, tv_company, tv_show_all, tv_show_all_2;
+    private TextView tv_summary, updateMsgTv, tv_version, tv_time, tv_company, tv_show_all,
+            tv_show_all_2;
     private LinearLayout img_container;
     private DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
     private ArrayList<String> imgs = new ArrayList<>();
@@ -71,8 +72,11 @@ public class GameDetailFragment extends Fragment implements View.OnClickListener
     private SimpleDraweeView picassoImageView;
 
     public GameDetailFragment(AutoHeightViewPager viewpager, GameInfo gameInfo) {
-        this.vp=viewpager;
-        this.gameInfo=gameInfo;
+        this.vp = viewpager;
+        this.gameInfo = gameInfo;
+    }
+
+    public GameDetailFragment() {
     }
 
     @Override
@@ -82,7 +86,8 @@ public class GameDetailFragment extends Fragment implements View.OnClickListener
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
+            Bundle savedInstanceState) {
         context = getActivity();
         View view = inflater.inflate(R.layout.fragment_game_detail, null);
         tv_summary = (TextView) view.findViewById(R.id.tv_summary);
@@ -112,7 +117,8 @@ public class GameDetailFragment extends Fragment implements View.OnClickListener
         tv_show_all.setOnClickListener(this);
         tv_show_all_2.setOnClickListener(this);
 
-        if (gameInfo != null && gameInfo.gameDetailsImages != null && gameInfo.gameDetailsImages.size() > 0) {
+        if (gameInfo != null && gameInfo.gameDetailsImages != null && gameInfo.gameDetailsImages
+                .size() > 0) {
             img_container.removeAllViews();
             imgs.clear();
             img_container.setBackgroundResource(R.color.transparent);
@@ -132,7 +138,8 @@ public class GameDetailFragment extends Fragment implements View.OnClickListener
                 }
                 picassoImageView = new SimpleDraweeView(context);
                 picassoImageView.setScaleType(ImageView.ScaleType.CENTER);
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup
+                        .LayoutParams.WRAP_CONTENT, ViewGroup
                         .LayoutParams.WRAP_CONTENT);
                 params.width = dp250;
                 params.height = dp160;
@@ -159,7 +166,7 @@ public class GameDetailFragment extends Fragment implements View.OnClickListener
             }
         }
         img_container.setOnClickListener(this);
-        vp.setObjectForPosition(view,0);
+        vp.setObjectForPosition(view, 0);
         return view;
     }
 
@@ -195,7 +202,8 @@ public class GameDetailFragment extends Fragment implements View.OnClickListener
             tv_summary.setText(gameInfo.gameDesc);
             String gameUpdateInfoStr = this.gameInfo.gameInfo;
             updateMsgTv.setText(gameUpdateInfoStr == null ? "" : gameUpdateInfoStr);//更新内容
-            updateMsgTv.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            updateMsgTv.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver
+                    .OnPreDrawListener() {
                 @Override
                 public boolean onPreDraw() {
                     //这个回调会调用多次，获取完行数记得注销监听
@@ -208,7 +216,8 @@ public class GameDetailFragment extends Fragment implements View.OnClickListener
                     return false;
                 }
             });
-            tv_summary.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            tv_summary.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver
+                    .OnPreDrawListener() {
                 @Override
                 public boolean onPreDraw() {
                     //这个回调会调用多次，获取完行数记得注销监听
@@ -226,9 +235,9 @@ public class GameDetailFragment extends Fragment implements View.OnClickListener
             tv_download_count.setText(this.gameInfo.downloadCount + "");
             tv_time.setText(df.format(new Date(this.gameInfo.updateTime)));
             String gameAgent = gameInfo.gameAgent;
-            tv_company.setText( gameAgent);
+            tv_company.setText(gameAgent);
         }
-        vp.setObjectForPosition(view,0);
+        vp.setObjectForPosition(view, 0);
     }
 
     @Override
