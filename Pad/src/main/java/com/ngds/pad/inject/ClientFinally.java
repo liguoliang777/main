@@ -118,7 +118,7 @@ public class ClientFinally implements Runnable {
 
             if (!socketConnect) {
                 //todo   开启
-                LLog.d("InjectServer映射服务_开启");
+                LLog.d("InjectServer映射服务:开启成功!");
                 socketConnect = true;
                 EventBus.getDefault().post(new Boolean(true));
             }

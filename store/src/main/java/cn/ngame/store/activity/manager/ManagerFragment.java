@@ -22,6 +22,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.lx.pad.util.LLog;
+import com.ngds.pad.inject.InjectDataMgr;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -42,6 +43,7 @@ import cn.ngame.store.core.fileload.IFileLoad;
 import cn.ngame.store.core.utils.AppInstallHelper;
 import cn.ngame.store.core.utils.Constant;
 import cn.ngame.store.core.utils.FileUtil;
+import cn.ngame.store.core.utils.ImageUtil;
 import cn.ngame.store.util.AssetsCopyer;
 import cn.ngame.store.util.MD5Utils;
 import cn.ngame.store.util.ToastUtil;
@@ -181,18 +183,6 @@ public class ManagerFragment extends Fragment {
             }
         }
     };
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void injectServerEvent(Boolean state) {
-        mInjectServerState = state;
-        if (!content.isFinishing() && content != null && mInjectServerConnectedTv != null) {
-            mInjectServerConnectedTv.setText(getString(state ? R.string
-                    .inject_server_state_on : R.string
-                    .inject_server_state_off));
-
-            mInjectServerBt.setClickable(true);
-        }
-    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -413,20 +403,24 @@ public class ManagerFragment extends Fragment {
                 Set<BluetoothDevice> devices = adapter.getBondedDevices();
                 LLog.d("devices:" + devices.size());
 
-                for (BluetoothDevice device : devices) {
-                    Method isConnectedMethod = BluetoothDevice.class.getDeclaredMethod
-                            ("isConnected", (Class[]) null);
-                    method.setAccessible(true);
-                    boolean isConnected = (boolean) isConnectedMethod.invoke(device, (Object[])
-                            null);
-                    if (isConnected && device != null) {
-                        connectDevices++;
-                        if (!content.isFinishing() && content != null) {
-                            mBlueToothConnectedTv.setText(getString(R.string.bt_connect_on) + " "
-                                    + device
-                                    .getName());
+                try {
+                    for (BluetoothDevice device : devices) {
+
+                        Method isConnectedMethod = BluetoothDevice.class.getDeclaredMethod
+                                ("isConnected", (Class[]) null);
+                        method.setAccessible(true);
+                        boolean isConnected = (boolean) isConnectedMethod.invoke(device, (Object[])
+                                null);
+                        if (isConnected && device != null) {
+                            connectDevices++;
+                            if (!content.isFinishing() && content != null) {
+                                mBlueToothConnectedTv.setText(getString(R.string.bt_connect_on) +
+                                        " " + device.getName());
+                            }
                         }
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 if (connectDevices == 0) {
                     if (!content.isFinishing() && content != null) {
@@ -446,13 +440,6 @@ public class ManagerFragment extends Fragment {
             e.printStackTrace();
         }
 
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void bluetoothEvent(String blueToothMsg) {
-        if (!content.isFinishing() && content != null && mBlueToothConnectedTv != null) {
-            mBlueToothConnectedTv.setText(blueToothMsg);
-        }
     }
 
     @Override
@@ -477,5 +464,35 @@ public class ManagerFragment extends Fragment {
 
         emptyTv.setVisibility(isCloudSelected ? cloudAppList.size() == 0 ? View.VISIBLE : View
                 .GONE : View.GONE);
+    }
+
+
+    //监听蓝牙
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void bluetoothEvent(String blueToothMsg) {
+        if (!content.isFinishing() && content != null && mBlueToothConnectedTv != null) {
+            mBlueToothConnectedTv.setText(blueToothMsg);
+        }
+    }
+
+    //映射服务
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void injectServerEvent(Boolean state) {
+        mInjectServerState = state;
+        if (!content.isFinishing() && content != null && mInjectServerConnectedTv != null) {
+            mInjectServerConnectedTv.setText(getString(state ? R.string
+                    .inject_server_state_on : R.string
+                    .inject_server_state_off));
+
+            mInjectServerBt.setClickable(true);
+        }
+
+        //映射服务开启
+        if (state) {
+            int screenWidth = ImageUtil.getScreenWidth(content);
+            int screenHeight = ImageUtil.getScreenHeight(content);
+            Log.d(TAG, "屏幕宽度：" + screenWidth + ",高度：" + screenHeight);
+            InjectDataMgr.sendScreenXY(screenWidth, screenHeight);
+        }
     }
 }

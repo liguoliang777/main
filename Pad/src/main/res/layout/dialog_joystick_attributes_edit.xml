@@ -4,14 +4,13 @@
     android:id="@+id/pnl_exit"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent"
+    android:background="@android:color/black"
     android:gravity="center"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="360.0dip"
         android:layout_height="240.0dip"
-        android:background="#96000000"
         android:orientation="horizontal">
 
         <LinearLayout

@@ -16,8 +16,6 @@ import android.support.v4.view.ViewPager;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -73,10 +71,7 @@ public class KeyboardEditActivity extends BaseFragmentActivity implements ViewDr
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);  //隐藏标题
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager
-                .LayoutParams.FLAG_FULLSCREEN);   //设置全屏
         setContentView(R.layout.activity_keyboard_config);
         m_viewPointerLocation = findViewById(R.id.view_pointer_location);
         m_ivDel = findViewById(R.id.iv_del);
@@ -206,11 +201,11 @@ public class KeyboardEditActivity extends BaseFragmentActivity implements ViewDr
             }
         } else if (vId == R.id.tv_sync) {
             //云端
-             AlertDialog.Builder progressDialog = new AlertDialog.Builder(this, R.style
+            AlertDialog.Builder progressDialog = new AlertDialog.Builder(this, R.style
                     .Theme_AppCompat_DayNight_Dialog);
             progressDialog.setMessage("   加载中...  ");
             progressDialog.setCancelable(true);
-            final  AlertDialog alertDialog = progressDialog.create();
+            final AlertDialog alertDialog = progressDialog.create();
             alertDialog.show();
             KeyMgrUtils.sUpdateKeyEnumFromHttpServer(this, DeviceManager.getInstance(this)
                     .getGamePackageName(), new IUpdateKeyState() {
@@ -354,6 +349,7 @@ public class KeyboardEditActivity extends BaseFragmentActivity implements ViewDr
         m_ivDel.setVisibility(View.GONE);
     }
 
+    //按钮点击事件
     @Override
     public void onDragImageViewClick(ImageView v) {
         LLog.d("KeyboardEditActivity->onDragImageViewClick");
@@ -376,9 +372,6 @@ public class KeyboardEditActivity extends BaseFragmentActivity implements ViewDr
                 case 20:    //KeyEnum.BACK
                 {
                     if (keyEnum != null) {
-//                        startActivity();
-//                        LLog.d("KeyboardEditActivity->onDragImageViewClick startActivity
-// KeyAttributeDialogActivity not realize");
                         startActivity(KeyAttributeDialogActivity.makeIntent(this, keyEnum));
                     }
                     break;
@@ -387,9 +380,6 @@ public class KeyboardEditActivity extends BaseFragmentActivity implements ViewDr
                 case 11:    //KeyEnum.R
                 {
                     if (keyEnum != null) {
-//                            startActivity();
-//                            LLog.d("KeyboardEditActivity->onDragImageViewClick startActivity
-// JoystickAttributeDialogActivity not realize");
                         startActivity(JoystickAttributeDialogActivity.makeIntent(this, keyEnum));
                     }
                     break;
