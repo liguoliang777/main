@@ -150,13 +150,16 @@ public class ManagerFragment extends Fragment {
                             return;
                         }
                         mInjectServerBt.setClickable(false);
-                        String saveDir = "data/local/tmp/";
-                        AssetsCopyer.copyAssets(content, "", saveDir);
+                        final String saveDir = "data/local/tmp/";
+                        try {
+                            AssetsCopyer.copyAssets(content, "", saveDir);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
 
                         new AsyncTask<Void, Void, Integer>() {
                             @Override
                             protected Integer doInBackground(Void... voids) {
-                                String saveDir = "data/local/tmp/";
                                 try {
                                     Utils.execRootCmd("chmod 777 " + saveDir + getString(R
                                             .string.inject_server_name));

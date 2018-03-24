@@ -5,9 +5,10 @@ package cn.ngame.store.util;
  */
 
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.text.TextUtils;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -17,87 +18,79 @@ import java.io.OutputStream;
 
 public class AssetsCopyer {
 
-    private static final String TAG = "AssetsCopyer";
-
-    public static void copyAssets(Context context, String assetsDir,
-                                  String saveDir) {
-
-//      Log.d(TAG, "context: " + context + ", " + assetsDir);
-        if (TextUtils.isEmpty(saveDir)) {
+    /**
+     * 复制文件
+     *
+     * @param context    上下文对象
+     * @param zipPath    源文件
+     * @param targetPath 目标文件
+     * @throws Exception
+     */
+    public static void copy(Context context, String zipPath, String targetPath) throws Exception {
+        if (TextUtils.isEmpty(zipPath) || TextUtils.isEmpty(targetPath)) {
             return;
-        } else if (saveDir.endsWith("/")) {
-            saveDir = saveDir.substring(0, saveDir.length() - 1);
         }
-
-        if (TextUtils.isEmpty(assetsDir) || assetsDir.equals("/")) {
-            assetsDir = "";
-        } else if (assetsDir.endsWith("/")) {
-            assetsDir = assetsDir.substring(0, assetsDir.length() - 1);
-        }
-
-        AssetManager assets = context.getAssets();
+        Exception exception = null;
+        File dest = new File(targetPath);
+        dest.getParentFile().mkdirs();
+        InputStream in = null;
+        OutputStream out = null;
         try {
-            String[] fileNames = assets.list(assetsDir);//只能获取到文件(夹)名,所以还得判断是文件夹还是文件
-            if (fileNames.length > 0) {// is dir
-                for (String name : fileNames) {
-                    if (!TextUtils.isEmpty(assetsDir)) {
-                        name = assetsDir + File.separator + name;//补全assets资源路径
-                    }
-//                    Log.i(, brian name= + name);
-                    String[] childNames = assets.list(name);//判断是文件还是文件夹
-                    if (!TextUtils.isEmpty(name) && childNames.length > 0) {
-                        checkFolderExists(saveDir + File.separator + name);
-                        copyAssets(context, name, saveDir);//递归, 因为资源都是带着全路径,
-                        //所以不需要在递归是设置目标文件夹的路径
-                    } else {
-                        InputStream is = assets.open(name);
-//                        FileUtil.writeFile(saveDir + File.separator + name, is);
-                        writeFile(saveDir + File.separator + name, is);
-                    }
-                }
-            } else {// is file
-                InputStream is = assets.open(assetsDir);
-                // 写入文件前, 需要提前级联创建好路径, 下面有代码贴出
-//                FileUtil.writeFile(saveDir + File.separator + assetsDir, is);
-                writeFile(saveDir + File.separator + assetsDir, is);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static boolean writeFile(String fileName, InputStream in) throws IOException
-    {
-        boolean bRet = true;
-        try {
-            OutputStream os = new FileOutputStream(fileName);
+            in = new BufferedInputStream(context.getAssets().open(zipPath));
+            out = new BufferedOutputStream(new FileOutputStream(dest));
             byte[] buffer = new byte[4112];
-            int read;
-            while((read = in.read(buffer)) != -1)
-            {
-                os.write(buffer, 0, read);
+            int length = 0;
+            while ((length = in.read(buffer)) != -1) {
+                out.write(buffer, 0, length);
             }
-            in.close();
-            in = null;
-            os.flush();
-            os.close();
-            os = null;
-//          Log.v(TAG, "copyed file: " + fileName);
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            bRet = false;
+            exception = new Exception(e);
+        } catch (IOException e) {
+            exception = new Exception(e);
+        } finally {
+            try {
+                out.close();
+                in.close();
+            } catch (IOException e) {
+                exception = new Exception(e);
+            }
         }
-        return bRet;
+        if (exception != null) {
+            throw exception;
+        }
     }
 
-    private static void checkFolderExists(String path)
-    {
-        File file = new File(path);
-        if((file.exists() && !file.isDirectory()) || !file.exists())
-        {
-            file.mkdirs();
+    /**
+     * 拷贝assets文件下文件到指定路径
+     *
+     * @param context
+     * @param assetDir  源文件/文件夹
+     * @param targetDir 目标文件夹
+     * @throws Exception
+     */
+    public static void copyAssets(Context context, String assetDir, String targetDir) throws
+            Exception {
+        if (TextUtils.isEmpty(assetDir) || TextUtils.isEmpty(targetDir)) {
+            return;
+        }
+        String separator = File.separator;
+        // 获取assets目录assetDir下一级所有文件以及文件夹
+        String[] fileNames = context.getResources().getAssets().list(assetDir);
+        // 如果是文件夹(目录),则继续递归遍历
+        if (fileNames.length > 0) {
+            File targetFile = new File(targetDir);
+            if (!targetFile.exists() && !targetFile.mkdirs()) {
+                return;
+            }
+            for (String fileName : fileNames) {
+                copyAssets(context, assetDir + separator + fileName, targetDir + separator +
+                        fileName);
+            }
+        } else { // 文件,则执行拷贝
+            if (assetDir.contains("hello")) {
+                return;
+            }
+            copy(context, assetDir, targetDir);
         }
     }
 }
