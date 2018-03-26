@@ -59,23 +59,23 @@ public class ActivityMgrUtils {
     private static int rightCurY = 0;
     private static boolean rightStickRestart = true;
 
-    private static Handler handler = new Handler(){
+    private static Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch(msg.what){
-                case 1:{
-                    if(!MouseViewMgrUtils.sMouseViewState()) {
+            switch (msg.what) {
+                case 1: {
+                    if (!MouseViewMgrUtils.sMouseViewState()) {
                         MouseViewMgrUtils.sAddMouseView(PadContext.getContextObj());
-                    }else{
+                    } else {
                         MouseViewMgrUtils.sRemoveMouseView();
                     }
                     break;
                 }
-                case 2:{
+                case 2: {
                     KeyMgrUtils.promptFrameLayoutView(PadContext.getContextObj());
                     break;
                 }
-                case 3:{
+                case 3: {
                     Message ms = new Message();
                     ms.what = MainActivity.MSG_CMD_START_KEYBOARD_EDIT_ACTIVITY;
                     MainActivity.handler.sendMessage(ms);
@@ -85,15 +85,16 @@ public class ActivityMgrUtils {
         }
     };
 
-    public static boolean sDispatchKeyEvent(int keyCode, PadKeyEvent padKeyEvent){
+    public static boolean sDispatchKeyEvent(int keyCode, PadKeyEvent padKeyEvent) {
         int x = KeyMgrUtils.sGetKeyInfoXByKeyCode(keyCode);
         int y = KeyMgrUtils.sGetKeyInfoYByKeyCode(keyCode);
         int r = KeyMgrUtils.sGetKeyInfoRByKeyCode(keyCode);
         int mode = KeyMgrUtils.sGetKeyInfoModeByKeyCode(keyCode);   //是否摇杆关联
         int flag = KeyMgrUtils.sGetKeyInfoFlagByKeyCode(keyCode);   //是否反向技能
-        LLog.d("ActivityMgrUtils->按键事件: keyCode:" + keyCode + " action:" + (padKeyEvent.getAction() == 0 ? "press " : "up ") +
+        LLog.d("ActivityMgrUtils->按键事件: keyCode:" + keyCode + " action:" + (padKeyEvent.getAction
+                () == 0 ? "press " : "up ") +
                 String.format("x:%d, y:%d, r:%d mode:%d flag:%d",
-                x, y, r, mode, flag));
+                        x, y, r, mode, flag));
 
 //        if(MouseViewMgrUtils.sMouseViewState()){
 //            x = (int)MouseViewMgrUtils.sGetMouseViewPtX();
@@ -102,41 +103,41 @@ public class ActivityMgrUtils {
 
         int action = padKeyEvent.getAction();
 
-        if(padKeyEvent.getAction() == BaseEvent.ACTION_PRESSURE){
-            if(padKeyEvent.getPressure() > 0.2f){
+        if (padKeyEvent.getAction() == BaseEvent.ACTION_PRESSURE) {
+            if (padKeyEvent.getPressure() > 0.2f) {
                 action = BaseEvent.ACTION_DOWN;
-            }else{
+            } else {
                 action = BaseEvent.ACTION_UP;
             }
         }
 
         //更新摇杆关联的状态，如果多个关联的按键来了也只关联第一个，后续的都为普通按键
-        if(action == BaseEvent.ACTION_DOWN){
-                if(mode == KeyMgrUtils.KEYMODE_LEFT_STICK && !leftStickPress){
-                    if(relateLeftStickKeyCode < 0){
-                        relateLeftStickKeyCode = keyCode;
-                    }
-                }else if(mode == KeyMgrUtils.KEYMODE_RIGHT_STICK && !rightStickPress){
-                    if(relateRightStickKeyCode < 0) {
-                        relateRightStickKeyCode = keyCode;
-                    }
+        if (action == BaseEvent.ACTION_DOWN) {
+            if (mode == KeyMgrUtils.KEYMODE_LEFT_STICK && !leftStickPress) {
+                if (relateLeftStickKeyCode < 0) {
+                    relateLeftStickKeyCode = keyCode;
                 }
+            } else if (mode == KeyMgrUtils.KEYMODE_RIGHT_STICK && !rightStickPress) {
+                if (relateRightStickKeyCode < 0) {
+                    relateRightStickKeyCode = keyCode;
+                }
+            }
 
-        }else if(action == BaseEvent.ACTION_UP){   //弹起时如果是关联按键需要修改弹起点
-            if(relateLeftStickKeyCode >= 0 && relateLeftStickKeyCode == keyCode){
+        } else if (action == BaseEvent.ACTION_UP) {   //弹起时如果是关联按键需要修改弹起点
+            if (relateLeftStickKeyCode >= 0 && relateLeftStickKeyCode == keyCode) {
                 relateLeftStickKeyCode = -1;
                 //判断是否反向技能
-                if((flag & 0x1) != 0){
+                if ((flag & 0x1) != 0) {
                     offsetLeftStickX = -offsetLeftStickX;
                     offsetLeftStickY = -offsetLeftStickY;
                 }
                 x = x + offsetLeftStickX;
                 y = y - offsetLeftStickY;
             }
-            if(relateRightStickKeyCode >= 0 && relateRightStickKeyCode == keyCode){
+            if (relateRightStickKeyCode >= 0 && relateRightStickKeyCode == keyCode) {
                 relateRightStickKeyCode = -1;
                 //判断是否反向技能
-                if((flag & 0x1) != 0){
+                if ((flag & 0x1) != 0) {
                     offsetRightStickX = -offsetRightStickX;
                     offsetRightStickY = -offsetRightStickY;
                 }
@@ -147,38 +148,38 @@ public class ActivityMgrUtils {
 
         //改变部分特定按键的状态，可以用于处理组合键问题
         boolean pressed = (padKeyEvent.getAction() == BaseEvent.ACTION_DOWN) ? true : false;
-        switch(keyCode){
-            case BaseEvent.KEYCODE_BUTTON_HELP:{
+        switch (keyCode) {
+            case BaseEvent.KEYCODE_BUTTON_HELP: {
                 btnHelpPress = pressed;
                 break;
             }
-            case BaseEvent.KEYCODE_BUTTON_START:{
+            case BaseEvent.KEYCODE_BUTTON_START: {
                 btnStartPress = pressed;
                 break;
             }
-            case BaseEvent.KEYCODE_BUTTON_L1:{
+            case BaseEvent.KEYCODE_BUTTON_L1: {
                 btnL1Press = pressed;
                 break;
             }
-            case BaseEvent.KEYCODE_BUTTON_THUMBL:{
+            case BaseEvent.KEYCODE_BUTTON_THUMBL: {
                 btnThumbL = pressed;
                 break;
             }
-            case BaseEvent.KEYCODE_BUTTON_THUMBR:{
+            case BaseEvent.KEYCODE_BUTTON_THUMBR: {
                 btnThumbR = pressed;
                 break;
             }
         }
 
-        if(btnStartPress && btnL1Press){
+        if (btnStartPress && btnL1Press) {
             btnHelpPress = true;
-        }else if((!btnStartPress || !btnL1Press) && (keyCode != BaseEvent.KEYCODE_BUTTON_HELP)){
+        } else if ((!btnStartPress || !btnL1Press) && (keyCode != BaseEvent.KEYCODE_BUTTON_HELP)) {
             btnHelpPress = false;
         }
 
         //需要即时操作的放这里
         Context context = PadContext.getContextObj();
-        if(btnHelpPress){
+        if (btnHelpPress) {
 //            Intent intent = new Intent();
 //            intent.setPackage(context.getPackageName());
 //            intent.setAction("com.ngame.padtool.app.KeyboardEditActivity");
@@ -188,18 +189,18 @@ public class ActivityMgrUtils {
 
             //处理i 键  / start+LB按下
             final KeyboardEditActivity mKeyboardEditAty = KeyboardEditActivity.getInstance();
-            if(mKeyboardEditAty == null || mKeyboardEditAty.isFinishing()) {
+            if (mKeyboardEditAty == null || mKeyboardEditAty.isFinishing()) {
                 Intent intent = new Intent(context, KeyboardEditActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
-            }else{
+            } else {
                 mKeyboardEditAty.finish();
             }
             return true;
-        }else if(btnThumbL){
+        } else if (btnThumbL) {
 //            KeyMgrUtils.promptFrameLayoutView(context);
 //            return true;
-        }else if(btnThumbR){
+        } else if (btnThumbR) {
 //            if(!MouseViewMgrUtils.sMouseViewState()) {
 //                MouseViewMgrUtils.sAddMouseView(PadContext.getContextObj());
 //            }else{
@@ -209,50 +210,52 @@ public class ActivityMgrUtils {
         }
 
         //需要延时的放这里
-        if(keyCode == BaseEvent.KEYCODE_BUTTON_THUMBR){
+        if (keyCode == BaseEvent.KEYCODE_BUTTON_THUMBR) {
             handler.removeMessages(1);
-            if(btnThumbR){
+            if (btnThumbR) {
                 handler.sendEmptyMessageDelayed(1, 3000);
             }
-        }else if(keyCode == BaseEvent.KEYCODE_BUTTON_THUMBL){
+        } else if (keyCode == BaseEvent.KEYCODE_BUTTON_THUMBL) {
             handler.removeMessages(2);
-            if(btnThumbL){
+            if (btnThumbL) {
                 handler.sendEmptyMessageDelayed(2, 3000);
             }
-        }else if(keyCode == BaseEvent.KEYCODE_BUTTON_START
+        } else if (keyCode == BaseEvent.KEYCODE_BUTTON_START
                 || keyCode == BaseEvent.KEYCODE_BUTTON_L1
-                || keyCode == BaseEvent.KEYCODE_BUTTON_HELP){
+                || keyCode == BaseEvent.KEYCODE_BUTTON_HELP) {
 //            handler.removeMessages(3);
 //            if(btnHelpPress){
 //                handler.sendEmptyMessageDelayed(3, 3000);
 //            }
         }
 
-        if(x >= 0 && y >= 0){
+        if (x >= 0 && y >= 0) {
             byte keySid = InjectDataMgr.getKeySid(keyCode);
             int nLessSide = DisplayMetricsMgr.getLessSide();
-            if(keySid > 0) {
+            if (keySid > 0) {
                 int nTmp = x;
                 x = nLessSide - y;
                 y = nTmp;
-                LLog.d("ActivityMgrUtils->按键状态 ori:" + DisplayMetricsMgr.getOri() + " nLessSide:" + nLessSide);
-                if(action == BaseEvent.ACTION_DOWN) {
+                LLog.d("ActivityMgrUtils->按键状态 ori:" + DisplayMetricsMgr.getOri() + " nLessSide:"
+                        + nLessSide);
+                if (action == BaseEvent.ACTION_DOWN) {
                     InjectDataMgr.sendKeyInfo(keySid, InjectDataMgr.ACTION_PRESS, x, y);
-                }else if(action == BaseEvent.ACTION_UP){
+                } else if (action == BaseEvent.ACTION_UP) {
                     InjectDataMgr.sendKeyInfo(keySid, InjectDataMgr.ACTION_UP, x, y);
                     //按键弹起时根据状态清除指定数据
-                    if(relateLeftStickKeyCode < 0){
+                    if (relateLeftStickKeyCode < 0) {
                         offsetLeftStickX = 0;
                         offsetLeftStickY = 0;
                     }
-                    if(relateRightStickKeyCode < 0){
+                    if (relateRightStickKeyCode < 0) {
                         offsetRightStickX = 0;
                         offsetRightStickY = 0;
                     }
-                }else if(action == BaseEvent.ACTION_PRESSURE){
+                } else if (action == BaseEvent.ACTION_PRESSURE) {
                     LLog.d("ActivityMgrUtils->sDispatchKeyEvent ACTION_PRESSURE not realize");
-                }else{
-                    LLog.d("ActivityMgrUtils->sDispatchKeyEvent ACTION else not realize, error?  action:" + action);
+                } else {
+                    LLog.d("ActivityMgrUtils->sDispatchKeyEvent ACTION else not realize, error?  " +
+                            "action:" + action);
                 }
             }
         }
@@ -261,7 +264,9 @@ public class ActivityMgrUtils {
         return true;
     }
 
-    public static boolean sDispatchMotionEvent(final int keyCode, PadMotionEvent padMotionEvent){
+    static int radius = 120;
+
+    public static boolean sDispatchMotionEvent(final int keyCode, PadMotionEvent padMotionEvent) {
         int x = KeyMgrUtils.sGetKeyInfoXByKeyCode(keyCode);
         int y = KeyMgrUtils.sGetKeyInfoYByKeyCode(keyCode);
         int r = KeyMgrUtils.sGetKeyInfoRByKeyCode(keyCode);
@@ -272,25 +277,32 @@ public class ActivityMgrUtils {
                 String.format("x:%d, y:%d, r:%d mode:%d frequency:%d step:%d",
                         x, y, r, mode, frequency, step));
 
-        if(keyCode == BaseEvent.KEYCODE_RIGHT_STICK && MouseViewMgrUtils.sMouseViewState()){
+        if (keyCode == BaseEvent.KEYCODE_RIGHT_STICK && MouseViewMgrUtils.sMouseViewState()) {
             float axisX = padMotionEvent.getX();
             float axisY = padMotionEvent.getY();
-            LLog.d("ActivityMgrUtils->sDispatchKeyEvent mouseView axisX:" + axisX + " axisY:" + axisY);
+            LLog.d("ActivityMgrUtils->sDispatchKeyEvent mouseView axisX:" + axisX + " axisY:" +
+                    axisY);
             MouseViewMgrUtils.sShowMouseView(axisX, -axisY);
             return true;
         }
 
-        if(x >= 0 && y >= 0){
+        if ((x >= 0 && y >= 0) || (relateLeftStickKeyCode >= 0 || relateRightStickKeyCode >= 0)) {
+
             int relateKeyCode = keyCode;
-            int offsetX = (int)(padMotionEvent.getX() * r);
-            int offsetY = (int)(padMotionEvent.getY() * r);
+            int offsetX = (int) (padMotionEvent.getX() * r);
+            int offsetY = (int) (padMotionEvent.getY() * r);
+            LLog.d("ActivityMgrUtils->sDispatchMotionEvent1  offsetX:" + offsetX + " offsetY:" +
+                    offsetY);
             final int nLessSide = DisplayMetricsMgr.getLessSide();
-            if(mode == KeyMgrUtils.MOTION_MODE_NONE || mode == KeyMgrUtils.MOTION_MODE_NORMAL) {    //常规摇杆模式 ----------------------------
+            if (mode == KeyMgrUtils.MOTION_MODE_NONE || mode == KeyMgrUtils.MOTION_MODE_NORMAL) {
+                //常规摇杆模式 ----------------------------
                 if (keyCode == BaseEvent.KEYCODE_LEFT_STICK) {
-                    if (relateLeftStickKeyCode >= 0) {  //大于0表示有与左摇杆的按键
+                    if (relateLeftStickKeyCode >= 0) {  //大于0  表示有与左摇杆的按键
                         x = KeyMgrUtils.sGetKeyInfoXByKeyCode(relateLeftStickKeyCode);
                         y = KeyMgrUtils.sGetKeyInfoYByKeyCode(relateLeftStickKeyCode);
                         relateKeyCode = relateLeftStickKeyCode;
+                        offsetX = (int) (padMotionEvent.getX() * radius);
+                        offsetY = (int) (padMotionEvent.getY() * radius);
                         offsetLeftStickX = offsetX;
                         offsetLeftStickY = offsetY;
                     }
@@ -299,8 +311,12 @@ public class ActivityMgrUtils {
                         x = KeyMgrUtils.sGetKeyInfoXByKeyCode(relateRightStickKeyCode);
                         y = KeyMgrUtils.sGetKeyInfoYByKeyCode(relateRightStickKeyCode);
                         relateKeyCode = relateRightStickKeyCode;
+                        offsetX = (int) (padMotionEvent.getX() * radius);
+                        offsetY = (int) (padMotionEvent.getY() * radius);
                         offsetRightStickX = offsetX;
                         offsetRightStickY = offsetY;
+                        LLog.d("ActivityMgrUtils->sDispatchMotionEvent2  offsetX:" + offsetX + " offsetY:" +
+                                offsetY);
                     }
                 }
                 byte keySid = InjectDataMgr.getKeySid(relateKeyCode);
@@ -312,96 +328,107 @@ public class ActivityMgrUtils {
                 int nTmp = newX;
                 newX = nLessSide - newY;
                 newY = nTmp;
-                LLog.d("ActivityMgrUtils->sDispatchKeyEvent ori:" + DisplayMetricsMgr.getOri() + " nLessSide:" + nLessSide);
+                LLog.d("ActivityMgrUtils->sDispatchKeyEvent ori:" + DisplayMetricsMgr.getOri() +
+                        " nLessSide:" + nLessSide);
 
                 //如果遥杆动了，但没有设置状态，则首先发一个在中心点按下的消息
-                switch(keyCode){
-                    case BaseEvent.KEYCODE_LEFT_STICK:{
-                        if(!leftStickPress && relateLeftStickKeyCode < 0){
+                switch (keyCode) {
+                    case BaseEvent.KEYCODE_LEFT_STICK: {
+                        if (!leftStickPress && relateLeftStickKeyCode < 0) {
                             int newStartX = nLessSide - y;
                             int newStartY = x;
-                            InjectDataMgr.sendKeyInfo(keySid, InjectDataMgr.ACTION_PRESS, newStartX, newStartY);
+                            InjectDataMgr.sendKeyInfo(keySid, InjectDataMgr.ACTION_PRESS,
+                                    newStartX, newStartY);
                             leftStickPress = true;
-                            try{
+                            try {
                                 Thread.sleep(25);   //延时，防止两个移动点之前时间太近被忽略
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
                         }
-                        if(leftStickPress == true && offsetX == 0 && offsetY == 0){
+                        if (leftStickPress == true && offsetX == 0 && offsetY == 0) {
                             InjectDataMgr.sendKeyInfo(keySid, InjectDataMgr.ACTION_UP, newX, newY);
                             leftStickPress = false;
                             return true;
                         }
-                        if(leftStickPress || relateLeftStickKeyCode >= 0) {
-                            InjectDataMgr.sendKeyInfo(keySid, InjectDataMgr.ACTION_MOVE, newX, newY);
+                        if (leftStickPress || relateLeftStickKeyCode >= 0) {
+                            InjectDataMgr.sendKeyInfo(keySid, InjectDataMgr.ACTION_MOVE, newX,
+                                    newY);
                         }
                         break;
                     }
-                    case BaseEvent.KEYCODE_RIGHT_STICK:{
-                        if(!rightStickPress && relateRightStickKeyCode < 0){
+                    case BaseEvent.KEYCODE_RIGHT_STICK: {
+                        if (!rightStickPress && relateRightStickKeyCode < 0) {
                             int newStartX = nLessSide - y;
                             int newStartY = x;
-                            InjectDataMgr.sendKeyInfo(keySid, InjectDataMgr.ACTION_PRESS, newStartX, newStartY);
+                            InjectDataMgr.sendKeyInfo(keySid, InjectDataMgr.ACTION_PRESS,
+                                    newStartX, newStartY);
                             rightStickPress = true;
-                            try{
+                            try {
                                 Thread.sleep(25);   //延时，防止两个移动点之前时间太近被忽略
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
                         }
-                        if(rightStickPress == true && offsetX == 0 && offsetY == 0){
+                        if (rightStickPress == true && offsetX == 0 && offsetY == 0) {
                             InjectDataMgr.sendKeyInfo(keySid, InjectDataMgr.ACTION_UP, newX, newY);
                             rightStickPress = false;
                             return true;
                         }
-                        if(rightStickPress || relateRightStickKeyCode >= 0) {
-                            InjectDataMgr.sendKeyInfo(keySid, InjectDataMgr.ACTION_MOVE, newX, newY);
+                        if (rightStickPress || relateRightStickKeyCode >= 0) {
+                            InjectDataMgr.sendKeyInfo(keySid, InjectDataMgr.ACTION_MOVE, newX,
+                                    newY);
                         }
                         break;
                     }
                 }
-            }else if(mode == KeyMgrUtils.MOTION_MODE_FINAL) {   //滑动模式，区域 ----------------------------------
+            } else if (mode == KeyMgrUtils.MOTION_MODE_FINAL) {   //滑动模式，区域
+                // ----------------------------------
                 final byte keySid = InjectDataMgr.getKeySid(keyCode);
                 final int nStartX = x;
                 final int nStartY = y;
 
-                final float scale = (float)step / (float)r;
+                final float scale = (float) step / (float) r;
                 //如果遥杆动了，但没有设置状态，则首先发一个在中心点按下的消息
-                switch(keyCode){
-                    case BaseEvent.KEYCODE_LEFT_STICK:{
+                switch (keyCode) {
+                    case BaseEvent.KEYCODE_LEFT_STICK: {
                         leftCurMaxOffsetX = offsetX;
                         leftCurMaxOffsetY = -offsetY;
-                        if(!leftStickPress){
+                        if (!leftStickPress) {
                             leftStickTask = new TimerTask() {
                                 @Override
                                 public void run() {
 
                                     //使用定时器模拟滑动模式
-                                    if(leftStickRestart){
+                                    if (leftStickRestart) {
                                         leftCurX = nStartX;
                                         leftCurY = nStartY;
                                         int nTmp = leftCurX;
                                         int newX = nLessSide - leftCurY;
                                         int newY = nTmp;
-                                        InjectDataMgr.sendKeyInfo(keySid, InjectDataMgr.ACTION_PRESS, newX, newY);
+                                        InjectDataMgr.sendKeyInfo(keySid, InjectDataMgr
+                                                .ACTION_PRESS, newX, newY);
                                         leftStickRestart = false;
-                                    }else{
-                                        int newOffsetX = (int)(leftCurMaxOffsetX * scale);
-                                        int newOffsetY = (int)(leftCurMaxOffsetY * scale);
+                                    } else {
+                                        int newOffsetX = (int) (leftCurMaxOffsetX * scale);
+                                        int newOffsetY = (int) (leftCurMaxOffsetY * scale);
                                         leftCurX += newOffsetX;
                                         leftCurY += newOffsetY;
-                                        if(newOffsetX < 0 && (leftCurX <= (nStartX + leftCurMaxOffsetX))){
+                                        if (newOffsetX < 0 && (leftCurX <= (nStartX +
+                                                leftCurMaxOffsetX))) {
                                             leftStickRestart = true;
-                                        }else if(newOffsetX > 0 && (leftCurX >= (nStartX + leftCurMaxOffsetX))){
+                                        } else if (newOffsetX > 0 && (leftCurX >= (nStartX +
+                                                leftCurMaxOffsetX))) {
                                             leftStickRestart = true;
-                                        }else if(newOffsetY < 0 && (leftCurY <= (nStartY + leftCurMaxOffsetY))){
+                                        } else if (newOffsetY < 0 && (leftCurY <= (nStartY +
+                                                leftCurMaxOffsetY))) {
                                             leftStickRestart = true;
-                                        }else if(newOffsetY > 0 && (leftCurY >= (nStartY + leftCurMaxOffsetY))){
+                                        } else if (newOffsetY > 0 && (leftCurY >= (nStartY +
+                                                leftCurMaxOffsetY))) {
                                             leftStickRestart = true;
                                         }
 
-                                        if(leftStickRestart){
+                                        if (leftStickRestart) {
                                             leftCurX = nStartX + leftCurMaxOffsetX;
                                             leftCurY = nStartY + leftCurMaxOffsetY;
                                         }
@@ -409,21 +436,23 @@ public class ActivityMgrUtils {
                                         int nTmp = leftCurX;
                                         int newX = nLessSide - leftCurY;
                                         int newY = nTmp;
-                                        if(leftStickRestart){
-                                            InjectDataMgr.sendKeyInfo(keySid, InjectDataMgr.ACTION_UP, newX, newY);
+                                        if (leftStickRestart) {
+                                            InjectDataMgr.sendKeyInfo(keySid, InjectDataMgr
+                                                    .ACTION_UP, newX, newY);
                                             leftCurX = nStartX;
                                             leftCurY = nStartY;
-                                        }else{
-                                            InjectDataMgr.sendKeyInfo(keySid, InjectDataMgr.ACTION_MOVE, newX, newY);
+                                        } else {
+                                            InjectDataMgr.sendKeyInfo(keySid, InjectDataMgr
+                                                    .ACTION_MOVE, newX, newY);
                                         }
                                     }
                                 }
                             };
                             timerLeft.schedule(leftStickTask, 0/*frequency*/, frequency);
                             leftStickPress = true;
-                        }else if(leftStickPress == true && offsetX == 0 && offsetY == 0){
+                        } else if (leftStickPress == true && offsetX == 0 && offsetY == 0) {
 //                            InjectDataMgr.sendKeyInfo(keySid, InjectDataMgr.ACTION_UP, x, y);
-                            if(leftStickTask != null){
+                            if (leftStickTask != null) {
                                 leftStickTask.cancel();
                                 leftStickTask = null;
                             }
@@ -435,44 +464,49 @@ public class ActivityMgrUtils {
                             leftStickRestart = true;
                             return true;
                         }
-                        if(leftStickPress) {
+                        if (leftStickPress) {
                             leftStickRestart = true;
                         }
                         break;
                     }
-                    case BaseEvent.KEYCODE_RIGHT_STICK:{
+                    case BaseEvent.KEYCODE_RIGHT_STICK: {
                         rightCurMaxOffsetX = offsetX;
                         rightCurMaxOffsetY = -offsetY;
-                        if(!rightStickPress){
+                        if (!rightStickPress) {
                             rightStickTask = new TimerTask() {
                                 @Override
                                 public void run() {
 
                                     //使用定时器模拟滑动模式
-                                    if(rightStickRestart){
+                                    if (rightStickRestart) {
                                         rightCurX = nStartX;
                                         rightCurY = nStartY;
                                         int nTmp = rightCurX;
                                         int newX = nLessSide - rightCurY;
                                         int newY = nTmp;
-                                        InjectDataMgr.sendKeyInfo(keySid, InjectDataMgr.ACTION_PRESS, newX, newY);
+                                        InjectDataMgr.sendKeyInfo(keySid, InjectDataMgr
+                                                .ACTION_PRESS, newX, newY);
                                         rightStickRestart = false;
-                                    }else{
-                                        int newOffsetX = (int)(rightCurMaxOffsetX * scale);
-                                        int newOffsetY = (int)(rightCurMaxOffsetY * scale);
+                                    } else {
+                                        int newOffsetX = (int) (rightCurMaxOffsetX * scale);
+                                        int newOffsetY = (int) (rightCurMaxOffsetY * scale);
                                         rightCurX += newOffsetX;
                                         rightCurY += newOffsetY;
-                                        if(newOffsetX < 0 && (rightCurX <= (nStartX + rightCurMaxOffsetX))){
+                                        if (newOffsetX < 0 && (rightCurX <= (nStartX +
+                                                rightCurMaxOffsetX))) {
                                             rightStickRestart = true;
-                                        }else if(newOffsetX > 0 && (rightCurX >= (nStartX + rightCurMaxOffsetX))){
+                                        } else if (newOffsetX > 0 && (rightCurX >= (nStartX +
+                                                rightCurMaxOffsetX))) {
                                             rightStickRestart = true;
-                                        }else if(newOffsetY < 0 && (rightCurY <= (nStartY + rightCurMaxOffsetY))){
+                                        } else if (newOffsetY < 0 && (rightCurY <= (nStartY +
+                                                rightCurMaxOffsetY))) {
                                             rightStickRestart = true;
-                                        }else if(newOffsetY > 0 && (rightCurY >= (nStartY + rightCurMaxOffsetY))){
+                                        } else if (newOffsetY > 0 && (rightCurY >= (nStartY +
+                                                rightCurMaxOffsetY))) {
                                             rightStickRestart = true;
                                         }
 
-                                        if(rightStickRestart){
+                                        if (rightStickRestart) {
                                             rightCurX = nStartX + rightCurMaxOffsetX;
                                             rightCurY = nStartY + rightCurMaxOffsetY;
                                         }
@@ -480,20 +514,22 @@ public class ActivityMgrUtils {
                                         int nTmp = rightCurX;
                                         int newX = nLessSide - rightCurY;
                                         int newY = nTmp;
-                                        if(rightStickRestart){
-                                            InjectDataMgr.sendKeyInfo(keySid, InjectDataMgr.ACTION_UP, newX, newY);
+                                        if (rightStickRestart) {
+                                            InjectDataMgr.sendKeyInfo(keySid, InjectDataMgr
+                                                    .ACTION_UP, newX, newY);
                                             rightCurX = nStartX;
                                             rightCurY = nStartY;
-                                        }else{
-                                            InjectDataMgr.sendKeyInfo(keySid, InjectDataMgr.ACTION_MOVE, newX, newY);
+                                        } else {
+                                            InjectDataMgr.sendKeyInfo(keySid, InjectDataMgr
+                                                    .ACTION_MOVE, newX, newY);
                                         }
                                     }
                                 }
                             };
                             timerRight.schedule(rightStickTask, 0/*frequency*/, frequency);
                             rightStickPress = true;
-                        }else if(rightStickPress == true && offsetX == 0 && offsetY == 0){
-                            if(rightStickTask != null){
+                        } else if (rightStickPress == true && offsetX == 0 && offsetY == 0) {
+                            if (rightStickTask != null) {
                                 rightStickTask.cancel();
                                 rightStickTask = null;
                             }
@@ -501,58 +537,61 @@ public class ActivityMgrUtils {
                             int nTmp = rightCurX;
                             int newX = nLessSide - rightCurY;
                             int newY = nTmp;
-                            InjectDataMgr.sendKeyInfo(keySid, InjectDataMgr.ACTION_UP, newX, newY);;
+                            InjectDataMgr.sendKeyInfo(keySid, InjectDataMgr.ACTION_UP, newX, newY);
+                            ;
                             rightStickRestart = true;
                             return true;
                         }
-                        if(rightStickPress) {
+                        if (rightStickPress) {
 //                            InjectDataMgr.sendKeyInfo(keySid, InjectDataMgr.ACTION_MOVE, x, y);
                             rightStickRestart = true;
                         }
                         break;
                     }
                 }
-            }else if(mode == KeyMgrUtils.MOTION_MODE_DYNAMIC){   //滑动模式，全屏 ----------------------------------------
+            } else if (mode == KeyMgrUtils.MOTION_MODE_DYNAMIC) {   //滑动模式，全屏
+                // ----------------------------------------
                 final byte keySid = InjectDataMgr.getKeySid(keyCode);
                 final int nStartX = x;
                 final int nStartY = y;
 
-                final float scale = (float)step / (float)r;
-                switch(keyCode) {
+                final float scale = (float) step / (float) r;
+                switch (keyCode) {
                     case BaseEvent.KEYCODE_LEFT_STICK: {
                         leftCurMaxOffsetX = offsetX;
                         leftCurMaxOffsetY = -offsetY;
-                        if(!leftStickPress){
+                        if (!leftStickPress) {
                             leftStickTask = new TimerTask() {
                                 @Override
                                 public void run() {
 
                                     //使用定时器模拟滑动模式
-                                    if(leftStickRestart){
+                                    if (leftStickRestart) {
                                         leftCurX = nStartX;
                                         leftCurY = nStartY;
                                         int nTmp = leftCurX;
                                         int newX = nLessSide - leftCurY;
                                         int newY = nTmp;
-                                        InjectDataMgr.sendKeyInfo(keySid, InjectDataMgr.ACTION_PRESS, newX, newY);
+                                        InjectDataMgr.sendKeyInfo(keySid, InjectDataMgr
+                                                .ACTION_PRESS, newX, newY);
                                         leftStickRestart = false;
-                                    }else{
-                                        int newOffsetX = (int)(leftCurMaxOffsetX * scale);
-                                        int newOffsetY = (int)(leftCurMaxOffsetY * scale);
+                                    } else {
+                                        int newOffsetX = (int) (leftCurMaxOffsetX * scale);
+                                        int newOffsetY = (int) (leftCurMaxOffsetY * scale);
                                         leftCurX += newOffsetX;
                                         leftCurY += newOffsetY;
 
                                         //不允许超出屏幕
-                                        if(leftCurX < 0){
+                                        if (leftCurX < 0) {
                                             leftCurX = 0;
                                         }
-                                        if(leftCurY < 0){
+                                        if (leftCurY < 0) {
                                             leftCurY = 0;
                                         }
-                                        if(leftCurX > DisplayMetricsMgr.getDisWidthMax()){
+                                        if (leftCurX > DisplayMetricsMgr.getDisWidthMax()) {
                                             leftCurX = DisplayMetricsMgr.getDisWidthMax();
                                         }
-                                        if(leftCurY > DisplayMetricsMgr.getDisHeightMin()){
+                                        if (leftCurY > DisplayMetricsMgr.getDisHeightMin()) {
                                             leftCurY = DisplayMetricsMgr.getDisHeightMin();
                                         }
 
@@ -560,21 +599,22 @@ public class ActivityMgrUtils {
                                         int newX = nLessSide - leftCurY;
                                         int newY = nTmp;
 
-                                        if(newX >= DisplayMetricsMgr.getDisHeightMin()){
+                                        if (newX >= DisplayMetricsMgr.getDisHeightMin()) {
                                             newX = DisplayMetricsMgr.getDisHeightMin() - 1;
                                         }
-                                        if(newY >= DisplayMetricsMgr.getDisWidthMax()){
+                                        if (newY >= DisplayMetricsMgr.getDisWidthMax()) {
                                             newY = DisplayMetricsMgr.getDisWidthMax() - 1;
                                         }
 
-                                        InjectDataMgr.sendKeyInfo(keySid, InjectDataMgr.ACTION_MOVE, newX, newY);
+                                        InjectDataMgr.sendKeyInfo(keySid, InjectDataMgr
+                                                .ACTION_MOVE, newX, newY);
                                     }
                                 }
                             };
                             timerLeft.schedule(leftStickTask, 0/*frequency*/, frequency);
                             leftStickPress = true;
-                        }else if(leftStickPress == true && offsetX == 0 && offsetY == 0){
-                            if(leftStickTask != null){
+                        } else if (leftStickPress == true && offsetX == 0 && offsetY == 0) {
+                            if (leftStickTask != null) {
                                 leftStickTask.cancel();
                                 leftStickTask = null;
                             }
@@ -591,40 +631,41 @@ public class ActivityMgrUtils {
 //                        }
                         break;
                     }
-                    case BaseEvent.KEYCODE_RIGHT_STICK:{
+                    case BaseEvent.KEYCODE_RIGHT_STICK: {
                         rightCurMaxOffsetX = offsetX;
                         rightCurMaxOffsetY = -offsetY;
-                        if(!rightStickPress){
+                        if (!rightStickPress) {
                             rightStickTask = new TimerTask() {
                                 @Override
                                 public void run() {
 
                                     //使用定时器模拟滑动模式
-                                    if(rightStickRestart){
+                                    if (rightStickRestart) {
                                         rightCurX = nStartX;
                                         rightCurY = nStartY;
                                         int nTmp = rightCurX;
                                         int newX = nLessSide - rightCurY;
                                         int newY = nTmp;
-                                        InjectDataMgr.sendKeyInfo(keySid, InjectDataMgr.ACTION_PRESS, newX, newY);
+                                        InjectDataMgr.sendKeyInfo(keySid, InjectDataMgr
+                                                .ACTION_PRESS, newX, newY);
                                         rightStickRestart = false;
-                                    }else{
-                                        int newOffsetX = (int)(rightCurMaxOffsetX * scale);
-                                        int newOffsetY = (int)(rightCurMaxOffsetY * scale);
+                                    } else {
+                                        int newOffsetX = (int) (rightCurMaxOffsetX * scale);
+                                        int newOffsetY = (int) (rightCurMaxOffsetY * scale);
                                         rightCurX += newOffsetX;
                                         rightCurY += newOffsetY;
 
                                         //不允许超出屏幕
-                                        if(rightCurX < 0){
+                                        if (rightCurX < 0) {
                                             rightCurX = 0;
                                         }
-                                        if(rightCurY < 0){
+                                        if (rightCurY < 0) {
                                             rightCurY = 0;
                                         }
-                                        if(rightCurX > DisplayMetricsMgr.getDisWidthMax()){
+                                        if (rightCurX > DisplayMetricsMgr.getDisWidthMax()) {
                                             rightCurX = DisplayMetricsMgr.getDisWidthMax();
                                         }
-                                        if(rightCurY > DisplayMetricsMgr.getDisHeightMin()){
+                                        if (rightCurY > DisplayMetricsMgr.getDisHeightMin()) {
                                             rightCurY = DisplayMetricsMgr.getDisHeightMin();
                                         }
 
@@ -632,21 +673,22 @@ public class ActivityMgrUtils {
                                         int newX = nLessSide - rightCurY;
                                         int newY = nTmp;
 
-                                        if(newX >= DisplayMetricsMgr.getDisHeightMin()){
+                                        if (newX >= DisplayMetricsMgr.getDisHeightMin()) {
                                             newX = DisplayMetricsMgr.getDisHeightMin() - 1;
                                         }
-                                        if(newY >= DisplayMetricsMgr.getDisWidthMax()){
+                                        if (newY >= DisplayMetricsMgr.getDisWidthMax()) {
                                             newY = DisplayMetricsMgr.getDisWidthMax() - 1;
                                         }
 
-                                        InjectDataMgr.sendKeyInfo(keySid, InjectDataMgr.ACTION_MOVE, newX, newY);
+                                        InjectDataMgr.sendKeyInfo(keySid, InjectDataMgr
+                                                .ACTION_MOVE, newX, newY);
                                     }
                                 }
                             };
                             timerRight.schedule(rightStickTask, 0/*frequency*/, frequency);
                             rightStickPress = true;
-                        }else if(rightStickPress == true && offsetX == 0 && offsetY == 0){
-                            if(rightStickTask != null){
+                        } else if (rightStickPress == true && offsetX == 0 && offsetY == 0) {
+                            if (rightStickTask != null) {
                                 rightStickTask.cancel();
                                 rightStickTask = null;
                             }
@@ -669,7 +711,7 @@ public class ActivityMgrUtils {
         return true;
     }
 
-    public static boolean sDispatchStateEvent(PadStateEvent event){
+    public static boolean sDispatchStateEvent(PadStateEvent event) {
         LLog.d("ActivityMgrUtils->手柄状态: state:" + event.getState());
         DeviceManager.getInstance(PadContext.getContextObj()).onStateEvent(event);
         return true;
