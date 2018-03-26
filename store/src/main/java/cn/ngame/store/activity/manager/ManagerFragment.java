@@ -492,10 +492,10 @@ public class ManagerFragment extends Fragment {
 
         //映射服务开启
         if (state) {
+            int navigationBarHeight = ImageUtil.getNavigationBarHeight(content);
             int screenWidth = ImageUtil.getScreenWidth(content);
             int screenHeight = ImageUtil.getScreenHeight(content);
-            Log.d(TAG, "屏幕宽度：" + screenWidth + ",高度：" + screenHeight);
-            InjectDataMgr.sendScreenXY(screenWidth, screenHeight);
+            InjectDataMgr.sendScreenXY(screenWidth, screenHeight+navigationBarHeight);
         }
     }
 }
