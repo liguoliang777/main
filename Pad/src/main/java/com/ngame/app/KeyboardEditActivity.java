@@ -162,7 +162,7 @@ public class KeyboardEditActivity extends BaseFragmentActivity implements ViewDr
         } else if (vId == R.id.iv_reset) {
             AlertDialog.Builder artDlg = new AlertDialog.Builder(this, R.style
                     .Theme_AppCompat_Light_Dialog);
-            artDlg.setMessage("即将清空所有按键设置，确认将清除当前映射配置");
+            artDlg.setMessage("即将清空所有按键设置，确认将清除当前所有映射配置");
             artDlg.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -204,7 +204,7 @@ public class KeyboardEditActivity extends BaseFragmentActivity implements ViewDr
             AlertDialog.Builder progressDialog = new AlertDialog.Builder(this, R.style
                     .Theme_AppCompat_DayNight_Dialog);
             progressDialog.setMessage("   加载中...  ");
-            progressDialog.setCancelable(true);
+            progressDialog.setCancelable(false);
             final AlertDialog alertDialog = progressDialog.create();
             alertDialog.show();
             KeyMgrUtils.sUpdateKeyEnumFromHttpServer(this, DeviceManager.getInstance(this)
@@ -511,7 +511,8 @@ public class KeyboardEditActivity extends BaseFragmentActivity implements ViewDr
     }
 
     private void showSaveDlg() {
-        AlertDialog.Builder artDlg = new AlertDialog.Builder(this, R.style.Theme_AppCompat_Dialog_MinWidth);
+        AlertDialog.Builder artDlg = new AlertDialog.Builder(this, R.style
+                .Theme_AppCompat_Light_Dialog);
         artDlg.setMessage("您修改了部分参数，是否保存？");
         artDlg.setPositiveButton("是", new DialogInterface.OnClickListener() {
             @Override
