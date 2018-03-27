@@ -511,8 +511,7 @@ public class KeyboardEditActivity extends BaseFragmentActivity implements ViewDr
     }
 
     private void showSaveDlg() {
-        AlertDialog.Builder artDlg = new AlertDialog.Builder(this, R.style
-                .Theme_AppCompat_Light_Dialog);
+        AlertDialog.Builder artDlg = new AlertDialog.Builder(this, R.style.Theme_AppCompat_Dialog_MinWidth);
         artDlg.setMessage("您修改了部分参数，是否保存？");
         artDlg.setPositiveButton("是", new DialogInterface.OnClickListener() {
             @Override

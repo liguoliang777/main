@@ -264,8 +264,6 @@ public class ActivityMgrUtils {
         return true;
     }
 
-    static int radius = 120;
-
     public static boolean sDispatchMotionEvent(final int keyCode, PadMotionEvent padMotionEvent) {
         int x = KeyMgrUtils.sGetKeyInfoXByKeyCode(keyCode);
         int y = KeyMgrUtils.sGetKeyInfoYByKeyCode(keyCode);
@@ -301,8 +299,8 @@ public class ActivityMgrUtils {
                         x = KeyMgrUtils.sGetKeyInfoXByKeyCode(relateLeftStickKeyCode);
                         y = KeyMgrUtils.sGetKeyInfoYByKeyCode(relateLeftStickKeyCode);
                         relateKeyCode = relateLeftStickKeyCode;
-                        offsetX = (int) (padMotionEvent.getX() * radius);
-                        offsetY = (int) (padMotionEvent.getY() * radius);
+                        offsetX = (int) (padMotionEvent.getX() * Constant.radius_Left_Stick);
+                        offsetY = (int) (padMotionEvent.getY() * Constant.radius_Left_Stick);
                         offsetLeftStickX = offsetX;
                         offsetLeftStickY = offsetY;
                     }
@@ -311,8 +309,8 @@ public class ActivityMgrUtils {
                         x = KeyMgrUtils.sGetKeyInfoXByKeyCode(relateRightStickKeyCode);
                         y = KeyMgrUtils.sGetKeyInfoYByKeyCode(relateRightStickKeyCode);
                         relateKeyCode = relateRightStickKeyCode;
-                        offsetX = (int) (padMotionEvent.getX() * radius);
-                        offsetY = (int) (padMotionEvent.getY() * radius);
+                        offsetX = (int) (padMotionEvent.getX() * Constant.radius_Left_Stick);
+                        offsetY = (int) (padMotionEvent.getY() * Constant.radius_Left_Stick);
                         offsetRightStickX = offsetX;
                         offsetRightStickY = offsetY;
                         LLog.d("ActivityMgrUtils->sDispatchMotionEvent2  offsetX:" + offsetX + " offsetY:" +

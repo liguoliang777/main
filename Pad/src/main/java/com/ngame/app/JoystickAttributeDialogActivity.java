@@ -50,16 +50,17 @@ public class JoystickAttributeDialogActivity extends BaseFragmentActivity {
         m_isChanged = false;
     }
 
-    public static Intent makeIntent(Context context, KeyEnum keyEnum){
+    public static Intent makeIntent(Context context, KeyEnum keyEnum) {
         Intent intent = new Intent();
         intent.setPackage(context.getPackageName());
         intent.setAction(JoystickAttributeDialogActivity.class.getName());
-        LLog.d("JoystickAttributeDialogActivity->makeIntent intent:" + JoystickAttributeDialogActivity.class.getName());
+        LLog.d("JoystickAttributeDialogActivity->makeIntent intent:" +
+                JoystickAttributeDialogActivity.class.getName());
         intent.putExtra("btn", keyEnum.name());
         return intent;
     }
 
-    protected int getLayoutId(){
+    protected int getLayoutId() {
         return R.layout.dialog_joystick_attributes_edit;
     }
 
@@ -109,16 +110,17 @@ public class JoystickAttributeDialogActivity extends BaseFragmentActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 m_isChanged = true;
-                if(checkedId == R.id.rb_final){
+                if (checkedId == R.id.rb_final) {
                     m_bFinalMode = true;
-                }else{
+                } else {
                     m_bFinalMode = false;
                 }
 
-                switch(m_mode){
+                switch (m_mode) {
                     case KeyMgrUtils.MOTION_MODE_FINAL:
-                    case KeyMgrUtils.MOTION_MODE_DYNAMIC:{
-                        m_mode = m_bFinalMode ? KeyMgrUtils.MOTION_MODE_FINAL : KeyMgrUtils.MOTION_MODE_DYNAMIC;
+                    case KeyMgrUtils.MOTION_MODE_DYNAMIC: {
+                        m_mode = m_bFinalMode ? KeyMgrUtils.MOTION_MODE_FINAL : KeyMgrUtils
+                                .MOTION_MODE_DYNAMIC;
                         break;
                     }
                 }
@@ -153,15 +155,16 @@ public class JoystickAttributeDialogActivity extends BaseFragmentActivity {
                 modeSelect(v);
             }
         });
-        m_tvTitle.setText(getString(R.string.key_map_attributes_config, new Object[]{m_keyEnum.keyName.toUpperCase()}));
+        m_tvTitle.setText(getString(R.string.key_map_attributes_config, new Object[]{m_keyEnum
+                .keyName.toUpperCase()}));
         m_mode = KeyMgrUtils.sGetKeyInfoMode(m_keyEnum);
         m_nStep = KeyMgrUtils.sGetKeyInfoStep(m_keyEnum);
         m_nFrequency = KeyMgrUtils.sGetKeyInfoFrequency(m_keyEnum);
         updateView();
     }
 
-    private void modeViewUpdate(boolean rockFixed){
-        if(rockFixed){
+    private void modeViewUpdate(boolean rockFixed) {
+        if (rockFixed) {
             m_tvRockMode.setSelected(true);
             m_tvSlideMode.setSelected(false);
             m_radioBtnFinal.setText("固定");
@@ -172,7 +175,7 @@ public class JoystickAttributeDialogActivity extends BaseFragmentActivity {
             m_viewPnlFrequencyAtt.setVisibility(View.GONE);
             m_tvFrequencyTitle.setVisibility(View.GONE);
             m_viewLine.setVisibility(View.GONE);
-        }else{
+        } else {
             m_tvRockMode.setSelected(false);
             m_tvSlideMode.setSelected(true);
             m_radioBtnFinal.setText("区域");
@@ -186,22 +189,22 @@ public class JoystickAttributeDialogActivity extends BaseFragmentActivity {
         }
     }
 
-    private void updateView(){
+    private void updateView() {
         m_tvStep.setText(String.valueOf(m_nStep));
         m_tvFrequency.setText(String.valueOf(m_nFrequency));
-        switch(m_mode){
+        switch (m_mode) {
             case KeyMgrUtils.MOTION_MODE_NONE:
-            case KeyMgrUtils.MOTION_MODE_NORMAL:{    // 显示普通按键操作信息
+            case KeyMgrUtils.MOTION_MODE_NORMAL: {    // 显示普通按键操作信息
                 modeViewUpdate(true);
                 break;
             }
-            case KeyMgrUtils.MOTION_MODE_FINAL:{    // 显示指向性技能操作信息  //区域
+            case KeyMgrUtils.MOTION_MODE_FINAL: {    // 显示指向性技能操作信息  //区域
                 modeViewUpdate(false);
                 m_radioBtnFinal.setChecked(true);
                 m_bFinalMode = true;
                 break;
             }
-            case KeyMgrUtils.MOTION_MODE_DYNAMIC:{    // 显示指向性技能操作信息  //全屏
+            case KeyMgrUtils.MOTION_MODE_DYNAMIC: {    // 显示指向性技能操作信息  //全屏
                 modeViewUpdate(false);
                 m_radioBtnDynamic.setChecked(true);
                 m_bFinalMode = false;
@@ -210,14 +213,15 @@ public class JoystickAttributeDialogActivity extends BaseFragmentActivity {
         }
     }
 
-    private void confirm(){
+    private void confirm() {
         KeyMgrUtils.sReplaceHashMapKeyEnumMode(m_keyEnum, m_mode);
         KeyMgrUtils.sReplaceHashMapKeyEnumStep(m_keyEnum, m_nStep);
         KeyMgrUtils.sReplaceHashMapKeyEnumFrequency(m_keyEnum, m_nFrequency);
     }
 
-    private void cancelDlg(){
-        AlertDialog.Builder artDlg = new AlertDialog.Builder(this);
+    private void cancelDlg() {
+        AlertDialog.Builder artDlg = new AlertDialog.Builder(this, R.style
+                .Theme_AppCompat_Light_Dialog);
         artDlg.setMessage("您修改了部分参数，是否保存？");
         artDlg.setPositiveButton("是", new DialogInterface.OnClickListener() {
             @Override
@@ -237,7 +241,7 @@ public class JoystickAttributeDialogActivity extends BaseFragmentActivity {
         artDlg.create().show();
     }
 
-    private void modeSelect(View view){
+    private void modeSelect(View view) {
         LLog.d("JoystickAttributeDialogActivity->ModeSelect");
         int id = view.getId();
         if (id == R.id.tv_rock_mode) {
