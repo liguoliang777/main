@@ -329,6 +329,11 @@ public class ManagerFragment extends Fragment {
                 if (pos == 0) {
                     //删除文件下载任务
                     mfileUnstalledInfo = alreadyLvAdapter.getItemInfo();
+                    if (mfileUnstalledInfo == null) {
+                        mItemClickQuickAction.dismiss();
+                        source.dismiss();
+                        return;
+                    }
                     //卸载
                     String packageName = mfileUnstalledInfo.applicationInfo.packageName;
 
@@ -365,6 +370,11 @@ public class ManagerFragment extends Fragment {
                 if (pos == 0) {
                     //删除文件下载任务
                     mfileUnstalledInfo = mCloudGameAdapter.getItemInfo();
+                    if (mfileUnstalledInfo == null) {
+                        mItemClickQuickActionCloud.dismiss();
+                        source.dismiss();
+                        return;
+                    }
                     //卸载
                     String packageName = mfileUnstalledInfo.applicationInfo.packageName;
 
@@ -495,7 +505,7 @@ public class ManagerFragment extends Fragment {
             int navigationBarHeight = ImageUtil.getNavigationBarHeight(content);
             int screenWidth = ImageUtil.getScreenWidth(content);
             int screenHeight = ImageUtil.getScreenHeight(content);
-            InjectDataMgr.sendScreenXY(screenWidth, screenHeight+navigationBarHeight);
+            InjectDataMgr.sendScreenXY(screenWidth, screenHeight + navigationBarHeight);
         }
     }
 }

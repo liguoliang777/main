@@ -64,7 +64,9 @@ public class CloudGameAdapter extends BaseAdapter {
     private ViewHolder holder;
     private PackageManager packageManager;
     private String TAG = CloudGameAdapter.class.getSimpleName();
-    public CloudGameAdapter(Context context, FragmentManager fm, QuickAction mItemClickQuickAction) {
+
+    public CloudGameAdapter(Context context, FragmentManager fm, QuickAction
+            mItemClickQuickAction) {
         super();
         packageManager = context.getPackageManager();
         this.mItemClickQuickAction = mItemClickQuickAction;
@@ -100,7 +102,7 @@ public class CloudGameAdapter extends BaseAdapter {
     }
 
     public PackageInfo getItemInfo() {
-        if (fileInfoList != null) {
+        if (fileInfoList != null && mPosition < fileInfoList.size()) {
             return fileInfoList.get(mPosition);
         }
         return null;
@@ -124,7 +126,8 @@ public class CloudGameAdapter extends BaseAdapter {
         final PackageInfo fileInfo = (fileInfoList == null) ? null : fileInfoList.get(position);
         if (convertView == null) {
             holder = new ViewHolder(context, fm);
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_lv_game_cloud, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_lv_game_cloud,
+                    parent, false);
             holder.img = (SimpleDraweeView) convertView.findViewById(R.id.img_1);
             holder.tv_title = (TextView) convertView.findViewById(R.id.tv_install_title);
             holder.more_bt = (ImageView) convertView.findViewById(R.id.manager_installed_more_bt);
@@ -179,9 +182,9 @@ public class CloudGameAdapter extends BaseAdapter {
             }
 
             final String appName = applicationInfo.loadLabel(packageManager).toString();
-            Drawable drawable = getIconFromPackageName(packageInfo.packageName,context);
+            Drawable drawable = getIconFromPackageName(packageInfo.packageName, context);
             tv_title.setText(null != appName ? appName : "");
-           //加载图片
+            //加载图片
      /*       Picasso.with(context)
                     .load("...")
                     .placeholder(drawable)
@@ -199,44 +202,35 @@ public class CloudGameAdapter extends BaseAdapter {
                 }
             });
         }
-        public  Drawable getIconFromPackageName(String packageName, Context context)
-        {
+
+        public Drawable getIconFromPackageName(String packageName, Context context) {
             PackageManager pm = context.getPackageManager();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
-            {
-                try
-                {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+                try {
                     PackageInfo pi = pm.getPackageInfo(packageName, 0);
-                    Context otherAppCtx = context.createPackageContext(packageName, Context.CONTEXT_IGNORE_SECURITY);
-                    int displayMetrics[] = {DisplayMetrics.DENSITY_XHIGH, DisplayMetrics.DENSITY_HIGH, DisplayMetrics.DENSITY_TV};
-                    for (int displayMetric : displayMetrics)
-                    {
-                        try
-                        {
-                            Drawable d = otherAppCtx.getResources().getDrawableForDensity(pi.applicationInfo.icon, displayMetric);
-                            if (d != null)
-                            {
+                    Context otherAppCtx = context.createPackageContext(packageName, Context
+                            .CONTEXT_IGNORE_SECURITY);
+                    int displayMetrics[] = {DisplayMetrics.DENSITY_XHIGH, DisplayMetrics
+                            .DENSITY_HIGH, DisplayMetrics.DENSITY_TV};
+                    for (int displayMetric : displayMetrics) {
+                        try {
+                            Drawable d = otherAppCtx.getResources().getDrawableForDensity(pi
+                                    .applicationInfo.icon, displayMetric);
+                            if (d != null) {
                                 return d;
                             }
-                        }
-                        catch (Resources.NotFoundException e)
-                        {
+                        } catch (Resources.NotFoundException e) {
                             continue;
                         }
                     }
-                }
-                catch (Exception e)
-                {
+                } catch (Exception e) {
                     // Handle Error here
                 }
             }
             ApplicationInfo appInfo = null;
-            try
-            {
+            try {
                 appInfo = pm.getApplicationInfo(packageName, PackageManager.GET_META_DATA);
-            }
-            catch (PackageManager.NameNotFoundException e)
-            {
+            } catch (PackageManager.NameNotFoundException e) {
                 return null;
             }
             return appInfo.loadIcon(pm);
@@ -248,7 +242,8 @@ public class CloudGameAdapter extends BaseAdapter {
                     uiHandler.post(new Runnable() {
                         @Override
                         public void run() {
-                            GameFileStatus fileStatus = fileLoad.getGameFileLoadStatus(fileInfo.getName(), fileInfo.getUrl(),
+                            GameFileStatus fileStatus = fileLoad.getGameFileLoadStatus(fileInfo
+                            .getName(), fileInfo.getUrl(),
                                     fileInfo.getPackageName(), fileInfo.getVersionCode());
                             if (fileStatus == null) {
                                 return;

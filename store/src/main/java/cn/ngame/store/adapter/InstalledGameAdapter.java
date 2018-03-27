@@ -100,7 +100,7 @@ public class InstalledGameAdapter extends BaseAdapter {
     }
 
     public PackageInfo getItemInfo() {
-        if (fileInfoList != null) {
+        if (fileInfoList != null&& mPosition < fileInfoList.size()) {
             return fileInfoList.get(mPosition);
         }
         return null;
