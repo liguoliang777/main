@@ -18,7 +18,7 @@ public class PadServiceBinder {
     static PadServiceBinder padServiceBinder = null;
     private Context context;
     private ServiceConnection serviceConnection;
-    private String pkgName = null;
+    public static String pkgName = "";
     private IPadCommand m_IPadCommand = null;
 
     private PadServiceBinder(final Context context){

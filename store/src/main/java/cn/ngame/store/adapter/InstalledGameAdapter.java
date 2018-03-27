@@ -17,6 +17,7 @@
 package cn.ngame.store.adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -35,6 +36,7 @@ import android.widget.TextView;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.ngds.pad.utils.Constant;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.HashMap;
@@ -64,7 +66,9 @@ public class InstalledGameAdapter extends BaseAdapter {
     private ViewHolder holder;
     private PackageManager packageManager;
     private String TAG = InstalledGameAdapter.class.getSimpleName();
-    public InstalledGameAdapter(Context context, FragmentManager fm, QuickAction mItemClickQuickAction) {
+
+    public InstalledGameAdapter(Context context, FragmentManager fm, QuickAction
+            mItemClickQuickAction) {
         super();
         packageManager = context.getPackageManager();
         this.mItemClickQuickAction = mItemClickQuickAction;
@@ -100,7 +104,7 @@ public class InstalledGameAdapter extends BaseAdapter {
     }
 
     public PackageInfo getItemInfo() {
-        if (fileInfoList != null&& mPosition < fileInfoList.size()) {
+        if (fileInfoList != null && mPosition < fileInfoList.size()) {
             return fileInfoList.get(mPosition);
         }
         return null;
@@ -124,7 +128,8 @@ public class InstalledGameAdapter extends BaseAdapter {
         final PackageInfo fileInfo = (fileInfoList == null) ? null : fileInfoList.get(position);
         if (convertView == null) {
             holder = new ViewHolder(context, fm);
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_lv_game_load_finished, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout
+                    .item_lv_game_load_finished, parent, false);
             holder.imgIcon = (SimpleDraweeView) convertView.findViewById(R.id.finished_img_icon);
             holder.tv_title = (TextView) convertView.findViewById(R.id.tv_install_title);
             holder.more_bt = (ImageView) convertView.findViewById(R.id.manager_installed_more_bt);
@@ -164,10 +169,14 @@ public class InstalledGameAdapter extends BaseAdapter {
         private ImageView more_bt;
         private TextView tv_title, openBt, tv_size;
         private IFileLoad fileLoad;
+        private SharedPreferences.Editor spEditor;
 
         public ViewHolder(Context context, FragmentManager fm) {
             this.fm = fm;
             fileLoad = FileLoadManager.getInstance(context);
+            spEditor = context.getApplicationContext()
+                    .getSharedPreferences(Constant.NAME_FANGLE_PAD_SP, Context
+                            .MODE_MULTI_PROCESS).edit();
             //init();
         }
 
@@ -179,9 +188,10 @@ public class InstalledGameAdapter extends BaseAdapter {
             }
 
             final String appName = applicationInfo.loadLabel(packageManager).toString();
-            Drawable drawable = getIconFromPackageName(packageInfo.packageName,context);
+            final String packageName = packageInfo.packageName;
+            Drawable drawable = getIconFromPackageName(packageName, context);
             tv_title.setText(null != appName ? appName : "");
-           //加载图片
+            //加载图片
      /*       Picasso.with(context)
                     .load("...")
                     .placeholder(drawable)
@@ -192,6 +202,11 @@ public class InstalledGameAdapter extends BaseAdapter {
             openBt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    //KeyMgrUtils.sUpdateKeyEnumHashMap(context.getApplicationContext());
+                    //修改映射按键的存储包名信息
+                    spEditor.putString(Constant.KEY_PKG_NAME_VALUE_FANGLE_PAD_SP,
+                            packageName).apply();
+
                     AppInstallHelper.openApp(context, applicationInfo.packageName);
                     HashMap<String, String> map = new HashMap<>();
                     map.put(KeyConstant.game_Name, appName);
@@ -199,38 +214,35 @@ public class InstalledGameAdapter extends BaseAdapter {
                 }
             });
         }
-        public  Drawable getIconFromPackageName(String packageName, Context context)
-        {
+
+        public Drawable getIconFromPackageName(String packageName, Context context) {
             PackageManager pm = context.getPackageManager();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
                 try {
                     PackageInfo pi = pm.getPackageInfo(packageName, 0);
-                    Context otherAppCtx = context.createPackageContext(packageName, Context.CONTEXT_IGNORE_SECURITY);
-                    int displayMetrics[] = {DisplayMetrics.DENSITY_XHIGH, DisplayMetrics.DENSITY_HIGH, DisplayMetrics.DENSITY_TV};
+                    Context otherAppCtx = context.createPackageContext(packageName, Context
+                            .CONTEXT_IGNORE_SECURITY);
+                    int displayMetrics[] = {DisplayMetrics.DENSITY_XHIGH, DisplayMetrics
+                            .DENSITY_HIGH, DisplayMetrics.DENSITY_TV};
                     for (int displayMetric : displayMetrics) {
                         try {
-                            Drawable d = otherAppCtx.getResources().getDrawableForDensity(pi.applicationInfo.icon, displayMetric);
+                            Drawable d = otherAppCtx.getResources().getDrawableForDensity(pi
+                                    .applicationInfo.icon, displayMetric);
                             if (d != null) {
                                 return d;
                             }
-                        }
-                        catch (Resources.NotFoundException e) {
+                        } catch (Resources.NotFoundException e) {
                             continue;
                         }
                     }
-                }
-                catch (Exception e)
-                {
+                } catch (Exception e) {
                     // Handle Error here
                 }
             }
             ApplicationInfo appInfo = null;
-            try
-            {
+            try {
                 appInfo = pm.getApplicationInfo(packageName, PackageManager.GET_META_DATA);
-            }
-            catch (PackageManager.NameNotFoundException e)
-            {
+            } catch (PackageManager.NameNotFoundException e) {
                 return null;
             }
             return appInfo.loadIcon(pm);
