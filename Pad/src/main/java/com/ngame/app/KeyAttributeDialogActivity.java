@@ -152,7 +152,7 @@ public class KeyAttributeDialogActivity extends BaseFragmentActivity {
 
     // 按键中的左摇杆 右摇杆 反向修改的确认界面
     private void showSaveDlg(){
-        AlertDialog.Builder artDlg = new AlertDialog.Builder(this);
+        AlertDialog.Builder artDlg = new AlertDialog.Builder(this,R.style.Theme_AppCompat_Light_Dialog);
         artDlg.setMessage("您修改了部分参数，是否保存？");
         artDlg.setPositiveButton("是", new DialogInterface.OnClickListener() {
             @Override
@@ -179,7 +179,7 @@ public class KeyAttributeDialogActivity extends BaseFragmentActivity {
     }
 
     private void showChangeDlg(){
-        AlertDialog.Builder artDlg = new AlertDialog.Builder(this);
+        AlertDialog.Builder artDlg = new AlertDialog.Builder(this,R.style.Theme_AppCompat_Light_Dialog);
         artDlg.setMessage("您修改了部分参数，是否保存？");
         artDlg.setPositiveButton("是", new DialogInterface.OnClickListener() {
             @Override
