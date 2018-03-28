@@ -187,11 +187,9 @@ public class KeyboardEditActivity extends BaseFragmentActivity implements ViewDr
             });
             artDlg.create().show();
         } else if (vId == R.id.iv_save) {
-            KeyMgrUtils.sSavePrefInfo(KeyboardEditActivity.this);
+            KeyMgrUtils.sSavePrefInfo(context);
             Toast.makeText(KeyboardEditActivity.this, "保存成功", Toast.LENGTH_LONG).show();
-            String strPkgName = getPackageName();
-            KeyMgrUtils.copyFile("/data/data/" + strPkgName + "/shared_prefs/keyboard.xml",
-                    "mnt/sdcard/data/keyboard.xml");
+            //KeyMgrUtils.copyFile("/data/data/" + getPackageName() + "/shared_prefs/keyboard.xml","mnt/sdcard/data/keyboard.xml");
             finish();
         } else if (vId == R.id.iv_cancel) {
             if (KeyMgrUtils.sIsChanged()) {
