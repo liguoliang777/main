@@ -185,16 +185,16 @@ public class ActivityMgrUtils {
 //            intent.setAction("com.ngame.padtool.app.KeyboardEditActivity");
 //            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //            context.startActivity(intent);
-
-
-            //处理i 键  / start+LB按下
-            final KeyboardEditActivity mKeyboardEditAty = KeyboardEditActivity.getInstance();
-            if (mKeyboardEditAty == null || mKeyboardEditAty.isFinishing()) {
-                Intent intent = new Intent(context, KeyboardEditActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
-            } else {
-                mKeyboardEditAty.finish();
+            if (context != null) {
+                //处理i 键  / start+LB按下
+                final KeyboardEditActivity mKeyboardEditAty = KeyboardEditActivity.getInstance();
+                if (mKeyboardEditAty == null || mKeyboardEditAty.isFinishing()) {
+                    Intent intent = new Intent(context, KeyboardEditActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                } else {
+                    mKeyboardEditAty.finish();
+                }
             }
             return true;
         } else if (btnThumbL) {
@@ -313,7 +313,8 @@ public class ActivityMgrUtils {
                         offsetY = (int) (padMotionEvent.getY() * Constant.radius_Left_Stick);
                         offsetRightStickX = offsetX;
                         offsetRightStickY = offsetY;
-                        LLog.d("ActivityMgrUtils->sDispatchMotionEvent2  offsetX:" + offsetX + " offsetY:" +
+                        LLog.d("ActivityMgrUtils->sDispatchMotionEvent2  offsetX:" + offsetX + " " +
+                                "offsetY:" +
                                 offsetY);
                     }
                 }
