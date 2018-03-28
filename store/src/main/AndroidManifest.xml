@@ -303,7 +303,7 @@
             />
         <activity
             android:name=".gamehub.view.ShowViewActivity"
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
+            android:theme="@android:style/Theme.Black.NoTitleBar"
             />
         <activity
             android:name=".gamehub.view.SearchPostActivity"

@@ -195,6 +195,8 @@ public class CloudGameAdapter extends BaseAdapter {
             openBt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    //关闭映射
+                    //PadServiceBinder.getInstance(context.getApplicationContext()).unRegisterAndUnbindService();
                     AppInstallHelper.openApp(context, applicationInfo.packageName);
                     HashMap<String, String> map = new HashMap<>();
                     map.put(KeyConstant.game_Name, appName);

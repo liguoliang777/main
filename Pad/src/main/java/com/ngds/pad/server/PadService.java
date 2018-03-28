@@ -166,6 +166,6 @@ public class PadService extends Service {
             }
         }
 
-        return Service.START_REDELIVER_INTENT;
+        return Service.START_STICKY;
     }
 }
