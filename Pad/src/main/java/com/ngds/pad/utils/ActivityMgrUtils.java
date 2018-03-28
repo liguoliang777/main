@@ -126,17 +126,26 @@ public class ActivityMgrUtils {
         } else if (action == BaseEvent.ACTION_UP) {   //弹起时如果是关联按键需要修改弹起点
             if (relateLeftStickKeyCode >= 0 && relateLeftStickKeyCode == keyCode) {
                 relateLeftStickKeyCode = -1;
+                LLog.d("ActivityMgrUtils->sDispatchKeyEvent:左遥杆: flag:" + flag + "," +
+                        "offsetLeftStickX:" + offsetLeftStickX + ",offsetLeftStickY:" +
+                        offsetLeftStickY);
                 //判断是否反向技能
                 if ((flag & 0x1) != 0) {
                     offsetLeftStickX = -offsetLeftStickX;
                     offsetLeftStickY = -offsetLeftStickY;
                 }
+                LLog.d("ActivityMgrUtils->sDispatchKeyEvent:左遥杆: flag:" + flag + "," +
+                        "offsetLeftStickX:" + offsetLeftStickX + ",offsetLeftStickY:" +
+                        offsetLeftStickY);
                 x = x + offsetLeftStickX;
                 y = y - offsetLeftStickY;
             }
             if (relateRightStickKeyCode >= 0 && relateRightStickKeyCode == keyCode) {
                 relateRightStickKeyCode = -1;
                 //判断是否反向技能
+                LLog.d("ActivityMgrUtils->sDispatchKeyEvent:右遥杆: flag:" + flag +
+                        "offsetLeftStickX:" + offsetLeftStickX + ",offsetLeftStickY:" +
+                        offsetLeftStickY);
                 if ((flag & 0x1) != 0) {
                     offsetRightStickX = -offsetRightStickX;
                     offsetRightStickY = -offsetRightStickY;
@@ -228,16 +237,19 @@ public class ActivityMgrUtils {
 //                handler.sendEmptyMessageDelayed(3, 3000);
 //            }
         }
-
+        LLog.d("ActivityMgrUtils->按键状态 ori:" + DisplayMetricsMgr.getOri() + ",ACTION:" + (action
+                == BaseEvent.ACTION_DOWN ? "ACTION_PRESS" : (action == BaseEvent.ACTION_UP ?
+                "ACTION_UP" : "ACTION_UNKNOW"))
+                + ",x:" + x + ",y:" + y);
         if (x >= 0 && y >= 0) {
+            //
             byte keySid = InjectDataMgr.getKeySid(keyCode);
             int nLessSide = DisplayMetricsMgr.getLessSide();
             if (keySid > 0) {
                 int nTmp = x;
                 x = nLessSide - y;
                 y = nTmp;
-                LLog.d("ActivityMgrUtils->按键状态 ori:" + DisplayMetricsMgr.getOri() + " nLessSide:"
-                        + nLessSide);
+
                 if (action == BaseEvent.ACTION_DOWN) {
                     InjectDataMgr.sendKeyInfo(keySid, InjectDataMgr.ACTION_PRESS, x, y);
                 } else if (action == BaseEvent.ACTION_UP) {
@@ -303,6 +315,13 @@ public class ActivityMgrUtils {
                         offsetY = (int) (padMotionEvent.getY() * Constant.radius_Left_Stick);
                         offsetLeftStickX = offsetX;
                         offsetLeftStickY = offsetY;
+
+                        //左遙杆反向技能效果   （可删）
+                        int flag = KeyMgrUtils.sGetKeyInfoFlagByKeyCode(relateLeftStickKeyCode);
+                        if ((flag & 0x1) != 0) {
+                            offsetX = -offsetX;
+                            offsetY = -offsetY;
+                        }
                     }
                 } else if (keyCode == BaseEvent.KEYCODE_RIGHT_STICK) {
                     if (relateRightStickKeyCode >= 0) {
@@ -316,6 +335,14 @@ public class ActivityMgrUtils {
                         LLog.d("ActivityMgrUtils->sDispatchMotionEvent2  offsetX:" + offsetX + " " +
                                 "offsetY:" +
                                 offsetY);
+
+
+                        //右遙杆反向技能效果   （可删）
+                        int flag = KeyMgrUtils.sGetKeyInfoFlagByKeyCode(relateRightStickKeyCode);
+                        if ((flag & 0x1) != 0) {
+                            offsetX = -offsetX;
+                            offsetY = -offsetY;
+                        }
                     }
                 }
                 byte keySid = InjectDataMgr.getKeySid(relateKeyCode);
