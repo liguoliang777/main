@@ -36,6 +36,7 @@ import android.widget.TextView;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.ngame.Utils.KeyMgrUtils;
 import com.ngds.pad.utils.Constant;
 import com.umeng.analytics.MobclickAgent;
 
@@ -202,10 +203,11 @@ public class InstalledGameAdapter extends BaseAdapter {
             openBt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //KeyMgrUtils.sUpdateKeyEnumHashMap(context.getApplicationContext());
                     //修改映射按键的存储包名信息
                     spEditor.putString(Constant.KEY_PKG_NAME_VALUE_FANGLE_PAD_SP,
                             packageName).apply();
+
+                    KeyMgrUtils.sUpdateKeyEnumHashMap(context.getApplicationContext());
 
                     AppInstallHelper.openApp(context, applicationInfo.packageName);
                     HashMap<String, String> map = new HashMap<>();
