@@ -32,6 +32,7 @@ import com.android.volley.VolleyError;
 import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
 import com.daimajia.numberprogressbar.NumberProgressBar;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.reflect.TypeToken;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
@@ -154,6 +155,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
         //........ ....................通知栏  >= 4.4(KITKAT)...................
         Intent serviceIntent = new Intent(this, FileLoadService.class);
         startService(serviceIntent);
+        Fresco.initialize(this);
         //-----------------------------------------------------------------------------
         setContentView(R.layout.activity_main_home);
         context = this;

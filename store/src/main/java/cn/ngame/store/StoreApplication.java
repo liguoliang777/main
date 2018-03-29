@@ -73,7 +73,7 @@ public class StoreApplication extends Application {
         globalExceptionHandler.init(getApplicationContext());
 
         requestQueue = Volley.newRequestQueue(getApplicationContext());
-        Fresco.initialize(this);
+        Fresco.initialize(getApplicationContext());
         checkNetState();    //获取当前网络状态
         initGloalData();
 
