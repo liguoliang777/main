@@ -289,7 +289,7 @@ public class ManagerFragment extends Fragment {
         packageInfos = packageManager.getInstalledPackages(0);
         localAppList.clear();
         cloudAppList.clear();
-        if (pkgNameListStr != null && CLOUD_MD5_SET != null) {
+        if (pkgNameListStr != null) {
             for (int i = 0; i < packageInfos.size(); i++) {
                 packageInfo = packageInfos.get(i);
                 applicationInfo = packageInfo.applicationInfo;
@@ -303,7 +303,7 @@ public class ManagerFragment extends Fragment {
                             //所有的包
                             String signPkg = MD5Utils.getMD5(content, packageName).toLowerCase()
                                     .trim();
-                            if (CLOUD_MD5_SET.contains(signPkg)) {
+                            if (CLOUD_MD5_SET != null && CLOUD_MD5_SET.contains(signPkg)) {
                                 //再云端游戏列表里面
                                 cloudAppList.add(packageInfo);
                             } else {
