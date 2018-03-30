@@ -126,12 +126,13 @@ public class GameDetailFragment extends Fragment implements View.OnClickListener
             int dp250 = CommonUtil.dip2px(context, 250);
             int dp160 = CommonUtil.dip2px(context, 160);
             int dp10 = CommonUtil.dip2px(context, 10);
-            for (int i = 0; i < imagesList.size(); i++) {
+            int size = imagesList.size();
+            for (int i = 0; i < size; i++) {
                 imgs.add(imagesList.get(i).imageLink);
 
             }
 
-            for (int i = 0; i < imagesList.size(); i++) {
+            for (int i = 0; i < size; i++) {
                 GameImage img = imagesList.get(i);
                 if (1 != img.type) {
                     continue;
@@ -143,7 +144,7 @@ public class GameDetailFragment extends Fragment implements View.OnClickListener
                         .LayoutParams.WRAP_CONTENT);
                 params.width = dp250;
                 params.height = dp160;
-                if (imagesList.size() - 1 == i) {
+                if (size - 1 == i) {
                     params.setMargins(0, 0, 0, 0);
                 } else {
                     params.setMargins(0, 0, dp10, 0);
@@ -166,7 +167,9 @@ public class GameDetailFragment extends Fragment implements View.OnClickListener
             }
         }
         img_container.setOnClickListener(this);
-        vp.setObjectForPosition(view, 0);
+        if (vp != null) {
+            vp.setObjectForPosition(view, 0);
+        }
         return view;
     }
 

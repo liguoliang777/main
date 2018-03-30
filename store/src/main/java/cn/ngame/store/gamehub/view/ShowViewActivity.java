@@ -59,6 +59,7 @@ public class ShowViewActivity extends FragmentActivity {
     private TouchImageView iv;
     private ShowViewActivity content;
     protected static final String TAG = "ShowViewActivity";
+    private Bitmap bitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,11 +101,11 @@ public class ShowViewActivity extends FragmentActivity {
 
             Looper.prepare();
             //5. 通过网络方式下载图片,并最终放在集合中
-            for (int i = 0; i < imgs.size(); i++) {
+            int size = imgs.size();
+            for (int i = 0; i < size; i++) {
                 iv = new TouchImageView(content);
-                Bitmap bitmap = getHttpBitmap(imgs.get(i));
                 //从网上取图片
-                iv.setImageBitmap(bitmap);
+                iv.setImageBitmap(getHttpBitmap(imgs.get(i)));
                 imgViews.add(iv);
 
                 iv.setOnImageClickListener(new TouchImageView.OnClickListener() {
@@ -123,19 +124,21 @@ public class ShowViewActivity extends FragmentActivity {
             if (content == null && content.isFinishing()) {
                 return;
             }
+            ImageView iv;
             //10. 根据图片集合的长度决定创建多少小圆点ImageView
-            for (int i = 0; i < imgViews.size(); i++) {
+            LinearLayout.LayoutParams pointParams = new LinearLayout.LayoutParams(
+                    ViewPager.LayoutParams.WRAP_CONTENT, ViewPager.LayoutParams.WRAP_CONTENT);
+            int size1 = imgViews.size();
+            for (int i = 0; i < size1; i++) {
 //                imageView = new ImageView(ShowViewActivity.this);
 //                imageView.setLayoutParams(new LayoutParams(15, 15));
 //                imageView.setPadding(20, 0, 20, 0);
-                LinearLayout.LayoutParams pointParams = new LinearLayout.LayoutParams(
-                        ViewPager.LayoutParams.WRAP_CONTENT, ViewPager.LayoutParams.WRAP_CONTENT);
                 if (i < 1) {
                     pointParams.setMargins(0, 0, 0, 0);
                 } else {
                     pointParams.setMargins(10, 0, 0, 0);
                 }
-                ImageView iv = new ImageView(content);
+                iv = new ImageView(content);
                 iv.setLayoutParams(pointParams);
                 pointViews[i] = iv;
                 if (i == 0) {

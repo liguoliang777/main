@@ -55,6 +55,9 @@ public class GameReadFragment extends Fragment {
     private List<GameStrategy> gameStrategyList = new ArrayList<>();
     private GameStrategy gameStrategy;
 
+    public GameReadFragment() {
+    }
+
     public GameReadFragment(AutoHeightViewPager vp, GameInfo gameInfo) {
         this.gameInfo = gameInfo;
         this.vp = vp;
