@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +34,7 @@ import java.util.List;
 import java.util.Set;
 
 import cn.ngame.store.R;
+import cn.ngame.store.activity.main.MainHomeActivity;
 import cn.ngame.store.adapter.CloudGameAdapter;
 import cn.ngame.store.adapter.InstalledGameAdapter;
 import cn.ngame.store.core.fileload.FileLoadInfo;
@@ -63,7 +63,7 @@ public class ManagerFragment extends Fragment {
     protected QuickAction mItemClickQuickAction;
     private IFileLoad fileLoad;
     private InstalledGameAdapter alreadyLvAdapter;
-    private FragmentActivity content;
+    private MainHomeActivity content;
     private boolean mHidden = false;
     private PackageInfo mfileUnstalledInfo;
     private PackageManager packageManager;
@@ -190,7 +190,7 @@ public class ManagerFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        content = getActivity();
+        content = (MainHomeActivity)getActivity();
         packageManager = content.getPackageManager();
         initPop();
         initCloudPop();
