@@ -136,21 +136,29 @@ public class PadService extends Service {
             String action = intent.getAction();
             if (action != null && !action.isEmpty()) {
                 String mac = intent.getStringExtra("param_mac");
+                DeviceManager instance = DeviceManager.getInstance(this);
                 if (action.equals("com.ngds.pad.server.PadService.Connect")) {
-                    LLog.d("PadService->onStartCommand 已连接:" + action);
-                    DeviceManager.getInstance(this).connect(mac, true);
+                    String deviceName = intent.getStringExtra("device_name");
+                    if (deviceName != null) {
+                        if (deviceName.startsWith("CJ007")) {
+                            instance.connectCJ007(mac);
+                        } else {
+                            instance.connect(mac, true);
+                        }
+                    }
+                    LLog.d("PadService->onStartCommand 已连接! 蓝牙名字:" + deviceName + ",地址:" + mac);
                 } else if (action.equals("com.ngds.pad.server.PadService.Disconnect")) {
                     LLog.d("PadService->onStartCommand 连接断开:" + action);
-                    DeviceManager.getInstance(this).disConnect(mac);
+                    instance.disConnect(mac);
                 } else if (action.equals("com.ngds.pad.server.PadService.Connect.Normal")) {
                     LLog.d("PadService->onStartCommand 连接Normal：" + action);
-                    DeviceManager.getInstance(this).connectNormal(mac);
+                    instance.connectNormal(mac);
                 } else if (action.equals("com.ngds.pad.server.PadService.Connect.BLE")) {
                     LLog.d("PadService->onStartCommand action:连接..BLE:" + action);
-                    DeviceManager.getInstance(this).connectBle(mac);
+                    instance.connectBle(mac);
                 } else if (action.equals("com.ngds.pad.server.PadService.SppOff")) {
                     LLog.d("PadService->onStartCommand 连接Spp...OFF" + action);
-                    DeviceManager.getInstance(this).execCommand(0, null, null);
+                    instance.execCommand(0, null, null);
                 } else if (action.equals("com.ngds.pad.server.action.USB_DEVICE_CONNECTED")) {
                     LLog.d("PadService->onStartCommand action:" + action);
                     //USB的连接方式，暂时不处理
@@ -159,7 +167,7 @@ public class PadService extends Service {
                     //USB的连接方式，暂时不处理
                 } else if (action.equals("com.ngds.pad.server.PadService.Home")) {
                     LLog.d("PadService->onStartCommand action:" + action);
-                    DeviceManager.getInstance(this).execCommand(0, null, null);
+                    instance.execCommand(0, null, null);
                 } else {
                     LLog.d("PadService->onStartCommand else action:" + action);
                 }

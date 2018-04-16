@@ -29,6 +29,7 @@ public class BluetoothReceiver extends BroadcastReceiver {
         logStr = "手柄 " + device.getName() + " " + device.getAddress();
         Intent intentService = new Intent(context, PadService.class);
         intentService.putExtra("param_mac", device.getAddress());
+        intentService.putExtra("device_name", device.getName());
         if ("android.bluetooth.device.action.FOUND".equals(action)) {
             logStr = logStr + " 发现";
         } else if ("android.bluetooth.device.action.ACL_CONNECTED".equals(action)) {

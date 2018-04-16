@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.lx.pad.util.LLog;
 import com.ngds.pad.inject.InjectDataMgr;
+import com.ngds.pad.server.PadService;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -268,9 +269,9 @@ public class ManagerFragment extends Fragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
+        //获取蓝牙设备
+        getConnectBlueTooth();
         if (!hidden) {
-            //获取蓝牙设备
-            getConnectBlueTooth();
             if (CLOUD_MD5_SET == null) {
                 //没读签名
                 CLOUD_MD5_SET = content.getSharedPreferences(Constant
@@ -427,8 +428,15 @@ public class ManagerFragment extends Fragment {
                         if (isConnected && device != null) {
                             connectDevices++;
                             if (!content.isFinishing() && content != null) {
+                                String deviceName = device.getName();
                                 mBlueToothConnectedTv.setText(getString(R.string.bt_connect_on) +
-                                        " " + device.getName());
+                                        " " + deviceName);
+
+                                Intent intentService = new Intent(content, PadService.class);
+                                intentService.putExtra("param_mac", device.getAddress());
+                                intentService.putExtra("device_name", deviceName);
+                                intentService.setAction("com.ngds.pad.server.PadService.Connect");
+                                content.startService(intentService);
                             }
                         }
                     }
