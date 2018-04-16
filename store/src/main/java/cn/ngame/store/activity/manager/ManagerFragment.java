@@ -191,7 +191,7 @@ public class ManagerFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        content = (MainHomeActivity)getActivity();
+        content = (MainHomeActivity) getActivity();
         packageManager = content.getPackageManager();
         initPop();
         initCloudPop();
@@ -432,6 +432,7 @@ public class ManagerFragment extends Fragment {
                                 mBlueToothConnectedTv.setText(getString(R.string.bt_connect_on) +
                                         " " + deviceName);
 
+                                LLog.d( "键鼠 启动服务");
                                 Intent intentService = new Intent(content, PadService.class);
                                 intentService.putExtra("param_mac", device.getAddress());
                                 intentService.putExtra("device_name", deviceName);

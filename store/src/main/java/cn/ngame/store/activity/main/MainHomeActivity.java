@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -40,9 +41,14 @@ import com.jzt.hol.android.jkda.sdk.bean.gamehub.AppCarouselBean;
 import com.jzt.hol.android.jkda.sdk.bean.gamehub.BrowseHistoryBodyBean;
 import com.jzt.hol.android.jkda.sdk.rx.ObserverWrapper;
 import com.jzt.hol.android.jkda.sdk.services.gamehub.AppCarouselClient;
+import com.lx.pad.util.LLog;
 import com.ngame.Utils.KeyMgrUtils;
 import com.ngds.pad.PadServiceBinder;
 import com.umeng.analytics.MobclickAgent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -99,6 +105,7 @@ import cn.ngame.store.user.view.LoginActivity;
 import cn.ngame.store.user.view.UserCenterActivity;
 import cn.ngame.store.util.ToastUtil;
 import cn.ngame.store.view.DialogModel;
+import cn.ngame.store.view.FloatView;
 
 
 /**
@@ -276,6 +283,8 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
 
         //开启映射服务
         startPadService();
+
+        EventBus.getDefault().register(this);
     }
 
     private void startPadService() {
@@ -793,6 +802,8 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
         if (fileLoad != null) {
             FileLoadManager.getInstance(this).destroy();
         }
+
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -1121,4 +1132,49 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
     }
 
 
+    //监听蓝牙
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void toShowFloatView(Integer toShow) {
+        LLog.d("键鼠 显示悬浮框:" + toShow);
+        showFV();
+    }
+
+    /**
+     * 显示悬浮窗
+     */
+    public void showFV() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (Settings.canDrawOverlays(getApplication())) {
+                LLog.d("键鼠 显示悬浮框1");
+                showFloatView();
+            } else {
+                LLog.d("键鼠 显示悬浮框2");
+                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse
+                        ("package:" + getPackageName()));
+                startActivity(intent);
+            }
+        } else {
+            showFloatView();
+        }
+    }
+
+    /**
+     * 显示悬浮窗
+     */
+    private void showFloatView() {
+        FloatView.showFloatView(context, R.layout.layout_float_view);
+        FloatView.setOnClickListener(new FloatView.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToastUtil.show(getBaseContext(),"別点我！");
+            }
+        });
+    }
+
+    /**
+     * 隐藏悬浮窗
+     */
+    public void hideFloatView() {
+        FloatView.hideFloatView();
+    }
 }

@@ -20,6 +20,8 @@ import com.ngds.pad.Msg.LooperEventManager;
 import com.ngds.pad.PadInfo;
 import com.ngds.pad.PadStateEvent;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -40,7 +42,7 @@ import static com.inuker.bluetooth.library.Code.REQUEST_TIMEDOUT;
 
 public class DeviceManager {
     private static DeviceManager m_deviceManager = null;
-    private Context m_context = null;
+    private Context mContext = null;
     private ConcurrentHashMap<String, BaseDevice> m_baseDeviceMap = new ConcurrentHashMap<String,
             BaseDevice>();
     private static final BluetoothAdapter m_bleAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -52,7 +54,7 @@ public class DeviceManager {
 
     private DeviceManager(Context context) {
         super();
-        m_context = context;
+        mContext = context;
         initDeviceConnect();
     }
 
@@ -87,7 +89,7 @@ public class DeviceManager {
     private String getApplicationInfo(String pkgName) {
         String result = null;
         try {
-            result = (String) m_context.getPackageManager().getApplicationLabel(m_context
+            result = (String) mContext.getPackageManager().getApplicationLabel(mContext
                     .getPackageManager().getApplicationInfo(pkgName, 0));
         } catch (Exception e) {
             e.printStackTrace();
@@ -113,7 +115,7 @@ public class DeviceManager {
                 if (device instanceof Device) {
                     m_baseDeviceMap.remove(mac);
                 }
-                m_baseDeviceMap.put(mac, new DeviceBle(m_context, mac));
+                m_baseDeviceMap.put(mac, new DeviceBle(mContext, mac));
             } else if (device.getState() != BaseDevice.STATE_CONNECTING) {
                 if (device.getState() == BaseDevice.STATE_CONNECTED) {
                     LLog.d("DeviceManager->connectBle state connected return!");
@@ -145,7 +147,7 @@ public class DeviceManager {
                 if (device instanceof DeviceBle) {
                     m_baseDeviceMap.remove(mac);
                 }
-                m_baseDeviceMap.put(mac, new Device(m_context, mac));
+                m_baseDeviceMap.put(mac, new Device(mContext, mac));
             } else if (device.getState() != BaseDevice.STATE_CONNECTING) {
                 if (device.getState() == BaseDevice.STATE_CONNECTED) {
                     return;
@@ -197,7 +199,7 @@ public class DeviceManager {
 
     private void switchDevice(String mac) {
         LLog.d("DeviceManager->switchDevice mac:" + mac);
-        if (Build.VERSION.SDK_INT < 18 || !this.m_context.getPackageManager().hasSystemFeature
+        if (Build.VERSION.SDK_INT < 18 || !this.mContext.getPackageManager().hasSystemFeature
                 ("android.hardware.bluetooth_le")) {
             connectNormal(mac);
         } else if (!m_bleAdapter.getRemoteDevice(mac).fetchUuidsWithSdp()) {
@@ -433,9 +435,9 @@ public class DeviceManager {
     public boolean isAppOnForeground() {
         ActivityManager.RunningAppProcessInfo appProcess = null;
         boolean result = false;
-        ActivityManager activityManager = (ActivityManager) m_context.getSystemService(Context
+        ActivityManager activityManager = (ActivityManager) mContext.getSystemService(Context
                 .ACTIVITY_SERVICE);
-        String pkgName = m_context.getPackageName();
+        String pkgName = mContext.getPackageName();
         List<ActivityManager.RunningAppProcessInfo> appProcesses = activityManager
                 .getRunningAppProcesses();
         if (appProcesses != null) {
@@ -459,7 +461,7 @@ public class DeviceManager {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                m_context.stopService(new Intent(m_context, PadService.class));
+                mContext.stopService(new Intent(mContext, PadService.class));
             }
         }, 3000);
     }
@@ -487,7 +489,7 @@ public class DeviceManager {
 
             @Override
             public void onResponse(int code, BleGattProfile profile) {
-                LLog.d("键鼠 蓝牙连接返回的code:" + code);
+                LLog.d("键鼠 连接返回:" + code);
                 if (code == REQUEST_SUCCESS) {
                     //连接成功
                     mClient.write(mMacAddress2Connect, serviceUUID
@@ -495,10 +497,10 @@ public class DeviceManager {
                                 @Override
                                 public void onResponse(int code) {
                                     if (0 == code) {
-                                        LLog.d("键鼠 连接成功,读取数据,返回code:" + code);
-
+                                        LLog.d("键鼠 连接成功-----yes------读取数据 code:" + code);
+                                        EventBus.getDefault().post(new Integer(0));
                                     } else {
-
+                                        EventBus.getDefault().post(new Integer(-1));
                                     }
                                 }
                             });
@@ -532,4 +534,5 @@ public class DeviceManager {
         });
 
     }
+
 }
