@@ -141,7 +141,7 @@ public class PadService extends Service {
                     String deviceName = intent.getStringExtra("device_name");
                     if (deviceName != null) {
                         if (deviceName.startsWith("CJ007")) {
-                            instance.connectCJ007(mac);
+                            instance.connect_CJ007(mac);
                         } else {
                             instance.connect(mac, true);
                         }

@@ -470,7 +470,7 @@ public class DeviceManager {
             ("0000ffe2-0000-1000-8000-00805f9b34fb");
     private byte[] bytesReadData = {(byte) 0xffe1};
 
-    public void connectCJ007(final String mMacAddress2Connect) {
+    public void connect_CJ007(final String mMacAddress2Connect) {
         LLog.d("键鼠 准备连接!" + mMacAddress2Connect);
         if (mClient == null) {
             mClient = ClientManager.getClient();
