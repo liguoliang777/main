@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.view.InputDevice;
+import android.widget.Toast;
 
 import com.inuker.bluetooth.library.BluetoothClient;
 import com.inuker.bluetooth.library.connect.options.BleConnectOptions;
@@ -15,12 +16,12 @@ import com.inuker.bluetooth.library.connect.response.BleNotifyResponse;
 import com.inuker.bluetooth.library.connect.response.BleWriteResponse;
 import com.inuker.bluetooth.library.model.BleGattProfile;
 import com.lx.pad.util.LLog;
+import com.ngame.cj007.Cj007EditActivity;
 import com.ngds.pad.BaseEvent;
 import com.ngds.pad.Msg.LooperEventManager;
 import com.ngds.pad.PadInfo;
 import com.ngds.pad.PadStateEvent;
-
-import org.greenrobot.eventbus.EventBus;
+import com.ngds.pad.utils.Utils;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -471,6 +472,8 @@ public class DeviceManager {
     private UUID nitifyOrReadCharacterUUID = UUID.fromString
             ("0000ffe2-0000-1000-8000-00805f9b34fb");
     private byte[] bytesReadData = {(byte) 0xffe1};
+    private byte TAG_PRESS = -1;
+    ;
 
     public void connect_CJ007(final String mMacAddress2Connect) {
         LLog.d("键鼠 准备连接!" + mMacAddress2Connect);
@@ -496,24 +499,44 @@ public class DeviceManager {
                             , characterUUID, bytesReadData, new BleWriteResponse() {
                                 @Override
                                 public void onResponse(int code) {
+
                                     if (0 == code) {
-                                        LLog.d("键鼠 连接成功-----yes------读取数据 code:" + code);
-                                        EventBus.getDefault().post(new Integer(0));
+                                        Toast.makeText(mContext, "键鼠连接成功!", Toast.LENGTH_SHORT);
                                     } else {
-                                        EventBus.getDefault().post(new Integer(-1));
+
                                     }
                                 }
                             });
-                    mClient.notify(mMacAddress2Connect, serviceUUID, nitifyOrReadCharacterUUID, new
-                            BleNotifyResponse
+                    mClient.notify(mMacAddress2Connect, serviceUUID, nitifyOrReadCharacterUUID, new BleNotifyResponse
                                     () {
                                 @Override
-                                public void onNotify(UUID service, UUID character, byte[] value) {
-                                    //todo 开始解析
-                                    int length = value.length;
-                                    for (int i = 0; i < length; i++) {
-                                        LLog.d("键鼠数据:" + value[i]);
+                                public void onNotify(UUID service, UUID character, byte[] CJ007_BYTE) {
+                                    // todo  ======================  开始解析键鼠发来的数据 ===============================
+                                    int length = CJ007_BYTE.length;
+
+                                    LLog.d("键鼠数据:" + Utils.hexToStr(CJ007_BYTE));
+
+                                    //===================   解析第 10 11 12 13 14 15 16 (按键消息)  =====================
+                                    // 单击时:数据是出现在第10位 ( 抬起数据: 0 )   有按键关联: 会出现在其他位,但是按键的值是不变的
+                                    byte cj007Byte_10 = CJ007_BYTE[10];
+                                    if (cj007Byte_10 != 0) {
+                                        TAG_PRESS = cj007Byte_10;
+                                    } else {
+                                        if (TAG_PRESS == 58) {
+                                            LLog.d(" 键鼠数据 按 F1");
+                                            final Cj007EditActivity cj007Activity = Cj007EditActivity.getInstance();
+                                            if (cj007Activity == null || cj007Activity.isFinishing()) {
+                                                Intent intent = new Intent(mContext, Cj007EditActivity.class);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                mContext.startActivity(intent);
+                                            } else {
+                                                cj007Activity.finish();
+                                            }
+
+                                        }
                                     }
+
+
                                 }
 
                                 @Override

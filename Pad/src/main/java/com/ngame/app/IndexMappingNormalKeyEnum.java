@@ -7,7 +7,7 @@ import com.ngame.DabaBase.KeyEnum;
  */
 
 public class IndexMappingNormalKeyEnum {
-    static int[] m_keyEnumAry = new int[KeyEnum.values().length];
+    public static int[] m_keyEnumAry = new int[KeyEnum.values().length];
 
     static
     {

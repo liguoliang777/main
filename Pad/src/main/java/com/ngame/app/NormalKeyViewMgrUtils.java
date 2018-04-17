@@ -19,15 +19,15 @@ import java.util.List;
  */
 
 public class NormalKeyViewMgrUtils extends BaseKeyViewFragment implements View.OnTouchListener {
-    ImageView m_ivKeyA;
-    ImageView m_ivKeyB;
-    ImageView m_ivKeyX;
-    ImageView m_ivKeyY;
-    ImageView m_ivKeyUp;
-    ImageView m_ivKeyDown;
-    ImageView m_ivKeyLeft;
-    ImageView m_ivKeyRight;
-    List<KeyEnum> m_list = new ArrayList<KeyEnum>();
+    public ImageView m_ivKeyA;
+    public ImageView m_ivKeyB;
+    public ImageView m_ivKeyX;
+    public ImageView m_ivKeyY;
+    public ImageView m_ivKeyUp;
+    public ImageView m_ivKeyDown;
+    public ImageView m_ivKeyLeft;
+    public ImageView m_ivKeyRight;
+    public List<KeyEnum> m_list = new ArrayList<KeyEnum>();
 
 
     public NormalKeyViewMgrUtils() {

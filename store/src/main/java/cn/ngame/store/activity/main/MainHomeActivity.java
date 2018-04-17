@@ -46,10 +46,6 @@ import com.ngame.Utils.KeyMgrUtils;
 import com.ngds.pad.PadServiceBinder;
 import com.umeng.analytics.MobclickAgent;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -283,8 +279,6 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
 
         //开启映射服务
         startPadService();
-
-        EventBus.getDefault().register(this);
     }
 
     private void startPadService() {
@@ -802,13 +796,10 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
         if (fileLoad != null) {
             FileLoadManager.getInstance(this).destroy();
         }
-
-        EventBus.getDefault().unregister(this);
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             exitBy2Click();
         }
@@ -1131,14 +1122,6 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
         }, 0, 500);
     }
 
-
-    //监听蓝牙
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void toShowFloatView(Integer toShow) {
-        LLog.d("键鼠 显示悬浮框:" + toShow);
-        showFV();
-    }
-
     /**
      * 显示悬浮窗
      */
@@ -1146,7 +1129,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
         if (Build.VERSION.SDK_INT >= 23) {
             if (Settings.canDrawOverlays(getApplication())) {
                 LLog.d("键鼠 显示悬浮框1");
-                showFloatView();
+                FloatView.showFloatView(context, R.layout.layout_float_view);
             } else {
                 LLog.d("键鼠 显示悬浮框2");
                 Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse
@@ -1154,27 +1137,8 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                 startActivity(intent);
             }
         } else {
-            showFloatView();
+            FloatView.showFloatView(context, R.layout.layout_float_view);
         }
     }
 
-    /**
-     * 显示悬浮窗
-     */
-    private void showFloatView() {
-        FloatView.showFloatView(context, R.layout.layout_float_view);
-        FloatView.setOnClickListener(new FloatView.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ToastUtil.show(getBaseContext(),"別点我！");
-            }
-        });
-    }
-
-    /**
-     * 隐藏悬浮窗
-     */
-    public void hideFloatView() {
-        FloatView.hideFloatView();
-    }
 }

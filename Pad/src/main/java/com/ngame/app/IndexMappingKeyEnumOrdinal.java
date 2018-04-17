@@ -8,7 +8,7 @@ import com.ngame.DabaBase.KeyEnum;
  */
 
 public final class IndexMappingKeyEnumOrdinal {
-    static final int[] keyIndexAry = new int[KeyEnum.values().length];
+    public static final int[] keyIndexAry = new int[KeyEnum.values().length];
     static{
         keyIndexAry[KeyEnum.Q.ordinal()] = 1;
         keyIndexAry[KeyEnum.A.ordinal()] = 2;
