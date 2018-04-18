@@ -17,11 +17,12 @@ import com.inuker.bluetooth.library.connect.response.BleWriteResponse;
 import com.inuker.bluetooth.library.model.BleGattProfile;
 import com.lx.pad.util.LLog;
 import com.ngame.cj007.Cj007EditActivity;
+import com.ngame.cj007.Cj007KeyCode;
 import com.ngds.pad.BaseEvent;
 import com.ngds.pad.Msg.LooperEventManager;
 import com.ngds.pad.PadInfo;
+import com.ngds.pad.PadKeyEvent;
 import com.ngds.pad.PadStateEvent;
-import com.ngds.pad.utils.Utils;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -469,7 +470,8 @@ public class DeviceManager {
 
     private UUID serviceUUID = UUID.fromString("00000000-0000-1000-8000-0000805f9b34fb");
     private UUID characterUUID = UUID.fromString("0000ffe1-0000-1000-8000-00805f9b34fb");
-    private UUID nitifyOrReadCharacterUUID = UUID.fromString("0000ffe2-0000-1000-8000-00805f9b34fb");
+    private UUID nitifyOrReadCharacterUUID = UUID.fromString
+            ("0000ffe2-0000-1000-8000-00805f9b34fb");
     private byte[] bytesReadData = {(byte) 0xffe1};
     private byte TAG_PRESS = -1;
     ;
@@ -478,8 +480,8 @@ public class DeviceManager {
         LLog.d("键鼠 准备连接!" + mMacAddress2Connect);
         if (mClient == null) {
             mClient = ClientManager.getClient();
-            mClient.disconnect(mMacAddress2Connect);
         }
+        mClient.disconnect(mMacAddress2Connect);
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         BleConnectOptions options = new BleConnectOptions.Builder()
                 .setConnectRetry(3)   // 连接如果失败重试5次
@@ -505,32 +507,53 @@ public class DeviceManager {
                                     }
                                 }
                             });
-                    mClient.notify(mMacAddress2Connect, serviceUUID, nitifyOrReadCharacterUUID, new BleNotifyResponse
+                    mClient.notify(mMacAddress2Connect, serviceUUID, nitifyOrReadCharacterUUID,
+                            new BleNotifyResponse
                                     () {
                                 @Override
-                                public void onNotify(UUID service, UUID character, byte[] CJ007_BYTE) {
-                                    // todo  ======================  开始解析键鼠发来的数据 ===============================
+                                public void onNotify(UUID service, UUID character, byte[]
+                                        CJ007_BYTE) {
+                                    // todo  ======================  开始解析键鼠发来的数据
+                                    // ===============================
                                     int length = CJ007_BYTE.length;
 
-                                    LLog.d("键鼠数据:" + Utils.hexToStr(CJ007_BYTE));
 
-                                    //===================   解析第 10 11 12 13 14 15 16 (按键消息)  =====================
+                                    //===================   解析第 10 11 12 13 14 15 16 (按键消息)
+                                    // =====================
                                     // 单击时:数据是出现在第10位 ( 抬起数据: 0 )   有按键关联: 会出现在其他位,但是按键的值是不变的
                                     byte cj007Byte_10 = CJ007_BYTE[10];
+                                    LLog.d("键鼠数据:" + cj007Byte_10);
                                     if (cj007Byte_10 != 0) {
                                         TAG_PRESS = cj007Byte_10;
+                                        // todo   -------------- 按下 --------------
+                                        if (TAG_PRESS == Cj007KeyCode.B) {
+                                            LooperEventManager.sendEventMsg(LooperEventManager
+                                                    .MSG_PAD_KEYEVENT, new PadKeyEvent
+                                                    (0, 1, BaseEvent.KEYCODE_BUTTON_B, BaseEvent
+                                                            .ACTION_DOWN,
+                                                            BaseEvent.ACTION_PRESSURE));
+                                        }
                                     } else {
-                                        if (TAG_PRESS == 58) {
-                                            LLog.d(" 键鼠数据 按 F1");
-                                            final Cj007EditActivity cj007Activity = Cj007EditActivity.getInstance();
-                                            if (cj007Activity == null || cj007Activity.isFinishing()) {
-                                                Intent intent = new Intent(mContext, Cj007EditActivity.class);
+                                        //toso  --------------- 抬起  ----------------
+                                        if (TAG_PRESS == Cj007KeyCode.F1) {
+                                            final Cj007EditActivity cj007Activity =
+                                                    Cj007EditActivity.getInstance();
+                                            if (cj007Activity == null || cj007Activity
+                                                    .isFinishing()) {
+                                                Intent intent = new Intent(mContext,
+                                                        Cj007EditActivity.class);
                                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                 mContext.startActivity(intent);
                                             } else {
                                                 cj007Activity.finish();
                                             }
 
+                                        } else if (TAG_PRESS == Cj007KeyCode.B) {
+                                            LooperEventManager.sendEventMsg(LooperEventManager
+                                                    .MSG_PAD_KEYEVENT, new PadKeyEvent
+                                                    (0, 1, BaseEvent.KEYCODE_BUTTON_B, BaseEvent
+                                                            .ACTION_UP, BaseEvent
+                                                            .ACTION_PRESSURE));//action 是0: 按下   1 抬起
                                         }
                                     }
 
