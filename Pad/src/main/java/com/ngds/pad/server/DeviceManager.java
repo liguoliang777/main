@@ -17,7 +17,7 @@ import com.inuker.bluetooth.library.connect.response.BleWriteResponse;
 import com.inuker.bluetooth.library.model.BleGattProfile;
 import com.lx.pad.util.LLog;
 import com.ngame.cj007.Cj007EditActivity;
-import com.ngame.cj007.Cj007KeyCode;
+import com.ngame.cj007.Cj007_KeyCode;
 import com.ngds.pad.BaseEvent;
 import com.ngds.pad.Msg.LooperEventManager;
 import com.ngds.pad.PadInfo;
@@ -526,7 +526,7 @@ public class DeviceManager {
                                     if (cj007Byte_10 != 0) {
                                         TAG_PRESS = cj007Byte_10;
                                         // todo   -------------- 按下 --------------
-                                        if (TAG_PRESS == Cj007KeyCode.B) {
+                                        if (TAG_PRESS == Cj007_KeyCode.B) {
                                             LooperEventManager.sendEventMsg(LooperEventManager
                                                     .MSG_PAD_KEYEVENT, new PadKeyEvent
                                                     (0, 1, BaseEvent.KEYCODE_BUTTON_B, BaseEvent
@@ -535,7 +535,7 @@ public class DeviceManager {
                                         }
                                     } else {
                                         //toso  --------------- 抬起  ----------------
-                                        if (TAG_PRESS == Cj007KeyCode.F1) {
+                                        if (TAG_PRESS == Cj007_KeyCode.F1) {
                                             final Cj007EditActivity cj007Activity =
                                                     Cj007EditActivity.getInstance();
                                             if (cj007Activity == null || cj007Activity
@@ -548,7 +548,7 @@ public class DeviceManager {
                                                 cj007Activity.finish();
                                             }
 
-                                        } else if (TAG_PRESS == Cj007KeyCode.B) {
+                                        } else if (TAG_PRESS == Cj007_KeyCode.B) {
                                             LooperEventManager.sendEventMsg(LooperEventManager
                                                     .MSG_PAD_KEYEVENT, new PadKeyEvent
                                                     (0, 1, BaseEvent.KEYCODE_BUTTON_B, BaseEvent

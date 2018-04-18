@@ -432,7 +432,7 @@ public class ManagerFragment extends Fragment {
                                 mBlueToothConnectedTv.setText(getString(R.string.bt_connect_on) +
                                         " " + deviceName);
 
-                                LLog.d( "键鼠 启动服务");
+                                LLog.d("键鼠 启动服务");
                                 Intent intentService = new Intent(content, PadService.class);
                                 intentService.putExtra("param_mac", device.getAddress());
                                 intentService.putExtra("device_name", deviceName);
@@ -502,9 +502,8 @@ public class ManagerFragment extends Fragment {
     public void injectServerEvent(Boolean state) {
         mInjectServerState = state;
         if (!content.isFinishing() && content != null && mInjectServerConnectedTv != null) {
-            mInjectServerConnectedTv.setText(getString(state ? R.string
-                    .inject_server_state_on : R.string
-                    .inject_server_state_off));
+            mInjectServerConnectedTv.setText(getString(state ? R.string.inject_server_state_on :
+                    R.string.inject_server_state_off));
 
             mInjectServerBt.setClickable(true);
         }
