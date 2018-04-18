@@ -469,8 +469,7 @@ public class DeviceManager {
 
     private UUID serviceUUID = UUID.fromString("00000000-0000-1000-8000-0000805f9b34fb");
     private UUID characterUUID = UUID.fromString("0000ffe1-0000-1000-8000-00805f9b34fb");
-    private UUID nitifyOrReadCharacterUUID = UUID.fromString
-            ("0000ffe2-0000-1000-8000-00805f9b34fb");
+    private UUID nitifyOrReadCharacterUUID = UUID.fromString("0000ffe2-0000-1000-8000-00805f9b34fb");
     private byte[] bytesReadData = {(byte) 0xffe1};
     private byte TAG_PRESS = -1;
     ;
@@ -479,6 +478,7 @@ public class DeviceManager {
         LLog.d("键鼠 准备连接!" + mMacAddress2Connect);
         if (mClient == null) {
             mClient = ClientManager.getClient();
+            mClient.disconnect(mMacAddress2Connect);
         }
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         BleConnectOptions options = new BleConnectOptions.Builder()
@@ -487,9 +487,7 @@ public class DeviceManager {
                 .setServiceDiscoverRetry(3)  // 发现服务如果失败重试3次
                 .setServiceDiscoverTimeout(20000)  // 发现服务超时20s
                 .build();
-
         mClient.connect(mMacAddress2Connect, options, new BleConnectResponse() {
-
             @Override
             public void onResponse(int code, BleGattProfile profile) {
                 LLog.d("键鼠 连接返回:" + code);
