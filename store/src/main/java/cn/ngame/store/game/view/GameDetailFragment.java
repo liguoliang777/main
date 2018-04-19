@@ -134,9 +134,6 @@ public class GameDetailFragment extends Fragment implements View.OnClickListener
 
             for (int i = 0; i < size; i++) {
                 GameImage img = imagesList.get(i);
-                if (1 != img.type) {
-                    continue;
-                }
                 picassoImageView = new SimpleDraweeView(context);
                 picassoImageView.setScaleType(ImageView.ScaleType.CENTER);
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup
