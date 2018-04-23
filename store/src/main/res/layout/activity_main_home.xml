@@ -16,6 +16,7 @@
             android:layout_height="@dimen/dm052"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dm034"
+            android:layout_marginRight="@dimen/dm032"
             android:scaleType="fitXY"
             fresco:actualImageScaleType="fitXY"
             fresco:failureImage="@drawable/use_icon_def_120"
@@ -36,76 +37,60 @@
 
         <ImageView
             android:id="@+id/im_toSearch"
-            android:layout_width="@dimen/dm084"
-            android:layout_height="@dimen/dm052"
-            android:layout_centerVertical="true"
-            android:paddingRight="@dimen/dm032"
-            android:paddingLeft="@dimen/dm020"
-            android:paddingTop="@dimen/dm010"
-            android:paddingBottom="@dimen/dm010"
+            android:layout_width="@dimen/dm086"
+            android:layout_height="@dimen/dm054"
             android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_sousu" />
-
-        <ImageView
-            android:id="@+id/main_rank_bt"
-            android:layout_width="@dimen/dm074"
-            android:layout_height="@dimen/dm052"
-            android:layout_centerVertical="true"
-            android:paddingRight="@dimen/dm022"
-            android:paddingLeft="@dimen/dm020"
-            android:paddingTop="@dimen/dm010"
             android:paddingBottom="@dimen/dm010"
-            android:layout_toLeftOf="@id/im_toSearch"
-            android:gravity="center_vertical"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_paihang"
-            android:visibility="gone" />
+            android:paddingLeft="@dimen/dm020"
+            android:paddingRight="@dimen/dm032"
+            android:paddingTop="@dimen/dm010"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_sousu" />
+        <!--  <FrameLayout
+              android:id="@+id/fl_notifi"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:layout_centerVertical="true"
+              android:layout_toLeftOf="@id/im_toSearch"
+              android:paddingRight="@dimen/dm020">
 
-        <FrameLayout
-            android:id="@+id/fl_notifi"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:paddingRight="@dimen/dm020"
-            android:layout_toLeftOf="@id/im_toSearch">
+              <TextView
+                  android:id="@+id/tv_notifi_num"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginLeft="@dimen/dm039"
+                  android:layout_marginTop="@dimen/dm015"
+                  android:background="@drawable/shape_circle_green"
+                  android:gravity="center"
+                  android:paddingBottom="@dimen/dm001"
+                  android:text="0"
+                  android:textColor="@color/white"
+                  android:textSize="@dimen/dm012"
+                  android:visibility="gone" />
 
-            <TextView
-                android:id="@+id/tv_notifi_num"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dm039"
-                android:layout_marginTop="@dimen/dm015"
-                android:background="@drawable/shape_circle_green"
-                android:gravity="center"
-                android:paddingBottom="@dimen/dm001"
-                android:text="0"
-                android:textColor="@color/white"
-                android:textSize="@dimen/dm012"
-                android:visibility="gone" />
-
-            <ImageView
-                android:layout_width="@dimen/dm032"
-                android:layout_height="@dimen/dm032"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="10dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_tongzhi" />
-        </FrameLayout>
+              <ImageView
+                  android:layout_width="@dimen/dm032"
+                  android:layout_height="@dimen/dm032"
+                  android:layout_gravity="center_vertical"
+                  android:layout_marginLeft="10dp"
+                  android:scaleType="centerInside"
+                  android:src="@drawable/ic_tongzhi" />
+          </FrameLayout>-->
 
 
         <ImageView
             android:id="@+id/main_download_bt"
             android:layout_width="@dimen/dm084"
             android:layout_height="@dimen/dm052"
-            android:paddingTop="@dimen/dm010"
-            android:paddingBottom="@dimen/dm010"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:paddingBottom="@dimen/dm010"
             android:paddingLeft="@dimen/dm020"
             android:paddingRight="@dimen/dm032"
+            android:paddingTop="@dimen/dm010"
             android:scaleType="centerInside"
             android:src="@drawable/ic_download"
             android:textSize="@dimen/dm028"
@@ -115,27 +100,79 @@
             android:id="@+id/main_like_bt"
             android:layout_width="@dimen/dm072"
             android:layout_height="@dimen/dm052"
-            android:paddingTop="@dimen/dm010"
-            android:paddingLeft="@dimen/dm020"
-            android:paddingRight="@dimen/dm020"
-            android:paddingBottom="@dimen/dm010"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/main_download_bt"
             android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dm010"
+            android:paddingLeft="@dimen/dm020"
+            android:paddingRight="@dimen/dm020"
+            android:paddingTop="@dimen/dm010"
             android:scaleType="centerInside"
             android:src="@drawable/ic_xihuanrukou"
             android:visibility="gone" />
+
+
+        <ImageView
+            android:id="@+id/main_all_category_bt"
+            android:layout_width="@dimen/dm102"
+            android:layout_height="@dimen/dm038"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="@dimen/dm032"
+            android:paddingRight="@dimen/dm032"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_all_category"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/main_top_discover_rl"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dm052"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/iv_icon_title"
+            android:layout_toLeftOf="@id/main_all_category_bt"
+            android:background="@color/mainColorGray"
+            android:visibility="gone"
+            android:paddingLeft="@dimen/dm018">
+
+            <ImageView
+                android:id="@+id/img_1_search_gray"
+                android:layout_width="@dimen/dm024"
+                android:layout_height="@dimen/dm024"
+                android:layout_marginTop="@dimen/dm003"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_sousu" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/img_1_search_gray"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dm018"
+                android:hint="搜索"
+                android:imeActionLabel="搜索"
+                android:imeOptions="actionSearch"
+                android:lines="1"
+                android:maxLines="1"
+                android:textColorHint="@color/white"
+                android:textSize="@dimen/dm020" />
+            <!-- android:imeOptions="actionSearch" 软键盘不关闭-->
+
+        </RelativeLayout>
 
         <ImageView
             android:id="@+id/main_hub_bt"
             android:layout_width="@dimen/dm084"
             android:layout_height="@dimen/dm052"
-            android:paddingTop="@dimen/dm010"
-            android:paddingLeft="@dimen/dm020"
-            android:paddingRight="@dimen/dm032"
-            android:paddingBottom="@dimen/dm010"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:paddingBottom="@dimen/dm010"
+            android:paddingLeft="@dimen/dm020"
+            android:paddingRight="@dimen/dm032"
+            android:paddingTop="@dimen/dm010"
             android:scaleType="centerInside"
             android:src="@drawable/ic_main_hub_bt"
             android:textSize="@dimen/dm028"
@@ -174,13 +211,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
                 android:layout_marginTop="2dp"
-                android:text="热门"
+                android:text="推荐"
                 android:textColor="@color/color_333333"
                 android:textSize="@dimen/dm016" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/main_tab_1"
+            android:id="@+id/menu_game_ll"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
@@ -191,55 +228,24 @@
             android:paddingBottom="2dp">
 
             <Button
-                android:id="@+id/menu_video_bt"
+                android:id="@+id/menu_game_bt"
                 android:layout_width="@dimen/dm044"
                 android:layout_height="@dimen/dm044"
-                android:background="@drawable/seletor_home_bottom_category_bt"
+                android:background="@drawable/seletor_home_bottom_ranking_bt"
                 android:clickable="false"
                 android:enabled="false"
                 android:focusable="false" />
 
             <TextView
-                android:id="@+id/menu_video_tv"
+                android:id="@+id/menu_game_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
                 android:layout_marginTop="2dp"
-                android:text="分类"
+                android:text="游戏库"
                 android:textColor="@color/color_333333"
                 android:textSize="@dimen/dm016" />
         </LinearLayout>
-
-        <!--        <LinearLayout
-                    android:id="@+id/menu_game_ll"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:paddingBottom="2dp">
-
-                    <Button
-                        android:id="@+id/menu_game_bt"
-                        android:layout_width="@dimen/dm044"
-                        android:layout_height="@dimen/dm044"
-                        android:background="@drawable/menu_game"
-                        android:clickable="false"
-                        android:enabled="false"
-                        android:focusable="false"/>
-
-                    <TextView
-                        android:id="@+id/menu_game_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="2dp"
-                        android:layout_marginTop="2dp"
-                        android:text="排行"
-                        android:textColor="@color/color_333333"
-                        android:textSize="@dimen/dm016"/>
-                </LinearLayout>-->
 
         <LinearLayout
             android:id="@+id/main_tab_2"
@@ -250,8 +256,7 @@
             android:clickable="true"
             android:gravity="center"
             android:orientation="vertical"
-            android:paddingBottom="2dp"
-            >
+            android:paddingBottom="2dp">
 
             <Button
                 android:id="@+id/menu_game_hub_bt"
@@ -271,6 +276,37 @@
                 android:layout_marginBottom="2dp"
                 android:layout_marginTop="2dp"
                 android:text="@string/main_tab_04"
+                android:textColor="@color/color_333333"
+                android:textSize="@dimen/dm016" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/main_tab_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="2dp">
+
+            <Button
+                android:id="@+id/menu_video_bt"
+                android:layout_width="@dimen/dm044"
+                android:layout_height="@dimen/dm044"
+                android:background="@drawable/seletor_home_bottom_discover_bt"
+                android:clickable="false"
+                android:enabled="false"
+                android:focusable="false" />
+
+            <TextView
+                android:id="@+id/menu_video_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="2dp"
+                android:text="发现"
                 android:textColor="@color/color_333333"
                 android:textSize="@dimen/dm016" />
         </LinearLayout>
@@ -301,7 +337,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
                 android:layout_marginTop="2dp"
-                android:text="管理"
+                android:text="@string/main_tab_05"
                 android:textColor="@color/color_333333"
                 android:textSize="@dimen/dm016" />
         </LinearLayout>

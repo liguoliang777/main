@@ -13,7 +13,6 @@ import android.widget.TextView;
 import java.util.List;
 
 import cn.ngame.store.R;
-import cn.ngame.store.activity.classify.AllClassifyActivity;
 import cn.ngame.store.bean.ClassifyTopBean;
 import cn.ngame.store.core.utils.KeyConstant;
 import cn.ngame.store.game.view.SeeMoreActivity;
@@ -52,7 +51,8 @@ public class ClassifyTopAdapter extends RecyclerView.Adapter<ClassifyTopAdapter.
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int vieype) {
-        ViewHolder holder = new ViewHolder(mInflater.inflate(R.layout.item_classify_top_item, parent, false));
+        ViewHolder holder = new ViewHolder(mInflater.inflate(R.layout.item_classify_top_item,
+                parent, false));
         return holder;
     }
 
@@ -71,13 +71,9 @@ public class ClassifyTopAdapter extends RecyclerView.Adapter<ClassifyTopAdapter.
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                if (position == list.size() - 1) {
-                    intent.setClass(context, AllClassifyActivity.class);
-                } else {
-                    intent.setClass(context, SeeMoreActivity.class);
-                    intent.putExtra(KeyConstant.category_Id, categroyBean.getId() + "");//原生手柄 id 367
-                    intent.putExtra(KeyConstant.TITLE, name);
-                }
+                intent.setClass(context, SeeMoreActivity.class);
+                intent.putExtra(KeyConstant.category_Id, categroyBean.getId() + "");//原生手柄 id 367
+                intent.putExtra(KeyConstant.TITLE, name);
                 context.startActivity(intent);
             }
         });

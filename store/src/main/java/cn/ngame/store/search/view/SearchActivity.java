@@ -90,11 +90,12 @@ public class SearchActivity extends BaseFgActivity implements View.OnClickListen
         initStatusBar();
         content = this;
         dbManager = DatabaseManager.getInstance(this);
-
         resultListView = (ListView) findViewById(R.id.listView);
         loadStateView = (LoadStateView) findViewById(R.id.loadStateView);
         tv_search = (TextView) findViewById(R.id.search_bt);
         et_search = (EditText) findViewById(R.id.et_search);
+       /* InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.showSoftInput(et_search, 0);*/
         input_clear_bt = (ImageView) findViewById(R.id.but_fork);
 
         ll_show = (LinearLayout) findViewById(R.id.ll_show);

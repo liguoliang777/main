@@ -86,8 +86,9 @@
 
         <activity
             android:name=".search.view.SearchActivity"
+            android:windowSoftInputMode="stateVisible|adjustResize"
             android:launchMode="singleTask"
-            android:configChanges="orientation|keyboard|keyboardHidden|navigation"
+            android:configChanges="orientation|navigation"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar"/>
         <activity

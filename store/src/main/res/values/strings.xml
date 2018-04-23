@@ -232,7 +232,8 @@
     <string name="cancel_like_msg">主人~不再喜欢了我\n我将从"喜欢"列表消失~</string>
     <string name="install_apk_lost_redownload">安装包文件丢失\n请重新下载</string>
     <string name="ok">好的</string>
-    <string name="main_tab_04">圈子</string>
+    <string name="main_tab_04">游趣</string>
+    <string name="main_tab_05">我的</string>
     <string name="share_description">欢迎来到方格游戏。手柄游戏，破解游戏，汉化游戏，应有尽有，快来畅玩吧！</string>
     <string name="app_download_url_yyb">http://sj.qq.com/myapp/detail.htm?apkName=cn.ngame.store</string>
     <string name="alipay_redpackage_content">7Dl59e13pi</string>

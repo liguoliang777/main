@@ -13,7 +13,7 @@
         android:layout_height="@dimen/dm036"
         android:layout_gravity="center_vertical"
         android:layout_centerVertical="true"
-        android:src="@drawable/ic_search_gray"/>
+        android:src="@drawable/ic_sousu"/>
 
     <TextView
         android:id="@+id/tv_title"

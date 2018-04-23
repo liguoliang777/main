@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
@@ -53,7 +52,7 @@ import cn.ngame.store.widget.pulllistview.PullToRefreshListView;
  * Created by gp on 2017/3/14 0014.
  */
 @SuppressLint("WrongConstant")
-public class ClassifyFragment extends BaseSearchFragment implements View.OnClickListener {
+public class DiscoverFragment extends BaseSearchFragment implements View.OnClickListener {
     private FragmentActivity context;
     private PullToRefreshListView pullListView;
     private RecyclerView mClassifyAllRv;
@@ -82,12 +81,12 @@ public class ClassifyFragment extends BaseSearchFragment implements View.OnClick
     private LinearLayoutManager linearLayoutManager;
     private ClassifyTopBean mClassifyTopBean;
 
-    public ClassifyFragment() {
+    public DiscoverFragment() {
         android.util.Log.d(TAG, "DiscoverFragment: ()");
     }
 
-    public static ClassifyFragment newInstance(String arg) {
-        ClassifyFragment fragment = new ClassifyFragment();
+    public static DiscoverFragment newInstance(String arg) {
+        DiscoverFragment fragment = new DiscoverFragment();
         Bundle bundle = new Bundle();
         bundle.putString("", arg);
         fragment.setArguments(bundle);
@@ -145,20 +144,20 @@ public class ClassifyFragment extends BaseSearchFragment implements View.OnClick
     private void init0ClassifyView(View headView) {
         bannerView =  headView.findViewById(R.id.banner_view);
         //获取RecyclerView实例
-        GridLayoutManager mGridLayoutManager = new GridLayoutManager(context, 5);
+        LinearLayoutManager lLManager= new LinearLayoutManager(context);
+        lLManager.setOrientation(LinearLayoutManager.HORIZONTAL);
 
         mClassifyAllRv =  headView.findViewById(R.id.discover_head_rv_classify);//条目
-        mClassifyAllRv.setLayoutManager(mGridLayoutManager);
+        mClassifyAllRv.setLayoutManager(lLManager);
         categroyAllList.add(new ClassifyTopBean("手柄",101,R.drawable.ic_shoubin));
         categroyAllList.add(new ClassifyTopBean("破解",103,R.drawable.ic_pojie));
         categroyAllList.add(new ClassifyTopBean("模拟器",153,R.drawable.ic_moniqi));
         categroyAllList.add(new ClassifyTopBean("汉化",104,R.drawable.ic_hanhua));
         categroyAllList.add(new ClassifyTopBean("策略",111,R.drawable.ic_sheji));
-        categroyAllList.add(new ClassifyTopBean("AR",0,R.drawable.ic_ar));
         categroyAllList.add(new ClassifyTopBean("角色",107,R.drawable.ic_juese));
         categroyAllList.add(new ClassifyTopBean("键鼠",0,R.drawable.ic_jianshu));
         categroyAllList.add(new ClassifyTopBean("冒险",109,R.drawable.ic_maoxian));
-        categroyAllList.add(new ClassifyTopBean("全部",-1,R.drawable.ic_quanbu));
+        //categroyAllList.add(new ClassifyTopBean("全部",-1,R.drawable.ic_quanbu));
 
         categroyTopAdapter = new ClassifyTopAdapter(context, categroyAllList);
         mClassifyAllRv.setAdapter(categroyTopAdapter);
@@ -283,7 +282,7 @@ public class ClassifyFragment extends BaseSearchFragment implements View.OnClick
         pullListView.getRefreshableView().setAdapter(categroy18Adapter);
     }
 
-    private final static String TAG = ClassifyFragment.class.getSimpleName();
+    private final static String TAG = DiscoverFragment.class.getSimpleName();
 
     //请求数据
     private void getData() {

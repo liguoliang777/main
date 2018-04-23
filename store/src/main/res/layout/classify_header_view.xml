@@ -7,23 +7,9 @@
               android:descendantFocusability="blocksDescendants"
               android:orientation="vertical"
               android:scrollbars="none">
-
-    <cn.ngame.store.view.BannerView
-        android:id="@+id/banner_view"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/classify_top_banner_image_height"
-        android:background="@drawable/ic_def_logo_720_288"
-        android:clickable="true"
-        custom:auto_scroll="true"
-        custom:current_item="0"
-        custom:scroll_period="7"/>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/edf2ef"
-        android:paddingLeft="@dimen/main_margin_20px"
-        android:paddingRight="@dimen/main_margin_20px"
         android:descendantFocusability="blocksDescendants"
         >
 
@@ -35,6 +21,15 @@
             />
 
     </LinearLayout>
+    <cn.ngame.store.view.BannerView
+        android:id="@+id/banner_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/classify_top_banner_image_height"
+        android:background="@drawable/ic_def_logo_720_288"
+        android:clickable="true"
+        custom:auto_scroll="true"
+        custom:current_item="0"
+        custom:scroll_period="7"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

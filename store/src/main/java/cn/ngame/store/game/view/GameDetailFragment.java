@@ -181,7 +181,8 @@ public class GameDetailFragment extends Fragment implements View.OnClickListener
                 int tvSize = tagTvList.size();
                 int size = labelSize > tvSize ? tvSize : labelSize;
                 final Intent intent = new Intent();
-                intent.setClass(context, SeeMoreActivity.class);
+                intent.setClass(context, SeeMoreActivity.class)
+                ;
                 for (int i = 0; i < size; i++) {
                     TextView labelTv = tagTvList.get(i);
                     final GameCategorys gameLabel = this.gameLabels.get(i);
@@ -278,6 +279,7 @@ public class GameDetailFragment extends Fragment implements View.OnClickListener
                 if (flag1) {
                     flag1 = false;
                     tv_show_all.setText("收起");
+
                     tv_summary.setSingleLine(false);
                 } else {
                     flag1 = true;

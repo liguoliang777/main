@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.RemoteViews;
 import android.widget.TextView;
 
@@ -57,11 +58,11 @@ import java.util.TimerTask;
 import cn.ngame.store.R;
 import cn.ngame.store.StoreApplication;
 import cn.ngame.store.activity.BaseFgActivity;
-import cn.ngame.store.activity.classify.ClassifyFragment;
+import cn.ngame.store.activity.classify.AllClassifyActivity;
+import cn.ngame.store.activity.classify.DiscoverFragment;
 import cn.ngame.store.activity.hub.HubPostsActivity;
 import cn.ngame.store.activity.manager.DownloadCenterActivity;
 import cn.ngame.store.activity.manager.ManagerFragment;
-import cn.ngame.store.activity.rank.RankActivity;
 import cn.ngame.store.activity.rank.RankFragment;
 import cn.ngame.store.activity.sm.AboutNgameZoneActivity;
 import cn.ngame.store.activity.sm.AdCooperativeActivity;
@@ -90,11 +91,8 @@ import cn.ngame.store.game.view.GameDetailActivity;
 import cn.ngame.store.local.model.IWatchRecordModel;
 import cn.ngame.store.local.model.WatchRecordModel;
 import cn.ngame.store.ota.model.OtaService;
-import cn.ngame.store.push.model.IPushMessageModel;
 import cn.ngame.store.push.model.PushMessage;
-import cn.ngame.store.push.model.PushMessageModel;
 import cn.ngame.store.push.view.MessageDetailActivity;
-import cn.ngame.store.push.view.MsgCenterActivity;
 import cn.ngame.store.push.view.NotifyMsgDetailActivity;
 import cn.ngame.store.search.view.SearchActivity;
 import cn.ngame.store.user.view.LoginActivity;
@@ -126,21 +124,21 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
     private boolean isChecking = false;
     private RecommendFragment recommendFragment;
     private RankFragment rankingFragment;
-    private ClassifyFragment classifyFragment;
+    private DiscoverFragment classifyFragment;
     private ManagerFragment managerFragment;
     private int currentMenu;
     private FragmentViewPagerAdapter adapter;
     private FragmentManager fragmentManager;
-    private LinearLayout home, menu_game_hub, video, manager;
+    private LinearLayout home, menu_game_hub, video, manager, game;
     private Button bt_home, bt_game, bt_video, bt_manager;
     private TextView tv_home, tv_video, tv_manager, mEditProfileTv, tv_notifi_num,
-            menu_gamehub_tv, mSmNicknameTv, mTitleTv;
+            menu_gamehub_tv, mSmNicknameTv, mTitleTv, tv_game;
     private int colorDark;
     private int colorNormal;
     private String imgUrl;
     private List<Fragment> mfragmentlist = new ArrayList<>();
     private int rbIndex;
-    private ImageView im_toSearch, mRankBt, mDownloadBt, mLikeBt, mHubBt;
+    private ImageView im_toSearch, mDownloadBt, mLikeBt, mHubBt, mAllCategoryBt;
     private FrameLayout fl_notifi;
     private SimpleDraweeView mIconIv;
     private String pwd;
@@ -150,6 +148,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
     private SharedPreferences.Editor editor;
     private Button menu_game_hub_bt;
     private MainHubFragment gameMainHubFragment;
+    private RelativeLayout mTopSearchBt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -185,18 +184,19 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
         int statusBarHeight = ImageUtil.getStatusBarHeight(context);
         rl_top.setPadding(0, statusBarHeight, 0, 0);*/
         home = (LinearLayout) findViewById(R.id.main_tab_0);
-        //game = (LinearLayout) findViewById(R.id.menu_game_ll);
+        game = (LinearLayout) findViewById(R.id.menu_game_ll);
         menu_game_hub = (LinearLayout) findViewById(R.id.main_tab_2);
         video = (LinearLayout) findViewById(R.id.main_tab_1);
         manager = (LinearLayout) findViewById(R.id.main_tab_3);
+        mTopSearchBt = (RelativeLayout) findViewById(R.id.main_top_discover_rl);
 
         bt_home = (Button) findViewById(R.id.menu_home_bt1);
-        //bt_game = (Button) findViewById(R.id.menu_game_bt);
+        bt_game = (Button) findViewById(R.id.menu_game_bt);
         bt_video = (Button) findViewById(R.id.menu_video_bt);
         bt_manager = (Button) findViewById(R.id.menu_manager_bt);
 
         tv_home = (TextView) findViewById(R.id.menu_home_tv);
-        //tv_game = (TextView) findViewById(R.id.menu_game_tv);
+        tv_game = (TextView) findViewById(R.id.menu_game_tv);
         menu_gamehub_tv = (TextView) findViewById(R.id.menu_gamehub_tv);
         tv_video = (TextView) findViewById(R.id.menu_video_tv);
         tv_manager = (TextView) findViewById(R.id.menu_manager_tv);
@@ -204,22 +204,26 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
 
         //标题上面的消息和搜索
         im_toSearch = (ImageView) findViewById(R.id.im_toSearch);
-        fl_notifi = (FrameLayout) findViewById(R.id.fl_notifi);
-        tv_notifi_num = (TextView) findViewById(R.id.tv_notifi_num); //右上角消息数目
+
+        //消息
+       /* fl_notifi = (FrameLayout) findViewById(R.id.fl_notifi);
+        tv_notifi_num = (TextView) findViewById(R.id.tv_notifi_num); */
 
         mIconIv = (SimpleDraweeView) findViewById(R.id.iv_icon_title);
         mTitleTv = (TextView) findViewById(R.id.title_tv);
         mDownloadBt = (ImageView) findViewById(R.id.main_download_bt);
         mLikeBt = (ImageView) findViewById(R.id.main_like_bt);
         mHubBt = (ImageView) findViewById(R.id.main_hub_bt);
-        mRankBt = (ImageView) findViewById(R.id.main_rank_bt);
+        mAllCategoryBt = (ImageView) findViewById(R.id.main_all_category_bt);
+
         im_toSearch.setOnClickListener(this);
-        fl_notifi.setOnClickListener(this);
+        //fl_notifi.setOnClickListener(this);
         mIconIv.setOnClickListener(this);
         mDownloadBt.setOnClickListener(this);
         mLikeBt.setOnClickListener(this);
         mHubBt.setOnClickListener(this);
-        mRankBt.setOnClickListener(this);
+        mTopSearchBt.setOnClickListener(this);
+        mAllCategoryBt.setOnClickListener(this);
 
         colorDark = getResources().getColor(R.color.mainColor);
         colorNormal = getResources().getColor(R.color.color_333333);
@@ -229,7 +233,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
         setCurrentMenu(0);    //当前选中标签
 
         home.setOnClickListener(mTabClickListener);
-        //game.setOnTouchListener(listener);
+        game.setOnClickListener(mTabClickListener);
         menu_game_hub.setOnClickListener(mTabClickListener);
         video.setOnClickListener(mTabClickListener);
         manager.setOnClickListener(mTabClickListener);
@@ -270,7 +274,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
             PushManager.disableLbs(this);   //关闭精确LBS推送模式
         }
         //判断App是否从通知栏消息进来，如果是，直接启动消息详情页
-        isFromNotification();
+        //isFromNotification();
 
         //侧边栏
         initSlidingMenu();
@@ -293,6 +297,9 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
             switch (v.getId()) {
                 case R.id.main_tab_0:
                     setCurrentMenu(0);
+                    break;
+                case R.id.menu_game_ll:
+                    setCurrentMenu(6);
                     break;
                 case R.id.main_tab_1:
                     setCurrentMenu(1);
@@ -443,7 +450,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
             setUserIcon();
         }
         //右上角的消息
-        new Thread(new Runnable() {
+/*        new Thread(new Runnable() {
             @Override
             public void run() {
                 IPushMessageModel pushModel = new PushMessageModel(context);
@@ -461,7 +468,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                     }
                 });
             }
-        }).start();
+        }).start();*/
     }
 
     private void setUserIcon() {
@@ -493,18 +500,6 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
 //        return fragmentlist;
 //    }
 
-    private void switchFragment(int i) {
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-        Fragment fragment = mfragmentlist.get(i);
-        if (!fragment.isAdded()) {
-            transaction.hide(mfragmentlist.get(rbIndex)).add(R.id.main_list_fragments, fragment);
-        } else {
-            transaction.hide(mfragmentlist.get(rbIndex)).show(fragment);
-        }
-        transaction.commit();
-        rbIndex = i;
-    }
 
     //请求广告图片地址
     private void showAdverDialog() {
@@ -559,28 +554,24 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
         this.currentMenu = currentMenu;
 
         bt_home.setSelected(false);
-        //bt_game.setSelected(false);
+        bt_game.setSelected(false);
         bt_video.setSelected(false);
         bt_manager.setSelected(false);
         menu_game_hub_bt.setSelected(false);
 
         tv_home.setTextColor(colorNormal);
-        //tv_game.setTextColor(colorNormal);
+        tv_game.setTextColor(colorNormal);
         menu_gamehub_tv.setTextColor(colorNormal);
         tv_video.setTextColor(colorNormal);
         tv_manager.setTextColor(colorNormal);
 
-//        if (viewPager != null) {
-//            viewPager.setCurrentItem(currentMenu);
-//        }
-//        switchFragment(currentMenu);
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         if (null == recommendFragment) {
             recommendFragment = new RecommendFragment();
             transaction.add(R.id.main_list_fragments, recommendFragment);
         }
         if (null == classifyFragment) {
-            classifyFragment = new ClassifyFragment();
+            classifyFragment = new DiscoverFragment();
             transaction.add(R.id.main_list_fragments, classifyFragment);
         }
         if (null == gameMainHubFragment) {
@@ -591,76 +582,83 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
             managerFragment = new ManagerFragment();
             transaction.add(R.id.main_list_fragments, managerFragment);
         }
+        if (null == rankingFragment) {
+            rankingFragment = new RankFragment();
+            transaction.add(R.id.main_list_fragments, rankingFragment);
+        }
         switch (currentMenu) {
             case 0://推荐
                 transaction.show(recommendFragment).hide(classifyFragment).hide(gameMainHubFragment)
-                        .hide(managerFragment);
+                        .hide(managerFragment).hide(rankingFragment);
                 recommendFragment.scroll2Top();
                 recommendFragment.setShow(true);
                 if (null != classifyFragment) {
                     classifyFragment.setShow(false);
                 }
                 bt_home.setSelected(true);
-                mTitleTv.setText("热门游戏");
-                fl_notifi.setVisibility(View.VISIBLE);
+                mTitleTv.setText("");
+                //fl_notifi.setVisibility(View.VISIBLE);
                 im_toSearch.setVisibility(View.VISIBLE);
                 mDownloadBt.setVisibility(View.GONE);
+                mTopSearchBt.setVisibility(View.GONE);
+                mAllCategoryBt.setVisibility(View.GONE);
                 mLikeBt.setVisibility(View.GONE);
                 mHubBt.setVisibility(View.GONE);
-                mRankBt.setVisibility(View.GONE);
                 tv_home.setTextColor(colorDark);
 
                 //埋点
                 MobclickAgent.onEvent(context, UMEventNameConstant.mainRecommendButtonClickCount);
 
                 break;
-          /*  case 1://排行
-                if (null == rankingFragment) {
-                    rankingFragment = new RankFragment();
-                    transaction.add(R.id.main_list_fragments, rankingFragment);
-                } else {
-                    transaction.show(rankingFragment);
-                }
+            case 6://游戏库
+                transaction.show(rankingFragment).hide(classifyFragment).hide(gameMainHubFragment)
+                        .hide(managerFragment).hide(recommendFragment);
                 if (null != classifyFragment) {
                     classifyFragment.setShow(false);
                 }
                 recommendFragment.setShow(false);
                 bt_game.setSelected(true);
-                mTitleTv.setText("排行榜");
-                fl_notifi.setVisibility(View.GONE);
+                mTitleTv.setText("");
+                //fl_notifi.setVisibility(View.GONE);
                 im_toSearch.setVisibility(View.VISIBLE);
                 mDownloadBt.setVisibility(View.GONE);
+                mTopSearchBt.setVisibility(View.GONE);
                 mLikeBt.setVisibility(View.GONE);
                 mHubBt.setVisibility(View.GONE);
+                mAllCategoryBt.setVisibility(View.GONE);
                 tv_game.setTextColor(colorDark);
-                break;*/
-            case 1://分类
+
+                MobclickAgent.onEvent(context, UMEventNameConstant.mainRankButtonClickCount);
+                break;
+            case 1://发现
                 transaction.show(classifyFragment).hide(recommendFragment).hide(gameMainHubFragment)
-                        .hide(managerFragment);
+                        .hide(managerFragment).hide(rankingFragment);
                 classifyFragment.scroll2Top();
                 classifyFragment.setShow(true);
                 recommendFragment.setShow(false);
                 bt_video.setSelected(true);
-                mTitleTv.setText("分类");
+                mTitleTv.setText("");
                 mDownloadBt.setVisibility(View.GONE);
                 mLikeBt.setVisibility(View.GONE);
                 mHubBt.setVisibility(View.GONE);
-                fl_notifi.setVisibility(View.GONE);
-                im_toSearch.setVisibility(View.VISIBLE);
-                mRankBt.setVisibility(View.VISIBLE);
+                mAllCategoryBt.setVisibility(View.VISIBLE);
+                mTopSearchBt.setVisibility(View.VISIBLE);
+                //fl_notifi.setVisibility(View.GONE);
+                im_toSearch.setVisibility(View.GONE);
                 tv_video.setTextColor(colorDark);
                 MobclickAgent.onEvent(context, UMEventNameConstant.mainDiscoverButtonClickCount);
                 break;
             case 2://圈子
                 transaction.show(gameMainHubFragment).hide(recommendFragment).hide(classifyFragment)
-                        .hide(managerFragment);
+                        .hide(managerFragment).hide(rankingFragment);
                 menu_game_hub_bt.setSelected(true);
-                mTitleTv.setText(R.string.main_tab_04);
-                fl_notifi.setVisibility(View.GONE);
+                mTitleTv.setText("游趣");
+                //fl_notifi.setVisibility(View.GONE);
                 mDownloadBt.setVisibility(View.GONE);
                 mLikeBt.setVisibility(View.GONE);
                 mHubBt.setVisibility(View.VISIBLE);
-                mRankBt.setVisibility(View.GONE);
+                mAllCategoryBt.setVisibility(View.GONE);
+                mTopSearchBt.setVisibility(View.GONE);
                 im_toSearch.setVisibility(View.GONE);
                 menu_gamehub_tv.setTextColor(colorDark);
                 MobclickAgent.onEvent(context, UMEventNameConstant.mainCircleButtonClickCount);
@@ -669,19 +667,20 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
 
             case 3://管理
                 transaction.show(managerFragment).hide(recommendFragment).hide
-                        (gameMainHubFragment).hide(classifyFragment);
+                        (gameMainHubFragment).hide(classifyFragment).hide(rankingFragment);
                 recommendFragment.setShow(false);
                 if (null != classifyFragment) {
                     classifyFragment.setShow(false);
                 }
                 bt_manager.setSelected(true);
-                mTitleTv.setText("管理");
+                mTitleTv.setText(R.string.main_tab_05);
                 mDownloadBt.setVisibility(View.VISIBLE);
                 mLikeBt.setVisibility(View.VISIBLE);
-                mRankBt.setVisibility(View.GONE);
+                mAllCategoryBt.setVisibility(View.GONE);
                 im_toSearch.setVisibility(View.GONE);
                 mHubBt.setVisibility(View.GONE);
-                fl_notifi.setVisibility(View.GONE);
+                mTopSearchBt.setVisibility(View.GONE);
+                //fl_notifi.setVisibility(View.GONE);
                 tv_manager.setTextColor(colorDark);
                 MobclickAgent.onEvent(context, UMEventNameConstant.mainManagerButtonClickCount);
                 break;
@@ -755,11 +754,12 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                 startActivity(msgIntent);
                 break;*/
             case R.id.im_toSearch:
+            case R.id.main_top_discover_rl:
                 startActivity(new Intent(context, SearchActivity.class));
                 break;
-            case R.id.fl_notifi:
+         /*   case R.id.fl_notifi:
                 startActivity(new Intent(context, MsgCenterActivity.class));
-                break;
+                break;*/
             case R.id.main_download_bt:
                 startActivity(new Intent(context, DownloadCenterActivity.class));
                 break;
@@ -771,9 +771,8 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
             case R.id.main_hub_bt:
                 startActivity(new Intent(context, HubPostsActivity.class));
                 break;
-            case R.id.main_rank_bt:
-                startActivity(new Intent(context, RankActivity.class));
-                MobclickAgent.onEvent(context, UMEventNameConstant.mainRankButtonClickCount);
+            case R.id.main_all_category_bt:
+                startActivity(new Intent(context, AllClassifyActivity.class));
                 break;
             case R.id.iv_icon_title:
                 if (null != mSlidingMenu) {

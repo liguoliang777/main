@@ -61,7 +61,6 @@
     <dimen name="dp_1">1dp</dimen>
     <dimen name="dp_7">7dp</dimen>
     <dimen name="dp_28">28dp</dimen>
-    <dimen name="discover_classify_item_size">@dimen/dm120</dimen>
     <dimen name="main_classify_iv_size">@dimen/dm150</dimen>
     <dimen name="dp_36">36dp</dimen>
     <dimen name="dp_94">94dp</dimen>
