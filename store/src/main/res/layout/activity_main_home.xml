@@ -156,6 +156,7 @@
                 android:layout_width="@dimen/dm022"
                 android:layout_height="@dimen/dm022"
                 android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/dm002"
                 android:layout_toLeftOf="@+id/img_1_search_gray"
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_sousu" />
