@@ -129,38 +129,36 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dm052"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/iv_icon_title"
             android:layout_toLeftOf="@id/main_all_category_bt"
+            android:layout_toRightOf="@id/iv_icon_title"
             android:background="@color/mainColorGray"
-            android:visibility="gone"
-            android:paddingLeft="@dimen/dm018">
+            android:paddingLeft="@dimen/dm030"
+            android:visibility="gone">
 
-            <ImageView
-                android:id="@+id/img_1_search_gray"
-                android:layout_width="@dimen/dm024"
-                android:layout_height="@dimen/dm024"
-                android:layout_marginTop="@dimen/dm003"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_sousu" />
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_toRightOf="@+id/img_1_search_gray"
+                android:id="@+id/img_1_search_gray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:background="@null"
                 android:gravity="center_vertical"
-                android:paddingLeft="@dimen/dm018"
                 android:hint="搜索"
                 android:imeActionLabel="搜索"
                 android:imeOptions="actionSearch"
                 android:lines="1"
                 android:maxLines="1"
+                android:paddingLeft="@dimen/dm018"
                 android:textColorHint="@color/white"
-                android:textSize="@dimen/dm020" />
+                android:textSize="@dimen/dm023" />
             <!-- android:imeOptions="actionSearch" 软键盘不关闭-->
-
+            <ImageView
+                android:layout_width="@dimen/dm022"
+                android:layout_height="@dimen/dm022"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/img_1_search_gray"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_sousu" />
         </RelativeLayout>
 
         <ImageView
