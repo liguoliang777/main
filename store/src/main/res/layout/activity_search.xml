@@ -15,43 +15,41 @@
         android:background="@color/mainColor"
         android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:gravity="center_vertical"
-            android:onClick="onSeachBackClick"
-            android:paddingLeft="@dimen/dm032"
-            android:paddingRight="@dimen/dm044"
-            android:src="@drawable/ic_back" />
+        <!-- <ImageView
+             android:layout_width="wrap_content"
+             android:layout_height="match_parent"
+             android:clickable="true"
+             android:gravity="center_vertical"
+             android:onClick="onSeachBackClick"
+             android:paddingLeft="@dimen/dm032"
+             android:paddingRight="@dimen/dm044"
+             android:src="@drawable/ic_back" />-->
 
         <RelativeLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/dm015"
-            android:layout_marginTop="@dimen/dm015"
+            android:layout_height="@dimen/dm054"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dm032"
             android:layout_weight="1"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:background="@drawable/shape_search"
-            android:gravity="center"
-            android:paddingLeft="@dimen/dm008">
+            android:background="@color/mainColorGray"
+            android:gravity="center">
 
             <ImageView
                 android:id="@+id/img_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/dm022"
+                android:layout_height="@dimen/dm022"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:layout_margin="@dimen/dm008"
-                android:padding="@dimen/dm006"
+                android:layout_marginLeft="@dimen/dm018"
+                android:layout_marginRight="@dimen/dm018"
+                android:paddingTop="@dimen/dm002"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_search_gray" />
+                android:src="@drawable/ic_sousu" />
 
             <ImageView
                 android:id="@+id/but_fork"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:paddingLeft="@dimen/dm016"
@@ -67,33 +65,38 @@
                 android:layout_toLeftOf="@+id/but_fork"
                 android:layout_toRightOf="@+id/img_1"
                 android:background="@null"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:gravity="center_vertical"
-                android:hint="输入游戏名字"
-                android:imeActionLabel="搜索"
+                android:hint="搜索"
+                android:imeActionLabel=""
                 android:imeOptions="actionSearch"
                 android:inputType="text"
                 android:lines="1"
                 android:maxLines="1"
-                android:textColor="@color/color_333333"
-                android:textColorHint="@color/cccccc"
-                android:textSize="@dimen/dm028" />
+                android:textColor="@color/white"
+                android:textColorHint="@color/search_white"
+                android:textSize="@dimen/dm026" />
 
         </RelativeLayout>
 
 
-        <TextView
-            android:id="@+id/search_bt"
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:focusable="false"
+            android:background="@null"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="false"
             android:gravity="center"
+            android:onClick="onSeachBackClick"
             android:paddingLeft="@dimen/dm032"
             android:paddingRight="@dimen/dm032"
-            android:text="搜索"
-            android:textColor="@color/white"
-            android:textSize="@dimen/dm028" />
+            android:text="取消"
+            android:textColor="@color/search_white"
+            android:textSize="@dimen/dm026" />
     </LinearLayout>
     <!--提示背景-->
     <cn.ngame.store.view.LoadStateView

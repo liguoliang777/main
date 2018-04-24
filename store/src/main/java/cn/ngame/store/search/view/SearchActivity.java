@@ -58,7 +58,7 @@ public class SearchActivity extends BaseFgActivity implements View.OnClickListen
     public int GAMETYPE_ID = 36;
     public int VIDEOTYPE_ID = 37;
     private LoadStateView loadStateView;
-    private TextView tv_search;
+    //private TextView tv_search;
     private EditText et_search;
     private String searchName;
     private ImageView input_clear_bt;
@@ -92,7 +92,7 @@ public class SearchActivity extends BaseFgActivity implements View.OnClickListen
         dbManager = DatabaseManager.getInstance(this);
         resultListView = (ListView) findViewById(R.id.listView);
         loadStateView = (LoadStateView) findViewById(R.id.loadStateView);
-        tv_search = (TextView) findViewById(R.id.search_bt);
+        //tv_search = (TextView) findViewById(R.id.search_bt);
         et_search = (EditText) findViewById(R.id.et_search);
        /* InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.showSoftInput(et_search, 0);*/
@@ -105,7 +105,7 @@ public class SearchActivity extends BaseFgActivity implements View.OnClickListen
         gridView_game = (GridView) findViewById(R.id.gridView_game);
 
         loadStateView.setReLoadListener(this);
-        tv_search.setOnClickListener(this);
+        //tv_search.setOnClickListener(this);
         tv_clear.setOnClickListener(this);
 
         et_search.addTextChangedListener(new TextWatcher() {

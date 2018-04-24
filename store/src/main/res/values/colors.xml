@@ -37,7 +37,7 @@
     <!-- 底部菜单字体的颜色 -->
     <color name="footer_font">#868686</color>
 
-    <color name="see_more" >#66cc90</color>-->
+    <color name="see_more">#66cc90</color>-->
     <color name="QuickAction_press">#94ffeb</color>
     <color name="QuickAction_focused">#94ffeb</color>
     <color name="download_bg">#443ecc7a</color>
@@ -112,4 +112,6 @@
     <color name="b8ccc0">#b8ccc0</color>
     <color name="color_1f9952">#1f9952</color>
     <color name="mainColorGray">#aa1f9952</color>
+
+    <color name="search_white">#e5e5e5</color>
 </resources>

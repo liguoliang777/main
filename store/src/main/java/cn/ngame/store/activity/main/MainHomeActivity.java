@@ -281,8 +281,8 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
         //头像(只能放在最后)
         setUserIcon();
 
-        //开启映射服务
-        startPadService();
+        //todo 开启映射服务
+        //startPadService();
     }
 
     private void startPadService() {

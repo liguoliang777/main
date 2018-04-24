@@ -149,14 +149,15 @@
                 android:lines="1"
                 android:maxLines="1"
                 android:paddingLeft="@dimen/dm018"
-                android:textColorHint="@color/white"
-                android:textSize="@dimen/dm023" />
+                android:textColorHint="@color/search_white"
+                android:textSize="@dimen/dm025" />
             <!-- android:imeOptions="actionSearch" 软键盘不关闭-->
             <ImageView
                 android:layout_width="@dimen/dm022"
+
                 android:layout_height="@dimen/dm022"
+                android:paddingTop="@dimen/dm002"
                 android:layout_centerVertical="true"
-                android:layout_marginTop="@dimen/dm002"
                 android:layout_toLeftOf="@+id/img_1_search_gray"
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_sousu" />

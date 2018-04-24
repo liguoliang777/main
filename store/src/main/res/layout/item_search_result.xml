@@ -13,7 +13,7 @@
         android:layout_height="@dimen/dm036"
         android:layout_gravity="center_vertical"
         android:layout_centerVertical="true"
-        android:src="@drawable/ic_sousu"/>
+        android:src="@drawable/ic_search_gray"/>
 
     <TextView
         android:id="@+id/tv_title"
@@ -25,7 +25,7 @@
         android:layout_marginRight="@dimen/dm024"
         android:layout_marginLeft="@dimen/dm056"
         android:singleLine="true"
-        android:text="王者荣耀"
+        android:text=""
         android:textColor="@color/color999999"
         android:textSize="@dimen/dm028"/>
 </LinearLayout>
