@@ -31,6 +31,7 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.androidkun.xtablayout.XTabLayout;
 import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
 import com.daimajia.numberprogressbar.NumberProgressBar;
@@ -101,6 +102,7 @@ import cn.ngame.store.util.ToastUtil;
 import cn.ngame.store.view.DialogModel;
 import cn.ngame.store.view.FloatView;
 
+import android.support.design.widget.TabLayout;
 
 /**
  * 首页底部tab栏
@@ -215,6 +217,12 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
         mLikeBt = (ImageView) findViewById(R.id.main_like_bt);
         mHubBt = (ImageView) findViewById(R.id.main_hub_bt);
         mAllCategoryBt = (ImageView) findViewById(R.id.main_all_category_bt);
+
+        XTabLayout tabLayout = findViewById(R.id.main_top_tab);
+
+        tabLayout.addTab(tabLayout.newTab().setText("动态"));
+        tabLayout.addTab(tabLayout.newTab().setText("精品"));
+        tabLayout.addTab(tabLayout.newTab().setText("直播"));
 
         im_toSearch.setOnClickListener(this);
         //fl_notifi.setOnClickListener(this);
