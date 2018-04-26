@@ -1,6 +1,7 @@
 package cn.ngame.store.activity.main;
 
 import android.annotation.SuppressLint;
+import android.app.MediaRouteButton;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -8,9 +9,11 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.facebook.drawee.drawable.ScalingUtils;
@@ -69,12 +72,13 @@ public class RecommendFragment extends BaseSearchFragment {
     private FragmentActivity context;
     private Intent singeTopicsDetailIntent = new Intent();
     private LinearLayout.LayoutParams hParams;
-    private int wrapContent;
     private SimpleDraweeView simpleImageView;
     private boolean mIsShow = false;
     private ListView refreshableView;
     private Picasso picasso;
     private LinearLayout parent;
+    private ScrollView recommend1BoutiqueLayout;
+    private TextView recommend2LiveLayout;
 
     public static RecommendFragment newInstance(int arg) {
         RecommendFragment fragment = new RecommendFragment();
@@ -154,11 +158,10 @@ public class RecommendFragment extends BaseSearchFragment {
                                 horizontalViewContainer.removeAllViews();
                                 int size = gameInfo.size();
                                 Resources resources = getResources();
-                                int px20 = resources.getDimensionPixelOffset(R.dimen.dm020);
-                                int px34 = resources.getDimensionPixelOffset(R.dimen.dm034);
-                                int pxWidth = resources.getDimensionPixelOffset(R.dimen.dm400);
+                                int pxRound = resources.getDimensionPixelOffset(R.dimen.dm036);
+                                int px32 = resources.getDimensionPixelOffset(R.dimen.dm032);
                                 int pxHeight = resources.getDimensionPixelOffset(R.dimen
-                                        .recommend_horizontal_view_height);
+                                        .dm640);
 
                                 for (int i = 0; i < size; i++) {
                                     final YunduanBean.DataBean info = gameInfo.get(i);
@@ -169,23 +172,18 @@ public class RecommendFragment extends BaseSearchFragment {
                                             .setPlaceholderImage(R.color.e5e5e5)
                                             .setFailureImage(R.color.e5e5e5)
                                             .setActualImageScaleType(ScalingUtils.ScaleType
-                                                    .CENTER_CROP)
+                                                    .FIT_XY)
                                             .setRoundingParams(RoundingParams.fromCornersRadius
-                                                    (px34 / 2))
+                                                    (pxRound))
                                             .setFadeDuration(0)
                                             .build();
                                     simpleImageView.setHierarchy(hierarchy);
                                     //为  PicassoImageView设置属性
                                     hParams = new LinearLayout.LayoutParams(
-                                            wrapContent, wrapContent);
-                                    hParams.width = pxWidth;
-                                    hParams.height = pxHeight;
+                                            ViewGroup.LayoutParams.MATCH_PARENT, pxHeight);
+                                    // hParams.height = pxHeight;
                                     //有多个图片的话
-                                    if (0 == i) {
-                                        hParams.setMargins(px34, 0, px20, 0);
-                                    } else {
-                                        hParams.setMargins(0, 0, px20, 0);
-                                    }
+                                    hParams.setMargins(0, 0, 0, px32);
                                     simpleImageView.setLayoutParams(hParams);
                                     //加载网络图片
                                     simpleImageView.setImageURI(gameImage);
@@ -274,8 +272,7 @@ public class RecommendFragment extends BaseSearchFragment {
             //pullListView.setPullLoadEnabled(false);
             pullListView.getRefreshableView().setSelection(0);
         }
-        if (pageAction.getCurrentPage() > 0 && result.getData().size() > 2) {//// TODO: 2017/7/17
-/// 0017
+        if (pageAction.getCurrentPage() > 0 && result.getData().size() > 2) {
             int index = pullListView.getRefreshableView().getFirstVisiblePosition();
             View v = pullListView.getRefreshableView().getChildAt(0);
             int top = (v == null) ? 0 : (v.getTop() - v.getHeight());
@@ -291,6 +288,9 @@ public class RecommendFragment extends BaseSearchFragment {
         pageAction.setCurrentPage(0);
         pageAction.setPageSize(PAGE_SIZE);
         loadStateView = (LoadStateView) view.findViewById(R.id.load_state_view2);
+        horizontalViewContainer = (LinearLayout) view.findViewById(R.id.horizontalView_container);
+        recommend2LiveLayout = (TextView) view.findViewById(R.id.recommend_2_live);
+        recommend1BoutiqueLayout = (ScrollView) view.findViewById(R.id.recommend_1_boutique);
         loadStateView.isShowLoadBut(false);
         pullListView = (PullToRefreshListView) view.findViewById(R.id.pullListView);
         pullListView.setPullLoadEnabled(true);
@@ -448,12 +448,9 @@ public class RecommendFragment extends BaseSearchFragment {
 
         view.findViewById(R.id.recommend_head_llay_0).setOnClickListener(headClickListener);
         view.findViewById(R.id.recommend_head_llay_1).setOnClickListener(headClickListener);
-        view.findViewById(R.id.recommend_topics_more_tv).setOnClickListener(headClickListener);
 
         //横向滑动控件
-        horizontalViewContainer = (LinearLayout) view.findViewById(R.id.horizontalView_container);
         singeTopicsDetailIntent.setClass(context, TopicsDetailActivity.class);
-        wrapContent = ViewGroup.LayoutParams.WRAP_CONTENT;
     }
 
     //头部点击
@@ -485,9 +482,9 @@ public class RecommendFragment extends BaseSearchFragment {
                     intent.putExtra(KeyConstant.ID, dataBean1.getGameId());
                     startActivity(intent);
                     break;
-                case R.id.recommend_topics_more_tv://专题
-                    startActivity(new Intent(context, TopicsListActivity.class));
-                    break;
+
+                //查看更多--全部专题
+                //startActivity(new Intent(context, TopicsListActivity.class));
             }
         }
     };
@@ -649,8 +646,10 @@ public class RecommendFragment extends BaseSearchFragment {
     }
 
     public void setTab(int position) {
-            pullListView.setVisibility(0 == position?View.VISIBLE:View.GONE);
-            //pullListView.setVisibility(0 == position?View.VISIBLE:View.GONE);
-            //pullListView.setVisibility(0 == position?View.VISIBLE:View.GONE);
+        pullListView.setVisibility(0 == position ? View.VISIBLE : View.GONE);
+        recommend1BoutiqueLayout.setVisibility(1 == position ? View.VISIBLE : View.GONE);
+        recommend2LiveLayout.setVisibility(2 == position ? View.VISIBLE : View.GONE);
+        //pullListView.setVisibility(0 == position?View.VISIBLE:View.GONE);
+        //pullListView.setVisibility(0 == position?View.VISIBLE:View.GONE);
     }
 }

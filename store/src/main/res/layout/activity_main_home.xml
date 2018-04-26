@@ -180,7 +180,7 @@
             app:xTabIndicatorWidth="@dimen/dm020"
             app:xTabTextColor="@color/e6e6e6"
             app:xTabTextSelectedBold="true"
-            app:xTabTextSize="@dimen/dm024" />
+            app:xTabTextSize="@dimen/dm026" />
 
 
         <ImageView
