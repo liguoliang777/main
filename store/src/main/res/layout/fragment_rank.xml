@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:orientation="vertical">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <android.support.design.widget.TabLayout
-        xmlns:tabs="http://schemas.android.com/apk/res-auto"
+    <android.support.design.widget.TabLayout xmlns:tabs="http://schemas.android.com/apk/res-auto"
         android:id="@+id/rank_tablayout"
         style="@style/Rank_Fragment_TabLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dm074"
         android:background="@color/f2f2f2"
+        tabs:tabGravity="fill"
         tabs:tabIndicatorColor="@color/mainColor"
         tabs:tabIndicatorHeight="@dimen/dm004"
-        tabs:tabGravity="fill"
         tabs:tabMode="scrollable"
         tabs:tabSelectedTextColor="@color/color_1a"
-        tabs:tabTextColor="@color/color999999"/>
+        tabs:tabTextColor="@color/color999999" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:layout_below="@id/rank_tablayout" />
+</RelativeLayout>

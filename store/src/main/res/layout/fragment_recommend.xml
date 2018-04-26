@@ -38,7 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="暂无内容"
+        android:text="稍等,主播还在穿衣服..."
         android:visibility="gone">
 
     </TextView>

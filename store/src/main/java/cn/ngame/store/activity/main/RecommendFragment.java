@@ -245,11 +245,9 @@ public class RecommendFragment extends BaseSearchFragment {
             pageAction.setTotal(totals);
             this.list.addAll(resultData); //清除数据
             this.topList.addAll(resultData);
-            if (list.size() > 1) {
+          /*  if (list.size() > 1) {
                 setHeaderInfo(list);//设置头部布局
-                list.remove(0);
-                list.remove(0);
-            }
+            }*/
         }
         if (adapter == null) {
             adapter = new RecommendListAdapter(context, getSupportFragmentManager(), list, 0);
@@ -280,7 +278,7 @@ public class RecommendFragment extends BaseSearchFragment {
         }
         pullListView.onPullUpRefreshComplete();
         pullListView.onPullDownRefreshComplete();
-        pullListView.setLastUpdatedLabel(new Date().toLocaleString());
+        pullListView.setLastUpdatedLabel(new Date().toLocaleString()); //全名  功夫  最终
     }
 
     public void initListView(final View view) {
@@ -352,14 +350,12 @@ public class RecommendFragment extends BaseSearchFragment {
         refreshableView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (position > 0) {
-                    int i = position - 1;
                     /**   pullListView的头部position是0  第一个item 索引是 1
                      1-1= 0(所以position是1时,要拿list里的0处数据, position是2时,拿1处数据)   */
-                    RecommendListBean.DataBean dataBean = list.get(i);
+                    RecommendListBean.DataBean dataBean = list.get(position);
                     //埋点
                     HashMap<String, String> map = new HashMap<>();
-                    map.put(KeyConstant.index, i + 2 + "");
+                    map.put(KeyConstant.index, position + "");
                     map.put(KeyConstant.game_Name, dataBean.getGameName());
                     MobclickAgent.onEvent(context, UMEventNameConstant
                             .mainRecommendPositionClickCount, map);
@@ -367,7 +363,6 @@ public class RecommendFragment extends BaseSearchFragment {
                     Intent intent = new Intent(context, GameDetailActivity.class);
                     intent.putExtra(KeyConstant.ID, dataBean.getGameId());
                     startActivity(intent);
-                }
             }
         });
      /*   //滑动事件(搜索栏渐变)
@@ -388,13 +383,12 @@ public class RecommendFragment extends BaseSearchFragment {
         });*/
 
         //todo添加头布局
-        View headView = View.inflate(context, R.layout.recommend_header_view, null);
+    /*    View headView = View.inflate(context, R.layout.recommend_header_view, null);
         initHeadView(headView);
         //头布局放入listView中
         if (refreshableView.getHeaderViewsCount() == 0) {
             refreshableView.addHeaderView(headView);
-        }
-        //第一次进来,请求数据
+        }*/
         if (!NetUtil.isNetworkConnected(context)) {
             pullListView.onPullUpRefreshComplete();
             pullListView.onPullDownRefreshComplete();
