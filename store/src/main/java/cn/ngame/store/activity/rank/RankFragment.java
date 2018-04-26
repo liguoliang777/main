@@ -189,4 +189,8 @@ public class RankFragment extends BaseSearchFragment {
     protected View getLoadView(View view) {
         return null;
     }
+
+    public void setTab(int position) {
+
+    }
 }

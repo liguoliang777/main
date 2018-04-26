@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:ads="http://schemas.android.com/tools"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@android:color/white"
-    android:descendantFocusability="blocksDescendants"
-    android:orientation="vertical">
+              xmlns:ads="http://schemas.android.com/tools"
+              xmlns:fresco="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@android:color/white"
+              android:descendantFocusability="blocksDescendants"
+              android:orientation="vertical">
     <!--item的时候没有反应，无法获取的焦点-->
     <LinearLayout
         android:id="@+id/recommend_head_llay_0"
@@ -19,7 +19,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/dm016"
             android:layout_marginLeft="@dimen/dm034"
-            android:layout_marginTop="@dimen/dm028">
+            android:layout_marginTop="@dimen/dm028"
+            >
 
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/sdv_img_from_iv"
@@ -31,7 +32,7 @@
                 fresco:placeholderImage="@drawable/ic_def_logo_188_188"
                 fresco:placeholderImageScaleType="centerCrop"
                 fresco:progressBarImage="@drawable/ic_def_logo_188_188"
-                fresco:roundedCornerRadius="@dimen/dm008" />
+                fresco:roundedCornerRadius="@dimen/dm008"/>
 
             <TextView
                 android:id="@+id/tv_gamename_1"
@@ -46,7 +47,7 @@
                 android:text=""
                 android:textColor="@color/color_1a"
                 android:textSize="@dimen/dm028"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
         </RelativeLayout>
 
@@ -55,7 +56,8 @@
             android:id="@+id/recommend_game_pic_1"
             android:layout_width="match_parent"
             android:layout_height="@dimen/recommend_item_game_pic_hight"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            />
 
         <TextView
             android:id="@+id/tv_summary1"
@@ -70,9 +72,9 @@
             android:maxLines="2"
             android:text=""
             android:textColor="@color/color999999"
-            android:textSize="@dimen/dm020" />
+            android:textSize="@dimen/dm020"/>
 
-        <include layout="@layout/layout_line_10px_e6e6e6" />
+        <include layout="@layout/layout_line_10px_e6e6e6"/>
     </LinearLayout>
 
     <!-- <TextView
@@ -188,7 +190,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/dm016"
             android:layout_marginLeft="@dimen/dm034"
-            android:layout_marginTop="@dimen/dm028">
+            android:layout_marginTop="@dimen/dm028"
+            >
 
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/img_from_2"
@@ -199,7 +202,7 @@
                 fresco:placeholderImageScaleType="centerCrop"
                 fresco:progressBarImage="@drawable/ic_def_logo_188_188"
                 fresco:progressBarImageScaleType="centerCrop"
-                fresco:roundedCornerRadius="@dimen/dm008" />
+                fresco:roundedCornerRadius="@dimen/dm008"/>
 
             <TextView
                 android:id="@+id/tv_gamename_2"
@@ -214,7 +217,7 @@
                 android:text=""
                 android:textColor="@color/color_1a"
                 android:textSize="@dimen/dm028"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
         </RelativeLayout>
 
@@ -222,7 +225,7 @@
             android:id="@+id/recommend_game_pic_2"
             android:layout_width="match_parent"
             android:layout_height="@dimen/recommend_item_game_pic_hight"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"/>
 
         <TextView
             android:id="@+id/tv_summary2"
@@ -237,8 +240,8 @@
             android:maxLines="2"
             android:text=""
             android:textColor="@color/color999999"
-            android:textSize="@dimen/dm020" />
+            android:textSize="@dimen/dm020"/>
 
-        <include layout="@layout/layout_line_10px_e6e6e6" />
+        <include layout="@layout/layout_line_10px_e6e6e6"/>
     </LinearLayout>
 </LinearLayout>

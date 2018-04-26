@@ -13,7 +13,6 @@ import android.os.Handler;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.FileProvider;
 import android.text.format.Formatter;
@@ -103,8 +102,6 @@ import cn.ngame.store.util.ToastUtil;
 import cn.ngame.store.view.DialogModel;
 import cn.ngame.store.view.FloatView;
 
-import android.support.design.widget.TabLayout;
-
 /**
  * 首页底部tab栏
  * Created by gp on 2017/3/14 0014.
@@ -152,7 +149,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
     private Button menu_game_hub_bt;
     private MainHubFragment gameMainHubFragment;
     private RelativeLayout mTopSearchBt;
-    private XTabLayout tabLayout;
+    private XTabLayout tabLayout0, tabLayout1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -220,7 +217,8 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
         mHubBt = (ImageView) findViewById(R.id.main_hub_bt);
         mAllCategoryBt = (ImageView) findViewById(R.id.main_all_category_bt);
 
-        tabLayout = findViewById(R.id.main_top_tab);
+        tabLayout0 = findViewById(R.id.main_top_tab);
+        tabLayout1 = findViewById(R.id.main_tab1);
 
         im_toSearch.setOnClickListener(this);
         //fl_notifi.setOnClickListener(this);
@@ -294,13 +292,20 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
         //startPadService();
     }
 
+    String[] tabTitles0 = new String[]{"动态", "精品", "直播"};
+    String[] tabTitles1 = new String[]{"热门", "预约", "口碑"};
+
     private void initTab() {
 
-        final String[] titles = new String[]{"动态", "精品", "直播"};
-        tabLayout.addTab(tabLayout.newTab().setText(titles[0]));
-        tabLayout.addTab(tabLayout.newTab().setText(titles[1]));
-        tabLayout.addTab(tabLayout.newTab().setText(titles[2]));
-        tabLayout.setOnTabSelectedListener(new XTabLayout.OnTabSelectedListener() {
+        tabLayout0.addTab(tabLayout0.newTab().setText(tabTitles0[0]));
+        tabLayout0.addTab(tabLayout0.newTab().setText(tabTitles0[1]));
+        tabLayout0.addTab(tabLayout0.newTab().setText(tabTitles0[2]));
+
+        tabLayout1.addTab(tabLayout1.newTab().setText(tabTitles1[0]));
+        tabLayout1.addTab(tabLayout1.newTab().setText(tabTitles1[1]));
+        tabLayout1.addTab(tabLayout1.newTab().setText(tabTitles1[2]));
+
+        tabLayout0.setOnTabSelectedListener(new XTabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(XTabLayout.Tab tab) {
                 int position = tab.getPosition();
@@ -316,6 +321,22 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
             @Override
             public void onTabReselected(XTabLayout.Tab tab) {
 
+            }
+        });
+        tabLayout1.setOnTabSelectedListener(new XTabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(XTabLayout.Tab tab) {
+                int position = tab.getPosition();
+                android.util.Log.d(TAG, "选中1: " + position);
+                rankingFragment.setTab(position);
+            }
+
+            @Override
+            public void onTabUnselected(XTabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabReselected(XTabLayout.Tab tab) {
             }
         });
     }
@@ -640,7 +661,8 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                 mLikeBt.setVisibility(View.GONE);
                 mHubBt.setVisibility(View.GONE);
                 tv_home.setTextColor(colorDark);
-                tabLayout.setVisibility(View.VISIBLE);
+                tabLayout0.setVisibility(View.VISIBLE);
+                tabLayout1.setVisibility(View.GONE);
 
                 //埋点
                 MobclickAgent.onEvent(context, UMEventNameConstant.mainRecommendButtonClickCount);
@@ -663,7 +685,8 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                 mHubBt.setVisibility(View.GONE);
                 mAllCategoryBt.setVisibility(View.GONE);
                 tv_game.setTextColor(colorDark);
-                tabLayout.setVisibility(View.VISIBLE);
+                tabLayout0.setVisibility(View.GONE);
+                tabLayout1.setVisibility(View.VISIBLE);
 
                 MobclickAgent.onEvent(context, UMEventNameConstant.mainRankButtonClickCount);
                 break;
@@ -684,7 +707,8 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                 im_toSearch.setVisibility(View.GONE);
                 tv_video.setTextColor(colorDark);
 
-                tabLayout.setVisibility(View.GONE);
+                tabLayout0.setVisibility(View.GONE);
+                tabLayout1.setVisibility(View.GONE);
                 MobclickAgent.onEvent(context, UMEventNameConstant.mainDiscoverButtonClickCount);
                 break;
             case 2://圈子
@@ -699,7 +723,10 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                 mAllCategoryBt.setVisibility(View.GONE);
                 mTopSearchBt.setVisibility(View.GONE);
                 im_toSearch.setVisibility(View.GONE);
-                tabLayout.setVisibility(View.GONE);
+
+                tabLayout0.setVisibility(View.GONE);
+                tabLayout1.setVisibility(View.GONE);
+
                 menu_gamehub_tv.setTextColor(colorDark);
                 MobclickAgent.onEvent(context, UMEventNameConstant.mainCircleButtonClickCount);
                 break;
@@ -718,10 +745,13 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                 mLikeBt.setVisibility(View.VISIBLE);
                 mAllCategoryBt.setVisibility(View.GONE);
                 im_toSearch.setVisibility(View.GONE);
-                tabLayout.setVisibility(View.GONE);
                 mHubBt.setVisibility(View.GONE);
                 mTopSearchBt.setVisibility(View.GONE);
                 //fl_notifi.setVisibility(View.GONE);
+
+                tabLayout0.setVisibility(View.GONE);
+                tabLayout1.setVisibility(View.GONE);
+
                 tv_manager.setTextColor(colorDark);
                 MobclickAgent.onEvent(context, UMEventNameConstant.mainManagerButtonClickCount);
                 break;
