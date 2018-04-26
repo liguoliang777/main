@@ -440,8 +440,8 @@ public class RecommendFragment extends BaseSearchFragment {
         summary_1 = (TextView) view.findViewById(R.id.tv_summary1);//游戏摘要
         summary_2 = (TextView) view.findViewById(R.id.tv_summary2);
 
-        view.findViewById(R.id.recommend_head_llay_0).setOnClickListener(headClickListener);
-        view.findViewById(R.id.recommend_head_llay_1).setOnClickListener(headClickListener);
+        //view.findViewById(R.id.recommend_head_llay_0).setOnClickListener(headClickListener);
+        //view.findViewById(R.id.recommend_head_llay_1).setOnClickListener(headClickListener);
 
         //横向滑动控件
         singeTopicsDetailIntent.setClass(context, TopicsDetailActivity.class);

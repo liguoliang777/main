@@ -84,9 +84,9 @@ public class RecommendListAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(context).inflate(R.layout.recommend_list_item,
                     parent, false);
             holder = new ViewHolder(context, fm);
-            holder.fromIv = convertView.findViewById(R.id.img_1);
+            holder.fromIv = convertView.findViewById(R.id.recommend_game_img_1);
             holder.game_logo_Iv = convertView.findViewById(R.id.recommend_game_pic);
-            holder.tv_title = convertView.findViewById(R.id.tv_title);
+            holder.tv_title = convertView.findViewById(R.id.recommend_game_title_tv);
             holder.tv_summary = convertView.findViewById(R.id.tv_summary);
             convertView.setTag(holder);
         } else {

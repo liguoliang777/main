@@ -10,8 +10,9 @@
         android:id="@+id/pullListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="0dp"
+        android:paddingTop="@dimen/dm004"
         android:background="@color/f5f5f5"
+
         android:divider="@null"
         android:scrollbars="none" />
 
