@@ -52,8 +52,8 @@ import cn.ngame.store.widget.pulllistview.PullToRefreshListView;
  * Created by gp on 2017/3/14 0014.
  */
 @SuppressLint("WrongConstant")
-public class RecommendFragment extends BaseSearchFragment {
-    public static final String TAG = RecommendFragment.class.getSimpleName();
+public class Recommend2Fragment extends BaseSearchFragment {
+    public static final String TAG = Recommend2Fragment.class.getSimpleName();
     private PullToRefreshListView pullListView;
     private ImageView game_big_pic_1, game_big_pic_2;
     private SimpleDraweeView fromImg_1, from_img_ad, from_img_2;
@@ -76,8 +76,8 @@ public class RecommendFragment extends BaseSearchFragment {
     private Picasso picasso;
     private LinearLayout parent;
 
-    public static RecommendFragment newInstance(int arg) {
-        RecommendFragment fragment = new RecommendFragment();
+    public static Recommend2Fragment newInstance(int arg) {
+        Recommend2Fragment fragment = new Recommend2Fragment();
         Bundle bundle = new Bundle();
         bundle.putInt("", arg);
         fragment.setArguments(bundle);
@@ -109,11 +109,9 @@ public class RecommendFragment extends BaseSearchFragment {
                     public void onError(Throwable e) {
                         if (list != null && list.size() > 0) {
                             loadStateView.setVisibility(View.GONE);
-                            ToastUtil.show(context, getString(R.string
-                                    .server_exception_2_pullrefresh));
+                            ToastUtil.show(context, getString(R.string.server_exception_2_pullrefresh));
                         } else {
-                            loadStateView.setState(LoadStateView.STATE_END, getString(R.string
-                                    .server_exception_2_pullrefresh));
+                            loadStateView.setState(LoadStateView.STATE_END, getString(R.string.server_exception_2_pullrefresh));
                             loadStateView.setVisibility(View.VISIBLE);
                         }
                         pullListView.onPullUpRefreshComplete();
@@ -157,8 +155,7 @@ public class RecommendFragment extends BaseSearchFragment {
                                 int px20 = resources.getDimensionPixelOffset(R.dimen.dm020);
                                 int px34 = resources.getDimensionPixelOffset(R.dimen.dm034);
                                 int pxWidth = resources.getDimensionPixelOffset(R.dimen.dm400);
-                                int pxHeight = resources.getDimensionPixelOffset(R.dimen
-                                        .recommend_horizontal_view_height);
+                                int pxHeight = resources.getDimensionPixelOffset(R.dimen.recommend_horizontal_view_height);
 
                                 for (int i = 0; i < size; i++) {
                                     final YunduanBean.DataBean info = gameInfo.get(i);
@@ -168,10 +165,8 @@ public class RecommendFragment extends BaseSearchFragment {
                                             .newInstance(resources)
                                             .setPlaceholderImage(R.color.e5e5e5)
                                             .setFailureImage(R.color.e5e5e5)
-                                            .setActualImageScaleType(ScalingUtils.ScaleType
-                                                    .CENTER_CROP)
-                                            .setRoundingParams(RoundingParams.fromCornersRadius
-                                                    (px34 / 2))
+                                            .setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP)
+                                            .setRoundingParams(RoundingParams.fromCornersRadius(px34 / 2))
                                             .setFadeDuration(0)
                                             .build();
                                     simpleImageView.setHierarchy(hierarchy);
@@ -192,14 +187,10 @@ public class RecommendFragment extends BaseSearchFragment {
                                     simpleImageView.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
-                                            singeTopicsDetailIntent.putExtra(KeyConstant
-                                                    .category_Id, info.getId());
-                                            singeTopicsDetailIntent.putExtra(KeyConstant.TITLE,
-                                                    info.getTypeName());
-                                            singeTopicsDetailIntent.putExtra(KeyConstant.DESC,
-                                                    info.getTypeDesc());
-                                            singeTopicsDetailIntent.putExtra(KeyConstant.URL,
-                                                    gameImage);
+                                            singeTopicsDetailIntent.putExtra(KeyConstant.category_Id, info.getId());
+                                            singeTopicsDetailIntent.putExtra(KeyConstant.TITLE, info.getTypeName());
+                                            singeTopicsDetailIntent.putExtra(KeyConstant.DESC, info.getTypeDesc());
+                                            singeTopicsDetailIntent.putExtra(KeyConstant.URL, gameImage);
                                             startActivity(singeTopicsDetailIntent);
                                         }
                                     });
@@ -260,8 +251,7 @@ public class RecommendFragment extends BaseSearchFragment {
             adapter.setList(list);
         }
         //设置下位
-       /* if ((mStickyLV.size() == 0 && pageAction.getTotal() == 0) || mStickyLV.size() >=
-       pageAction.getTotal()) {
+       /* if ((mStickyLV.size() == 0 && pageAction.getTotal() == 0) || mStickyLV.size() >= pageAction.getTotal()) {
             pullListView.setPullLoadEnabled(true);
         } else {
             pullListView.setPullLoadEnabled(true);
@@ -274,8 +264,7 @@ public class RecommendFragment extends BaseSearchFragment {
             //pullListView.setPullLoadEnabled(false);
             pullListView.getRefreshableView().setSelection(0);
         }
-        if (pageAction.getCurrentPage() > 0 && result.getData().size() > 2) {//// TODO: 2017/7/17
-/// 0017
+        if (pageAction.getCurrentPage() > 0 && result.getData().size() > 2) {//// TODO: 2017/7/17 0017
             int index = pullListView.getRefreshableView().getFirstVisiblePosition();
             View v = pullListView.getRefreshableView().getChildAt(0);
             int top = (v == null) ? 0 : (v.getTop() - v.getHeight());
@@ -314,8 +303,7 @@ public class RecommendFragment extends BaseSearchFragment {
                     } else {
                         ToastUtil.show(context, getString(R.string.no_network));
                         loadStateView.setVisibility(View.VISIBLE);
-                        loadStateView.setState(LoadStateView.STATE_END, getString(R.string
-                                .no_network));
+                        loadStateView.setState(LoadStateView.STATE_END, getString(R.string.no_network));
                     }
                 } else {
                     //下拉请求数据
@@ -334,8 +322,7 @@ public class RecommendFragment extends BaseSearchFragment {
                     pullListView.onPullUpRefreshComplete();
                     return;
                 }
-                if (pageAction.getCurrentPage() * pageAction.getPageSize() < pageAction.getTotal
-                        ()) {
+                if (pageAction.getCurrentPage() * pageAction.getPageSize() < pageAction.getTotal()) {
                     pageAction.setCurrentPage(pageAction.getCurrentPage() == 0 ?
                             pageAction.getCurrentPage() + 2 : pageAction.getCurrentPage() + 1);
                     //上拉请求数据
@@ -361,8 +348,7 @@ public class RecommendFragment extends BaseSearchFragment {
                     HashMap<String, String> map = new HashMap<>();
                     map.put(KeyConstant.index, i + 2 + "");
                     map.put(KeyConstant.game_Name, dataBean.getGameName());
-                    MobclickAgent.onEvent(context, UMEventNameConstant
-                            .mainRecommendPositionClickCount, map);
+                    MobclickAgent.onEvent(context, UMEventNameConstant.mainRecommendPositionClickCount, map);
 
                     Intent intent = new Intent(context, GameDetailActivity.class);
                     intent.putExtra(KeyConstant.ID, dataBean.getGameId());
@@ -382,8 +368,7 @@ public class RecommendFragment extends BaseSearchFragment {
 
             //向下头部颜色渐变
             @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount,
-            int totalItemCount) {
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
             }
         });*/
 
@@ -468,8 +453,7 @@ public class RecommendFragment extends BaseSearchFragment {
                     HashMap<String, String> map = new HashMap<>();
                     map.put(KeyConstant.index, 0 + "");
                     map.put(KeyConstant.game_Name, dataBean.getGameName());
-                    MobclickAgent.onEvent(context, UMEventNameConstant
-                            .mainRecommendPositionClickCount, map);
+                    MobclickAgent.onEvent(context, UMEventNameConstant.mainRecommendPositionClickCount, map);
 
                     intent.putExtra(KeyConstant.ID, dataBean.getGameId());
                     startActivity(intent);
@@ -480,8 +464,7 @@ public class RecommendFragment extends BaseSearchFragment {
                     HashMap<String, String> map1 = new HashMap<>();
                     map1.put(KeyConstant.index, 2 + "");
                     map1.put(KeyConstant.game_Name, dataBean1.getGameName());
-                    MobclickAgent.onEvent(context, UMEventNameConstant
-                            .mainRecommendPositionClickCount, map1);
+                    MobclickAgent.onEvent(context, UMEventNameConstant.mainRecommendPositionClickCount, map1);
                     intent.putExtra(KeyConstant.ID, dataBean1.getGameId());
                     startActivity(intent);
                     break;
@@ -529,8 +512,7 @@ public class RecommendFragment extends BaseSearchFragment {
   /*  private void setAdView() {
         InMobiSdk.init(context, Constant.InMobiSdk_Id);
 
-        InMobiNative nativeAd = new InMobiNative(context, Constant
-        .AD_PlacementID_RecommendFragment, new InMobiNative
+        InMobiNative nativeAd = new InMobiNative(context, Constant.AD_PlacementID_RecommendFragment, new InMobiNative
                 .NativeAdListener() {
             @Override
             public void onAdLoadSucceeded(@NonNull InMobiNative inMobiNative) {
@@ -554,8 +536,7 @@ public class RecommendFragment extends BaseSearchFragment {
             }
 
             @Override
-            public void onAdLoadFailed(@NonNull InMobiNative inMobiNative, @NonNull
-            InMobiAdRequestStatus inMobiAdRequestStatus) {
+            public void onAdLoadFailed(@NonNull InMobiNative inMobiNative, @NonNull InMobiAdRequestStatus inMobiAdRequestStatus) {
                 Log.d(TAG, "广告加载失败");
                 adLayout.setVisibility(View.GONE);
             }
@@ -594,8 +575,7 @@ public class RecommendFragment extends BaseSearchFragment {
                 HashMap<String, String> map = new HashMap<>();
                 map.put(KeyConstant.index, 1 + "");
                 map.put(KeyConstant.game_Name, inMobiNative.getAdTitle());
-                MobclickAgent.onEvent(context, UMEventNameConstant
-                .mainRecommendPositionClickCount, map);
+                MobclickAgent.onEvent(context, UMEventNameConstant.mainRecommendPositionClickCount, map);
             }
 
             @Override
@@ -648,9 +628,4 @@ public class RecommendFragment extends BaseSearchFragment {
         mIsShow = isShow;
     }
 
-    public void setTab(int position) {
-            pullListView.setVisibility(0 == position?View.VISIBLE:View.GONE);
-            //pullListView.setVisibility(0 == position?View.VISIBLE:View.GONE);
-            //pullListView.setVisibility(0 == position?View.VISIBLE:View.GONE);
-    }
 }

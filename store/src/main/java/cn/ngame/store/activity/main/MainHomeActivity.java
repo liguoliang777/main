@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.FileProvider;
 import android.text.format.Formatter;
@@ -151,6 +152,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
     private Button menu_game_hub_bt;
     private MainHubFragment gameMainHubFragment;
     private RelativeLayout mTopSearchBt;
+    private XTabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -218,11 +220,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
         mHubBt = (ImageView) findViewById(R.id.main_hub_bt);
         mAllCategoryBt = (ImageView) findViewById(R.id.main_all_category_bt);
 
-        XTabLayout tabLayout = findViewById(R.id.main_top_tab);
-
-        tabLayout.addTab(tabLayout.newTab().setText("动态"));
-        tabLayout.addTab(tabLayout.newTab().setText("精品"));
-        tabLayout.addTab(tabLayout.newTab().setText("直播"));
+        tabLayout = findViewById(R.id.main_top_tab);
 
         im_toSearch.setOnClickListener(this);
         //fl_notifi.setOnClickListener(this);
@@ -238,7 +236,10 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
 
 //        init(viewPager, getSupportFragmentManager());
         fragmentManager = getSupportFragmentManager();
-        setCurrentMenu(0);    //当前选中标签
+        setCurrentMenu(0);
+
+        //顶部标签
+        initTab();
 
         home.setOnClickListener(mTabClickListener);
         game.setOnClickListener(mTabClickListener);
@@ -291,6 +292,32 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
 
         //todo 开启映射服务
         //startPadService();
+    }
+
+    private void initTab() {
+
+        final String[] titles = new String[]{"动态", "精品", "直播"};
+        tabLayout.addTab(tabLayout.newTab().setText(titles[0]));
+        tabLayout.addTab(tabLayout.newTab().setText(titles[1]));
+        tabLayout.addTab(tabLayout.newTab().setText(titles[2]));
+        tabLayout.setOnTabSelectedListener(new XTabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(XTabLayout.Tab tab) {
+                int position = tab.getPosition();
+                android.util.Log.d(TAG, "选中: " + position);
+                recommendFragment.setTab(position);
+            }
+
+            @Override
+            public void onTabUnselected(XTabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(XTabLayout.Tab tab) {
+
+            }
+        });
     }
 
     private void startPadService() {
@@ -613,6 +640,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                 mLikeBt.setVisibility(View.GONE);
                 mHubBt.setVisibility(View.GONE);
                 tv_home.setTextColor(colorDark);
+                tabLayout.setVisibility(View.VISIBLE);
 
                 //埋点
                 MobclickAgent.onEvent(context, UMEventNameConstant.mainRecommendButtonClickCount);
@@ -635,6 +663,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                 mHubBt.setVisibility(View.GONE);
                 mAllCategoryBt.setVisibility(View.GONE);
                 tv_game.setTextColor(colorDark);
+                tabLayout.setVisibility(View.VISIBLE);
 
                 MobclickAgent.onEvent(context, UMEventNameConstant.mainRankButtonClickCount);
                 break;
@@ -654,6 +683,8 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                 //fl_notifi.setVisibility(View.GONE);
                 im_toSearch.setVisibility(View.GONE);
                 tv_video.setTextColor(colorDark);
+
+                tabLayout.setVisibility(View.GONE);
                 MobclickAgent.onEvent(context, UMEventNameConstant.mainDiscoverButtonClickCount);
                 break;
             case 2://圈子
@@ -668,6 +699,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                 mAllCategoryBt.setVisibility(View.GONE);
                 mTopSearchBt.setVisibility(View.GONE);
                 im_toSearch.setVisibility(View.GONE);
+                tabLayout.setVisibility(View.GONE);
                 menu_gamehub_tv.setTextColor(colorDark);
                 MobclickAgent.onEvent(context, UMEventNameConstant.mainCircleButtonClickCount);
                 break;
@@ -686,6 +718,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                 mLikeBt.setVisibility(View.VISIBLE);
                 mAllCategoryBt.setVisibility(View.GONE);
                 im_toSearch.setVisibility(View.GONE);
+                tabLayout.setVisibility(View.GONE);
                 mHubBt.setVisibility(View.GONE);
                 mTopSearchBt.setVisibility(View.GONE);
                 //fl_notifi.setVisibility(View.GONE);
