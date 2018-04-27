@@ -1,7 +1,4 @@
 buildscript {
-
-    //^fdk%67sd$5
-
     repositories {
         jcenter()
         google()

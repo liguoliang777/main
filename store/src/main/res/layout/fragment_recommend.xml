@@ -10,28 +10,27 @@
         android:id="@+id/pullListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="@dimen/dm004"
         android:background="@color/f5f5f5"
-
         android:divider="@null"
+        android:paddingTop="@dimen/dm004"
         android:scrollbars="none" />
 
     <ScrollView
         android:id="@+id/recommend_1_boutique"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/dm012"
-        android:paddingLeft="@dimen/dm032"
-        android:paddingRight="@dimen/dm032"
         android:scrollbars="none"
         android:visibility="gone">
 
         <LinearLayout
+            android:paddingLeft="@dimen/dm032"
+            android:paddingRight="@dimen/dm032"
             android:id="@+id/horizontalView_container"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/recommend_horizontal_view_height"
+            android:layout_height="match_parent"
             android:focusable="false"
-            android:orientation="vertical"></LinearLayout>
+            android:orientation="vertical"
+            android:paddingTop="@dimen/dm015"></LinearLayout>
     </ScrollView>
 
     <TextView

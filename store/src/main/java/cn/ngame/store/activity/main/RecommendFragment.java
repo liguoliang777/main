@@ -4,8 +4,16 @@ import android.annotation.SuppressLint;
 import android.app.MediaRouteButton;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.graphics.Palette;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -16,6 +24,9 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.facebook.binaryresource.FileBinaryResource;
+import com.facebook.cache.common.SimpleCacheKey;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
@@ -31,6 +42,7 @@ import com.jzt.hol.android.jkda.sdk.services.recommend.RecommendClient;
 import com.squareup.picasso.Picasso;
 import com.umeng.analytics.MobclickAgent;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -148,6 +160,7 @@ public class RecommendFragment extends BaseSearchFragment {
                     public void onError(Throwable e) {
                     }
 
+                    @SuppressLint("NewApi")
                     @Override
                     public void onNext(YunduanBean result) {
                         if (result != null && result.getCode() == 0) {
@@ -202,14 +215,36 @@ public class RecommendFragment extends BaseSearchFragment {
                                         }
                                     });
                                     horizontalViewContainer.addView(simpleImageView, i);
+
+                                    if (i == 2) {
+                                        FileBinaryResource resource = (FileBinaryResource) Fresco
+                                                .getImagePipelineFactory().getMainDiskStorageCache()
+                                                .getResource(
+                                                        new SimpleCacheKey(Uri.parse(gameImage).toString()));
+                                        File file = resource.getFile();
+                                        Bitmap bitmap = BitmapFactory.decodeFile(file.getPath());
+
+                                        /***
+                                         *  compile 'com.android.support:palette-v7:25.3.1'
+                                         Palette.Swatch s1 = Palette.getVibrantSwatch(); //充满活力的色板
+                                         Palette.Swatch s2 = Palette.getDarkVibrantSwatch(); //充满活力的暗色类型色板
+                                         Palette.Swatch s3 = Palette.getLightVibrantSwatch(); //充满活力的亮色类型色板
+                                         Palette.Swatch s4 = Palette.getMutedSwatch(); //黯淡的色板
+                                         Palette.Swatch s5 = Palette.getDarkMutedSwatch(); //黯淡的暗色类型色板
+                                         Palette.Swatch s6 = Palette.getLightMutedSwatch(); //黯淡的亮色类型色板
+                                         */
+                                        Palette palette = Palette.generate(bitmap,24);
+                                        if (palette != null && palette.getLightVibrantSwatch() != null) {
+                                            int rgb = palette.getLightVibrantSwatch().getRgb();//getVibrantSwatch
+                                            horizontalViewContainer.setBackgroundColor(rgb);
+                                        }
+                                    }
                                 }
                             }
                         } else {
                         }
                     }
                 });
-        //GameInfo类  : 请求游戏JN数据后,封装的javabean
-
     }
 
     public void listData(RecommendListBean result) {
@@ -350,19 +385,19 @@ public class RecommendFragment extends BaseSearchFragment {
         refreshableView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    /**   pullListView的头部position是0  第一个item 索引是 1
-                     1-1= 0(所以position是1时,要拿list里的0处数据, position是2时,拿1处数据)   */
-                    RecommendListBean.DataBean dataBean = list.get(position);
-                    //埋点
-                    HashMap<String, String> map = new HashMap<>();
-                    map.put(KeyConstant.index, position + "");
-                    map.put(KeyConstant.game_Name, dataBean.getGameName());
-                    MobclickAgent.onEvent(context, UMEventNameConstant
-                            .mainRecommendPositionClickCount, map);
+                /**   pullListView的头部position是0  第一个item 索引是 1
+                 1-1= 0(所以position是1时,要拿list里的0处数据, position是2时,拿1处数据)   */
+                RecommendListBean.DataBean dataBean = list.get(position);
+                //埋点
+                HashMap<String, String> map = new HashMap<>();
+                map.put(KeyConstant.index, position + "");
+                map.put(KeyConstant.game_Name, dataBean.getGameName());
+                MobclickAgent.onEvent(context, UMEventNameConstant
+                        .mainRecommendPositionClickCount, map);
 
-                    Intent intent = new Intent(context, GameDetailActivity.class);
-                    intent.putExtra(KeyConstant.ID, dataBean.getGameId());
-                    startActivity(intent);
+                Intent intent = new Intent(context, GameDetailActivity.class);
+                intent.putExtra(KeyConstant.ID, dataBean.getGameId());
+                startActivity(intent);
             }
         });
      /*   //滑动事件(搜索栏渐变)
@@ -645,5 +680,6 @@ public class RecommendFragment extends BaseSearchFragment {
         recommend2LiveLayout.setVisibility(2 == position ? View.VISIBLE : View.GONE);
         //pullListView.setVisibility(0 == position?View.VISIBLE:View.GONE);
         //pullListView.setVisibility(0 == position?View.VISIBLE:View.GONE);
+
     }
 }

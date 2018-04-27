@@ -31,7 +31,7 @@
             android:id="@+id/recommend_game_title_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dm014"
+            android:layout_marginBottom="@dimen/dm012"
             android:layout_marginRight="@dimen/dm016"
             android:layout_marginTop="@dimen/dm020"
             android:layout_toRightOf="@id/recommend_game_img_1"
