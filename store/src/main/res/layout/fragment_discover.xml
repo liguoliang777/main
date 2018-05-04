@@ -11,6 +11,7 @@
         android:layout_height="match_parent"
         android:background="@color/f5f5f5"
         android:divider="@null"
+        android:layout_marginBottom="@dimen/dm_021"
         android:scrollbars="none"/>
 
     <cn.ngame.store.view.LoadStateView

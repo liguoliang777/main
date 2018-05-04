@@ -52,7 +52,7 @@ public class DiscoverTop2Adapter extends RecyclerView.Adapter<DiscoverTop2Adapte
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int vieype) {
-        ViewHolder holder = new ViewHolder(mInflater.inflate(R.layout.item_discover_top, parent, false));
+        ViewHolder holder = new ViewHolder(mInflater.inflate(R.layout.item_discover_top2, parent, false));
         return holder;
     }
 
@@ -90,7 +90,7 @@ public class DiscoverTop2Adapter extends RecyclerView.Adapter<DiscoverTop2Adapte
 
         public ViewHolder(View itemView) {
             super(itemView);
-            mTV = (TextView) itemView.findViewById(R.id.tviv_item_tv);
+            mTV = (TextView) itemView.findViewById(R.id.discover_top2_tv);
             mIV = (SimpleDraweeView) itemView.findViewById(R.id.discover_top2_sdv);
         }
     }

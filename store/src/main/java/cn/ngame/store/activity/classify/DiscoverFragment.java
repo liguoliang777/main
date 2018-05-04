@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
@@ -28,7 +29,6 @@ import java.util.List;
 
 import cn.ngame.store.R;
 import cn.ngame.store.activity.main.TopicsDetailActivity;
-import cn.ngame.store.activity.main.TopicsListActivity;
 import cn.ngame.store.adapter.classify.ClassifyIvAdapter;
 import cn.ngame.store.adapter.classify.ClassifyTopAdapter;
 import cn.ngame.store.adapter.classify.DiscoverTop2Adapter;
@@ -106,12 +106,13 @@ public class DiscoverFragment extends BaseSearchFragment implements View.OnClick
         //分类
         init0ClassifyView(headView);
         getBannerData();
+
         //每日新发现
-        init1EverydayDiscoverView(headView);
+        initEveryday(headView);
         //近期最热
         initHotRecentView(headView);
-        //专题
-        initTopicsView(headView);
+        //   ===  专题   ====
+        //initTopicsView(headView);
 
         //添加头部
         ListView refreshableView = pullListView.getRefreshableView();
@@ -130,9 +131,8 @@ public class DiscoverFragment extends BaseSearchFragment implements View.OnClick
     //近期最热
     private void initHotRecentView(View headView) {
         mHotRecentRv = (RecyclerView) headView.findViewById(R.id.rv_hot_recent);
-        linearLayoutManager = new LinearLayoutManager(
-                this.getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        mHotRecentRv.setLayoutManager(linearLayoutManager);
+        GridLayoutManager layoutManage = new GridLayoutManager(getContext(), 2);
+        mHotRecentRv.setLayoutManager(layoutManage);
         mHotRecentAdapter = new DiscoverTop2Adapter(context, mHotRecentList);
         mHotRecentRv.setAdapter(mHotRecentAdapter);
         mHotRecentRv.addItemDecoration(new RecyclerViewDivider(context,
@@ -164,12 +164,11 @@ public class DiscoverFragment extends BaseSearchFragment implements View.OnClick
     }
 
     //每日最新
-    private void init1EverydayDiscoverView(View headView) {
+    private void initEveryday(View headView) {
         mEverydayRv = headView.findViewById(R.id.everyday_discover_recyclerview);
         setOnMoreBtClickListener(headView, R.id.everyday_more_tv1);
-        linearLayoutManager = new LinearLayoutManager(
-                this.getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        mEverydayRv.setLayoutManager(linearLayoutManager);
+        GridLayoutManager layoutManage = new GridLayoutManager(getContext(), 2);
+        mEverydayRv.setLayoutManager(layoutManage);
         mEverydayAdapter = new DiscoverTop2Adapter(context, mEverydayList);
         mEverydayRv.setAdapter(mEverydayAdapter);
         mEverydayRv.addItemDecoration(new RecyclerViewDivider(context,
@@ -178,8 +177,8 @@ public class DiscoverFragment extends BaseSearchFragment implements View.OnClick
 
     //专题
     private void initTopicsView(View headView) {
-        mSubjectRv = headView.findViewById(R.id.rv_subject);
-        setOnMoreBtClickListener(headView, R.id.more_subject_tv);
+        //mSubjectRv = headView.findViewById(R.id.rv_subject);
+        //setOnMoreBtClickListener(headView, R.id.more_subject_tv);
         linearLayoutManager = new LinearLayoutManager(
                 context, LinearLayoutManager.HORIZONTAL, false);
         mSubjectRv.setLayoutManager(linearLayoutManager);
@@ -221,10 +220,10 @@ public class DiscoverFragment extends BaseSearchFragment implements View.OnClick
                 intent.putExtra(KeyConstant.category_Id, String.valueOf(categoryId));//云端适配id 336
                 intent.putExtra(KeyConstant.TITLE, categoryName);
                 //专题
-            } else if (id == R.id.more_subject_tv) {
+            } /*else if (id == R.id.more_subject_tv) {
                 intent.setClass(context, TopicsListActivity.class);
                 //大厂
-            } /* else if (id == R.id.more_big_chang_tv) {
+            }  else if (id == R.id.more_big_chang_tv) {
                 intent.setClass(context, TopicsListActivity.class);
             }else if (id == R.id.more_strategy_tv) {
                 intent.setClass(context, LabelGameListActivity.class);
@@ -301,8 +300,6 @@ public class DiscoverFragment extends BaseSearchFragment implements View.OnClick
                 .subscribe(new ObserverWrapper<DiscoverListBean>() {
                     @Override
                     public void onError(Throwable e) {
-//                        ToastUtil.show(getActivity(), APIErrorUtils.getMessage(e));
-                        android.util.Log.d(TAG, "getGameListonError: ");
                        /* pullListView.onPullUpRefreshComplete();
                         pullListView.onPullDownRefreshComplete();*/
                         loadStateView.setVisibility(View.GONE);
@@ -379,8 +376,8 @@ public class DiscoverFragment extends BaseSearchFragment implements View.OnClick
                             List<ImageView> list = createBannerView(topicsInfoList);
                             bannerView.setData(list);
 
-                            mTopicsAdapter.setList(topicsInfoList);
-                            mSubjectRv.setAdapter(mTopicsAdapter);
+                            //mTopicsAdapter.setList(topicsInfoList);
+                            //mSubjectRv.setAdapter(mTopicsAdapter);
                         } else {
                         }
                     }

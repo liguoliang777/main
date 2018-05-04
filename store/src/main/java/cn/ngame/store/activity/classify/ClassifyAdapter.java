@@ -157,7 +157,7 @@ public class ClassifyAdapter extends BaseAdapter {
             for (int i = 0; i < gameInfoList.size(); i++) {
                 gameInfoBean = gameInfoList.get(i);
                 final String gameImage = gameInfoBean.getGameLogo();//获取每一张图片
-                View view = inflater.inflate(R.layout.item_classify_tviv, horizontalViewContainer, false);
+                View view = inflater.inflate(R.layout.item_discover_18, horizontalViewContainer, false);
                 gameIV = (SimpleDraweeView) view.findViewById(R.id.tviv_item_iv);
                 gameNameTv = (TextView) view.findViewById(R.id.tviv_item_tv);
                 gameNameTv.setText(gameInfoBean.getGameName());

@@ -60,4 +60,5 @@
     </RelativeLayout>
 
     <include layout="@layout/layout_line_1px_e6e6e6"></include>
+    <include layout="@layout/layout_discover_top_20px_f5f5f5"></include>
 </LinearLayout>
