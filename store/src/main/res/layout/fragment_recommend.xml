@@ -19,6 +19,7 @@
         android:id="@+id/recommend_1_boutique"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/color_recommend1_bg"
         android:scrollbars="none"
         android:visibility="gone">
 
@@ -38,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="稍等,主播还在穿衣服..."
+        android:text="暂无资源"
         android:visibility="gone">
 
     </TextView>

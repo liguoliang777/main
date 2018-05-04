@@ -13,7 +13,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.graphics.Palette;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -173,8 +172,7 @@ public class RecommendFragment extends BaseSearchFragment {
                                 Resources resources = getResources();
                                 int pxRound = resources.getDimensionPixelOffset(R.dimen.dm036);
                                 int px32 = resources.getDimensionPixelOffset(R.dimen.dm032);
-                                int pxHeight = resources.getDimensionPixelOffset(R.dimen
-                                        .dm640);
+                                int pxHeight = resources.getDimensionPixelOffset(R.dimen.dm720);
 
                                 for (int i = 0; i < size; i++) {
                                     final YunduanBean.DataBean info = gameInfo.get(i);
@@ -215,30 +213,6 @@ public class RecommendFragment extends BaseSearchFragment {
                                         }
                                     });
                                     horizontalViewContainer.addView(simpleImageView, i);
-
-                                    if (i == 2) {
-                                        FileBinaryResource resource = (FileBinaryResource) Fresco
-                                                .getImagePipelineFactory().getMainDiskStorageCache()
-                                                .getResource(
-                                                        new SimpleCacheKey(Uri.parse(gameImage).toString()));
-                                        File file = resource.getFile();
-                                        Bitmap bitmap = BitmapFactory.decodeFile(file.getPath());
-
-                                        /***
-                                         *  compile 'com.android.support:palette-v7:25.3.1'
-                                         Palette.Swatch s1 = Palette.getVibrantSwatch(); //充满活力的色板
-                                         Palette.Swatch s2 = Palette.getDarkVibrantSwatch(); //充满活力的暗色类型色板
-                                         Palette.Swatch s3 = Palette.getLightVibrantSwatch(); //充满活力的亮色类型色板
-                                         Palette.Swatch s4 = Palette.getMutedSwatch(); //黯淡的色板
-                                         Palette.Swatch s5 = Palette.getDarkMutedSwatch(); //黯淡的暗色类型色板
-                                         Palette.Swatch s6 = Palette.getLightMutedSwatch(); //黯淡的亮色类型色板
-                                         */
-                                        Palette palette = Palette.generate(bitmap,24);
-                                        if (palette != null && palette.getLightVibrantSwatch() != null) {
-                                            int rgb = palette.getLightVibrantSwatch().getRgb();//getVibrantSwatch
-                                            horizontalViewContainer.setBackgroundColor(rgb);
-                                        }
-                                    }
                                 }
                             }
                         } else {
