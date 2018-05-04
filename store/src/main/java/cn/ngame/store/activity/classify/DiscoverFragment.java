@@ -31,7 +31,7 @@ import cn.ngame.store.activity.main.TopicsDetailActivity;
 import cn.ngame.store.activity.main.TopicsListActivity;
 import cn.ngame.store.adapter.classify.ClassifyIvAdapter;
 import cn.ngame.store.adapter.classify.ClassifyTopAdapter;
-import cn.ngame.store.adapter.classify.ClassifyTvIvAdapter;
+import cn.ngame.store.adapter.classify.DiscoverTop2Adapter;
 import cn.ngame.store.base.fragment.BaseSearchFragment;
 import cn.ngame.store.bean.ClassifyTopBean;
 import cn.ngame.store.bean.PageAction;
@@ -63,9 +63,9 @@ public class DiscoverFragment extends BaseSearchFragment implements View.OnClick
     private RecyclerView mEverydayRv;
     private RecyclerView mHotRecentRv;
     private RecyclerView mSubjectRv;
-    private ClassifyTvIvAdapter mEverydayAdapter;
+    private DiscoverTop2Adapter mEverydayAdapter;
     private List<DiscoverTopBean> mHotRecentList = new ArrayList();
-    private ClassifyTvIvAdapter mHotRecentAdapter;
+    private DiscoverTop2Adapter mHotRecentAdapter;
     private PicassoImageView picassoImageView;
     private int match_parent;
     private LinearLayout.LayoutParams hParams;
@@ -133,7 +133,7 @@ public class DiscoverFragment extends BaseSearchFragment implements View.OnClick
         linearLayoutManager = new LinearLayoutManager(
                 this.getActivity(), LinearLayoutManager.HORIZONTAL, false);
         mHotRecentRv.setLayoutManager(linearLayoutManager);
-        mHotRecentAdapter = new ClassifyTvIvAdapter(context, mHotRecentList);
+        mHotRecentAdapter = new DiscoverTop2Adapter(context, mHotRecentList);
         mHotRecentRv.setAdapter(mHotRecentAdapter);
         mHotRecentRv.addItemDecoration(new RecyclerViewDivider(context,
                 R.dimen.main_margin_left_34px, R.dimen.main_margin_20px, mHotRecentList.size()));
@@ -170,7 +170,7 @@ public class DiscoverFragment extends BaseSearchFragment implements View.OnClick
         linearLayoutManager = new LinearLayoutManager(
                 this.getActivity(), LinearLayoutManager.HORIZONTAL, false);
         mEverydayRv.setLayoutManager(linearLayoutManager);
-        mEverydayAdapter = new ClassifyTvIvAdapter(context, mEverydayList);
+        mEverydayAdapter = new DiscoverTop2Adapter(context, mEverydayList);
         mEverydayRv.setAdapter(mEverydayAdapter);
         mEverydayRv.addItemDecoration(new RecyclerViewDivider(context,
                 R.dimen.main_margin_left_34px, R.dimen.main_margin_20px, mEverydayList.size()));

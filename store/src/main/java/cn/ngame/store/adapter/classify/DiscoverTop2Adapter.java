@@ -21,7 +21,7 @@ import cn.ngame.store.game.view.GameDetailActivity;
 /**
  * @author gp
  */
-public class ClassifyTvIvAdapter extends RecyclerView.Adapter<ClassifyTvIvAdapter.ViewHolder> {
+public class DiscoverTop2Adapter extends RecyclerView.Adapter<DiscoverTop2Adapter.ViewHolder> {
 
     private final LayoutInflater mInflater;
     private Context context;
@@ -37,7 +37,7 @@ public class ClassifyTvIvAdapter extends RecyclerView.Adapter<ClassifyTvIvAdapte
         this.mOnItemClickLitener = mOnItemClickListener;
     }
 
-    public ClassifyTvIvAdapter(Context context, List<DiscoverTopBean> list) {
+    public DiscoverTop2Adapter(Context context, List<DiscoverTopBean> list) {
         super();
         this.context = context;
         this.list = list;
@@ -52,7 +52,7 @@ public class ClassifyTvIvAdapter extends RecyclerView.Adapter<ClassifyTvIvAdapte
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int vieype) {
-        ViewHolder holder = new ViewHolder(mInflater.inflate(R.layout.item_classify_tviv, parent, false));
+        ViewHolder holder = new ViewHolder(mInflater.inflate(R.layout.item_discover_top, parent, false));
         return holder;
     }
 
@@ -91,7 +91,7 @@ public class ClassifyTvIvAdapter extends RecyclerView.Adapter<ClassifyTvIvAdapte
         public ViewHolder(View itemView) {
             super(itemView);
             mTV = (TextView) itemView.findViewById(R.id.tviv_item_tv);
-            mIV = (SimpleDraweeView) itemView.findViewById(R.id.tviv_item_iv);
+            mIV = (SimpleDraweeView) itemView.findViewById(R.id.discover_top2_sdv);
         }
     }
 }
