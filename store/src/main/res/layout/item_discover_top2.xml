@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/discover_top2_sdv"
         android:layout_marginTop="@dimen/dm020"
+        android:paddingBottom="@dimen/dm040"
         android:ellipsize="end"
         android:singleLine="true"
         android:text=""

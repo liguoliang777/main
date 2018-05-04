@@ -27,14 +27,15 @@ public class RecyclerViewDivider extends RecyclerView.ItemDecoration {
     }
 
     @Override
-    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-        if (parent.getChildLayoutPosition(view) == 0) {
+    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State
+            state) {
+        //由于每行都只有2个，所以第一个都是2的倍数，把左边距设为0
+        if (parent.getChildLayoutPosition(view) % 2 == 0) {
+            outRect.right = 0;
             outRect.left = leftRightSpace;
-            outRect.right = centerSpace;
-        } else if (size - 1 == parent.getChildLayoutPosition(view)) {
+        } else if (parent.getChildLayoutPosition(view) % 2 == 1) {
+            outRect.left = centerSpace;
             outRect.right = leftRightSpace;
-        } else {
-            outRect.right = centerSpace;
         }
     }
 }

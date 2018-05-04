@@ -392,6 +392,7 @@ public class RecommendFragment extends BaseSearchFragment {
         });*/
 
         //todo添加头布局
+        singeTopicsDetailIntent.setClass(context, TopicsDetailActivity.class);
     /*    View headView = View.inflate(context, R.layout.recommend_header_view, null);
         initHeadView(headView);
         //头布局放入listView中
@@ -452,8 +453,6 @@ public class RecommendFragment extends BaseSearchFragment {
         //view.findViewById(R.id.recommend_head_llay_0).setOnClickListener(headClickListener);
         //view.findViewById(R.id.recommend_head_llay_1).setOnClickListener(headClickListener);
 
-        //横向滑动控件
-        singeTopicsDetailIntent.setClass(context, TopicsDetailActivity.class);
     }
 
     //头部点击

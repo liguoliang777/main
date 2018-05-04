@@ -51,7 +51,8 @@ public class ClassifyAdapter extends BaseAdapter {
     private TextView gameNameTv;
     private Intent intent;
 
-    public ClassifyAdapter(Context context, FragmentManager fm, List<DiscoverListBean.DataBean.ResultListBean> list, int type) {
+    public ClassifyAdapter(Context context, FragmentManager fm, List<DiscoverListBean.DataBean
+            .ResultListBean> list, int type) {
         super();
         this.context = context;
         this.fm = fm;
@@ -95,14 +96,16 @@ public class ClassifyAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
-        final DiscoverListBean.DataBean.ResultListBean listInfo = (list == null) ? null : list.get(position);
+        final DiscoverListBean.DataBean.ResultListBean listInfo = (list == null) ? null : list
+                .get(position);
         final ViewHolder holder;
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.classify_list_item, parent, false);
             holder = new ViewHolder(context, fm);
             holder.titleTv = (TextView) convertView.findViewById(R.id.discover18_tviv_title);
             holder.moreTv = (TextView) convertView.findViewById(R.id.more_action_tv);
-            holder.horizontalViewContainer = convertView.findViewById(R.id.horizontalView_container);
+            holder.horizontalViewContainer = convertView.findViewById(R.id
+                    .horizontalView_container);
             holder.scroll_view = convertView.findViewById(R.id.discover18_scroll_view);
             convertView.setTag(holder);
         } else {
@@ -116,7 +119,8 @@ public class ClassifyAdapter extends BaseAdapter {
             holder.moreTv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    labelGameIntent.putExtra(KeyConstant.category_Id, listInfo.getCategoryId() + "");
+                    labelGameIntent.putExtra(KeyConstant.category_Id, listInfo.getCategoryId() +
+                            "");
                     labelGameIntent.putExtra(KeyConstant.TITLE, categoryName);
                     context.startActivity(labelGameIntent);
                 }
@@ -147,17 +151,19 @@ public class ClassifyAdapter extends BaseAdapter {
          *
          * @param gameInfo 游戏信息
          */
-        public void update(final DiscoverListBean.DataBean.ResultListBean gameInfo, int type, int position) {
+        public void update(final DiscoverListBean.DataBean.ResultListBean gameInfo, int type, int
+                position) {
             horizontalViewContainer.removeAllViews();
 
             Resources resources = context.getResources();
-            int px34 = resources.getDimensionPixelSize(R.dimen.main_margin_left_34px);
-            int px20 = resources.getDimensionPixelSize(R.dimen.main_margin_20px);
+            int pxMarginLeft = resources.getDimensionPixelSize(R.dimen.main_margin_left_30px);
+            int px20 = resources.getDimensionPixelSize(R.dimen.main_margin_24px);
             gameInfoList = gameInfo.getList();
             for (int i = 0; i < gameInfoList.size(); i++) {
                 gameInfoBean = gameInfoList.get(i);
                 final String gameImage = gameInfoBean.getGameLogo();//获取每一张图片
-                View view = inflater.inflate(R.layout.item_discover_18, horizontalViewContainer, false);
+                View view = inflater.inflate(R.layout.item_discover_18, horizontalViewContainer,
+                        false);
                 gameIV = (SimpleDraweeView) view.findViewById(R.id.tviv_item_iv);
                 gameNameTv = (TextView) view.findViewById(R.id.tviv_item_tv);
                 gameNameTv.setText(gameInfoBean.getGameName());
@@ -169,7 +175,7 @@ public class ClassifyAdapter extends BaseAdapter {
                 hParams.height = heght114;*/
                 //有多个图片的话
                 if (0 == i) {
-                    hParams.setMargins(px34, 0, px20, 0);
+                    hParams.setMargins(pxMarginLeft, 0, px20, 0);
                 } else {
                     hParams.setMargins(0, 0, px20, 0);
                 }

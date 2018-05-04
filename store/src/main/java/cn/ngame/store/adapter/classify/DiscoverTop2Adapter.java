@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.jzt.hol.android.jkda.sdk.bean.main.DiscoverTopBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.ngame.store.R;
@@ -25,7 +26,7 @@ public class DiscoverTop2Adapter extends RecyclerView.Adapter<DiscoverTop2Adapte
 
     private final LayoutInflater mInflater;
     private Context context;
-    private List<DiscoverTopBean> list;
+    private List<DiscoverTopBean> mList = new ArrayList<>();
 
     public interface OnItemClickLitener {
         void onItemClick(View view, int position, String tag);
@@ -40,26 +41,44 @@ public class DiscoverTop2Adapter extends RecyclerView.Adapter<DiscoverTop2Adapte
     public DiscoverTop2Adapter(Context context, List<DiscoverTopBean> list) {
         super();
         this.context = context;
-        this.list = list;
+        mList.clear();
+        if (list.size() > 3) {
+            this.mList.add(list.get(0));
+            this.mList.add(list.get(1));
+            this.mList.add(list.get(2));
+            this.mList.add(list.get(3));
+        } else {
+            this.mList = list;
+
+        }
         mInflater = LayoutInflater.from(context);
     }
 
     public void setList(List<DiscoverTopBean> list) {
-        this.list = list;
+        mList.clear();
+        if (list.size() > 3) {
+            this.mList.add(list.get(0));
+            this.mList.add(list.get(1));
+            this.mList.add(list.get(2));
+            this.mList.add(list.get(3));
+        } else {
+            this.mList = list;
+
+        }
         notifyDataSetChanged();
     }
 
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int vieype) {
-        ViewHolder holder = new ViewHolder(mInflater.inflate(R.layout.item_discover_top2, parent, false));
+        ViewHolder holder = new ViewHolder(mInflater.inflate(R.layout.item_discover_top2, parent,
+                false));
         return holder;
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-
-        final DiscoverTopBean discoverTopBean = list.get(position);
+        final DiscoverTopBean discoverTopBean = mList.get(position);
         holder.mTV.setText(discoverTopBean.getGameName());
         holder.mIV.setImageURI(discoverTopBean.getGameLogo());
         //为ItemView设置监听器
@@ -80,7 +99,7 @@ public class DiscoverTop2Adapter extends RecyclerView.Adapter<DiscoverTop2Adapte
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return mList.size();
     }
 
 

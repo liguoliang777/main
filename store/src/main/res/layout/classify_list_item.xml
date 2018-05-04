@@ -17,8 +17,8 @@
             android:id="@+id/discover18_tviv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/main_margin_left_34px"
-            android:paddingTop="@dimen/main_margin_32px"
+            android:layout_marginLeft="@dimen/main_margin_left_30px"
+            android:paddingTop="@dimen/discover_title_margin_top_28px"
             android:scaleType="centerInside"
             android:text=""
             android:textColor="@color/color_1a"
@@ -33,7 +33,7 @@
             android:layout_alignParentRight="true"
             android:paddingBottom="@dimen/dm008"
             android:paddingLeft="@dimen/dm020"
-            android:paddingRight="@dimen/main_margin_left_34px"
+            android:paddingRight="@dimen/main_margin_left_30px"
             android:paddingTop="@dimen/dm020"
             android:text="@string/see_more"
             android:textColor="@color/see_more"
@@ -45,8 +45,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/discover18_tviv_title"
             android:layout_centerVertical="true"
-            android:paddingBottom="@dimen/main_margin_bottom_32px"
-            android:paddingTop="@dimen/main_margin_bottom_32px"
+            android:paddingBottom="@dimen/dm040"
+            android:paddingTop="@dimen/discover_rv_margin_top_20px"
             android:scrollbars="none">
 
             <LinearLayout

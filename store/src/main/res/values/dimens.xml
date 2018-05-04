@@ -109,9 +109,11 @@
     <dimen name="dp_55">55dp</dimen>
     <dimen name="unlogin_dialog_width">@dimen/dm376</dimen>
     <dimen name="stroke_line_width">@dimen/dm001</dimen>
-    <dimen name="main_margin_left_34px">@dimen/dm034</dimen>
+    <dimen name="main_margin_left_30px">@dimen/dm030</dimen>
+    <dimen name="discover_rv_margin_top_20px">@dimen/dm020</dimen>
+    <dimen name="discover_title_margin_top_28px">@dimen/dm028</dimen>
     <dimen name="main_margin_32px">@dimen/dm032</dimen>
-    <dimen name="main_margin_20px">@dimen/dm020</dimen>
+    <dimen name="main_margin_24px">@dimen/dm024</dimen>
     <dimen name="main_margin_bottom_32px">@dimen/dm032</dimen>
     <!-- 飘星 -->
     <dimen name="heart_anim_bezier_x_rand">50.0dp</dimen>

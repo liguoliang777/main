@@ -125,21 +125,7 @@ public class DiscoverFragment extends BaseSearchFragment implements View.OnClick
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {//3
         super.onActivityCreated(savedInstanceState);
-
     }
-
-    //近期最热
-    private void initHotRecentView(View headView) {
-        mHotRecentRv = (RecyclerView) headView.findViewById(R.id.rv_hot_recent);
-        GridLayoutManager layoutManage = new GridLayoutManager(getContext(), 2);
-        mHotRecentRv.setLayoutManager(layoutManage);
-        mHotRecentAdapter = new DiscoverTop2Adapter(context, mHotRecentList);
-        mHotRecentRv.setAdapter(mHotRecentAdapter);
-        mHotRecentRv.addItemDecoration(new RecyclerViewDivider(context,
-                R.dimen.main_margin_left_34px, R.dimen.main_margin_20px, mHotRecentList.size()));
-        setOnMoreBtClickListener(headView, R.id.more_hot_recent_tv);
-    }
-
     //分类
     private void init0ClassifyView(View headView) {
         bannerView =  headView.findViewById(R.id.banner_view);
@@ -172,7 +158,19 @@ public class DiscoverFragment extends BaseSearchFragment implements View.OnClick
         mEverydayAdapter = new DiscoverTop2Adapter(context, mEverydayList);
         mEverydayRv.setAdapter(mEverydayAdapter);
         mEverydayRv.addItemDecoration(new RecyclerViewDivider(context,
-                R.dimen.main_margin_left_34px, R.dimen.main_margin_20px, mEverydayList.size()));
+                R.dimen.main_margin_left_30px, R.dimen.main_margin_24px, mEverydayList.size()));
+    }
+
+    //近期最热
+    private void initHotRecentView(View headView) {
+        mHotRecentRv = (RecyclerView) headView.findViewById(R.id.rv_hot_recent);
+        GridLayoutManager layoutManage = new GridLayoutManager(getContext(), 2);
+        mHotRecentRv.setLayoutManager(layoutManage);
+        mHotRecentAdapter = new DiscoverTop2Adapter(context, mHotRecentList);
+        mHotRecentRv.setAdapter(mHotRecentAdapter);
+        mHotRecentRv.addItemDecoration(new RecyclerViewDivider(context,
+                R.dimen.main_margin_left_30px, R.dimen.main_margin_24px, mHotRecentList.size()));
+        setOnMoreBtClickListener(headView, R.id.more_hot_recent_tv);
     }
 
     //专题
@@ -187,7 +185,7 @@ public class DiscoverFragment extends BaseSearchFragment implements View.OnClick
         mSubjectRv.setAdapter(mTopicsAdapter);
         //条目距离
         mSubjectRv.addItemDecoration(new RecyclerViewDivider(context,
-                R.dimen.main_margin_left_34px, R.dimen.main_margin_20px, topicsInfoList.size()));
+                R.dimen.main_margin_left_30px, R.dimen.main_margin_24px, topicsInfoList.size()));
     }
 
     //更多按钮设置点击监听
