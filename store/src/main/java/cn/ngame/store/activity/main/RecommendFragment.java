@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.AndroidException;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -170,7 +171,7 @@ public class RecommendFragment extends BaseSearchFragment {
                                 horizontalViewContainer.removeAllViews();
                                 int size = gameInfo.size();
                                 Resources resources = getResources();
-                                int pxRound = resources.getDimensionPixelOffset(R.dimen.dm036);
+                                int pxRound = resources.getDimensionPixelOffset(R.dimen.dm005);
                                 int px32 = resources.getDimensionPixelOffset(R.dimen.dm032);
                                 int pxHeight = resources.getDimensionPixelOffset(R.dimen.dm720);
 
@@ -178,17 +179,18 @@ public class RecommendFragment extends BaseSearchFragment {
                                     final YunduanBean.DataBean info = gameInfo.get(i);
                                     final String gameImage = info.getLogoUrl();//获取每一张图片
                                     simpleImageView = new SimpleDraweeView(context);
+                                    RoundingParams roundingParams = RoundingParams.fromCornersRadius(pxRound);
                                     GenericDraweeHierarchy hierarchy = GenericDraweeHierarchyBuilder
                                             .newInstance(resources)
                                             .setPlaceholderImage(R.color.e5e5e5)
                                             .setFailureImage(R.color.e5e5e5)
-                                            .setActualImageScaleType(ScalingUtils.ScaleType
-                                                    .FIT_XY)
-                                            .setRoundingParams(RoundingParams.fromCornersRadius
-                                                    (pxRound))
+                                            .setActualImageScaleType(ScalingUtils.ScaleType.FIT_XY)
+                                            .setRoundingParams(roundingParams)
                                             .setFadeDuration(0)
                                             .build();
                                     simpleImageView.setHierarchy(hierarchy);
+                                    //simpleImageView.setElevation(20);
+                                    simpleImageView.setBackgroundResource(android.R.drawable.dialog_holo_light_frame);
                                     //为  PicassoImageView设置属性
                                     hParams = new LinearLayout.LayoutParams(
                                             ViewGroup.LayoutParams.MATCH_PARENT, pxHeight);
