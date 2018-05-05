@@ -189,7 +189,7 @@ public class RecommendFragment extends BaseSearchFragment {
                                             .setFadeDuration(0)
                                             .build();
                                     simpleImageView.setHierarchy(hierarchy);
-                                    //simpleImageView.setElevation(20);
+                                    simpleImageView.setElevation(20);
                                     simpleImageView.setBackgroundResource(android.R.drawable.dialog_holo_light_frame);
                                     //为  PicassoImageView设置属性
                                     hParams = new LinearLayout.LayoutParams(

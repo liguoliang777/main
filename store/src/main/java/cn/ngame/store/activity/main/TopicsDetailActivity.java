@@ -72,7 +72,6 @@ public class TopicsDetailActivity extends BaseFgActivity {
         content = TopicsDetailActivity.this;
         title = getIntent().getStringExtra(KeyConstant.TITLE);
         categoryId = getIntent().getExtras().get(KeyConstant.category_Id);
-        Log.d(TAG, "categoryId: " + categoryId);
         //获取状态栏高度设置给标题栏==========================================
         mTitleRlay = (RelativeLayout) findViewById(R.id.ll_title);
         mTitleRlay.setBackgroundResource(R.color.transparent);
@@ -204,7 +203,7 @@ public class TopicsDetailActivity extends BaseFgActivity {
     }
 
     private void initHeadView(View headView) {
-        sdv_img = (SimpleDraweeView) headView.findViewById(R.id.sdv_img);
+        sdv_img = (SimpleDraweeView) headView.findViewById(R.id.topics_sdv_img);
         tv_info = (TextView) headView.findViewById(R.id.tv_info);
         tv_info.setText(desc);
         sdv_img.setImageURI(url);

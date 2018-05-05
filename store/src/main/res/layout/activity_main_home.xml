@@ -177,7 +177,7 @@
             app:xTabIndicatorHeight="@dimen/dm004"
             app:xTabIndicatorWidth="@dimen/dm025"
             app:xTabSelectedTextColor="@color/white"
-            app:xTabSelectedTextSize="@dimen/dm030"
+            app:xTabSelectedTextSize="@dimen/title_size"
             app:xTabTextColor="@color/e6e6e6"
             app:xTabTextSelectedBold="true"
             app:xTabTextSize="@dimen/dm026" />
@@ -197,7 +197,7 @@
             app:xTabIndicatorHeight="@dimen/dm004"
             app:xTabIndicatorWidth="@dimen/dm025"
             app:xTabSelectedTextColor="@color/white"
-            app:xTabSelectedTextSize="@dimen/dm030"
+            app:xTabSelectedTextSize="@dimen/title_size"
             app:xTabTextColor="@color/e6e6e6"
             app:xTabTextSelectedBold="true"
             app:xTabTextSize="@dimen/dm026" />
