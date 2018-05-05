@@ -81,7 +81,7 @@
             android:layout_toRightOf="@+id/topics_item_img_1"
             android:clickable="false"
             android:maxLines="1"
-            android:paddingTop="@dimen/dm028"
+            android:paddingTop="@dimen/dm027"
             android:text="标题"
             android:textColor="@color/color_333333"
             android:textSize="@dimen/dm028"
