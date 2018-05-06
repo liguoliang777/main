@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/f5f5f5"
-                android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/f5f5f5"
+    android:orientation="vertical">
+
+
+    <cn.ngame.store.widget.pulllistview.PullToRefreshListView
+        android:id="@+id/pullListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:divider="@null"
+        android:scrollbars="none" />
 
     <LinearLayout
         android:id="@+id/rank01234_top_llay"
@@ -18,36 +27,25 @@
             style="@style/MyCustomTabLayout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dm040"
+            android:layout_marginBottom="@dimen/dm030"
             android:layout_marginTop="@dimen/dm020"
-            android:layout_marginBottom="@dimen/dm020"
             android:paddingLeft="@dimen/dm016"
             android:paddingRight="@dimen/dm016"
             tabs:tabBackground="@drawable/selector_rank_tab_top_bg"
-            tabs:tabGravity="center"
+            tabs:tabGravity="fill"
             tabs:tabIndicatorColor="@color/transparent"
             tabs:tabMinWidth="@dimen/dp_10"
             tabs:tabMode="scrollable"
-            tabs:tabSelectedTextColor="@color/white"
-            tabs:tabTextColor="@color/aab3ad"
-            />
+            tabs:tabSelectedTextColor="@color/mainColor"
+            tabs:tabTextColor="@color/color_808080" />
     </LinearLayout>
 
-    <cn.ngame.store.widget.pulllistview.PullToRefreshListView
-        android:id="@+id/pullListView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/rank01234_top_llay"
-        android:background="@color/white"
-        android:divider="@null"
-        android:scrollbars="none"/>
-
-    <cn.ngame.store.view.LoadStateView
-        xmlns:ngame="http://schemas.android.com/apk/res-auto"
+    <cn.ngame.store.view.LoadStateView xmlns:ngame="http://schemas.android.com/apk/res-auto"
         android:id="@+id/load_state_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:paddingBottom="@dimen/dm200"
         ngame:end="@string/load_end"
-        ngame:ing=""/>
+        ngame:ing="" />
 </RelativeLayout>

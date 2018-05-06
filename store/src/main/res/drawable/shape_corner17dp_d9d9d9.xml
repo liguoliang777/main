@@ -3,11 +3,10 @@
        android:useLevel="false">
 
     <!-- 填充 -->
-    <solid android:color="@color/e6e6e6"/>
-    <size android:height="@dimen/dm040"
-          android:width="@dimen/dm086"
-        ></size>
+    <solid android:color="@color/white"/>
     <!--圆角-->
-    <corners android:radius="@dimen/dm002"/>
+    <stroke android:color="@color/color_808080"
+        android:width="@dimen/dm001"></stroke>
+    <corners android:radius="@dimen/dm004"/>
 
 </shape>

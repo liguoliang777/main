@@ -62,8 +62,8 @@ public class RankFragment extends BaseSearchFragment {
     private void initTabs() {
         Resources resources = getResources();
         int px34 = resources.getDimensionPixelOffset(R.dimen.dm034);
-        int px26 = resources.getDimensionPixelOffset(R.dimen.dm026);
-        tablayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        int px01 = resources.getDimensionPixelOffset(R.dimen.dm001);
+        tablayout.setTabMode(TabLayout.MODE_FIXED);
         tablayout.setTabGravity(TabLayout.GRAVITY_CENTER);
         tablayout.setupWithViewPager(viewpager);
       /*  ViewGroup viewGroup = (ViewGroup) tablayout.getChildAt(0);
@@ -72,7 +72,8 @@ public class RankFragment extends BaseSearchFragment {
             -===============================================================================
             ViewGroup view = (ViewGroup) viewGroup.getChildAt(i);
             textView = (TextView) view.getChildAt(1);
-            textView.measure(View.MeasureSpec.AT_MOST, View.MeasureSpec.AT_MOST);//textciew的宽度   AT_MOST
+            textView.measure(View.MeasureSpec.AT_MOST, View.MeasureSpec.AT_MOST);//textciew的宽度
+            AT_MOST
             textView.setTextSize(px24);
             textView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
 
@@ -87,11 +88,12 @@ public class RankFragment extends BaseSearchFragment {
             }
         }*/
         int pxWidth = resources.getDimensionPixelOffset(R.dimen.dm026);
-        setIndicatorParams(tablayout, px34, px26, pxWidth);
+        setIndicatorParams(tablayout, px34, px01, pxWidth);
     }
 
     /**
      * 设置   字体大小  指示器 长度
+     *
      * @param tabs
      * @param marginLeft
      * @param marginRight
@@ -119,24 +121,28 @@ public class RankFragment extends BaseSearchFragment {
 
             ViewGroup view = (ViewGroup) child;
             textView = (TextView) view.getChildAt(1);
-            textView.measure(View.MeasureSpec.AT_MOST, View.MeasureSpec.AT_MOST);//textciew的宽度   AT_MOST
+            textView.measure(View.MeasureSpec.AT_MOST, View.MeasureSpec.AT_MOST);//textciew的宽度
+            // AT_MOST
             textView.setTextSize(width);
             textView.setSingleLine();
-            textView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-
+            //textView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
 
             child.setPadding(0, 0, 0, 0);
+            //----设置 底部滑动条
             int textCount = tabList[i].length();
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((width + 3) * textCount, LinearLayout.LayoutParams
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((width + 3) *
+                    textCount, LinearLayout.LayoutParams
                     .MATCH_PARENT, 1);
-            params.leftMargin = marginLeft;
-            params.rightMargin = marginRight;
+            //params.leftMargin = marginLeft;
+            if (i == 0) {
+                params.rightMargin = marginRight;//中间空格
+            }
             child.setLayoutParams(params);
             child.invalidate();
         }
     }
 
-    private String tabList[] = new String[]{"全部", "原生手柄", "云适配", "破解游戏", "汉化游戏", "特色游戏", "模拟器"};
+    private String tabList[] = new String[]{"全部分类", "国别"};
 
     private void initViewPager() {
         fragments = new ArrayList<>();
@@ -151,7 +157,8 @@ public class RankFragment extends BaseSearchFragment {
         viewpager.setCurrentItem(curTab);
         viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onPageScrolled(int position, float positionOffset, int
+                    positionOffsetPixels) {
             }
 
             @Override
@@ -191,6 +198,9 @@ public class RankFragment extends BaseSearchFragment {
     }
 
     public void setTab(int position) {
+        //pullListView.setVisibility(0 == position ? View.VISIBLE : View.GONE);
+        //recommend1BoutiqueLayout.setVisibility(1 == position ? View.VISIBLE : View.GONE);
+        //recommend2LiveLayout.setVisibility(2 == position ? View.VISIBLE : View.GONE);
 
     }
 }

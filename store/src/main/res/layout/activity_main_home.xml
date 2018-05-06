@@ -180,6 +180,7 @@
             app:xTabSelectedTextSize="@dimen/title_size"
             app:xTabTextColor="@color/e6e6e6"
             app:xTabTextSelectedBold="true"
+            app:xTabTextBold="true"
             app:xTabTextSize="@dimen/dm026" />
 
         <com.androidkun.xtablayout.XTabLayout

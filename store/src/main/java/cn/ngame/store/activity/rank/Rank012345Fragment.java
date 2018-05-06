@@ -1,18 +1,19 @@
 package cn.ngame.store.activity.rank;
 
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
@@ -55,7 +56,6 @@ public class Rank012345Fragment extends BaseSearchFragment {
     private PageAction pageAction;
     public static int PAGE_SIZE = 10;
     private List<LikeListBean.DataBean.GameListBean> list = new ArrayList<>();
-    private static int mSerial = 0;
     private int tab_position = 0;
     private boolean isFirst = true;
 
@@ -64,6 +64,11 @@ public class Rank012345Fragment extends BaseSearchFragment {
           /*  if (!IS_LOADED) {
                 IS_LOADED = true;*/
             //这里执行加载数据的操作
+            Log.d(TAG, mShow + "索引777: " + tab_position);
+            //获取系统定义的最低滑动距离
+            mTouchSlop = ViewConfiguration.get(content).getScaledTouchSlop();
+            startAnim(0);
+
             if (tablayout2 != null) {
                 TabLayout.Tab tabAt = tablayout2.getTabAt(0);
                 pageAction.setCurrentPage(0);
@@ -71,7 +76,6 @@ public class Rank012345Fragment extends BaseSearchFragment {
                     tabAt.select();
                     list.clear();
                     adapter.setList(list);
-                    Log.d(TAG, "索引777: " + tab_position);
                     if (tab_position == IMITATOR_ID) {
                         tab2_position = NDS_ID;
                     } else {
@@ -101,6 +105,12 @@ public class Rank012345Fragment extends BaseSearchFragment {
     private int px20;
     private int px86;
     private int px18;
+    private int mTouchSlop;
+    private float mFirstY;
+    private float mLastY;
+    private boolean mShow = true;//toolbar是否显示
+    private ObjectAnimator mAnimator;
+    private ListView refreshableView;
 
     public static Rank012345Fragment newInstance(int type) {
         Rank012345Fragment fragment = new Rank012345Fragment(0);
@@ -111,7 +121,6 @@ public class Rank012345Fragment extends BaseSearchFragment {
     }
 
     public Rank012345Fragment(int serial) {
-        mSerial = serial;
     }
 
     public Rank012345Fragment() {
@@ -124,7 +133,7 @@ public class Rank012345Fragment extends BaseSearchFragment {
 
     @Override
     protected int getContentViewLayoutID() {
-        if (isFirst && tab_position == mSerial) {
+        if (isFirst) {
             isFirst = false;
             sendMessage();
         }
@@ -145,7 +154,7 @@ public class Rank012345Fragment extends BaseSearchFragment {
         content = getActivity();
         Resources resources = getResources();
         px20 = resources.getDimensionPixelOffset(R.dimen.dm020);
-        px86 = resources.getDimensionPixelOffset(R.dimen.dm086);
+        px86 = resources.getDimensionPixelOffset(R.dimen.dm080);
         px18 = resources.getDimensionPixelOffset(R.dimen.dm018);
         pageAction = new PageAction();
         pageAction.setCurrentPage(0);
@@ -187,101 +196,153 @@ public class Rank012345Fragment extends BaseSearchFragment {
             }
         });
         //点击事件
-        final ListView refreshableView = pullListView.getRefreshableView();
+        refreshableView = pullListView.getRefreshableView();
         adapter = new Ranking012345Adapter(content, fm, list, 0);
+        View headView1 = new View(content);
+        headView1.setLayoutParams(new ListView.LayoutParams(ListView.LayoutParams.MATCH_PARENT,
+                resources.getDimensionPixelOffset(R.dimen.dm060)));
+        if (refreshableView.getHeaderViewsCount() == 0) {
+            refreshableView.addHeaderView(headView1);
+        }
         refreshableView.setAdapter(adapter);
         refreshableView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(), GameDetailActivity.class);
-                intent.putExtra(KeyConstant.ID, list.get(position).getId());
-                startActivity(intent);
+                if (position > 0) {
+                    Intent intent = new Intent(getActivity(), GameDetailActivity.class);
+                    intent.putExtra(KeyConstant.ID, list.get(position - 1).getId());
+                    startActivity(intent);
+                }
             }
         });
 
-        if (0 == tab_position) {
-            mTopLlay.setVisibility(View.GONE);
-        } else {
-            tablayout2 = (TabLayout) view.findViewById(R.id.rank01234_tablayout);
-            if (IMITATOR_ID == tab_position) {
-                //默认FC的id
-                tab2_position = NDS_ID;
-                int length = tabList5.length;
-                for (int i = 0; i < length; i++) {
-                    tablayout2.addTab(tablayout2.newTab().setText(tabList5[i]));
-                }
-                tab2_all = tab2_id5;
-                //二级标签
-                initTabs1234();
-            } else {
-                int length = tabList.length;
-                for (int i = 0; i < length; i++) {
-                    tablayout2.addTab(tablayout2.newTab().setText(tabList[i]));
-                }
-                tab2_all = tab2_Id01234;
-                //二级标签
-                initTabs1234();
+        //mTopLlay.setVisibility(View.GONE);
+        tablayout2 = (TabLayout) view.findViewById(R.id.rank01234_tablayout);
+        if (IMITATOR_ID == tab_position) {
+            //默认FC的id
+            tab2_position = NDS_ID;
+            int length = tabList5.length;
+            for (int i = 0; i < length; i++) {
+                tablayout2.addTab(tablayout2.newTab().setText(tabList5[i]));
             }
-            final float topLLayHeight = CommonUtil.dip2px(content, 40);
-            //设置滑动事件
-            pullListView.setOnScrollListener(new AbsListView.OnScrollListener() {
-                @Override
-                public void onScrollStateChanged(AbsListView view, int scrollState) {
-                }
+            tab2_all = tab2_id5;
+            //二级标签
+            initTabs1234();
+        } else {
+            int length = tabList.length;
+            for (int i = 0; i < length; i++) {
+                tablayout2.addTab(tablayout2.newTab().setText(tabList[i]));
+            }
+            tab2_all = tab2_Id01234;
+            //二级标签
+            initTabs1234();
+        }
 
+        if (refreshableView != null) {
+            refreshableView.setOnTouchListener(new View.OnTouchListener() {
                 @Override
-                public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                    View childAt0 = refreshableView.getChildAt(0);
-                    if (firstVisibleItem == 0 && childAt0 != null && childAt0.getTop() !=
-                            0) {
-                        int viewScrollHeigh = Math.abs(childAt0.getTop());
-                        if (viewScrollHeigh > 2 * topLLayHeight) {//滑动超过头部高度
-                        } else {//滑动没有超过头部高度
-                        }
-                    } else {
-                        //第一个条目
-                        if (firstVisibleItem == 0) {
-                        } else {//下滑
-                        }
+                public boolean onTouch(View view, MotionEvent event) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            mFirstY = event.getY();//getY获取的是相对于View的坐标，getRawY获取的是相对于屏幕的坐标
+                            break;
+                        case MotionEvent.ACTION_MOVE:
+                            mLastY = event.getY();
+                            if (mLastY - mFirstY > mTouchSlop) {//手指向下滑动，显示toolbar
+                                if (!mShow) {
+                                    Log.i("tag", "mLastY_手指下滑=" + (mLastY - mFirstY));
+                                    startAnim(0);//显示
+                                }
+                            } else if (mFirstY - mLastY > mTouchSlop && list != null && list.size
+                                    () > 5) {//手指向上滑动，隐藏toolbar
+                                if (mShow) {
+                                    Log.i("tag", "mLastY_手指上滑=" + (mFirstY - mLastY));
+                                    startAnim(1);//隐藏
+                                }
+                            }
+                            break;
+                        default:
+                            break;
                     }
-                }
-            });
-
-            //二级标签栏
-            tablayout2.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-                @Override
-                public void onTabSelected(TabLayout.Tab tab) {
-                    //0=全部   1=大陆   2=美国   3=韩国   4=日本   5=港澳台
-                    int position = tab.getPosition();
-                    int id = tab2_all[position];
-
-                    tab2_position = id;
-                    //请求数据
-                    list.clear();
-                    adapter.setList(list);
-                    pageAction.setCurrentPage(0);
-                    getRankList();
-                }
-
-                @Override
-                public void onTabUnselected(TabLayout.Tab tab) {
-
-                }
-
-                @Override
-                public void onTabReselected(TabLayout.Tab tab) {
-
+                    return false;//一般返回false，提交给上级
                 }
             });
         }
+        //TODO 头部
+        pullListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView absListView, int i) {
+                int firstVisibleItem = absListView.getFirstVisiblePosition();
+                //第一个条目
+                if (firstVisibleItem == 0 && !mShow) {
+                    startAnim(0);//显示
+                } else {//下滑
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView absListView, int i, int i1, int i2) {
+
+            }
+        });
+
+        //二级标签栏
+        tablayout2.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                //0=全部   1=大陆   2=美国   3=韩国   4=日本   5=港澳台
+                int position = tab.getPosition();
+                int id = tab2_all[position];
+
+                tab2_position = id;
+                //请求数据
+                list.clear();
+                adapter.setList(list);
+                pageAction.setCurrentPage(0);
+                getRankList();
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+    }
+
+    public void startAnim(int flag) {
+
+        //第一个参数用于指定这个动画要操作的是哪个控件   0 == 显示
+        //第二个参数用于指定这个动画要操作这个控件的哪个属性
+        //第三个参数是可变长参数,指这个属性值是从多少变到多少
+        if (mAnimator != null && mAnimator.isRunning()) {
+            mAnimator.cancel();
+        }
+        if (flag == 0) {
+            Log.i("tag", "下滑===========显示");
+            mAnimator = ObjectAnimator.ofFloat(mTopLlay, "translationY", mTopLlay.getTranslationY()
+                    , 0);
+        } else if (flag == 1) {
+            Log.i("tag", "上滑===========隐藏");
+            mAnimator = ObjectAnimator.ofFloat(mTopLlay, "translationY", mTopLlay.getTranslationY(),
+                    -mTopLlay.getHeight());
+        }
+        mAnimator.start();//开始动画
+
+        mShow = !mShow;
     }
 
     //第一级标签                        全部,手柄,破解,汉化,特色,模拟器
-    private int tab_ids[] = new int[]{0, 101, 102, 103, 104, 106, IMITATOR_ID};
+    private int tab_ids[] = new int[]{101, 102, 103, 104, 106, IMITATOR_ID};
     private String tabList[] = new String[]{"全部", "大陆", "美国", "韩国", "日本", "港澳台"};
     private int tab2_Id01234[] = new int[]{0, 147, 149, 151, 150, 148};
 
-    private String tabList5[] = new String[]{"NDS", "FC", "MAME", "SFC", "GBA", "PS", "PSP", "MD", "GBC"};
+    private String tabList5[] = new String[]{"NDS", "FC", "MAME", "SFC", "GBA", "PS", "PSP",
+            "MD", "GBC"};
     private int tab2_id5[] = new int[]{162, 154, 155, 156, 157, 158, 159, 160, 161};
     private int tab2_all[];
 
@@ -291,9 +352,11 @@ public class Rank012345Fragment extends BaseSearchFragment {
         int childCount = viewGroup.getChildCount() - 1;
         for (int i = 0; i <= childCount; i++) {
             ViewGroup view = (ViewGroup) viewGroup.getChildAt(i);
-            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) view.getLayoutParams();
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) view
+                    .getLayoutParams();
             TextView textView = (TextView) view.getChildAt(1);
-            textView.measure(View.MeasureSpec.AT_MOST, View.MeasureSpec.AT_MOST);//textciew的宽度   AT_MOST
+            textView.measure(View.MeasureSpec.AT_MOST, View.MeasureSpec.AT_MOST);//textciew的宽度
+            // AT_MOST
             textView.setTextSize(px20);
             textView.setSingleLine();
             layoutParams.weight = px86;
@@ -301,25 +364,6 @@ public class Rank012345Fragment extends BaseSearchFragment {
             if (i < childCount) {
                 layoutParams.setMargins(0, 0, px18, 0);
             }
-        }
-    }
-
-    //模拟器
-    private void initTabs5() {
-        tablayout2.setBackgroundColor(Color.WHITE);
-        LinearLayout.LayoutParams tab5Params = (LinearLayout.LayoutParams) tablayout2.getLayoutParams();
-        tab5Params.setMargins(px18-2, 0, px18, 0);
-        tablayout2.setTabTextColors(ContextCompat.getColor(content, R.color.color999999), Color.WHITE);
-        ViewGroup viewGroup = (ViewGroup) tablayout2.getChildAt(0);
-        int childCount = viewGroup.getChildCount();
-        for (int i = 0; i < childCount; i++) {
-            ViewGroup view = (ViewGroup) viewGroup.getChildAt(i);
-            TextView textView = (TextView) view.getChildAt(1);
-            textView.setTextSize(px20);
-            textView.setSingleLine(true);
-            textView.setWidth(px86);
-            textView.setHeight(px20*2);
-            textView.setBackgroundResource(R.drawable.selector_rank_tab_top_bg);
         }
     }
 
@@ -349,9 +393,11 @@ public class Rank012345Fragment extends BaseSearchFragment {
                         pullListView.onPullUpRefreshComplete();
                         pullListView.onPullDownRefreshComplete();
                         if (!NetUtil.isNetworkConnected(content)) {
-                            loadStateView.setState(LoadStateView.STATE_END, getString(R.string.no_network));
+                            loadStateView.setState(LoadStateView.STATE_END, getString(R.string
+                                    .no_network));
                         } else {
-                            loadStateView.setState(LoadStateView.STATE_END, getString(R.string.requery_failed));
+                            loadStateView.setState(LoadStateView.STATE_END, getString(R.string
+                                    .requery_failed));
                         }
                     }
 
