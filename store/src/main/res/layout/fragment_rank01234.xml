@@ -13,7 +13,7 @@
         android:background="@color/white"
         android:divider="@null"
         android:scrollbars="none" />
-
+<!--
     <LinearLayout
         android:id="@+id/rank01234_top_llay"
         android:layout_width="match_parent"
@@ -21,8 +21,7 @@
         android:background="@color/white"
         android:orientation="horizontal">
 
-        <android.support.design.widget.TabLayout
-            xmlns:tabs="http://schemas.android.com/apk/res-auto"
+        <android.support.design.widget.TabLayout xmlns:tabs="http://schemas.android.com/apk/res-auto"
             android:id="@+id/rank01234_tablayout"
             style="@style/MyCustomTabLayout"
             android:layout_width="match_parent"
@@ -38,7 +37,14 @@
             tabs:tabMode="scrollable"
             tabs:tabSelectedTextColor="@color/mainColor"
             tabs:tabTextColor="@color/color_808080" />
-    </LinearLayout>
+    </LinearLayout>-->
+
+    <cn.ngame.store.view.ExRadioGroup
+        android:id="@+id/fragment_01234_radio_group"
+        android:layout_width="match_parent"
+        android:paddingRight="@dimen/dm020"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"></cn.ngame.store.view.ExRadioGroup>
 
     <cn.ngame.store.view.LoadStateView xmlns:ngame="http://schemas.android.com/apk/res-auto"
         android:id="@+id/load_state_view"
