@@ -40,12 +40,9 @@
         </LinearLayout>-->
 
     <TextView
-        android:layout_centerHorizontal="true"
         android:id="@+id/fragment_01234_top_show_checked_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/dm060"
-        android:paddingLeft="@dimen/dm032"
-        android:paddingRight="@dimen/dm032"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dm074"
         android:background="@color/white"
         android:elevation="@dimen/dm010"
         android:gravity="center"

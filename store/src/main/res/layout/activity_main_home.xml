@@ -197,6 +197,7 @@
             app:xTabIndicatorColor="@color/white"
             app:xTabIndicatorHeight="@dimen/dm004"
             app:xTabIndicatorWidth="@dimen/dm025"
+            app:xTabTextBold="true"
             app:xTabSelectedTextColor="@color/white"
             app:xTabSelectedTextSize="@dimen/title_size"
             app:xTabTextColor="@color/e6e6e6"

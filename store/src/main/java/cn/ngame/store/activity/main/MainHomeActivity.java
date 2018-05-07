@@ -64,7 +64,7 @@ import cn.ngame.store.activity.classify.DiscoverFragment;
 import cn.ngame.store.activity.hub.HubPostsActivity;
 import cn.ngame.store.activity.manager.DownloadCenterActivity;
 import cn.ngame.store.activity.manager.ManagerFragment;
-import cn.ngame.store.activity.rank.RankFragment;
+import cn.ngame.store.activity.rank.Rank012345Fragment;
 import cn.ngame.store.activity.sm.AboutNgameZoneActivity;
 import cn.ngame.store.activity.sm.AdCooperativeActivity;
 import cn.ngame.store.activity.sm.JoypadSettingsActivity;
@@ -123,7 +123,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
     private boolean isDownloading = false;
     private boolean isChecking = false;
     private RecommendFragment recommendFragment;
-    private RankFragment rankingFragment;
+    private Rank012345Fragment rankingFragment;
     private DiscoverFragment classifyFragment;
     private ManagerFragment managerFragment;
     private int currentMenu;
@@ -323,7 +323,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
 
             }
         });
-        tabLayout1.setOnTabSelectedListener(new XTabLayout.OnTabSelectedListener() {
+     /*   tabLayout1.setOnTabSelectedListener(new XTabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(XTabLayout.Tab tab) {
                 int position = tab.getPosition();
@@ -338,7 +338,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
             @Override
             public void onTabReselected(XTabLayout.Tab tab) {
             }
-        });
+        });*/
     }
 
     private void startPadService() {
@@ -639,7 +639,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
             transaction.add(R.id.main_list_fragments, managerFragment);
         }
         if (null == rankingFragment) {
-            rankingFragment = new RankFragment();
+            rankingFragment = Rank012345Fragment.newInstance(0);
             transaction.add(R.id.main_list_fragments, rankingFragment);
         }
         switch (currentMenu) {

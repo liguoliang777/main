@@ -1,7 +1,6 @@
 package cn.ngame.store.activity.rank;
 
 import android.content.res.Resources;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -149,7 +148,7 @@ public class RankFragment extends BaseSearchFragment {
         final int length = tabList.length;
         for (int i = 0; i < length; i++) {
             fragment012345 = new Rank012345Fragment(curTab);
-            fragment012345.setTabPos(i);
+            //fragment012345.setTab0Postion(i);
             fragments.add(fragment012345);
         }
         adapter = new RankTopPagerAdapter(getChildFragmentManager(), fragments, tabList);
@@ -165,7 +164,7 @@ public class RankFragment extends BaseSearchFragment {
             public void onPageSelected(int position) {
                 //滑动监听加载数据，一次只加载一个标签页
                 if (position < length) {
-                    ((Rank012345Fragment) adapter.getItem(position)).sendMessage();
+                    //((Rank012345Fragment) adapter.getItem(position)).sendMessage();
                 }
 
             }

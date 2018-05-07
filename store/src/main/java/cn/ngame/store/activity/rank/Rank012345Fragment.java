@@ -6,15 +6,12 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
@@ -23,6 +20,7 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.androidkun.xtablayout.XTabLayout;
 import com.jzt.hol.android.jkda.sdk.bean.manager.LikeListBean;
 import com.jzt.hol.android.jkda.sdk.bean.rank.RankListBody;
 import com.jzt.hol.android.jkda.sdk.rx.ObserverWrapper;
@@ -51,35 +49,31 @@ import cn.ngame.store.widget.pulllistview.PullToRefreshListView;
  */
 @SuppressLint({"ValidFragment", "WrongConstant"})
 public class Rank012345Fragment extends BaseSearchFragment {
-    private static int IMITATOR_ID = 153;
     private PullToRefreshListView pullListView;
     private Ranking012345Adapter adapter;
     protected final static String TAG = Rank012345Fragment.class.getSimpleName();
     private PageAction pageAction;
-    public static int PAGE_SIZE = 10;
+    private int PAGE_SIZE = 10;
     private List<LikeListBean.DataBean.GameListBean> list = new ArrayList<>();
-    private int tab_position = 0;
-    private boolean isFirst = true;
+    private int tab0_Id = 101;
 
-    private Handler handler = new Handler() {
-        public void handleMessage(android.os.Message msg) {
-            //获取系统定义的最低滑动距离
-            mTouchSlop = ViewConfiguration.get(content).getScaledTouchSlop();
-            mTopCheckedTv.setVisibility(View.GONE);
+    /*    private Handler handler = new Handler() {
+            public void handleMessage(android.os.Message msg) {
+                //获取系统定义的最低滑动距离
+                mTouchSlop = ViewConfiguration.get(content).getScaledTouchSlop();
+                mTopCheckedTv.setVisibility(View.GONE);
 
-            Log.d(TAG, mShow + "索引777: " + tab_position);
+                Log.d(TAG, mShow + "索引777: " + tab0_Id);
 
-            if (tab_position == 0 && tab2_position == 0) {
                 list.clear();
                 adapter.setList(list);
-            }
-            getRankList();
+                //getRankList();
 
-            return;
-        }
-    };
+                return;
+            }
+        };*/
     private FragmentActivity content;
-    private int tab2_position = 0;
+    private int tab2_Id = 0;
     private FragmentManager fm;
     private LoadStateView loadStateView;
     private int NDS_ID = 162;
@@ -89,11 +83,14 @@ public class Rank012345Fragment extends BaseSearchFragment {
     private int mTouchSlop;
     private float mFirstY;
     private float mLastY;
-    private boolean mShow = true;//toolbar是否显示
+    private boolean mShow = true;
     private ObjectAnimator mAnimator;
     private ListView refreshableView;
     private TextView mTopCheckedTv;
     private ExRadioGroup mExRadioGroup;
+    private XTabLayout tablayout0;
+    private String tab0Text = "全部分类";
+    private int tabArrIndex = 0;
 
     public static Rank012345Fragment newInstance(int type) {
         Rank012345Fragment fragment = new Rank012345Fragment(0);
@@ -109,22 +106,18 @@ public class Rank012345Fragment extends BaseSearchFragment {
     public Rank012345Fragment() {
     }
 
-    public void sendMessage() {
+/*    public void sendMessage() {
         Message message = handler.obtainMessage();
         message.sendToTarget();
-    }
+    }*/
 
     @Override
     protected int getContentViewLayoutID() {
-        if (isFirst) {
-            isFirst = false;
-            sendMessage();
-        }
         return R.layout.fragment_rank01234;
     }
 
-    public void setTabPos(int mTabPos) {
-        this.tab_position = tab_ids[mTabPos];
+    public void setTab0Postion(int mTabPos) {
+        tab0_Id = tab0_Id_Arr[mTabPos];
     }
 
     @Override
@@ -146,22 +139,47 @@ public class Rank012345Fragment extends BaseSearchFragment {
         //mTopCheckedTv = view.findViewById(R.id.rank01234_top_llay);
 
         mTopCheckedTv = view.findViewById(R.id.fragment_01234_top_show_checked_tv);
+        mTopCheckedTv.setText(tab0Text + "·" + tab2_String_Arr[tabArrIndex]);
         mTopCheckedTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startAnim(1);
+                //startAnim(1);
+                mTopCheckedTv.setVisibility(View.GONE);
                 refreshableView.setSelection(0);
             }
         });
-        mExRadioGroup = new ExRadioGroup(content);
-        //mExRadioGroup.setBackgroundResource(android.R.drawable.d);
-        for (int i = 0; i < tabList.length; i++) {
-            String ss = tabList[i];
+        View headView = View.inflate(content, R.layout.fragment_rank_012345_header, null);
+        mExRadioGroup = headView.findViewById(R.id.rank01234_header_rg);
+
+        tablayout0 = headView.findViewById(R.id.rank01234_header_tablayout);
+        tablayout0.addTab(tablayout0.newTab().setText("全部分类"));
+        tablayout0.addTab(tablayout0.newTab().setText("国别"));
+        tablayout0.setOnTabSelectedListener(new XTabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(XTabLayout.Tab tab) {
+                setTab0Postion(tab.getPosition());
+                tab0Text = tab.getText().toString();
+                //重新请求数据
+                requestDataList();
+                mTopCheckedTv.setText(tab0Text + "·" + tab2_String_Arr[tabArrIndex]);
+            }
+
+            @Override
+            public void onTabUnselected(XTabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(XTabLayout.Tab tab) {
+
+            }
+        });
+        for (int i = 0; i < tab2_String_Arr.length; i++) {
             RadioButton rb = new RadioButton(content);
             if (0 == i) {
                 rb.setChecked(true);
             }
-            setRB(rb, ss, i);
+            setTab2RadioBut(rb, i);
 
             mExRadioGroup.addView(rb);
 
@@ -212,7 +230,7 @@ public class Rank012345Fragment extends BaseSearchFragment {
         Log.d(TAG, "测量高度:" + measuredWidth);
         Log.d(TAG, "测量:" + measuredH);*/
         if (refreshableView.getHeaderViewsCount() == 0) {
-            refreshableView.addHeaderView(mExRadioGroup);
+            refreshableView.addHeaderView(headView);
         }
         refreshableView.setAdapter(adapter);
         refreshableView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -228,20 +246,20 @@ public class Rank012345Fragment extends BaseSearchFragment {
 
         //mTopCheckedTv.setVisibility(View.GONE);
         //tablayout2 = (TabLayout) view.findViewById(R.id.rank01234_tablayout);
- /*       if (IMITATOR_ID == tab_position) {
+ /*       if (IMITATOR_ID == tab0_Id) {
             //默认FC的id
-            tab2_position = NDS_ID;
+            tab2_Id = NDS_ID;
             int length = tabList5.length;
             for (int i = 0; i < length; i++) {
                 tablayout2.addTab(tablayout2.newTab().setText(tabList5[i]));
             }
-            tab2_all = tab2_id5;
+            tab2_Id_Arr = tab2_id5;
             //二级标签
             initTabs1234();
         } else {
-            int length = tabList.length;
+            int length = tab2_String_Arr.length;
             for (int i = 0; i < length; i++) {
-                tablayout2.addTab(tablayout2.newTab().setText(tabList[i]));
+                tablayout2.addTab(tablayout2.newTab().setText(tab2_String_Arr[i]));
             }
             //二级标签
             initTabs1234();
@@ -276,28 +294,35 @@ public class Rank012345Fragment extends BaseSearchFragment {
                 }
             });
         }*/
-        //TODO 头部
         pullListView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView absListView, int i) {
-                int firstVisibleItem = absListView.getFirstVisiblePosition();
-                //第一个条目
-                if (firstVisibleItem > 1) {//&& list != null && list.size() > 5
-                    mTopCheckedTv.setVisibility(View.VISIBLE);
-                    startAnim(0);//显示
-                } else {//下滑
-                    startAnim(1);//隐藏
-                }
             }
 
             @Override
-            public void onScroll(AbsListView absListView, int i, int i1, int i2) {
-
+            public void onScroll(AbsListView absListView, int firstVisibleItem, int i1, int i2) {
+                int visibility = mTopCheckedTv.getVisibility();
+                if (firstVisibleItem > 0) {//&& list != null && list.size() > 5
+                    if (visibility != View.VISIBLE) {
+                        mTopCheckedTv.setVisibility(View.VISIBLE);
+                    }
+                    //startAnim(0);//显示
+                } else {
+                    if (visibility == View.VISIBLE) {
+                        mTopCheckedTv.setVisibility(View.GONE);
+                    }
+                }
             }
         });
+        getRankList();
     }
 
-    private void setRB(final RadioButton codeBtn, final String btnContent, final int position) {
+    private void requestDataList() {
+        getRankList();
+
+    }
+
+    private void setTab2RadioBut(final RadioButton codeBtn, final int position) {
         if (null == codeBtn) {
             return;
         }
@@ -305,21 +330,23 @@ public class Rank012345Fragment extends BaseSearchFragment {
         codeBtn.setTextColor(ContextCompat.getColorStateList(content, R.color
                 .fragment_rank01234_top_text_color));
         codeBtn.setButtonDrawable(new ColorDrawable(Color.TRANSPARENT));
-        codeBtn.setTextSize(14.5f);
+        codeBtn.setTextSize(14f);
         codeBtn.setId(position);
-        codeBtn.setText(btnContent);
+        codeBtn.setText(tab2_String_Arr[position]);
         codeBtn.setPadding(25, 5, 25, 10);
 
         codeBtn.setGravity(Gravity.CENTER);
         codeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mTopCheckedTv.setText(btnContent);
-                tab2_position = tab2_all[position];
+                tabArrIndex = position;
+                Log.d(TAG, "排行榜请求: " + tabArrIndex);
+                tab2_Id = tab2_Id_Arr[position];
                 list.clear();
                 adapter.setList(list);
                 pageAction.setCurrentPage(0);
                 getRankList();
+                mTopCheckedTv.setText(tab0Text + "·" + tab2_String_Arr[tabArrIndex]);
             }
         });
         LinearLayout.LayoutParams rlp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams
@@ -355,10 +382,10 @@ public class Rank012345Fragment extends BaseSearchFragment {
     }
 
     //第一级标签              全部,手柄,破解,汉化,特色,模拟器
-    private int tab_ids[] = new int[]{101, 102, 103, 104, 106, IMITATOR_ID};
-    private String tabList[] = new String[]{"全部", "大陆", "美国", "韩国", "日本",
+    private int tab0_Id_Arr[] = new int[]{101, 102};
+    private String tab2_String_Arr[] = new String[]{"全部", "大陆", "美国", "韩国", "日本",
             "港澳台"};
-    private int tab2_all[] = new int[]{0, 147, 149, 151, 150, 148};
+    private int tab2_Id_Arr[] = new int[]{0, 147, 149, 151, 150, 148};
 
     //顶部下面的二级标签
     private void initTabs1234() {
@@ -387,18 +414,18 @@ public class Rank012345Fragment extends BaseSearchFragment {
      */
     @SuppressLint("WrongConstant")
     private void getRankList() {
-        // Log.d(TAG, tab_position + ",请求数据,当前索引:" + tab2_position);
-        //tab_position :0=全部   1=手柄   2=破解   3=汉化  4=特色
+        // Log.d(TAG, tab0_Id + ",请求数据,当前索引:" + tab2_Id);
+        //tab0_Id :0=全部   1=手柄   2=破解   3=汉化  4=特色
         loadStateView.setVisibility(View.VISIBLE);
         loadStateView.setState(LoadStateView.STATE_ING);
         int startRecord = pageAction.getCurrentPage() * PAGE_SIZE;
-        Log.d(TAG, "排行榜请求参数:" + tab_position + "," + tab2_position);
+        Log.d(TAG, "排行榜请求参数:" + tab0_Id + "," + tab2_Id);
         RankListBody bodyBean = new RankListBody();
         bodyBean.setStartRecord(startRecord);
         Log.d(TAG, "排行榜请求索引:" + startRecord + " -> " + PAGE_SIZE);
         bodyBean.setRecords(PAGE_SIZE);
-        bodyBean.setParentCategoryId(tab_position);
-        bodyBean.setCategoryId(tab2_position);
+        bodyBean.setParentCategoryId(tab0_Id);
+        bodyBean.setCategoryId(tab2_Id);
         new GameCommentListClient(content, bodyBean).observable()
 //                .compose(this.<DiscountListBean>bindToLifecycle())
                 .subscribe(new ObserverWrapper<LikeListBean>() {
