@@ -6,7 +6,13 @@
     <solid android:color="@color/white"/>
     <!--圆角-->
     <stroke android:color="@color/mainColor"
-         android:width="@dimen/dm001"></stroke>
+         android:width="@dimen/dm002"></stroke>
+    <gradient
+        android:startColor="@color/white"
+        android:endColor="@color/mainColorLight"
+        android:type="radial"
+        android:gradientRadius="80%p"
+        />
     <corners android:radius="@dimen/dm004"/>
 
 </shape>

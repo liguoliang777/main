@@ -135,7 +135,7 @@ public class Rank012345Fragment extends BaseSearchFragment {
         //mTopCheckedTv = view.findViewById(R.id.rank01234_top_llay);
 
         mTopCheckedTv = view.findViewById(R.id.fragment_01234_top_show_checked_tv);
-        mTopCheckedTv.setText(tab0Text + "·" + tab2_String_Arr[tabArrIndex]);
+        mTopCheckedTv.setText(tab0Text + "·" + tab2_Country_Text_Array[tabArrIndex]);
         mTopCheckedTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -153,10 +153,20 @@ public class Rank012345Fragment extends BaseSearchFragment {
         mTabLayout0.setOnTabSelectedListener(new XTabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(XTabLayout.Tab tab) {
-                mTabLayout2_ExRadioGroup.check(0);
-                tab2_Id = tab2_Id_Arr[0];
+                int positionTop = tab.getPosition();
+                //全部分类
+                if (positionTop == 0) {
+                    mTabLayout2_ExRadioGroup.removeAllViews();
+                    initTabLayout2(tab2_Categary_Text_Array, tab2_Categary_Id_Array);
+                } else {
+                    mTabLayout2_ExRadioGroup.removeAllViews();
+                    initTabLayout2(tab2_Country_Text_Array, tab2_Country_Id_Array);
+                }
 
-                tab0_Id = tab0_Id_Arr[tab.getPosition()];
+                mTabLayout2_ExRadioGroup.check(0);
+                tab2_Id = tab2_Country_Id_Array[0];
+
+                tab0_Id = tab0_Id_Arr[positionTop];
 
                 list.clear();
                 adapter.setList(list);
@@ -165,7 +175,7 @@ public class Rank012345Fragment extends BaseSearchFragment {
                 getRankList();
 
                 tab0Text = tab.getText().toString();
-                mTopCheckedTv.setText(tab0Text + "·" + tab2_String_Arr[tabArrIndex]);
+                mTopCheckedTv.setText(tab0Text + "·" + tab2_Country_Text_Array[tabArrIndex]);
             }
 
             @Override
@@ -179,21 +189,9 @@ public class Rank012345Fragment extends BaseSearchFragment {
             }
         });
 
-        for (int i = 0; i < tab2_String_Arr.length; i++) {
-            RadioButton rb = new RadioButton(content);
-            if (0 == i) {
-                rb.setChecked(true);
-            }
-            setTab2RadioBut(rb, i);
+        //二级标签
+        initTabLayout2(tab2_Categary_Text_Array, tab2_Categary_Id_Array);
 
-            mTabLayout2_ExRadioGroup.addView(rb);
-
-            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) rb
-                    .getLayoutParams();
-            layoutParams.setMargins(30, 32, 0, 0);//4个参数按顺序分别是左上右下
-            rb.setLayoutParams(layoutParams);
-        }
-        //mTopCheckedTv.addView(mTabLayout2_ExRadioGroup);
         loadStateView = view.findViewById(R.id.load_state_view);
         loadStateView.isShowLoadBut(false);
         pullListView.setPullRefreshEnabled(true);
@@ -258,13 +256,13 @@ public class Rank012345Fragment extends BaseSearchFragment {
             for (int i = 0; i < length; i++) {
                 tablayout2.addTab(tablayout2.newTab().setText(tabList5[i]));
             }
-            tab2_Id_Arr = tab2_id5;
+            tab2_Country_Id_Array = tab2_id5;
             //二级标签
             initTabs1234();
         } else {
-            int length = tab2_String_Arr.length;
+            int length = tab2_Country_Text_Array.length;
             for (int i = 0; i < length; i++) {
-                tablayout2.addTab(tablayout2.newTab().setText(tab2_String_Arr[i]));
+                tablayout2.addTab(tablayout2.newTab().setText(tab2_Country_Text_Array[i]));
             }
             //二级标签
             initTabs1234();
@@ -322,38 +320,52 @@ public class Rank012345Fragment extends BaseSearchFragment {
         getRankList();
     }
 
-    private void setTab2RadioBut(final RadioButton codeBtn, final int position) {
-        if (null == codeBtn) {
-            return;
-        }
-        codeBtn.setBackgroundResource(R.drawable.selector_rank_tab_top_bg);
-        codeBtn.setTextColor(ContextCompat.getColorStateList(content, R.color
-                .fragment_rank01234_top_text_color));
-        codeBtn.setButtonDrawable(new ColorDrawable(Color.TRANSPARENT));
-        codeBtn.setTextSize(14f);
-        codeBtn.setId(position);
-        codeBtn.setText(tab2_String_Arr[position]);
-        codeBtn.setPadding(25, 5, 25, 10);
-
-        codeBtn.setGravity(Gravity.CENTER);
-        codeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tabArrIndex = position;
-                tab2_Id = tab2_Id_Arr[position];
-                list.clear();
-                adapter.setList(list);
-                pageAction.setCurrentPage(0);
-                getRankList();
-                mTopCheckedTv.setText(tab0Text + "·" + tab2_String_Arr[tabArrIndex]);
+    private void initTabLayout2(final String[] tab2StringArr, final int[] tab2IdArr) {
+        int length = tab2StringArr.length;
+        for (int position = 0; position < length; position++) {
+            RadioButton codeBtn = new RadioButton(content);
+            if (0 == position) {
+                codeBtn.setChecked(true);
             }
-        });
-        LinearLayout.LayoutParams rlp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams
-                .WRAP_CONTENT, LinearLayout.LayoutParams
-                .WRAP_CONTENT);
+            if (null == codeBtn) {
+                return;
+            }
+            codeBtn.setBackgroundResource(R.drawable.selector_rank_tab_top_bg);
+            codeBtn.setTextColor(ContextCompat.getColorStateList(content, R.color
+                    .fragment_rank01234_top_text_color));
+            codeBtn.setButtonDrawable(new ColorDrawable(Color.TRANSPARENT));
+            codeBtn.setTextSize(14f);
+            codeBtn.setId(position);
+            codeBtn.setText(tab2StringArr[position]);
+            codeBtn.setPadding(25, 5, 25, 10);
 
-        codeBtn.setLayoutParams(rlp);
+            codeBtn.setGravity(Gravity.CENTER);
+            final int finalPosition = position;
+            codeBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    tabArrIndex = finalPosition;
+                    tab2_Id = tab2IdArr[finalPosition];
+                    list.clear();
+                    adapter.setList(list);
+                    pageAction.setCurrentPage(0);
+                    getRankList();
+                    mTopCheckedTv.setText(tab0Text + "·" + tab2StringArr[tabArrIndex]);
+                }
+            });
+            LinearLayout.LayoutParams rlp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams
+                    .WRAP_CONTENT, LinearLayout.LayoutParams
+                    .WRAP_CONTENT);
 
+            codeBtn.setLayoutParams(rlp);
+
+            mTabLayout2_ExRadioGroup.addView(codeBtn);
+
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) codeBtn
+                    .getLayoutParams();
+            layoutParams.setMargins(30, 32, 0, 0);//4个参数按顺序分别是左上右下
+            codeBtn.setLayoutParams(layoutParams);
+        }
     }
 
     public void startAnim(int flag) {
@@ -380,15 +392,23 @@ public class Rank012345Fragment extends BaseSearchFragment {
         mShow = !mShow;
     }
 
-    //第一级标签              全部,手柄,破解,汉化,特色,模拟器
+    //第一级标签
     private int tab0_Id_Arr[] = new int[]{101, 102};
-    private String tab2_String_Arr[] = new String[]{"全部", "大陆", "美国", "韩国", "日本",
-            "港澳台"};
-    private int tab2_Id_Arr[] = new int[]{0, 147, 149, 151, 150, 148};
+
+    //第二级标签   =======   全部分类
+    private String tab2_Categary_Text_Array[] = new String[]{"全部", "手柄", "原生", "角色", "云适配", "破解",
+            "汉化", "动作",
+            "冒险", "策略", "模拟器"};
+    private int tab2_Categary_Id_Array[] = new int[]{0, 101, 134, 107, 147, 149, 151, 150, 148,
+            149, 103};
+
+    //             =======  国别
+    private String tab2_Country_Text_Array[] = new String[]{"全部", "大陆", "美国", "韩国", "日本", "港澳台"};
+    private int tab2_Country_Id_Array[] = new int[]{0, 147, 149, 151, 150, 148};
 
     //顶部下面的二级标签
     private void initTabs1234() {
-        ViewGroup viewGroup = (ViewGroup) (View) mTopCheckedTv;//删除
+        ViewGroup viewGroup = (ViewGroup) (View) mTopCheckedTv;//测试,删除
         //ViewGroup viewGroup = (ViewGroup) tablayout2.getChildAt(0);
         int childCount = viewGroup.getChildCount() - 1;
         for (int i = 0; i <= childCount; i++) {

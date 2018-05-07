@@ -8,12 +8,12 @@
     android:orientation="vertical">
 
     <com.androidkun.xtablayout.XTabLayout
-        android:layout_marginTop="@dimen/dm001"
-        android:background="@color/white"
         android:id="@+id/rank01234_header_tablayout"
         style="@style/Rank_Fragment_TabLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dm074"
+        android:layout_marginTop="@dimen/dm001"
+        android:background="@color/white"
         app:xTabDividerColor="@color/d9d9d9"
         app:xTabDividerGravity="center"
         app:xTabDividerHeight="@dimen/dm074"
@@ -21,16 +21,18 @@
         app:xTabIndicatorHeight="0dp"
         app:xTabPadding="@dimen/dm001"
         app:xTabSelectedTextColor="@color/mainColor"
+        app:xTabSelectedTextSize="@dimen/dm026"
+        app:xTabTextBold="false"
         app:xTabTextColor="@color/color_808080"
         app:xTabTextSelectedBold="true"
-        app:xTabTextBold="false"
-        app:xTabSelectedTextSize="@dimen/dm026"
         app:xTabTextSize="@dimen/dm026" />
 
     <cn.ngame.store.view.ExRadioGroup
         android:id="@+id/rank01234_header_rg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/dm020"
+        android:layout_marginBottom="@dimen/dm001"
         android:layout_marginTop="@dimen/dm001"
         android:background="@color/white">
 
