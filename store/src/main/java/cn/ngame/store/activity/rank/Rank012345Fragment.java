@@ -175,7 +175,7 @@ public class Rank012345Fragment extends BaseSearchFragment {
                 getRankList();
 
                 tab0Text = tab.getText().toString();
-                mTopCheckedTv.setText(tab0Text + "·" + tab2_Country_Text_Array[tabArrIndex]);
+                mTopCheckedTv.setText(tab0Text + "·" + tab2_Country_Text_Array[0]);
             }
 
             @Override
