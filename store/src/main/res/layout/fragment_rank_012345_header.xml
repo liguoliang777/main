@@ -8,6 +8,7 @@
     android:orientation="vertical">
 
     <com.androidkun.xtablayout.XTabLayout
+        android:layout_marginTop="@dimen/dm001"
         android:background="@color/white"
         android:id="@+id/rank01234_header_tablayout"
         style="@style/Rank_Fragment_TabLayout"

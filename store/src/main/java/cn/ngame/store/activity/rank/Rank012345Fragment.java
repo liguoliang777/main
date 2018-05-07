@@ -87,8 +87,8 @@ public class Rank012345Fragment extends BaseSearchFragment {
     private ObjectAnimator mAnimator;
     private ListView refreshableView;
     private TextView mTopCheckedTv;
-    private ExRadioGroup mExRadioGroup;
-    private XTabLayout tablayout0;
+    private ExRadioGroup mTabLayout2_ExRadioGroup;
+    private XTabLayout mTabLayout0;
     private String tab0Text = "全部分类";
     private int tabArrIndex = 0;
 
@@ -114,10 +114,6 @@ public class Rank012345Fragment extends BaseSearchFragment {
     @Override
     protected int getContentViewLayoutID() {
         return R.layout.fragment_rank01234;
-    }
-
-    public void setTab0Postion(int mTabPos) {
-        tab0_Id = tab0_Id_Arr[mTabPos];
     }
 
     @Override
@@ -149,18 +145,26 @@ public class Rank012345Fragment extends BaseSearchFragment {
             }
         });
         View headView = View.inflate(content, R.layout.fragment_rank_012345_header, null);
-        mExRadioGroup = headView.findViewById(R.id.rank01234_header_rg);
+        mTabLayout2_ExRadioGroup = headView.findViewById(R.id.rank01234_header_rg);
 
-        tablayout0 = headView.findViewById(R.id.rank01234_header_tablayout);
-        tablayout0.addTab(tablayout0.newTab().setText("全部分类"));
-        tablayout0.addTab(tablayout0.newTab().setText("国别"));
-        tablayout0.setOnTabSelectedListener(new XTabLayout.OnTabSelectedListener() {
+        mTabLayout0 = headView.findViewById(R.id.rank01234_header_tablayout);
+        mTabLayout0.addTab(mTabLayout0.newTab().setText("全部分类"));
+        mTabLayout0.addTab(mTabLayout0.newTab().setText("国别"));
+        mTabLayout0.setOnTabSelectedListener(new XTabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(XTabLayout.Tab tab) {
-                setTab0Postion(tab.getPosition());
-                tab0Text = tab.getText().toString();
+                mTabLayout2_ExRadioGroup.check(0);
+                tab2_Id = tab2_Id_Arr[0];
+
+                tab0_Id = tab0_Id_Arr[tab.getPosition()];
+
+                list.clear();
+                adapter.setList(list);
+                pageAction.setCurrentPage(0);
                 //重新请求数据
-                requestDataList();
+                getRankList();
+
+                tab0Text = tab.getText().toString();
                 mTopCheckedTv.setText(tab0Text + "·" + tab2_String_Arr[tabArrIndex]);
             }
 
@@ -174,6 +178,7 @@ public class Rank012345Fragment extends BaseSearchFragment {
 
             }
         });
+
         for (int i = 0; i < tab2_String_Arr.length; i++) {
             RadioButton rb = new RadioButton(content);
             if (0 == i) {
@@ -181,14 +186,14 @@ public class Rank012345Fragment extends BaseSearchFragment {
             }
             setTab2RadioBut(rb, i);
 
-            mExRadioGroup.addView(rb);
+            mTabLayout2_ExRadioGroup.addView(rb);
 
             LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) rb
                     .getLayoutParams();
             layoutParams.setMargins(30, 32, 0, 0);//4个参数按顺序分别是左上右下
             rb.setLayoutParams(layoutParams);
         }
-        //mTopCheckedTv.addView(mExRadioGroup);
+        //mTopCheckedTv.addView(mTabLayout2_ExRadioGroup);
         loadStateView = view.findViewById(R.id.load_state_view);
         loadStateView.isShowLoadBut(false);
         pullListView.setPullRefreshEnabled(true);
@@ -317,11 +322,6 @@ public class Rank012345Fragment extends BaseSearchFragment {
         getRankList();
     }
 
-    private void requestDataList() {
-        getRankList();
-
-    }
-
     private void setTab2RadioBut(final RadioButton codeBtn, final int position) {
         if (null == codeBtn) {
             return;
@@ -340,7 +340,6 @@ public class Rank012345Fragment extends BaseSearchFragment {
             @Override
             public void onClick(View v) {
                 tabArrIndex = position;
-                Log.d(TAG, "排行榜请求: " + tabArrIndex);
                 tab2_Id = tab2_Id_Arr[position];
                 list.clear();
                 adapter.setList(list);
