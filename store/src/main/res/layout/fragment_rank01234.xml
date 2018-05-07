@@ -13,38 +13,47 @@
         android:background="@color/white"
         android:divider="@null"
         android:scrollbars="none" />
-<!--
-    <LinearLayout
-        android:id="@+id/rank01234_top_llay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="horizontal">
-
-        <android.support.design.widget.TabLayout xmlns:tabs="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/rank01234_tablayout"
-            style="@style/MyCustomTabLayout"
+    <!--
+        <LinearLayout
+            android:id="@+id/rank01234_top_llay"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dm040"
-            android:layout_marginBottom="@dimen/dm030"
-            android:layout_marginTop="@dimen/dm020"
-            android:paddingLeft="@dimen/dm016"
-            android:paddingRight="@dimen/dm016"
-            tabs:tabBackground="@drawable/selector_rank_tab_top_bg"
-            tabs:tabGravity="fill"
-            tabs:tabIndicatorColor="@color/transparent"
-            tabs:tabMinWidth="@dimen/dp_10"
-            tabs:tabMode="scrollable"
-            tabs:tabSelectedTextColor="@color/mainColor"
-            tabs:tabTextColor="@color/color_808080" />
-    </LinearLayout>-->
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal">
 
-    <cn.ngame.store.view.ExRadioGroup
-        android:id="@+id/fragment_01234_radio_group"
-        android:layout_width="match_parent"
-        android:paddingRight="@dimen/dm020"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"></cn.ngame.store.view.ExRadioGroup>
+            <android.support.design.widget.TabLayout xmlns:tabs="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/rank01234_tablayout"
+                style="@style/MyCustomTabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dm040"
+                android:layout_marginBottom="@dimen/dm030"
+                android:layout_marginTop="@dimen/dm020"
+                android:paddingLeft="@dimen/dm016"
+                android:paddingRight="@dimen/dm016"
+                tabs:tabBackground="@drawable/selector_rank_tab_top_bg"
+                tabs:tabGravity="fill"
+                tabs:tabIndicatorColor="@color/transparent"
+                tabs:tabMinWidth="@dimen/dp_10"
+                tabs:tabMode="scrollable"
+                tabs:tabSelectedTextColor="@color/mainColor"
+                tabs:tabTextColor="@color/color_808080" />
+        </LinearLayout>-->
+
+    <TextView
+        android:layout_centerHorizontal="true"
+        android:id="@+id/fragment_01234_top_show_checked_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dm060"
+        android:paddingLeft="@dimen/dm032"
+        android:paddingRight="@dimen/dm032"
+        android:background="@color/white"
+        android:elevation="@dimen/dm010"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:text="大陆"
+        android:textColor="@color/mainColor"
+        android:textSize="@dimen/dm026"
+        android:visibility="gone"></TextView>
 
     <cn.ngame.store.view.LoadStateView xmlns:ngame="http://schemas.android.com/apk/res-auto"
         android:id="@+id/load_state_view"
