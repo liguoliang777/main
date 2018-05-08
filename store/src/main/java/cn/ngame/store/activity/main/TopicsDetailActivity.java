@@ -33,6 +33,7 @@ import cn.ngame.store.core.utils.KeyConstant;
 import cn.ngame.store.game.view.GameDetailActivity;
 import cn.ngame.store.util.ConvUtil;
 import cn.ngame.store.util.ToastUtil;
+import cn.ngame.store.view.LoadStateView;
 import cn.ngame.store.widget.pulllistview.PullToRefreshBase;
 import cn.ngame.store.widget.pulllistview.PullToRefreshListView;
 
@@ -56,7 +57,7 @@ public class TopicsDetailActivity extends BaseFgActivity {
     private Object categoryId;
     private RelativeLayout mTitleRlay;
     private Button leftBt;
-    private String title;
+    private LoadStateView loadStateView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,10 +71,11 @@ public class TopicsDetailActivity extends BaseFgActivity {
         }
         setContentView(R.layout.topics_detail_activity);
         content = TopicsDetailActivity.this;
-        title = getIntent().getStringExtra(KeyConstant.TITLE);
         categoryId = getIntent().getExtras().get(KeyConstant.category_Id);
         //获取状态栏高度设置给标题栏==========================================
         mTitleRlay = (RelativeLayout) findViewById(R.id.ll_title);
+        loadStateView = findViewById(R.id.load_state_view2);
+        loadStateView.isShowLoadBut(false);
         mTitleRlay.setBackgroundResource(R.color.transparent);
         int statusBarHeight = ImageUtil.getStatusBarHeight(content);
        /* RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
@@ -126,8 +128,10 @@ public class TopicsDetailActivity extends BaseFgActivity {
                     ToastUtil.show(content, getString(R.string.no_more_data));
                     return;
                 }
-                if (pageAction.getCurrentPage() * pageAction.getPageSize() < pageAction.getTotal()) {
-                    pageAction.setCurrentPage(pageAction.getCurrentPage() == 0 ? pageAction.getCurrentPage() + 2 : pageAction
+                if (pageAction.getCurrentPage() * pageAction.getPageSize() < pageAction.getTotal
+                        ()) {
+                    pageAction.setCurrentPage(pageAction.getCurrentPage() == 0 ? pageAction
+                            .getCurrentPage() + 2 : pageAction
                             .getCurrentPage() + 1);
                     getDataList();
                 } else {
@@ -171,7 +175,8 @@ public class TopicsDetailActivity extends BaseFgActivity {
             }
 
             @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount,
+                                 int totalItemCount) {
                 View childAt = refreshableView.getChildAt(0);
                 if (firstVisibleItem == 0 && childAt != null && childAt.getTop() !=
                         0) {
@@ -183,12 +188,12 @@ public class TopicsDetailActivity extends BaseFgActivity {
                         mTitleRlay.setBackgroundResource(color);
                     } else {
                         mTitleRlay.setAlpha(1f);
-                        leftBt.setText(title);
+                        leftBt.setText(desc);
                         mTitleRlay.setBackgroundResource(R.color.mainColor);
                     }
                 } else {
                     if (firstVisibleItem != 0) {
-                        leftBt.setText(title);
+                        leftBt.setText(desc);
                         mTitleRlay.setBackgroundResource(R.color.mainColor);
                         mTitleRlay.setAlpha(1f);
 
@@ -210,6 +215,9 @@ public class TopicsDetailActivity extends BaseFgActivity {
     }
 
     public void getDataList() {
+        loadStateView.setVisibility(View.VISIBLE);
+        loadStateView.setState(LoadStateView.STATE_ING);
+
         GameListBody bodyBean = new GameListBody();
         int id = ConvUtil.NI(categoryId);
         bodyBean.setCategoryId2(id);
@@ -220,18 +228,29 @@ public class TopicsDetailActivity extends BaseFgActivity {
                 .subscribe(new ObserverWrapper<GameRankListBean>() {
                     @Override
                     public void onError(Throwable e) {
-//                        ToastUtil.show(getActivity(), APIErrorUtils.getMessage(e));
+                        if (content != null) {
+                            loadStateView.setState(LoadStateView.STATE_END, getString(R.string
+                                    .server_exception_2_pullrefresh));
+                            loadStateView.setVisibility(View.VISIBLE);
+                        }
                         pullListView.getRefreshableView().setAdapter(adapter); //数据位空时，加载头部
                         pullListView.onPullUpRefreshComplete();
                         pullListView.onPullDownRefreshComplete();
+
                     }
 
                     @Override
                     public void onNext(GameRankListBean result) {
-
+                        if (content == null || content.isFinishing()) {
+                            return;
+                        }
                         if (result != null && result.getCode() == 0) {
+                            loadStateView.setVisibility(View.GONE);
                             setData(result);
                         } else {
+                            loadStateView.setState(LoadStateView.STATE_END, getString(R
+                                    .string.server_exception_2_pullrefresh));
+                            loadStateView.setVisibility(View.VISIBLE);
                             pullListView.getRefreshableView().setAdapter(adapter); //数据位空时，加载头部
                         }
                         pullListView.onPullUpRefreshComplete();
@@ -261,7 +280,8 @@ public class TopicsDetailActivity extends BaseFgActivity {
             adapter.setList(list);
         }
         //
-       /* if ((mStickyLV.size() == 0 && pageAction.getTotal() == 0) || mStickyLV.size() >= pageAction.getTotal()) {
+       /* if ((mStickyLV.size() == 0 && pageAction.getTotal() == 0) || mStickyLV.size() >=
+       pageAction.getTotal()) {
             pullListView.setPullLoadEnabled(true);
         } else {
             pullListView.setPullLoadEnabled(true);

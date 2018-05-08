@@ -74,7 +74,7 @@ public class MainHubFragment extends BaseSearchFragment {
 
     @Override
     protected int getContentViewLayoutID() {
-        return R.layout.fragment_recommend;
+        return R.layout.fragment_hub;
     }
 
     @Override
@@ -214,7 +214,7 @@ public class MainHubFragment extends BaseSearchFragment {
         pageAction.setPageSize(PAGE_SIZE);
         loadStateView = view.findViewById(R.id.load_state_view2);
         loadStateView.isShowLoadBut(false);
-        pullListView = view.findViewById(R.id.pullListView);
+        pullListView = view.findViewById(R.id.hub_pullListView);
         pullListView.setPullLoadEnabled(true);
         pullListView.setPullRefreshEnabled(true);
         pullListView.setScrollLoadEnabled(true);

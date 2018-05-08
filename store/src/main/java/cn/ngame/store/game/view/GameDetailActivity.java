@@ -390,7 +390,7 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
         game_logo_img.setImageURI(gameInfo.gameLogo);//游戏 -头像
 
         //游戏厂商
-        String gameAgent = gameInfo.gameAgent;
+        String gameAgent = gameInfo.countryName;
         changShangTv.setText(gameAgent == null ? "" : gameAgent);
 
         //更新下载按钮

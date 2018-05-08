@@ -45,6 +45,7 @@ public class GameInfo implements Serializable {
      * 简介
      */
     public String gameDesc;
+    public String countryName;
     /**
      * 版本号
      */
