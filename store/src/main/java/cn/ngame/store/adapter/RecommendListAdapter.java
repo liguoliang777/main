@@ -87,7 +87,8 @@ public class RecommendListAdapter extends BaseAdapter {
             holder.fromIv = convertView.findViewById(R.id.recommend_game_img_1);
             holder.game_logo_Iv = convertView.findViewById(R.id.recommend_game_pic);
             holder.tv_title = convertView.findViewById(R.id.recommend_game_title_tv);
-            holder.tv_summary = convertView.findViewById(R.id.tv_summary);
+            holder.recommenderTv = convertView.findViewById(R.id.recommend_from_name_tv);
+            holder.contentTv = convertView.findViewById(R.id.tv_summary);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -103,7 +104,7 @@ public class RecommendListAdapter extends BaseAdapter {
     public static class ViewHolder {
         private Context context;
         private SimpleDraweeView fromIv;
-        private TextView tv_title, tv_summary;
+        private TextView tv_title, contentTv, recommenderTv;
         public ImageView game_logo_Iv;
         private static Picasso picasso;
 
@@ -118,6 +119,7 @@ public class RecommendListAdapter extends BaseAdapter {
          * @param gameInfo 游戏信息
          */
         public void update(final RecommendListBean.DataBean gameInfo, int type, int position) {
+            Log.d("888", "推荐数据: " + gameInfo.toString());
             String imgUrl = gameInfo.getGameRecommendImg();
             String fromUrl = gameInfo.getGameLogo();
             if (imgUrl != null && imgUrl.trim().equals("")) {
@@ -129,17 +131,12 @@ public class RecommendListAdapter extends BaseAdapter {
             fromIv.setImageURI(fromUrl);
 
             String gameName = gameInfo.getGameName();
-            Log.d("图片", gameName + "：" + imgUrl);
-            if (!"".equals(gameName)) {
-                tv_title.setText(gameName);
-            }
+            tv_title.setText(gameName == null ? "" : gameName);
 
             String gameDesc = gameInfo.getRecommend();
-            if (gameDesc != null && !"".equals(gameDesc)) {
-                tv_summary.setText(gameDesc);
-            } else {
-                tv_summary.setText("");
-            }
+            String recommenderString = gameInfo.getRecommender();
+            recommenderTv.setText(recommenderString == null ? "" : recommenderString);
+            contentTv.setText(gameDesc == null ? "" : gameDesc);
         }
     }
 }

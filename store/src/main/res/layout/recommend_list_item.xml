@@ -63,7 +63,7 @@
             android:layout_below="@id/recommend_game_title_tv"
             android:layout_toRightOf="@id/recommend_from_icon"
             android:maxLines="1"
-            android:text="编辑推荐"
+            android:text=""
             android:textColor="@color/color_666666"
             android:textSize="@dimen/dm016" />
 

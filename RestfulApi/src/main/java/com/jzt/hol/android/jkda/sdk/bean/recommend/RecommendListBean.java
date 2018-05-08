@@ -214,5 +214,22 @@ public class RecommendListBean implements Serializable{
         public void setUpdateTime(long updateTime) {
             this.updateTime = updateTime;
         }
+
+        @Override
+        public String toString() {
+            return "DataBean{" +
+                    "id=" + id +
+                    ", gameId=" + gameId +
+                    ", gameName='" + gameName + '\'' +
+                    ", gameEnglishName=" + gameEnglishName +
+                    ", gameLogo='" + gameLogo + '\'' +
+                    ", recommender='" + recommender + '\'' +
+                    ", gameRecommendImg='" + gameRecommendImg + '\'' +
+                    ", recommend='" + recommend + '\'' +
+                    ", appTypeId=" + appTypeId +
+                    ", createTime=" + createTime +
+                    ", updateTime=" + updateTime +
+                    '}';
+        }
     }
 }
