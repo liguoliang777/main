@@ -1,32 +1,19 @@
 package cn.ngame.store.activity.main;
 
 import android.annotation.SuppressLint;
-import android.app.MediaRouteButton;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.AndroidException;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.facebook.binaryresource.FileBinaryResource;
-import com.facebook.cache.common.SimpleCacheKey;
-import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
@@ -42,7 +29,6 @@ import com.jzt.hol.android.jkda.sdk.services.recommend.RecommendClient;
 import com.squareup.picasso.Picasso;
 import com.umeng.analytics.MobclickAgent;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -89,8 +75,7 @@ public class RecommendFragment extends BaseSearchFragment {
     private ListView refreshableView;
     private Picasso picasso;
     private LinearLayout parent;
-    private ScrollView recommend1BoutiqueLayout;
-    private TextView recommend2LiveLayout;
+    private ScrollView boutiqueLayout;
 
     public static RecommendFragment newInstance(int arg) {
         RecommendFragment fragment = new RecommendFragment();
@@ -179,7 +164,8 @@ public class RecommendFragment extends BaseSearchFragment {
                                     final YunduanBean.DataBean info = gameInfo.get(i);
                                     final String gameImage = info.getLogoUrl();//获取每一张图片
                                     simpleImageView = new SimpleDraweeView(context);
-                                    RoundingParams roundingParams = RoundingParams.fromCornersRadius(pxRound);
+                                    RoundingParams roundingParams = RoundingParams
+                                            .fromCornersRadius(pxRound);
                                     GenericDraweeHierarchy hierarchy = GenericDraweeHierarchyBuilder
                                             .newInstance(resources)
                                             .setPlaceholderImage(R.color.e5e5e5)
@@ -189,7 +175,8 @@ public class RecommendFragment extends BaseSearchFragment {
                                             .setFadeDuration(0)
                                             .build();
                                     simpleImageView.setHierarchy(hierarchy);
-                                    simpleImageView.setBackgroundResource(android.R.drawable.dialog_holo_light_frame);
+                                    simpleImageView.setBackgroundResource(android.R.drawable
+                                            .dialog_holo_light_frame);
                                     //为  PicassoImageView设置属性
                                     hParams = new LinearLayout.LayoutParams(
                                             ViewGroup.LayoutParams.MATCH_PARENT, pxHeight);
@@ -297,8 +284,7 @@ public class RecommendFragment extends BaseSearchFragment {
         pageAction.setPageSize(PAGE_SIZE);
         loadStateView = (LoadStateView) view.findViewById(R.id.load_state_view2);
         horizontalViewContainer = (LinearLayout) view.findViewById(R.id.horizontalView_container);
-        recommend2LiveLayout = (TextView) view.findViewById(R.id.recommend_2_live);
-        recommend1BoutiqueLayout = (ScrollView) view.findViewById(R.id.recommend_1_boutique);
+        boutiqueLayout = (ScrollView) view.findViewById(R.id.recommend_1_boutique);
         loadStateView.isShowLoadBut(false);
         pullListView = (PullToRefreshListView) view.findViewById(R.id.pullListView);
         pullListView.setPullLoadEnabled(true);
@@ -649,9 +635,8 @@ public class RecommendFragment extends BaseSearchFragment {
     }
 
     public void setTab(int position) {
-        pullListView.setVisibility(0 == position ? View.VISIBLE : View.GONE);
-        recommend1BoutiqueLayout.setVisibility(1 == position ? View.VISIBLE : View.GONE);
-        recommend2LiveLayout.setVisibility(2 == position ? View.VISIBLE : View.GONE);
+        boutiqueLayout.setVisibility(0 == position ? View.VISIBLE : View.GONE);
+        pullListView.setVisibility(1 == position ? View.VISIBLE : View.GONE);
         //pullListView.setVisibility(0 == position?View.VISIBLE:View.GONE);
         //pullListView.setVisibility(0 == position?View.VISIBLE:View.GONE);
 

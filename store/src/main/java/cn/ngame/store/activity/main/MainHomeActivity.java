@@ -292,14 +292,13 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
         //startPadService();
     }
 
-    String[] tabTitles0 = new String[]{"动态", "精品", "直播"};
+    String[] tabTitles0 = new String[]{"精品", "动态"};
     String[] tabTitles1 = new String[]{"热门", "预约", "口碑"};
 
     private void initTab() {
 
         mainTabLayout0.addTab(mainTabLayout0.newTab().setText(tabTitles0[0]));
         mainTabLayout0.addTab(mainTabLayout0.newTab().setText(tabTitles0[1]));
-        mainTabLayout0.addTab(mainTabLayout0.newTab().setText(tabTitles0[2]));
 
         mainTabLayout1.addTab(mainTabLayout1.newTab().setText(tabTitles1[0]));
         mainTabLayout1.addTab(mainTabLayout1.newTab().setText(tabTitles1[1]));
