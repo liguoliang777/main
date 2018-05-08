@@ -7,6 +7,10 @@
     <stroke
         android:width="@dimen/dm001"
         android:color="@color/e6e6e6" />
+    <gradient
+        android:angle="270"
+        android:endColor="@color/white"
+        android:startColor="@color/recommend_item_bg"></gradient>
     <!--圆角-->
     <corners android:radius="@dimen/dm024" />
 

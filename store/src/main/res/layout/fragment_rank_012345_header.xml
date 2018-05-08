@@ -22,7 +22,7 @@
         app:xTabPadding="@dimen/dm001"
         app:xTabSelectedTextColor="@color/mainColor"
         app:xTabSelectedTextSize="@dimen/dm026"
-        app:xTabTextBold="false"
+        app:xTabTextBold="true"
         app:xTabTextColor="@color/color_808080"
         app:xTabTextSelectedBold="true"
         app:xTabTextSize="@dimen/dm026" />

@@ -42,6 +42,7 @@
     <color name="QuickAction_focused">#94ffeb</color>
     <color name="download_bg">#443ecc7a</color>
     <color name="color_98e0f1">#443ecc7a</color>
+    <color name="recommend_item_bg">#113ecc7a</color>
     <color name="color_recommend1_bg">#fff</color>
 
     <color name="color_4d4d4d">#4d4d4d</color>
