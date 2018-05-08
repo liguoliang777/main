@@ -235,5 +235,15 @@ public class AllClassifyBean {
                 this.cParentId = cParentId;
             }
         }
+
+        @Override
+        public String toString() {
+            return "DataBean{" +
+                    "gameCountyList=" + gameCountyList +
+                    ", gameStyleList=" + gameStyleList +
+                    ", gameCategoryList=" + gameCategoryList +
+                    ", gameManufacturerList=" + gameManufacturerList +
+                    '}';
+        }
     }
 }

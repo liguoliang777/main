@@ -2,6 +2,7 @@ package cn.ngame.store.activity.classify;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -137,7 +138,8 @@ public class AllClassifyActivity extends BaseFgActivity {
                         if (position < mCountyList.size()) {
                             int typeId = mCountyList.get(position).getId();
                             String typeName = mCountyList.get(position).getCName();
-                            classifyIntent.putExtra(KeyConstant.category_Id, typeId + "");//原生手柄 id 367
+                            classifyIntent.putExtra(KeyConstant.category_Id, typeId + "");//原生手柄
+                            // id 367
                             classifyIntent.putExtra(KeyConstant.TITLE, typeName);
                             content.startActivity(classifyIntent);
                         }
@@ -146,7 +148,8 @@ public class AllClassifyActivity extends BaseFgActivity {
                         if (position < mCategoryList.size()) {
                             int typeId = mCategoryList.get(position).getId();
                             String typeName = mCategoryList.get(position).getCName();
-                            classifyIntent.putExtra(KeyConstant.category_Id, typeId + "");//原生手柄 id 367
+                            classifyIntent.putExtra(KeyConstant.category_Id, typeId + "");//原生手柄
+                            // id 367
                             classifyIntent.putExtra(KeyConstant.TITLE, typeName);
                             content.startActivity(classifyIntent);
                         }
@@ -155,7 +158,8 @@ public class AllClassifyActivity extends BaseFgActivity {
                         if (position < mManufacturerList.size()) {
                             int typeId = mManufacturerList.get(position).getId();
                             String typeName = mManufacturerList.get(position).getCName();
-                            classifyIntent.putExtra(KeyConstant.category_Id, typeId + "");//原生手柄 id 367
+                            classifyIntent.putExtra(KeyConstant.category_Id, typeId + "");//原生手柄
+                            // id 367
                             classifyIntent.putExtra(KeyConstant.TITLE, typeName);
                             content.startActivity(classifyIntent);
                         }
@@ -164,7 +168,8 @@ public class AllClassifyActivity extends BaseFgActivity {
                         if (position < mStyleList.size()) {
                             int typeId = mStyleList.get(position).getId();
                             String typeName = mStyleList.get(position).getCName();
-                            classifyIntent.putExtra(KeyConstant.category_Id, typeId + "");//原生手柄 id 367
+                            classifyIntent.putExtra(KeyConstant.category_Id, typeId + "");//原生手柄
+                            // id 367
                             classifyIntent.putExtra(KeyConstant.TITLE, typeName);
                             content.startActivity(classifyIntent);
                         }
@@ -184,6 +189,7 @@ public class AllClassifyActivity extends BaseFgActivity {
                     public void onError(Throwable e) {
                         loadStateView.setVisibility(View.GONE);
                     }
+
                     @Override
                     public void onNext(AllClassifyBean result) {
                         loadStateView.setVisibility(View.GONE);

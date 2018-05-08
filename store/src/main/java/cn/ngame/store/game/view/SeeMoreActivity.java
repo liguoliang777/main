@@ -63,10 +63,11 @@ public class SeeMoreActivity extends BaseFgActivity {
         pageAction = new PageAction();
         pageAction.setCurrentPage(0);
         pageAction.setPageSize(PAGE_SIZE);
-        content =this;
+        content = this;
         Intent intent = getIntent();
         String title = intent.getStringExtra(KeyConstant.TITLE);
         mLabelId = intent.getStringExtra(KeyConstant.category_Id);
+        android.util.Log.d(TAG, title + "分类数据: " + mLabelId);
         Button leftBt = (Button) findViewById(R.id.left_bt);
         findViewById(R.id.center_tv).setVisibility(View.GONE);
         leftBt.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +78,7 @@ public class SeeMoreActivity extends BaseFgActivity {
         });
         leftBt.setText(title);
 
-        loadStateView = (LoadStateView)findViewById(R.id.loadStateView);
+        loadStateView = (LoadStateView) findViewById(R.id.loadStateView);
         loadStateView.isShowLoadBut(false);
 
         pullListView = (PullToRefreshListView) findViewById(R.id.pullListView);
