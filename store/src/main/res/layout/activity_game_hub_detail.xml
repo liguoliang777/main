@@ -216,6 +216,8 @@
                 android:layout_marginTop="@dimen/dm030"
                 android:lineSpacingExtra="@dimen/dm010"
                 android:minHeight="@dimen/dm375"
+                android:clickable="true"
+                android:textIsSelectable="true"
                 android:text=""
                 android:textColor="@color/color_333333"
                 android:textSize="@dimen/dm024" />

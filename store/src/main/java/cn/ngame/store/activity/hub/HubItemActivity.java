@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.format.DateUtils;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -215,6 +216,7 @@ public class HubItemActivity extends AppCompatActivity {
         String replaced = postContent.replace("<br />", "");
         Spanned spanned = Html.fromHtml(replaced, new HtmlImageGetter(), null);
         mDescTv.setText(spanned);
+        mDescTv.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     protected void onNewIntent(Intent intent) {
