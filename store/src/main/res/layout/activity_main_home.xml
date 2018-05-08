@@ -93,7 +93,6 @@
             android:paddingRight="@dimen/dm032"
             android:paddingTop="@dimen/dm010"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_download"
             android:textSize="@dimen/dm028"
             android:visibility="gone" />
 

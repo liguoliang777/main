@@ -25,7 +25,7 @@
             fresco:placeholderImage="@drawable/ic_def_logo_188_188"
             fresco:placeholderImageScaleType="centerCrop"
             fresco:progressBarImage="@drawable/ic_def_logo_188_188"
-            fresco:roundedCornerRadius="@dimen/dm014" />
+            fresco:roundedCornerRadius="@dimen/dm015" />
 
         <TextView
             android:id="@+id/recommend_game_title_tv"
