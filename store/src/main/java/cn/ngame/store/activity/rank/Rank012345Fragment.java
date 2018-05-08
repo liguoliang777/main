@@ -398,7 +398,7 @@ public class Rank012345Fragment extends BaseSearchFragment {
     //第二级标签   =======   全部分类
     private String tab2_Categary_Text_Array[] = new String[]{"全部", "手柄", "原生", "角色", "云适配", "破解",
             "汉化", "动作",
-            "冒险", "模拟器","策略"};
+            "冒险", "模拟器", "策略"};
     private int tab2_Categary_Id_Array[] = new int[]{0, 101, 134, 107, 147, 149, 151, 150, 148,
             149, 103};
 
@@ -492,7 +492,7 @@ public class Rank012345Fragment extends BaseSearchFragment {
         List<LikeListBean.DataBean.GameListBean> gameList = result.getGameList();
         int size = gameList.size();
         if (pageAction.getCurrentPage() == 0) {
-            this.list.clear(); //清除数据
+            list.clear(); //清除数据
             adapter.setList(list);
             if (gameList == null || size == 0) {
                 pullListView.onPullUpRefreshComplete();
@@ -550,5 +550,16 @@ public class Rank012345Fragment extends BaseSearchFragment {
     @Override
     protected View getLoadView(View view) {
         return null;
+    }
+
+    public void setTab(int tabIndex) {
+        if (refreshableView != null && adapter != null) {
+            list.clear();
+            adapter.setList(list);
+            pageAction.setCurrentPage(0);
+            refreshableView.setSelection(0);
+            mTabLayout2_ExRadioGroup.check(0);
+            mTabLayout0.getTabAt(0).select();
+        }
     }
 }
