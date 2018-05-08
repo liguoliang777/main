@@ -176,12 +176,12 @@
             app:xTabIndicatorColor="@color/white"
             app:xTabIndicatorHeight="@dimen/dm004"
             app:xTabIndicatorWidth="@dimen/dm025"
+            app:xTabTextSelectedBold="true"
+            app:xTabTextBold="true"
             app:xTabSelectedTextColor="@color/white"
             app:xTabSelectedTextSize="@dimen/title_size"
             app:xTabTextColor="@color/e6e6e6"
-            app:xTabTextSelectedBold="true"
-            app:xTabTextBold="true"
-            app:xTabTextSize="@dimen/dm026" />
+     />
 
         <com.androidkun.xtablayout.XTabLayout
             android:id="@+id/main_tab1"
@@ -194,15 +194,15 @@
             android:layout_toRightOf="@id/iv_icon_title"
             android:background="@color/transparent"
             android:visibility="gone"
+            app:xTabTextSelectedBold="true"
+            app:xTabTextBold="true"
             app:xTabIndicatorColor="@color/white"
             app:xTabIndicatorHeight="@dimen/dm004"
             app:xTabIndicatorWidth="@dimen/dm025"
-            app:xTabTextBold="true"
             app:xTabSelectedTextColor="@color/white"
             app:xTabSelectedTextSize="@dimen/title_size"
             app:xTabTextColor="@color/e6e6e6"
-            app:xTabTextSelectedBold="true"
-            app:xTabTextSize="@dimen/dm026" />
+            />
 
         <ImageView
             android:id="@+id/main_hub_bt"

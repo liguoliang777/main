@@ -123,7 +123,7 @@ public class RecommendListAdapter extends BaseAdapter {
             if (imgUrl != null && imgUrl.trim().equals("")) {
                 imgUrl = null;
             }
-            picasso.load(imgUrl)
+            picasso.load(imgUrl).placeholder(R.drawable.ic_def_logo_720_288)
                     .error(R.drawable.ic_def_logo_720_288)
                     .into(game_logo_Iv);
             fromIv.setImageURI(fromUrl);
