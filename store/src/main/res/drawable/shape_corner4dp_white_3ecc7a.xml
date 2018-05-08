@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-       android:useLevel="false">
+    android:useLevel="false">
 
     <!-- 填充 -->
-    <solid android:color="@color/white"/>
+    <solid android:color="@color/white" />
     <stroke
         android:width="@dimen/stroke_line_width"
-        android:color="@color/mainColor"/>
+        android:color="@color/mainColor" />
     <!--圆角-->
-    <corners android:radius="@dimen/dp_4"/>
+    <gradient
+        android:endColor="@color/mainColorLight"
+        android:gradientRadius="0.5"
+        android:startColor="@color/white"></gradient>
+    <corners android:radius="@dimen/dp_4" />
 
 </shape>

@@ -320,6 +320,7 @@
                 style="@style/MyCustomTabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_48"
+                android:elevation="@dimen/dm005"
                 android:background="@color/f5f5f5"
                 android:tag="sticky"
                 tabs:tabGravity="fill"
