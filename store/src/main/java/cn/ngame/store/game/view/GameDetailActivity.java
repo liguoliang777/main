@@ -34,6 +34,7 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.androidkun.xtablayout.XTabLayout;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.reflect.TypeToken;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
@@ -104,7 +105,7 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
     private SimpleDraweeView game_big_img;
     private Button leftBt;
     private GameDetailActivity content;
-    private TabLayout tablayout;
+    private XTabLayout tablayout;
     private AutoHeightViewPager viewpager;
     private ArrayList<Fragment> fragments;
     private DCViewPagerAdapter adapter;
@@ -539,55 +540,6 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
         tablayout.setupWithViewPager(viewpager);
         tablayout.setTabMode(TabLayout.MODE_FIXED); //固定模式
         tablayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
-/*        //中间加分隔线
-        for (int i = 0; i < viewGroup.getChildCount(); i++) {
-            ViewGroup view = (ViewGroup) viewGroup.getChildAt(i);
-            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) view.getLayoutParams();
-            TextView textView = (TextView) view.getChildAt(1);
-            textView.setTextSize(dp16);
-            textView.setBackgroundColor(Color.WHITE);
-            textView.measure(View.MeasureSpec.AT_MOST, View.MeasureSpec.AT_MOST);
-            int screenWidth = ImageUtil.getScreenWidth(content);
-            layoutParams.width=screenWidth/2;
-            layoutParams.weight=1;
-            layoutParams.setMargins(0, 0, 2, 0);
-            textView.setLayoutParams(layoutParams);
-        }*/
-      /*  tablayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                int position = tab.getPosition();
-                Log.d(TAG, "选中: " + position);
-                ViewGroup viewGroup = (ViewGroup) tablayout.getChildAt(0);
-                ViewGroup view = (ViewGroup) viewGroup.getChildAt(position);
-                TextView textView = (TextView) view.getChildAt(1);
-                Paint paint = textView.getPaint();
-                //paint.setTextSize(tabTextSize);
-                paint.setAntiAlias(true);//抗锯齿
-                paint.setUnderlineText(true);
-                viewpager.setCurrentItem(position);
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                Log.d(TAG, "未选中: " + tab.getPosition());
-                int position = tab.getPosition();
-                ViewGroup viewGroup = (ViewGroup) tablayout.getChildAt(0);
-                ViewGroup view = (ViewGroup) viewGroup.getChildAt(position);
-                TextView textView = (TextView) view.getChildAt(1);
-                Paint paint = textView.getPaint();
-                //paint.setTextSize(tabTextSize);
-                paint.setAntiAlias(true);//抗锯齿
-                paint.setUnderlineText(false);
-                //viewpager.setCurrentItem(position);
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });*/
     }
 
     @Override
@@ -644,7 +596,7 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
     private void initTabViewPager() {
         scrollView = (StickyScrollView) findViewById(R.id.scrollView);
         scrollView.setOnScrollListener(this);
-        tablayout = (TabLayout) findViewById(R.id.tablayout);
+        tablayout = (XTabLayout) findViewById(R.id.tablayout);
         viewpager = (AutoHeightViewPager) findViewById(R.id.viewpager);
         viewpager.setOffscreenPageLimit(2);
         initViewPager();
@@ -767,33 +719,6 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
                     break;
                 case R.id.game_detail_feedback_bt:
                     if (CommonUtil.isLogined()) {
-                      /*  QuickAction quickAction = new QuickAction(content, QuickAction.VERTICAL);
-                        ActionItem pointItem = new ActionItem(1, "更新提醒");
-                        ActionItem pointItem2 = new ActionItem(2, "下载异常");
-                        quickAction.addActionItem(pointItem);
-                        quickAction.addActionItem(pointItem2);
-
-                        quickAction.setOnActionItemClickListener(new QuickAction.OnActionItemClickListener() {
-
-                            @Override
-                            public void onItemClick(QuickAction source, int pos, int actionId) {
-                                if (0 == pos) {//更新提醒
-                                    //获取gameId
-                                    UPDATE_TIPS_OR_DOWNLOAD_EXCEPTION = 1;
-                                } else if (1 == pos) {
-                                    UPDATE_TIPS_OR_DOWNLOAD_EXCEPTION = 2;
-                                }
-                                //提交反馈
-                                if (gameInfo == null) {
-                                    ToastUtil.show(content, "反馈失败,请稍后重试");
-                                    return;
-                                }
-                                postFeedBack();
-                                //取消弹出框
-                                source.dismiss();
-                            }
-                        });
-                        quickAction.show(feedbackTv);*/
                         showFeedbackDialog();
                     } else {
                         CommonUtil.showUnLoginDialog(fm, content, R.string.unlogin_msg);

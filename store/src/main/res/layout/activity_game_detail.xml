@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:fresco="http://schemas.android.com/apk/res-auto"
-             xmlns:ngame="http://schemas.android.com/apk/res-auto"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:background="@color/f7f7f7"
-             android:descendantFocusability="blocksDescendants"
-             android:orientation="vertical">
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:ngame="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/f7f7f7"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="vertical">
 
 
     <cn.ngame.store.view.StickyScrollView
@@ -28,8 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dm340">
 
-                <com.facebook.drawee.view.SimpleDraweeView
-                    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                <com.facebook.drawee.view.SimpleDraweeView xmlns:fresco="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/sdv_img"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dm340"
@@ -40,13 +39,13 @@
                     fresco:placeholderImage="@drawable/ic_def_logo_720_288"
                     fresco:placeholderImageScaleType="centerCrop"
                     fresco:progressBarImage="@drawable/ic_def_logo_720_288"
-                    fresco:viewAspectRatio="2"/>
+                    fresco:viewAspectRatio="2" />
 
                 <cn.ngame.store.view.NgameJZVideoPlayerStandard
                     android:id="@+id/game_detial_ngame_vp"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dm340"
-                    android:visibility="invisible"/>
+                    android:visibility="invisible" />
 
             </RelativeLayout>
 
@@ -73,7 +72,7 @@
                     fresco:placeholderImage="@drawable/ic_def_logo_188_188"
                     fresco:placeholderImageScaleType="fitXY"
                     fresco:progressBarImage="@drawable/ic_def_logo_188_188"
-                    fresco:roundedCornerRadius="@dimen/dp_20"/>
+                    fresco:roundedCornerRadius="@dimen/dp_20" />
 
                 <!--名字-->
                 <cn.ngame.store.view.MarqueTextView
@@ -88,9 +87,9 @@
                     android:scrollHorizontally="true"
                     android:singleLine="true"
                     android:text=""
-                    android:textStyle="bold"
                     android:textColor="@color/color_1a"
-                    android:textSize="@dimen/dp_18"/>
+                    android:textSize="@dimen/title_size"
+                    android:textStyle="bold" />
                 <!--厂商-->
                 <TextView
                     android:id="@+id/chang_shang"
@@ -102,7 +101,7 @@
                     android:lines="1"
                     android:text="厂商："
                     android:textColor="@color/mainColor"
-                    android:textSize="@dimen/dp_10"/>
+                    android:textSize="@dimen/dp_10" />
 
                 <TextView
                     android:id="@+id/game_chang_shang_tv"
@@ -114,7 +113,7 @@
                     android:lines="1"
                     android:text=""
                     android:textColor="@color/mainColor"
-                    android:textSize="@dimen/dp_10"/>
+                    android:textSize="@dimen/dp_10" />
 
                 <!--标签 item-->
                 <HorizontalScrollView
@@ -130,8 +129,7 @@
                         android:layout_height="@dimen/dp_16"
                         android:clickable="false"
                         android:gravity="center"
-                        android:lines="1"
-                        >
+                        android:lines="1">
                         <!--原生手柄  云适配  破解  汉化 特色游戏-->
                         <TextView
                             android:id="@+id/game_detail_type0"
@@ -146,7 +144,7 @@
                             android:text="原生手柄"
                             android:textColor="@color/mainColor"
                             android:textSize="@dimen/dp_10"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/game_detail_type1"
@@ -161,8 +159,7 @@
                             android:text="云存档"
                             android:textColor="@color/mainColor"
                             android:textSize="@dimen/dp_10"
-                            android:visibility="gone"
-                            />
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/game_detail_type2"
@@ -177,8 +174,7 @@
                             android:text="汉化"
                             android:textColor="@color/mainColor"
                             android:textSize="@dimen/dp_10"
-                            android:visibility="gone"
-                            />
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/game_detail_type3"
@@ -193,8 +189,7 @@
                             android:text="破解"
                             android:textColor="@color/mainColor"
                             android:textSize="@dimen/dp_10"
-                            android:visibility="gone"
-                            />
+                            android:visibility="gone" />
 
                         <!--    <TextView
                                 android:id="@+id/game_detail_classify_item_05"
@@ -223,7 +218,7 @@
                     android:maxLines="1"
                     android:text="0"
                     android:textColor="@color/b3"
-                    android:textSize="@dimen/dp_10"/>
+                    android:textSize="@dimen/dp_10" />
 
                 <TextView
                     android:id="@+id/count_end"
@@ -233,7 +228,7 @@
                     android:layout_toRightOf="@id/download_count_tv"
                     android:text="下载  "
                     android:textColor="@color/b3"
-                    android:textSize="@dimen/dp_10"/>
+                    android:textSize="@dimen/dp_10" />
 
                 <TextView
                     android:id="@+id/game_detail_size"
@@ -243,7 +238,7 @@
                     android:layout_toRightOf="@id/count_end"
                     android:text="0KB"
                     android:textColor="@color/b3"
-                    android:textSize="@dimen/dp_10"/>
+                    android:textSize="@dimen/dp_10" />
                 <!--下载按钮-->
                 <cn.ngame.store.view.GameLoadProgressBar
                     android:id="@+id/game_detail_progress_bar"
@@ -256,7 +251,7 @@
                     android:text="@string/download"
                     android:textColor="@color/white"
                     android:textSize="14dp"
-                    ngame:progress="0"/><!--文字大小不能引用 资源的dp-->
+                    ngame:progress="0" /><!--文字大小不能引用 资源的dp-->
                 <TextView
                     android:id="@+id/game_detail_feedback_bt"
                     android:layout_width="@dimen/game_detail_feedback_bt_width"
@@ -270,8 +265,7 @@
                     android:gravity="center"
                     android:text="反馈"
                     android:textColor="@color/download_bt_nomal"
-                    android:textSize="@dimen/dp_14"
-                    />
+                    android:textSize="@dimen/dp_14" />
 
                 <ImageView
                     android:id="@+id/game_detail_like_iv"
@@ -282,7 +276,7 @@
                     android:layout_marginTop="@dimen/dp_12"
                     android:layout_toLeftOf="@id/game_detail_feedback_bt"
                     android:scaleType="centerInside"
-                    android:src="@drawable/selector_game_detail_like_bt"/>
+                    android:src="@drawable/selector_game_detail_like_bt" />
 
                 <TextView
                     android:id="@+id/game_detail_percentage_tv"
@@ -296,46 +290,50 @@
                     android:text=""
                     android:textColor="@color/color_333333"
                     android:textSize="@dimen/dm036"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
             </RelativeLayout>
 
             <GridLayout
                 android:id="@+id/layout_tags"
-                android:background="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dm002"
+                android:background="@color/white"
                 android:columnCount="2"
-                android:paddingBottom="@dimen/dm016"
-                android:visibility="gone"
-                android:layout_marginTop="@dimen/dm001"
-            />
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/dm012"
+                android:paddingTop="@dimen/dm010"
+                android:visibility="gone" />
 
+            <include layout="@layout/layout_line_1px_e6e6e6"></include>
             <!--===============================详情  必读 ↓===========================-->
-
-            <android.support.design.widget.TabLayout
-                xmlns:tabs="http://schemas.android.com/apk/res-auto"
+            <com.androidkun.xtablayout.XTabLayout xmlns:tabs="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/tablayout"
-                style="@style/MyCustomTabLayout"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_48"
-                android:elevation="@dimen/dm005"
-                android:background="@color/f5f5f5"
+                android:layout_height="@dimen/dm080"
+                android:background="@color/white"
                 android:tag="sticky"
-                tabs:tabGravity="fill"
-                tabs:tabIndicatorColor="@color/transparent"
-                tabs:tabIndicatorHeight="@dimen/dm002"
-                tabs:tabMaxWidth="0dp"
-                tabs:tabMode="fixed"
-                tabs:tabSelectedTextColor="@color/mainColor"
-                tabs:tabTextColor="@color/aaaaaa"/>
+                tabs:xTabBackgroundColor="@color/white"
+                tabs:xTabDividerColor="@color/e6e6e6"
+                tabs:xTabDividerGravity="center"
+                tabs:xTabDividerHeight="@dimen/dm080"
+                tabs:xTabDividerWidth="@dimen/dm001"
+                tabs:xTabIndicatorHeight="@dimen/dm000"
+                tabs:xTabSelectedBackgroundColor="@color/f5f5f5"
+                tabs:xTabSelectedTextColor="@color/mainColor"
+                tabs:xTabSelectedTextSize="@dimen/dm029"
+                tabs:xTabTextAllCaps="false"
+                tabs:xTabTextColor="@color/aaaaaa"
+                tabs:xTabTextSelectedBold="true" />
+
+            <include layout="@layout/layout_line_1px_e6e6e6"></include>
 
             <cn.ngame.store.view.AutoHeightViewPager
                 android:id="@+id/viewpager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/f5f5f5"/>
+                android:background="@color/f5f5f5" />
         </LinearLayout>
     </cn.ngame.store.view.StickyScrollView>
 
@@ -343,8 +341,7 @@
         android:id="@+id/rl_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/mainColor"
-        >
+        android:background="@color/mainColor">
 
         <Button
             android:id="@+id/left_bt"
@@ -364,8 +361,7 @@
             android:paddingLeft="@dimen/title_left_bt_padding_left"
             android:paddingRight="@dimen/dp_20"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/title_size"
-            />
+            android:textSize="@dimen/title_size" />
 
         <ImageView
             android:id="@+id/shareBtClick"
@@ -383,8 +379,7 @@
             android:scaleType="centerInside"
             android:src="@drawable/ic_game_detail_share"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/title_size"
-            />
+            android:textSize="@dimen/title_size" />
 
     </RelativeLayout>
 </FrameLayout>

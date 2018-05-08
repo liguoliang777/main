@@ -4,8 +4,8 @@
               android:layout_height="wrap_content"
               android:gravity="center_vertical"
               android:orientation="horizontal"
-              android:paddingBottom="@dimen/dm002"
-              android:paddingTop="@dimen/dm016">
+              android:paddingBottom="@dimen/dm010"
+              android:paddingTop="@dimen/dm012">
 
     <com.facebook.drawee.view.SimpleDraweeView
         xmlns:fresco="http://schemas.android.com/apk/res-auto"
