@@ -112,8 +112,8 @@ public class BannerView extends RelativeLayout implements ViewPager.OnPageChange
             views = views.subList(0, maxShow);
 
         adapter = new BannerAdapter(views);
-        adapter.notifyDataSetChanged();
         viewPager.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
         viewPager.addOnPageChangeListener(this);
 
         dots = new ArrayList<>();
