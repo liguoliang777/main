@@ -5,9 +5,9 @@ package com.jzt.hol.android.jkda.sdk.api;
  */
 public interface IHostFetcher {
 
-    //String HOST = "192.168.1.231/";// 测试
+    String HOST = "192.168.1.231:8080/";// 测试
 
-    String HOST = "opapi.xflqv.cn/";   //正式
+    //String HOST = "opapi.xflqv.cn/";   //正式
 
 
     //String HOST = "192.168.0.233:10004/";

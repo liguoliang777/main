@@ -139,6 +139,25 @@ public class LikeListBean implements Serializable{
             private String versionName;
             private long updateTime;
 
+            @Override
+            public String toString() {
+                return "GameListBean{" +
+                        "id=" + id +
+                        ", cName='" + cName + '\'' +
+                        ", gameName='" + gameName + '\'' +
+                        ", gameLogo='" + gameLogo + '\'' +
+                        ", scoreLevel=" + scoreLevel +
+                        ", gameLink='" + gameLink + '\'' +
+                        ", gameSize=" + gameSize +
+                        ", versionCode=" + versionCode +
+                        ", packages='" + packages + '\'' +
+                        ", filename='" + filename + '\'' +
+                        ", md5='" + md5 + '\'' +
+                        ", versionName='" + versionName + '\'' +
+                        ", updateTime=" + updateTime +
+                        '}';
+            }
+
             public long getId() {
                 return id;
             }

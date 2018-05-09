@@ -126,23 +126,24 @@ public class DiscoverFragment extends BaseSearchFragment implements View.OnClick
     public void onActivityCreated(Bundle savedInstanceState) {//3
         super.onActivityCreated(savedInstanceState);
     }
+
     //分类
     private void init0ClassifyView(View headView) {
-        bannerView =  headView.findViewById(R.id.banner_view);
+        bannerView = headView.findViewById(R.id.banner_view);
         //获取RecyclerView实例
-        LinearLayoutManager lLManager= new LinearLayoutManager(context);
+        LinearLayoutManager lLManager = new LinearLayoutManager(context);
         lLManager.setOrientation(LinearLayoutManager.HORIZONTAL);
 
-        mClassifyAllRv =  headView.findViewById(R.id.discover_head_rv_classify);//条目
+        mClassifyAllRv = headView.findViewById(R.id.discover_head_rv_classify);//条目
         mClassifyAllRv.setLayoutManager(lLManager);
-        categroyAllList.add(new ClassifyTopBean("手柄",101,R.drawable.ic_shoubin));
-        categroyAllList.add(new ClassifyTopBean("破解",103,R.drawable.ic_pojie));
-        categroyAllList.add(new ClassifyTopBean("模拟器",153,R.drawable.ic_moniqi));
-        categroyAllList.add(new ClassifyTopBean("汉化",104,R.drawable.ic_hanhua));
-        categroyAllList.add(new ClassifyTopBean("策略",111,R.drawable.ic_sheji));
-        categroyAllList.add(new ClassifyTopBean("角色",107,R.drawable.ic_juese));
-        categroyAllList.add(new ClassifyTopBean("键鼠",0,R.drawable.ic_jianshu));
-        categroyAllList.add(new ClassifyTopBean("冒险",109,R.drawable.ic_maoxian));
+        categroyAllList.add(new ClassifyTopBean("键鼠", 120, R.drawable.ic_jianshu));
+        categroyAllList.add(new ClassifyTopBean("手柄", 101, R.drawable.ic_shoubin));
+        categroyAllList.add(new ClassifyTopBean("破解", 103, R.drawable.ic_pojie));
+        categroyAllList.add(new ClassifyTopBean("模拟器", 153, R.drawable.ic_moniqi));
+        categroyAllList.add(new ClassifyTopBean("汉化", 104, R.drawable.ic_hanhua));
+        categroyAllList.add(new ClassifyTopBean("策略", 111, R.drawable.ic_sheji));
+        categroyAllList.add(new ClassifyTopBean("角色", 107, R.drawable.ic_juese));
+        categroyAllList.add(new ClassifyTopBean("冒险", 109, R.drawable.ic_maoxian));
         //categroyAllList.add(new ClassifyTopBean("全部",-1,R.drawable.ic_quanbu));
 
         categroyTopAdapter = new ClassifyTopAdapter(context, categroyAllList);
@@ -263,7 +264,8 @@ public class DiscoverFragment extends BaseSearchFragment implements View.OnClick
                     pullListView.onPullUpRefreshComplete();
                     return;
                 }
-                if (pageAction.getCurrentPage() * pageAction.getPageSize() < pageAction.getTotal()) {
+                if (pageAction.getCurrentPage() * pageAction.getPageSize() < pageAction.getTotal
+                ()) {
                     pageAction.setCurrentPage(pageAction.getCurrentPage() == 0 ?
                             pageAction.getCurrentPage() + 2 : pageAction.getCurrentPage() + 1);
                     //上拉请求数据
@@ -275,7 +277,8 @@ public class DiscoverFragment extends BaseSearchFragment implements View.OnClick
                 }*/
             }
         });
-        categroy18Adapter = new ClassifyAdapter(context, getSupportFragmentManager(), categroy18ListBean, 0);
+        categroy18Adapter = new ClassifyAdapter(context, getSupportFragmentManager(),
+                categroy18ListBean, 0);
         pullListView.getRefreshableView().setAdapter(categroy18Adapter);
     }
 

@@ -55,7 +55,7 @@ public class Rank012345Fragment extends BaseSearchFragment {
     private PageAction pageAction;
     private int PAGE_SIZE = 10;
     private List<LikeListBean.DataBean.GameListBean> list = new ArrayList<>();
-    private int tab0_Id = 101;
+    private int tab0_Id = 163;
 
     /*    private Handler handler = new Handler() {
             public void handleMessage(android.os.Message msg) {
@@ -76,7 +76,6 @@ public class Rank012345Fragment extends BaseSearchFragment {
     private int tab2_Id = 0;
     private FragmentManager fm;
     private LoadStateView loadStateView;
-    private int NDS_ID = 162;
     private int px20;
     private int px86;
     private int px18;
@@ -165,8 +164,6 @@ public class Rank012345Fragment extends BaseSearchFragment {
 
                 mTabLayout2_ExRadioGroup.check(0);
                 tab2_Id = tab2_Country_Id_Array[0];
-
-                tab0_Id = tab0_Id_Arr[positionTop];
 
                 list.clear();
                 adapter.setList(list);
@@ -393,18 +390,18 @@ public class Rank012345Fragment extends BaseSearchFragment {
     }
 
     //第一级标签
-    private int tab0_Id_Arr[] = new int[]{101, 102};
+    private int tab0_Id_Arr[] = new int[]{163, 164, 165};
 
     //第二级标签   =======   全部分类
-    private String tab2_Categary_Text_Array[] = new String[]{"全部", "手柄", "原生", "角色", "云适配", "破解",
-            "汉化", "动作",
-            "冒险", "模拟器", "策略"};
-    private int tab2_Categary_Id_Array[] = new int[]{0, 101, 134, 107, 147, 149, 151, 150, 148,
-            149, 103};
+    private String tab2_Categary_Text_Array[] = new String[]{"全部", "原生手柄", "云适配", "破解", "汉化", "特色",
+            "角色", "冒险", "策略", "模拟器",
+    };
+    private int tab2_Categary_Id_Array[] = new int[]{0, 101, 102, 103, 104, 106, 107, 109, 111,
+            112};
 
     //             =======  国别
-    private String tab2_Country_Text_Array[] = new String[]{"全部", "大陆", "美国", "韩国", "日本", "港澳台"};
-    private int tab2_Country_Id_Array[] = new int[]{0, 147, 149, 151, 150, 148};
+    private String tab2_Country_Text_Array[] = new String[]{"全部", "大陆", "美国", "日本", "韩国", "港澳台"};
+    private int tab2_Country_Id_Array[] = new int[]{0, 147, 149, 150, 151, 148};
 
     //顶部下面的二级标签
     private void initTabs1234() {
@@ -485,6 +482,7 @@ public class Rank012345Fragment extends BaseSearchFragment {
     @SuppressLint("WrongConstant")
     public void listData(LikeListBean dataBean) {
         LikeListBean.DataBean result = dataBean.getData();
+        Log.d(TAG, "排行榜数据: " + result.getGameList().size());
         if (result == null || result.getGameList() == null) {
             loadStateView.setState(LoadStateView.STATE_END, getString(R.string.no_data));
             return;
@@ -561,5 +559,7 @@ public class Rank012345Fragment extends BaseSearchFragment {
             mTabLayout2_ExRadioGroup.check(0);
             mTabLayout0.getTabAt(0).select();
         }
+        tab0_Id = tab0_Id_Arr[tabIndex];
+        getRankList();
     }
 }

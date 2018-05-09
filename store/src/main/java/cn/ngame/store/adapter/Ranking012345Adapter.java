@@ -22,7 +22,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.style.TextAppearanceSpan;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,7 +61,8 @@ public class Ranking012345Adapter extends BaseAdapter {
     private int type;
     private static Handler uiHandler = new Handler();
 
-    public Ranking012345Adapter(Activity context, FragmentManager fm, List<LikeListBean.DataBean.GameListBean> list, int type) {
+    public Ranking012345Adapter(Activity context, FragmentManager fm, List<LikeListBean.DataBean
+            .GameListBean> list, int type) {
         super();
         this.context = context;
         this.fm = fm;
@@ -95,10 +98,12 @@ public class Ranking012345Adapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
-        final LikeListBean.DataBean.GameListBean gameInfo = (list == null) ? null : list.get(position);
+        final LikeListBean.DataBean.GameListBean gameInfo = (list == null) ? null : list.get
+                (position);
         final ViewHolder holder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.ranking_list_item, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.ranking_list_item,
+                    parent, false);
             holder = new ViewHolder(context, fm);
             holder.img = (SimpleDraweeView) convertView.findViewById(R.id.img_1);
             holder.tv_position = (TextView) convertView.findViewById(R.id.tv_position);
@@ -137,11 +142,11 @@ public class Ranking012345Adapter extends BaseAdapter {
         private TextView textView;
         private LinearLayout.LayoutParams params;
         private String typeNameStr;
-        private String itemTag = "原生手柄";
+    /*    private String itemTag = "原生手柄";
         private String itemTag1 = "云适配";
         private String itemTag2 = "破解";
         private String itemTag3 = "汉化";
-        private String itemTag4 = "特色游戏";
+        private String itemTag4 = "特色游戏";*/
 
         public ViewHolder(Activity context, FragmentManager fm) {
             this.context = context;
@@ -150,6 +155,7 @@ public class Ranking012345Adapter extends BaseAdapter {
             //init();
             params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup
                     .LayoutParams.WRAP_CONTENT);
+            params.gravity = Gravity.CENTER_VERTICAL;
             params.setMargins(0, 0, 18, 0);
         }
 
@@ -160,8 +166,10 @@ public class Ranking012345Adapter extends BaseAdapter {
                     uiHandler.post(new Runnable() {
                         @Override
                         public void run() {
-                            GameFileStatus fileStatus = fileLoad.getGameFileLoadStatus(gameInfo.getFilename(), gameInfo
-                                    .getGameLink(), gameInfo.getPackages(), ConvUtil.NI(gameInfo.getVersionCode()));
+                            GameFileStatus fileStatus = fileLoad.getGameFileLoadStatus(gameInfo
+                                    .getFilename(), gameInfo
+                                    .getGameLink(), gameInfo.getPackages(), ConvUtil.NI(gameInfo
+                                    .getVersionCode()));
                             progressBar.setLoadState(fileStatus);
                         }
                     });
@@ -174,7 +182,8 @@ public class Ranking012345Adapter extends BaseAdapter {
          *
          * @param gameInfo 游戏信息
          */
-        public void update(final LikeListBean.DataBean.GameListBean gameInfo, int type, int position) {
+        public void update(final LikeListBean.DataBean.GameListBean gameInfo, int type, int
+                position) {
             this.gameInfo = gameInfo;
             final String gameName = gameInfo.getGameName();
             if (!"".equals(gameName)) {
@@ -186,16 +195,21 @@ public class Ranking012345Adapter extends BaseAdapter {
                 public void onClick(final View v) {
                     moreBt.setSelected(true);
 
-                    View popView = LayoutInflater.from(context).inflate(R.layout.layout_rank_more_popup, null);
+                    View popView = LayoutInflater.from(context).inflate(R.layout
+                            .layout_rank_more_popup, null);
                     //===================进度条==========================================
                     progressBar = (GameLoadProgressBar) popView.findViewById(R.id.progress_bar);
                     //设置进度条状态
-                    final GameFileStatus fileLoadStatus = fileLoad.getGameFileLoadStatus(gameInfo.getFilename(), gameInfo
-                            .getGameLink(), gameInfo.getPackages(), ConvUtil.NI(gameInfo.getVersionCode()));
+                    final GameFileStatus fileLoadStatus = fileLoad.getGameFileLoadStatus(gameInfo
+                            .getFilename(), gameInfo
+                            .getGameLink(), gameInfo.getPackages(), ConvUtil.NI(gameInfo
+                            .getVersionCode()));
                     progressBar.setLoadState(fileLoadStatus);
                     //必须设置，否则点击进度条后无法进行响应操作
-                    FileLoadInfo fileLoadInfo = new FileLoadInfo(gameInfo.getFilename(), gameInfo.getGameLink(), gameInfo
-                            .getMd5(), gameInfo.getVersionCode(), gameInfo.getGameName(), gameInfo.getGameLogo(), gameInfo
+                    FileLoadInfo fileLoadInfo = new FileLoadInfo(gameInfo.getFilename(), gameInfo
+                            .getGameLink(), gameInfo
+                            .getMd5(), gameInfo.getVersionCode(), gameInfo.getGameName(),
+                            gameInfo.getGameLogo(), gameInfo
                             .getId(), FileLoadInfo.TYPE_GAME);
                     fileLoadInfo.setPackageName(gameInfo.getPackages());
                     progressBar.setFileLoadInfo(fileLoadInfo);
@@ -213,8 +227,11 @@ public class Ranking012345Adapter extends BaseAdapter {
                             uiHandler.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    progressBar.setLoadState(fileLoad.getGameFileLoadStatus(gameInfo.getFilename(), gameInfo
-                                            .getGameLink(), gameInfo.getPackages(), ConvUtil.NI(gameInfo.getVersionCode())));
+                                    progressBar.setLoadState(fileLoad.getGameFileLoadStatus
+                                            (gameInfo.getFilename(), gameInfo
+                                                            .getGameLink(), gameInfo.getPackages(),
+                                                    ConvUtil.NI
+                                                            (gameInfo.getVersionCode())));
                                 }
                             });
                         }
@@ -223,16 +240,20 @@ public class Ranking012345Adapter extends BaseAdapter {
                     //版本信息
                     TextView versionTv = (TextView) popView.findViewById(R.id.rank_popupp_vesion);
                     textSpan = new SpannableString("版本\n" + gameInfo.getVersionName());
-                    textSpan.setSpan(new TextAppearanceSpan(context, R.style.style_14dp_989999), 0, 2, Spanned
-                            .SPAN_EXCLUSIVE_EXCLUSIVE);
+                    textSpan.setSpan(new TextAppearanceSpan(context, R.style.style_14dp_989999),
+                            0, 2, Spanned
+                                    .SPAN_EXCLUSIVE_EXCLUSIVE);
                     versionTv.setText(textSpan);
 
                     //更新的时间
-                    TextView updateTimeTv = (TextView) popView.findViewById(R.id.rank_popupp_update_time);
-                    String updateTime = new SimpleDateFormat("yyyy-MM").format(new Date(gameInfo.getUpdateTime()));
+                    TextView updateTimeTv = (TextView) popView.findViewById(R.id
+                            .rank_popupp_update_time);
+                    String updateTime = new SimpleDateFormat("yyyy-MM").format(new Date(gameInfo
+                            .getUpdateTime()));
                     textSpan = new SpannableString("更新时间\n" + updateTime);
-                    textSpan.setSpan(new TextAppearanceSpan(context, R.style.style_14dp_989999), 0, 4, Spanned
-                            .SPAN_EXCLUSIVE_EXCLUSIVE);
+                    textSpan.setSpan(new TextAppearanceSpan(context, R.style.style_14dp_989999),
+                            0, 4, Spanned
+                                    .SPAN_EXCLUSIVE_EXCLUSIVE);
                     updateTimeTv.setText(textSpan);
                     int dp120 = CommonUtil.dip2px(context, 128);
                     int dp132 = CommonUtil.dip2px(context, 140);
@@ -284,24 +305,26 @@ public class Ranking012345Adapter extends BaseAdapter {
             //String[] typeNameArray = typeNameStr.split("\\,");
 
             tank01234LLay.removeAllViews();
-            createTagItemView(itemTag);
+         /*   createTagItemView(itemTag);
             createTagItemView(itemTag1);
             createTagItemView(itemTag2);
             createTagItemView(itemTag3);
-            createTagItemView(itemTag4);
-
-         /*   for (int i = 0; i < typeNameArray.length; i++) {
+            createTagItemView(itemTag4);*/
+            String[] typeNameArray = typeNameStr.split("\\,");
+            for (int i = 0; i < typeNameArray.length; i++) {
                 textView = new TextView(context);
                 String itemText = typeNameArray[i];
                 textView.setText(itemText);
-                textView.setPadding(15, 4, 15, 4);
-                textView.setTextColor(ContextCompat.getColor(context, R.color.color_2abfff));
-                textView.setTextSize(10);
+                textView.setSingleLine();
+                textView.setEllipsize(TextUtils.TruncateAt.END);
+                textView.setPadding(17, 4, 17, 5);
+                textView.setTextColor(ContextCompat.getColor(context, R.color.mainColor));
+                textView.setTextSize(11);
                 textView.setLayoutParams(params);
-                textView.setBackgroundResource(R.drawable.shape_corner8dp_2abfff);
+                textView.setBackgroundResource(R.drawable.shape_14px_b8ccc0);
                 tank01234LLay.addView(textView);
 
-            }*/
+            }
         }
 
         private void createTagItemView(String itemTag) {
