@@ -161,11 +161,13 @@ public class ClassifyAdapter extends BaseAdapter {
             gameInfoList = gameInfo.getList();
             for (int i = 0; i < gameInfoList.size(); i++) {
                 gameInfoBean = gameInfoList.get(i);
-                final String gameImage = gameInfoBean.getGameLogo();//获取每一张图片
+                String gameImage = gameInfoBean.getImgLink();//获取每一张图片
                 View view = inflater.inflate(R.layout.item_discover_18, horizontalViewContainer,
                         false);
-                gameIV = (SimpleDraweeView) view.findViewById(R.id.tviv_item_iv);
                 gameNameTv = (TextView) view.findViewById(R.id.tviv_item_tv);
+                gameIV = (SimpleDraweeView) view.findViewById(R.id.tviv_item_iv);
+
+                gameIV.setImageURI(gameImage);
                 gameNameTv.setText(gameInfoBean.getGameName());
                 gameIV.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 //为  PicassoImageView设置属性
@@ -180,8 +182,7 @@ public class ClassifyAdapter extends BaseAdapter {
                     hParams.setMargins(0, 0, px20, 0);
                 }
                 view.setLayoutParams(hParams);
-                //加载网络图片
-                gameIV.setImageURI(gameImage);
+
                 final long id = gameInfoBean.getId();
                 view.setOnClickListener(new View.OnClickListener() {
                     @Override

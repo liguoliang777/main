@@ -58,7 +58,7 @@ public class GameInfo implements Serializable {
     /**
      * 游戏开发商
      */
-    public List<LogoInfo> gameLogoList;
+    public List<LogoInfo> gameTipsList;
     /**
      * 文件的MD5
      */

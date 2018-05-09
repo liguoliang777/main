@@ -80,7 +80,7 @@ public class DiscoverTop2Adapter extends RecyclerView.Adapter<DiscoverTop2Adapte
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final DiscoverTopBean discoverTopBean = mList.get(position);
         holder.mTV.setText(discoverTopBean.getGameName());
-        holder.mIV.setImageURI(discoverTopBean.getGameLogo());
+        holder.mIV.setImageURI(discoverTopBean.getImgLink());
         //为ItemView设置监听器
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

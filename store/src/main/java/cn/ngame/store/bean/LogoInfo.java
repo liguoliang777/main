@@ -9,8 +9,8 @@ import java.io.Serializable;
 public class LogoInfo implements Serializable{
 
     public long id;
-    public String gameLogoName;
-    public String gameLogoImg;
+    public String gameTipsName;
+    public String gameTipsImg;
     public Object isDelete;
     public long createTime;
     public long updateTime;

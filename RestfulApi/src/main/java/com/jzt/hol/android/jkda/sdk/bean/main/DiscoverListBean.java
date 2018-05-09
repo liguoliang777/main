@@ -379,6 +379,15 @@ public class DiscoverListBean {
                 private Object md5;
                 private Object versionName;
                 private Object updateTime;
+                private String imgLink;
+
+                public String getImgLink() {
+                    return imgLink;
+                }
+
+                public void setImgLink(String imgLink) {
+                    this.imgLink = imgLink;
+                }
 
                 public int getId() {
                     return id;

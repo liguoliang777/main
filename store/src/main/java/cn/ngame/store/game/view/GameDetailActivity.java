@@ -336,7 +336,6 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
                 }
             }
 
-
         }
         gameName = gameInfo.gameName;
         gameNameTv.setText(gameName == null ? "" : gameName);//名字
@@ -413,7 +412,7 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
 
 
         //游戏标签
-        List<LogoInfo> gameLogoList = gameInfo.gameLogoList;
+        List<LogoInfo> gameLogoList = gameInfo.gameTipsList;
         if (gameLogoList != null) {
             mLayoutTags.setVisibility(View.VISIBLE);
             int screenWidth2 = ImageUtil.getScreenWidth(content) / 2;
@@ -426,10 +425,10 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
                     view = from.inflate(R.layout.layout_game_detail_logo_item, null);
                     view.setLayoutParams(params);
                     SimpleDraweeView sdv = view.findViewById(R.id.logo_items_dv);
-                    sdv.setImageURI(logoInfo.gameLogoImg);
+                    sdv.setImageURI(logoInfo.gameTipsImg);
 
                     tv = view.findViewById(R.id.logo_items_tv);
-                    tv.setText(logoInfo.gameLogoName);
+                    tv.setText(logoInfo.gameTipsName);
                     mLayoutTags.addView(view);
                 }
             }
