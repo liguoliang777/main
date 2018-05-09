@@ -52,7 +52,7 @@
             android:paddingBottom="@dimen/dp_10"
             android:paddingLeft="@dimen/dp_15"
             android:paddingRight="@dimen/dm025"
-            android:paddingTop="@dimen/dm010"
+            android:paddingTop="@dimen/dm016"
             android:src="@drawable/selector_rank_more_bt" />
 
         <TextView
@@ -119,7 +119,7 @@
             android:layout_alignBottom="@id/rank01234_list_item_sdv"
             android:layout_toRightOf="@+id/rank01234_list_item_sdv"
             android:gravity="center_vertical"
-            android:paddingRight="@dimen/dm016"
+            android:paddingRight="@dimen/dm020"
             android:paddingLeft="@dimen/dm016"
             android:scrollbars="none">
 

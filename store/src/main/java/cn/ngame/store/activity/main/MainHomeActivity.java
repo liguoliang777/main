@@ -217,8 +217,8 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
         mHubBt = (ImageView) findViewById(R.id.main_hub_bt);
         mAllCategoryBt = (ImageView) findViewById(R.id.main_all_category_bt);
 
-        mainTabLayout0 = findViewById(R.id.main_top_tab);
-        mainTabLayout1 = findViewById(R.id.main_tab1);
+        mainTabLayout0 = findViewById(R.id.main_top_tab_0);
+        mainTabLayout1 = findViewById(R.id.main_top_tab_1);
 
         im_toSearch.setOnClickListener(this);
         //fl_notifi.setOnClickListener(this);
@@ -299,10 +299,15 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
 
         mainTabLayout0.addTab(mainTabLayout0.newTab().setText(tabTitles0[0]));
         mainTabLayout0.addTab(mainTabLayout0.newTab().setText(tabTitles0[1]));
+        mainTabLayout0.getTabAt(1).select();
+        mainTabLayout0.getTabAt(0).select();
 
         mainTabLayout1.addTab(mainTabLayout1.newTab().setText(tabTitles1[0]));
         mainTabLayout1.addTab(mainTabLayout1.newTab().setText(tabTitles1[1]));
         mainTabLayout1.addTab(mainTabLayout1.newTab().setText(tabTitles1[2]));
+        mainTabLayout1.getTabAt(2).select();
+        mainTabLayout1.getTabAt(1).select();
+        mainTabLayout1.getTabAt(0).select();
 
         mainTabLayout0.setOnTabSelectedListener(new XTabLayout.OnTabSelectedListener() {
             @Override

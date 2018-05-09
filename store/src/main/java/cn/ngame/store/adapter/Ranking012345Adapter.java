@@ -282,7 +282,7 @@ public class Ranking012345Adapter extends BaseAdapter {
                 color123 = R.color.cccccc;
             }
             tv_position.setTextColor(ContextCompat.getColor(context, color123));
-            downloadNumTv.setText(gameInfo.getDownloadCount() + "");
+            downloadNumTv.setText(gameInfo.getDownloadCount() + "次下载");
             String imgUrl = gameInfo.getImgLink();
             if (imgUrl != null && imgUrl.trim().equals("")) {
                 imgUrl = null;

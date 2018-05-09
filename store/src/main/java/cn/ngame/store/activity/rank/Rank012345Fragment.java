@@ -149,6 +149,8 @@ public class Rank012345Fragment extends BaseSearchFragment {
         mTabLayout0 = headView.findViewById(R.id.rank01234_header_tablayout);
         mTabLayout0.addTab(mTabLayout0.newTab().setText("全部分类"));
         mTabLayout0.addTab(mTabLayout0.newTab().setText("国别"));
+        mTabLayout0.getTabAt(1).select();
+        mTabLayout0.getTabAt(0).select();
         mTabLayout0.setOnTabSelectedListener(new XTabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(XTabLayout.Tab tab) {
@@ -334,7 +336,7 @@ public class Rank012345Fragment extends BaseSearchFragment {
             codeBtn.setTextSize(14f);
             codeBtn.setId(position);
             codeBtn.setText(tab2StringArr[position]);
-            codeBtn.setPadding(25, 5, 25, 10);
+            codeBtn.setPadding(25, 9, 25, 13);
 
             codeBtn.setGravity(Gravity.CENTER);
             final int finalPosition = position;
@@ -360,7 +362,7 @@ public class Rank012345Fragment extends BaseSearchFragment {
 
             LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) codeBtn
                     .getLayoutParams();
-            layoutParams.setMargins(30, 32, 0, 0);//4个参数按顺序分别是左上右下
+            layoutParams.setMargins(40, 40, 0, 0);//4个参数按顺序分别是左上右下
             codeBtn.setLayoutParams(layoutParams);
         }
     }
