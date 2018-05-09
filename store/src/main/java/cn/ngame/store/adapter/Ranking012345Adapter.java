@@ -105,11 +105,10 @@ public class Ranking012345Adapter extends BaseAdapter {
             convertView = LayoutInflater.from(context).inflate(R.layout.ranking_list_item,
                     parent, false);
             holder = new ViewHolder(context, fm);
-            holder.img = (SimpleDraweeView) convertView.findViewById(R.id.img_1);
+            holder.img = (SimpleDraweeView) convertView.findViewById(R.id.rank01234_list_item_sdv);
             holder.tv_position = (TextView) convertView.findViewById(R.id.tv_position);
             holder.tv_title = (TextView) convertView.findViewById(R.id.tv_title);
             holder.tv_percentage = (TextView) convertView.findViewById(R.id.text1);
-            holder.ratingBar = (RatingBar) convertView.findViewById(R.id.rating_bar);
             holder.tank01234LLay = (LinearLayout) convertView.findViewById(R.id.tank01234_ll);
             holder.moreBt = (ImageView) convertView.findViewById(R.id.rank_more_bt);
             convertView.setTag(holder);
@@ -129,7 +128,6 @@ public class Ranking012345Adapter extends BaseAdapter {
         private LikeListBean.DataBean.GameListBean gameInfo;
         private SimpleDraweeView img;
         private TextView tv_position, tv_title, tv_percentage;
-        private RatingBar ratingBar;
         private GameLoadProgressBar progressBar;    //下载进度条
         private TextView tv_shoubing, tv_vr, tv_toukong, tv_yun_duan;
         private IFileLoad fileLoad;
@@ -290,9 +288,8 @@ public class Ranking012345Adapter extends BaseAdapter {
 
             //long gameSize = gameInfo.getGameSize();
             //String gameSizeStr = TextUtil.formatFileSize(gameSize);
-            tv_percentage.setText(gameInfo.getScoreLevel() + "");
+            tv_percentage.setText(gameInfo.getScoreLevel() + "分");
 
-            ratingBar.setRating(gameInfo.getScoreLevel());
             //是否手柄、vr，头控,
             typeNameStr = gameInfo.getCName();
             if (typeNameStr == null) {
