@@ -109,6 +109,8 @@ public class Ranking012345Adapter extends BaseAdapter {
             holder.tv_position = (TextView) convertView.findViewById(R.id.tv_position);
             holder.tv_title = (TextView) convertView.findViewById(R.id.tv_title);
             holder.tv_percentage = (TextView) convertView.findViewById(R.id.text1);
+            holder.downloadNumTv = (TextView) convertView.findViewById(R.id
+                    .rank_list_item_download_num);
             holder.tank01234LLay = (LinearLayout) convertView.findViewById(R.id.tank01234_ll);
             holder.moreBt = (ImageView) convertView.findViewById(R.id.rank_more_bt);
             convertView.setTag(holder);
@@ -137,7 +139,7 @@ public class Ranking012345Adapter extends BaseAdapter {
         private SpannableString textSpan;
         private PopupWindow popupWindow;
         private LinearLayout tank01234LLay;
-        private TextView textView;
+        private TextView textView, downloadNumTv;
         private LinearLayout.LayoutParams params;
         private String typeNameStr;
     /*    private String itemTag = "原生手柄";
@@ -280,7 +282,8 @@ public class Ranking012345Adapter extends BaseAdapter {
                 color123 = R.color.cccccc;
             }
             tv_position.setTextColor(ContextCompat.getColor(context, color123));
-            String imgUrl = gameInfo.getGameLogo();
+            downloadNumTv.setText(gameInfo.getDownloadCount() + "");
+            String imgUrl = gameInfo.getImgLink();
             if (imgUrl != null && imgUrl.trim().equals("")) {
                 imgUrl = null;
             }

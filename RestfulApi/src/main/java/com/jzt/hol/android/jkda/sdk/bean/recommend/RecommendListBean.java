@@ -7,18 +7,23 @@ import java.util.List;
  * Created by Administrator on 2017/4/14 0014.
  */
 
-public class RecommendListBean implements Serializable{
+public class RecommendListBean implements Serializable {
 
 
     /**
      * code : 0
      * msg : null
-     * data : [{"id":9,"gameId":147,"gameName":"穿越火线:枪战王者","gameEnglishName":null,"gameLogo":"http://oss.ngame
-     * .cn/upload/1484287375245.png","recommender":"编辑推荐","gameRecommendImg":"http://oss.ngame.cn/gameRecommend/1499846075605
-     * .png","recommend":"这个游戏很好玩有意思这个游戏很好玩有意思这个游戏很好玩有意思这个游戏很好玩有意思这个游戏很好玩有意思","appTypeId":0,"createTime":1499845997000,
-     * "updateTime":1499845997000},{"id":7,"gameId":136,"gameName":"世界2:魔物狩猎","gameEnglishName":null,"gameLogo":"http://oss
+     * data : [{"id":9,"gameId":147,"gameName":"穿越火线:枪战王者","gameEnglishName":null,
+     * "gameLogo":"http://oss.ngame
+     * .cn/upload/1484287375245.png","recommender":"编辑推荐","gameRecommendImg":"http://oss.ngame
+     * .cn/gameRecommend/1499846075605
+     * .png","recommend":"这个游戏很好玩有意思这个游戏很好玩有意思这个游戏很好玩有意思这个游戏很好玩有意思这个游戏很好玩有意思","appTypeId":0,
+     * "createTime":1499845997000,
+     * "updateTime":1499845997000},{"id":7,"gameId":136,"gameName":"世界2:魔物狩猎",
+     * "gameEnglishName":null,"gameLogo":"http://oss
      * .ngame.cn/upload/1466577288833.png","recommender":"编辑推荐","gameRecommendImg":"http://oss.ngame
-     * .cn/gameRecommend/1499843230158.png","recommend":"这是一个好玩的游戏哟！！！","appTypeId":0,"createTime":1499843152000,
+     * .cn/gameRecommend/1499843230158.png","recommend":"这是一个好玩的游戏哟！！！","appTypeId":0,
+     * "createTime":1499843152000,
      * "updateTime":1499843152000}]
      * map : null
      * innerResult : null
@@ -100,7 +105,7 @@ public class RecommendListBean implements Serializable{
         this.data = data;
     }
 
-    public static class DataBean implements Serializable{
+    public static class DataBean implements Serializable {
         /**
          * id : 9
          * gameId : 147
@@ -114,6 +119,37 @@ public class RecommendListBean implements Serializable{
          * createTime : 1499845997000
          * updateTime : 1499845997000
          */
+        private List<GameTipsList> gameTipsList;
+
+        public List<GameTipsList> getGameTipsList() {
+            return gameTipsList;
+        }
+
+        public void setGameTipsList(List<GameTipsList> gameTipsList) {
+            this.gameTipsList = gameTipsList;
+        }
+
+        public static class GameTipsList implements Serializable {
+            private int id;
+            private String gameTipsName;
+            private String gameTipsImg;
+
+            public String getGameTipsName() {
+                return gameTipsName;
+            }
+
+            public void setGameTipsName(String gameTipsName) {
+                this.gameTipsName = gameTipsName;
+            }
+
+            public String getGameTipsImg() {
+                return gameTipsImg;
+            }
+
+            public void setGameTipsImg(String gameTipsImg) {
+                this.gameTipsImg = gameTipsImg;
+            }
+        }
 
         private int id;
         private long gameId;
@@ -126,6 +162,15 @@ public class RecommendListBean implements Serializable{
         private int appTypeId;
         private long createTime;
         private long updateTime;
+        private long downloadCount;
+
+        public long getDownloadCount() {
+            return downloadCount;
+        }
+
+        public void setDownloadCount(long downloadCount) {
+            this.downloadCount = downloadCount;
+        }
 
         public int getId() {
             return id;

@@ -51,7 +51,7 @@
             android:layout_toRightOf="@id/recommend_game_img_1"
             fresco:actualImageScaleType="centerCrop"
             fresco:failureImage="@drawable/ic_def_logo_188_188"
-            fresco:placeholderImage="@drawable/ic_def_logo_188_188"
+            fresco:placeholderImage="@drawable/ic_launcher"
             fresco:placeholderImageScaleType="centerCrop"
             fresco:progressBarImage="@drawable/ic_def_logo_188_188"
             fresco:roundAsCircle="true" />
@@ -75,8 +75,8 @@
             android:layout_below="@id/recommend_game_title_tv"
             android:layout_marginRight="@dimen/dm024"
             android:maxLines="1"
-            android:text="1000次下载"
             android:paddingTop="@dimen/dm004"
+            android:text=""
             android:textColor="@color/color999999"
             android:textSize="@dimen/dm014" />
 
@@ -86,6 +86,34 @@
             android:layout_height="@dimen/dm340"
             android:layout_below="@id/recommend_game_img_1"
             android:scaleType="centerCrop" />
+
+        <LinearLayout
+            android:id="@+id/tip_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/recommend_game_pic"
+            android:layout_marginBottom="@dimen/dm018"
+            android:layout_marginLeft="@dimen/dm016"
+            android:orientation="horizontal"></LinearLayout>
+        <!--   <TextView
+               android:id="@+id/tip_0_tv"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_alignBottom="@id/recommend_game_pic"
+               android:layout_marginLeft="@dimen/dm016"
+               android:layout_marginBottom="@dimen/dm018"
+               android:background="@color/tip_0"
+               android:gravity="center"
+               android:maxLines="1"
+               android:elevation="@dimen/dm005"
+               android:paddingTop="@dimen/dm003"
+               android:paddingLeft="@dimen/dm008"
+               android:paddingRight="@dimen/dm008"
+               android:paddingBottom="@dimen/dm003"
+               android:text="支持手柄"
+               android:textColor="@color/white"
+               android:textSize="@dimen/dm016"
+               android:visibility="visible" />-->
 
         <TextView
             android:id="@+id/tv_summary"

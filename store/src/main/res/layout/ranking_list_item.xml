@@ -78,7 +78,7 @@
             android:layout_below="@+id/tv_title"
             android:layout_marginLeft="@dimen/dm017"
             android:layout_toRightOf="@+id/rank01234_list_item_sdv"
-            android:text="1024次下载"
+            android:text="1024"
             android:textSize="@dimen/dm014"
             android:textColor="@color/color999999"
             />
@@ -99,7 +99,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_title"
-            android:layout_marginLeft="@dimen/dm008"
+            android:layout_marginLeft="@dimen/dm006"
             android:layout_toRightOf="@id/fenshu_iv"
             android:clickable="false"
             android:textColor="@color/color_1a"

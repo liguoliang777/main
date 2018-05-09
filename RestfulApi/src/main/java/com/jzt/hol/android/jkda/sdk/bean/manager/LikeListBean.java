@@ -132,30 +132,29 @@ public class LikeListBean implements Serializable{
             private int scoreLevel;
             private String gameLink;
             private int gameSize;
+            private int downloadCount;
             private int versionCode;
             private String packages;
             private String filename;
             private String md5;
             private String versionName;
             private long updateTime;
+            private String imgLink;
 
-            @Override
-            public String toString() {
-                return "GameListBean{" +
-                        "id=" + id +
-                        ", cName='" + cName + '\'' +
-                        ", gameName='" + gameName + '\'' +
-                        ", gameLogo='" + gameLogo + '\'' +
-                        ", scoreLevel=" + scoreLevel +
-                        ", gameLink='" + gameLink + '\'' +
-                        ", gameSize=" + gameSize +
-                        ", versionCode=" + versionCode +
-                        ", packages='" + packages + '\'' +
-                        ", filename='" + filename + '\'' +
-                        ", md5='" + md5 + '\'' +
-                        ", versionName='" + versionName + '\'' +
-                        ", updateTime=" + updateTime +
-                        '}';
+            public String getImgLink() {
+                return imgLink;
+            }
+
+            public void setImgLink(String imgLink) {
+                this.imgLink = imgLink;
+            }
+
+            public int getDownloadCount() {
+                return downloadCount;
+            }
+
+            public void setDownloadCount(int downloadCount) {
+                this.downloadCount = downloadCount;
             }
 
             public long getId() {

@@ -118,4 +118,10 @@
     <color name="search_white">#e5e5e5</color>
     <color name="ebebeb">#ebebeb</color>
     <color name="eff5ed">#eff5ed</color>
+
+    <color name="tip_0">#457ae6</color>
+    <color name="tip_1">#eb6a2a</color>
+    <color name="tip_2">#d02eed</color>
+    <color name="tip_3">#fab521</color>
+    <color name="tip_4">#0a82b5</color>
 </resources>

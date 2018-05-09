@@ -25,9 +25,9 @@
         android:visibility="visible">
 
         <LinearLayout
+            android:id="@+id/horizontalView_container"
             android:paddingLeft="@dimen/dm032"
             android:paddingRight="@dimen/dm032"
-            android:id="@+id/horizontalView_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:focusable="false"
