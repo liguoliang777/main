@@ -33,8 +33,10 @@ public class RecyclerViewDivider extends RecyclerView.ItemDecoration {
         if (parent.getChildLayoutPosition(view) % 2 == 0) {
             outRect.right = 0;
             outRect.left = leftRightSpace;
+            outRect.bottom = -30;
         } else if (parent.getChildLayoutPosition(view) % 2 == 1) {
             outRect.left = centerSpace;
+            outRect.bottom = -30;
             outRect.right = leftRightSpace;
         }
     }

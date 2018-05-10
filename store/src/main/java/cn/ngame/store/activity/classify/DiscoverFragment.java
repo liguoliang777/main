@@ -170,7 +170,7 @@ public class DiscoverFragment extends BaseSearchFragment implements View.OnClick
         mHotRecentAdapter = new DiscoverTop2Adapter(context, mHotRecentList);
         mHotRecentRv.setAdapter(mHotRecentAdapter);
         mHotRecentRv.addItemDecoration(new RecyclerViewDivider(context,
-                R.dimen.main_margin_left_30px, R.dimen.main_margin_24px, mHotRecentList.size()));
+                R.dimen.dm018, R.dimen.dm010, mHotRecentList.size()));
         setOnMoreBtClickListener(headView, R.id.more_hot_recent_tv);
     }
 
@@ -186,7 +186,7 @@ public class DiscoverFragment extends BaseSearchFragment implements View.OnClick
         mSubjectRv.setAdapter(mTopicsAdapter);
         //条目距离
         mSubjectRv.addItemDecoration(new RecyclerViewDivider(context,
-                R.dimen.main_margin_left_30px, R.dimen.main_margin_24px, topicsInfoList.size()));
+                R.dimen.dm018, R.dimen.dm010, topicsInfoList.size()));
     }
 
     //更多按钮设置点击监听

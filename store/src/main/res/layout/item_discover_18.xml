@@ -4,12 +4,14 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <com.facebook.drawee.view.SimpleDraweeView xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    <com.facebook.drawee.view.SimpleDraweeView
+        xmlns:fresco="http://schemas.android.com/apk/res-auto"
         android:id="@+id/tviv_item_iv"
         android:layout_width="@dimen/discover_18_item_width"
         android:layout_height="@dimen/discover_18_item_height"
         android:scaleType="fitXY"
         fresco:actualImageScaleType="fitXY"
+        android:background="@android:drawable/dialog_holo_light_frame"
         fresco:failureImage="@drawable/ic_def_logo_412_200"
         fresco:placeholderImage="@drawable/ic_def_logo_412_200"
         fresco:placeholderImageScaleType="fitXY"
@@ -18,10 +20,11 @@
 
     <TextView
         android:id="@+id/tviv_item_tv"
-        android:layout_width="@dimen/discover_18_item_width"
+        android:layout_width="@dimen/dm240"
         android:layout_height="wrap_content"
         android:layout_below="@id/tviv_item_iv"
         android:layout_marginTop="@dimen/dm020"
+        android:layout_marginLeft="@dimen/dm015"
         android:ellipsize="end"
         android:singleLine="true"
         android:text=""
