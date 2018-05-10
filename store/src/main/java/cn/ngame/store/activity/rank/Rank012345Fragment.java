@@ -336,7 +336,7 @@ public class Rank012345Fragment extends BaseSearchFragment {
             codeBtn.setTextSize(16);
             codeBtn.setId(position);
             codeBtn.setText(tab2StringArr[position]);
-            codeBtn.setPadding(27, 10, 27, 15);
+            codeBtn.setPadding(28, 12, 28, 16);
 
             codeBtn.setGravity(Gravity.CENTER);
             final int finalPosition = position;
@@ -362,7 +362,7 @@ public class Rank012345Fragment extends BaseSearchFragment {
 
             LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) codeBtn
                     .getLayoutParams();
-            layoutParams.setMargins(42, 42, 0, 0);//4个参数按顺序分别是左上右下
+            layoutParams.setMargins(40, 40, 0, 0);//4个参数按顺序分别是左上右下
             codeBtn.setLayoutParams(layoutParams);
         }
     }
