@@ -484,7 +484,6 @@ public class Rank012345Fragment extends BaseSearchFragment {
     @SuppressLint("WrongConstant")
     public void listData(LikeListBean dataBean) {
         LikeListBean.DataBean result = dataBean.getData();
-        Log.d(TAG, "排行榜数据: " + result.getGameList().size());
         if (result == null || result.getGameList() == null) {
             loadStateView.setState(LoadStateView.STATE_END, getString(R.string.no_data));
             return;
@@ -505,7 +504,7 @@ public class Rank012345Fragment extends BaseSearchFragment {
         loadStateView.setVisibility(View.GONE);
         if (size > 0) {
             pageAction.setTotal(result.getTotals());
-            this.list.addAll(gameList);
+            list.addAll(gameList);
         }
         if (size > 0 && pageAction.getCurrentPage() == 0) {
             list = gameList;

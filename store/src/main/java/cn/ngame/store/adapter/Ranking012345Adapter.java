@@ -24,6 +24,7 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.TextAppearanceSpan;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +38,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.jzt.hol.android.jkda.sdk.bean.manager.LikeListBean;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -105,7 +107,7 @@ public class Ranking012345Adapter extends BaseAdapter {
             convertView = LayoutInflater.from(context).inflate(R.layout.ranking_list_item,
                     parent, false);
             holder = new ViewHolder(context, fm);
-            holder.img = (SimpleDraweeView) convertView.findViewById(R.id.rank01234_list_item_sdv);
+            holder.img01234 = (SimpleDraweeView) convertView.findViewById(R.id.rank01234_list_item_sdv);
             holder.tv_position = (TextView) convertView.findViewById(R.id.tv_position);
             holder.tv_title = (TextView) convertView.findViewById(R.id.tv_title);
             holder.tv_percentage = (TextView) convertView.findViewById(R.id.text1);
@@ -128,7 +130,7 @@ public class Ranking012345Adapter extends BaseAdapter {
     public static class ViewHolder {
         private Activity context;
         private LikeListBean.DataBean.GameListBean gameInfo;
-        private SimpleDraweeView img;
+        private SimpleDraweeView img01234;
         private TextView tv_position, tv_title, tv_percentage;
         private GameLoadProgressBar progressBar;    //下载进度条
         private TextView tv_shoubing, tv_vr, tv_toukong, tv_yun_duan;
@@ -287,7 +289,8 @@ public class Ranking012345Adapter extends BaseAdapter {
             if (imgUrl != null && imgUrl.trim().equals("")) {
                 imgUrl = null;
             }
-            img.setImageURI(imgUrl);
+            Log.d("图片", ": "+imgUrl);
+            img01234.setImageURI(imgUrl);
 
             //long gameSize = gameInfo.getGameSize();
             //String gameSizeStr = TextUtil.formatFileSize(gameSize);
