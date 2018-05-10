@@ -312,7 +312,7 @@
                 android:layout_marginTop="@dimen/dm015"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dm080"
-                android:background="@color/f5f5f5"
+                android:background="@color/e6e6e6"
                 android:paddingBottom="@dimen/dm001"
                 tabs:xTabSelectedBackgroundColor="@color/white"
                 android:tag="sticky"

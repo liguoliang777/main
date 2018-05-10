@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-    >
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -12,21 +11,32 @@
         android:layout_marginLeft="@dimen/dm008"
         android:layout_marginTop="@dimen/dm012"
         android:background="@drawable/et_shape_white"
-        android:paddingBottom="@dimen/dm018"
-        >
+        android:paddingBottom="@dimen/dm018">
+
+        <ImageView
+            android:id="@+id/cicle_item_tag_iv"
+            android:layout_width="@dimen/dm030"
+            android:layout_height="@dimen/dm052"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dm020"
+            android:src="@drawable/ic_hub_gl_item_right" />
 
         <TextView
             android:id="@+id/hub_gl_item_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dm024"
+            android:layout_marginRight="@dimen/dm010"
             android:layout_marginTop="@dimen/dm014"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@id/cicle_item_tag_iv"
+            android:ellipsize="end"
             android:maxLines="1"
-            android:textStyle="bold"
             android:maxWidth="@dimen/dm250"
             android:text=""
             android:textColor="@color/color_4d4d4d"
-            android:textSize="@dimen/dm028"/>
+            android:textSize="@dimen/dm028"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/hub_gl_item_post_tv"
@@ -37,7 +47,7 @@
             android:layout_marginTop="@dimen/dm008"
             android:text="帖子数："
             android:textColor="@color/color999999"
-            android:textSize="@dimen/dm016"/>
+            android:textSize="@dimen/dm016" />
 
         <TextView
             android:id="@+id/hub_gl_item_posts_num_tv"
@@ -48,14 +58,7 @@
             android:layout_toRightOf="@id/hub_gl_item_post_tv"
             android:text=""
             android:textColor="@color/color999999"
-            android:textSize="@dimen/dm016"/>
-
-        <ImageView
-            android:layout_width="@dimen/dm030"
-            android:layout_height="@dimen/dm052"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/dm020"
-            android:src="@drawable/ic_hub_gl_item_right"/>
+            android:textSize="@dimen/dm016" />
     </RelativeLayout>
 
 
