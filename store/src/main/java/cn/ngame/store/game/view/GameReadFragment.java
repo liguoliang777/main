@@ -77,7 +77,7 @@ public class GameReadFragment extends Fragment {
                 titleTv = (TextView) itemView.findViewById(R.id.strategy_title_tv);
                 contentTv = (TextView) itemView.findViewById(strategy_content_tv);
                 gameStrategy = gameStrategyList.get(i);
-                titleTv.setText(gameStrategy.getStrategyTitle());
+                titleTv.setText(gameStrategy.getStrategyTitle().trim());
                 contentTv.setText(gameStrategy.getStrategyContent());
                 readLL.addView(itemView);
             }
