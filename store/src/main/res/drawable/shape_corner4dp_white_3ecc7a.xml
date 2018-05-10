@@ -9,9 +9,9 @@
         android:color="@color/mainColor" />
     <!--圆角-->
     <gradient
-        android:endColor="@color/mainColorLight"
+        android:endColor="@color/white"
         android:gradientRadius="0.5"
-        android:startColor="@color/white"></gradient>
+        android:startColor="@color/mainColorLight"></gradient>
     <corners android:radius="@dimen/dp_4" />
 
 </shape>

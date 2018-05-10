@@ -62,24 +62,31 @@ public class GameReadFragment extends Fragment {
         this.gameInfo = gameInfo;
         this.vp = vp;
     }
+
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
+            Bundle savedInstanceState) {
         context = getActivity();
         View view = inflater.inflate(R.layout.fragment_game_read, container, false);
         readLL = (LinearLayout) view.findViewById(R.id.read_ll);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams
+                .MATCH_PARENT, ViewGroup
                 .LayoutParams.WRAP_CONTENT);
         if (gameInfo != null && gameInfo.gameStrategyList != null) {
             gameStrategyList = gameInfo.gameStrategyList;
             for (int i = 0; i < gameStrategyList.size(); i++) {
-                View itemView = inflater.inflate(R.layout.fragment_game_read_item, container, false);
+                View itemView = inflater.inflate(R.layout.fragment_game_read_item, container,
+                        false);
                 titleTv = (TextView) itemView.findViewById(R.id.strategy_title_tv);
                 contentTv = (TextView) itemView.findViewById(strategy_content_tv);
                 gameStrategy = gameStrategyList.get(i);
-                titleTv.setText(gameStrategy.getStrategyTitle().trim());
-                contentTv.setText(gameStrategy.getStrategyContent());
-                readLL.addView(itemView);
+                if (gameStrategy != null) {
+                    String strategyTitle = gameStrategy.getStrategyTitle();
+                    titleTv.setText(strategyTitle == null ? "--" : strategyTitle.trim());
+                    contentTv.setText(gameStrategy.getStrategyContent());
+                    readLL.addView(itemView);
+                }
             }
             readLL.measure(0, 0);
             int height = readLL.getMeasuredHeight();
@@ -112,12 +119,14 @@ public class GameReadFragment extends Fragment {
         super.onCreate(savedInstanceState);
         // gameInfo = (GameInfo) getArguments().getSerializable(GameInfo.TAG);
     }
+
     /**
      * 获取攻略
      */
     private void getData() {
         String url = Constant.WEB_SITE + Constant.URL_GAME_STRATEGY;
-        Response.Listener<JsonResult<GameStrategy>> successListener = new Response.Listener<JsonResult<GameStrategy>>() {
+        Response.Listener<JsonResult<GameStrategy>> successListener = new Response
+                .Listener<JsonResult<GameStrategy>>() {
             @Override
             public void onResponse(JsonResult<GameStrategy> result) {
 
@@ -143,7 +152,8 @@ public class GameReadFragment extends Fragment {
             }
         };
 
-        Request<JsonResult<GameStrategy>> request = new GsonRequest<JsonResult<GameStrategy>>(Request.Method.POST, url,
+        Request<JsonResult<GameStrategy>> request = new GsonRequest<JsonResult<GameStrategy>>
+                (Request.Method.POST, url,
                 successListener, errorListener, new TypeToken<JsonResult<GameStrategy>>() {
         }.getType()) {
 
