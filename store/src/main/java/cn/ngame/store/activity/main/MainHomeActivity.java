@@ -288,8 +288,8 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
         //头像(只能放在最后)
         setUserIcon();
 
-        //todo 开启映射服务
-        //startPadService();
+        //开启映射服务
+        startPadService();
     }
 
     String[] tabTitles0 = new String[]{"精品", "动态"};
