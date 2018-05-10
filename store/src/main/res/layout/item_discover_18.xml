@@ -23,7 +23,7 @@
         android:layout_width="@dimen/dm240"
         android:layout_height="wrap_content"
         android:layout_below="@id/tviv_item_iv"
-        android:layout_marginTop="@dimen/dm020"
+        android:layout_marginTop="@dimen/dm015"
         android:layout_marginLeft="@dimen/dm015"
         android:ellipsize="end"
         android:singleLine="true"
