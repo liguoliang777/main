@@ -306,28 +306,26 @@
                 android:paddingTop="@dimen/dm010"
                 android:visibility="gone" />
 
-            <include layout="@layout/layout_line_1px_e6e6e6"></include>
             <!--===============================详情  必读 ↓===========================-->
             <com.androidkun.xtablayout.XTabLayout xmlns:tabs="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/tablayout"
+                android:layout_marginTop="@dimen/dm015"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dm080"
-                android:background="@color/white"
+                android:background="@color/f5f5f5"
+                android:paddingBottom="@dimen/dm001"
+                tabs:xTabSelectedBackgroundColor="@color/white"
                 android:tag="sticky"
                 tabs:xTabBackgroundColor="@color/white"
-                tabs:xTabDividerColor="@color/e6e6e6"
                 tabs:xTabDividerGravity="center"
-                tabs:xTabDividerHeight="@dimen/dm080"
-                tabs:xTabDividerWidth="@dimen/dm001"
-                tabs:xTabIndicatorHeight="@dimen/dm000"
-                tabs:xTabSelectedBackgroundColor="@color/f5f5f5"
+                tabs:xTabIndicatorHeight="@dimen/dm003"
+                tabs:xTabIndicatorColor="@color/mainColor"
                 tabs:xTabSelectedTextColor="@color/mainColor"
                 tabs:xTabSelectedTextSize="@dimen/dm029"
                 tabs:xTabTextAllCaps="false"
                 tabs:xTabTextColor="@color/aaaaaa"
                 tabs:xTabTextSelectedBold="true" />
 
-            <include layout="@layout/layout_line_1px_e6e6e6"></include>
 
             <cn.ngame.store.view.AutoHeightViewPager
                 android:id="@+id/viewpager"

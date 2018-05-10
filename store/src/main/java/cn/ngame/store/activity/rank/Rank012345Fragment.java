@@ -336,7 +336,7 @@ public class Rank012345Fragment extends BaseSearchFragment {
             codeBtn.setTextSize(15);
             codeBtn.setId(position);
             codeBtn.setText(tab2StringArr[position]);
-            codeBtn.setPadding(24, 10, 24, 14);
+            codeBtn.setPadding(24, 10, 24, 15);
 
             codeBtn.setGravity(Gravity.CENTER);
             final int finalPosition = position;

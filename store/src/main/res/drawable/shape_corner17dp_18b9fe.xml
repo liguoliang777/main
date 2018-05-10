@@ -9,7 +9,8 @@
         android:width="@dimen/dm002"
         android:color="@color/mainColor"></stroke>
     <gradient
-        android:angle="270"
+        android:type="radial"
+        android:gradientRadius="70%p"
         android:endColor="@color/mainColorLight"
         android:startColor="@color/white"></gradient>
     <!--     android:startColor="@color/white"

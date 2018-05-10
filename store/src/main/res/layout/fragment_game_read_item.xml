@@ -23,7 +23,7 @@
 
         <TextView
             android:id="@+id/strategy_title_tv"
-            android:paddingTop="@dimen/dm002"
+            android:paddingTop="@dimen/dm001"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
