@@ -23,6 +23,7 @@
         android:layout_marginRight="@dimen/dm100"
         android:layout_marginTop="@dimen/dm145"
         android:text=""
+        android:visibility="invisible"
         android:ellipsize="end"
         android:textColor="@color/white"
         android:textSize="@dimen/dm036"

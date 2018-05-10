@@ -105,7 +105,7 @@ public class DiscoverFragment extends BaseSearchFragment implements View.OnClick
         View headView = View.inflate(context, R.layout.classify_header_view, null);//头部
         //分类
         init0ClassifyView(headView);
-        getBannerData();
+        //getBannerData();
 
         //每日新发现
         initEveryday(headView);
@@ -159,7 +159,7 @@ public class DiscoverFragment extends BaseSearchFragment implements View.OnClick
         mEverydayAdapter = new DiscoverTop2Adapter(context, mEverydayList);
         mEverydayRv.setAdapter(mEverydayAdapter);
         mEverydayRv.addItemDecoration(new RecyclerViewDivider(context,
-                R.dimen.main_margin_left_30px, R.dimen.main_margin_24px, mEverydayList.size()));
+                R.dimen.dm018, R.dimen.dm010, mEverydayList.size()));
     }
 
     //近期最热
@@ -249,7 +249,7 @@ public class DiscoverFragment extends BaseSearchFragment implements View.OnClick
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
                 getData();
-                getBannerData();
+                //getBannerData();
                 pullListView.setLastUpdatedLabel(new Date().toLocaleString());
                 pullListView.onPullDownRefreshComplete();
                 pullListView.onPullUpRefreshComplete();

@@ -16,6 +16,7 @@
         android:clickable="true"
         custom:auto_scroll="true"
         custom:current_item="0"
+        android:visibility="gone"
         custom:scroll_period="7" />
 
     <LinearLayout
