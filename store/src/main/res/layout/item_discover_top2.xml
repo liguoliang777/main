@@ -8,7 +8,7 @@
         android:id="@+id/discover_top2_sdv"
         android:layout_width="@dimen/discover_top2_width"
         android:layout_height="@dimen/discover_top2_height"
-        fresco:actualImageScaleType="centerCrop"
+        fresco:actualImageScaleType="fitXY"
         fresco:failureImage="@drawable/ic_def_logo_412_200"
         fresco:placeholderImage="@drawable/ic_def_logo_412_200"
         fresco:placeholderImageScaleType="fitXY"

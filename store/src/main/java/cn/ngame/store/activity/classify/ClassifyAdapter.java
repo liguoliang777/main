@@ -157,7 +157,7 @@ public class ClassifyAdapter extends BaseAdapter {
 
             Resources resources = context.getResources();
             int pxMarginLeft = resources.getDimensionPixelSize(R.dimen.dm016);
-            int px20 = resources.getDimensionPixelSize(R.dimen.dm005);
+            int px20 = resources.getDimensionPixelSize(R.dimen.dm002);
             gameInfoList = gameInfo.getList();
             for (int i = 0; i < gameInfoList.size(); i++) {
                 gameInfoBean = gameInfoList.get(i);
