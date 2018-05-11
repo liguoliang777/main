@@ -165,7 +165,7 @@ public class Rank012345Fragment extends BaseSearchFragment {
                 }
 
                 mTabLayout2_ExRadioGroup.check(0);
-                tab2_Id = tab2_Country_Id_Array[0];
+                tab2_Id = 0;
 
                 list.clear();
                 adapter.setList(list);

@@ -188,7 +188,6 @@ public class Ranking012345Adapter extends BaseAdapter {
                 position) {
             this.gameInfo = gameInfo;
             final String gameName = gameInfo.getGameName();
-            Log.d("", "排行榜----下载: "+gameName+","+gameInfo.getGameLink());
             if (!"".equals(gameName)) {
                 tv_title.setText(gameName);
             }
