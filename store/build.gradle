@@ -36,7 +36,7 @@ android {
 
         ndk {
             moduleName "Crc8Jni"
-            abiFilters "armeabi", "armeabi-v7a", "x86"
+            abiFilters "armeabi", "armeabi-v7a", "x86",'armeabi-v8a'
         }
         // Enabling multidex support.
         multiDexEnabled true

@@ -143,14 +143,8 @@ public class ClassifyAdapter extends BaseAdapter {
 
         public ViewHolder(Context context, FragmentManager fm) {
             this.context = context;
-            //fileLoad = FileLoadManager.getInstance(context);
         }
 
-        /**
-         * 更新普通数据
-         *
-         * @param gameInfo 游戏信息
-         */
         public void update(final DiscoverListBean.DataBean.ResultListBean gameInfo, int type, int
                 position) {
             horizontalViewContainer.removeAllViews();
@@ -169,13 +163,8 @@ public class ClassifyAdapter extends BaseAdapter {
 
                 gameIV.setImageURI(gameImage);
                 gameNameTv.setText(gameInfoBean.getGameName());
-                gameIV.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                //为  PicassoImageView设置属性
                 hParams = new LinearLayout.LayoutParams(
                         wrapContent, wrapContent);
-        /*        hParams.width = width240;
-                hParams.height = heght114;*/
-                //有多个图片的话
                 if (0 == i) {
                     hParams.setMargins(pxMarginLeft, 0, px20, 0);
                 } else {
