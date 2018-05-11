@@ -82,8 +82,7 @@ public class DiscoverTop2Adapter extends RecyclerView.Adapter<DiscoverTop2Adapte
         final DiscoverTopBean discoverTopBean = mList.get(position);
         holder.mTV.setText(discoverTopBean.getGameName());
         holder.mIV.setImageURI(discoverTopBean.getImgLink());
-        Log.d(discoverTopBean.getGameName() + "图片 发现", "" + discoverTopBean.getImgLink());
-        //为ItemView设置监听器
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

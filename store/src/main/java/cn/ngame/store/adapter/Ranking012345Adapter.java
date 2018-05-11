@@ -289,7 +289,6 @@ public class Ranking012345Adapter extends BaseAdapter {
             if (imgUrl != null && imgUrl.trim().equals("")) {
                 imgUrl = null;
             }
-            Log.d("图片", ": "+imgUrl);
             img01234.setImageURI(imgUrl);
 
             //long gameSize = gameInfo.getGameSize();
