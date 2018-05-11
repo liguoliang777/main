@@ -80,6 +80,7 @@ public class DiscoverFragment extends BaseSearchFragment implements View.OnClick
     private String categoryName = "";
     private LinearLayoutManager linearLayoutManager;
     private ClassifyTopBean mClassifyTopBean;
+    private ListView refreshableView;
 
     public DiscoverFragment() {
         android.util.Log.d(TAG, "DiscoverFragment: ()");
@@ -115,7 +116,7 @@ public class DiscoverFragment extends BaseSearchFragment implements View.OnClick
         //initTopicsView(headView);
 
         //添加头部
-        ListView refreshableView = pullListView.getRefreshableView();
+        refreshableView = pullListView.getRefreshableView();
         if (refreshableView.getHeaderViewsCount() == 0) {
             refreshableView.addHeaderView(headView);
         }
@@ -159,7 +160,7 @@ public class DiscoverFragment extends BaseSearchFragment implements View.OnClick
         mEverydayAdapter = new DiscoverTop2Adapter(context, mEverydayList);
         mEverydayRv.setAdapter(mEverydayAdapter);
         mEverydayRv.addItemDecoration(new RecyclerViewDivider(context,
-                R.dimen.dm018, R.dimen.dm010, mEverydayList.size()));
+                R.dimen.main_margin_left_30px, R.dimen.main_margin_24px, mEverydayList.size()));
     }
 
     //近期最热
@@ -170,7 +171,7 @@ public class DiscoverFragment extends BaseSearchFragment implements View.OnClick
         mHotRecentAdapter = new DiscoverTop2Adapter(context, mHotRecentList);
         mHotRecentRv.setAdapter(mHotRecentAdapter);
         mHotRecentRv.addItemDecoration(new RecyclerViewDivider(context,
-                R.dimen.dm018, R.dimen.dm010, mHotRecentList.size()));
+                R.dimen.main_margin_left_30px, R.dimen.main_margin_24px, mHotRecentList.size()));
         setOnMoreBtClickListener(headView, R.id.more_hot_recent_tv);
     }
 
@@ -350,7 +351,7 @@ public class DiscoverFragment extends BaseSearchFragment implements View.OnClick
         //下面18个分类
         categroy18ListBean = data.getResultList();
         categroy18Adapter.setList(categroy18ListBean);
-        pullListView.getRefreshableView().setAdapter(categroy18Adapter);
+        refreshableView.setAdapter(categroy18Adapter);
     }
 
     private PageAction pageAction;

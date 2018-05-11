@@ -64,8 +64,8 @@
     <dimen name="main_classify_iv_size">@dimen/dm150</dimen>
     <dimen name="discover_18_item_width">@dimen/dm260</dimen>
     <dimen name="discover_18_item_height">@dimen/dm150</dimen>
-    <dimen name="discover_top2_width">@dimen/dm340</dimen>
-    <dimen name="discover_top2_height">@dimen/dm180</dimen>
+    <dimen name="discover_top2_width">@dimen/dm280</dimen>
+    <dimen name="discover_top2_height">@dimen/dm140</dimen>
     <dimen name="dp_36">36dp</dimen>
     <dimen name="dp_94">94dp</dimen>
     <dimen name="dp_90">90dp</dimen>
