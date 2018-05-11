@@ -437,10 +437,10 @@ public class Rank012345Fragment extends BaseSearchFragment {
         loadStateView.setVisibility(View.VISIBLE);
         loadStateView.setState(LoadStateView.STATE_ING);
         int startRecord = pageAction.getCurrentPage() * PAGE_SIZE;
-        Log.d(TAG, "排行榜请求参数:" + tab0_Id + "," + tab2_Id);
+        Log.d(TAG, "排行榜------参数: " + tab0_Id + "  " + tab2_Id + "========" + startRecord + "   " +
+                PAGE_SIZE);
         RankListBody bodyBean = new RankListBody();
         bodyBean.setStartRecord(startRecord);
-        Log.d(TAG, "排行榜请求索引:" + startRecord + " -> " + PAGE_SIZE);
         bodyBean.setRecords(PAGE_SIZE);
         bodyBean.setParentCategoryId(tab0_Id);
         bodyBean.setCategoryId(tab2_Id);
@@ -513,6 +513,7 @@ public class Rank012345Fragment extends BaseSearchFragment {
         ListView refreshableView = pullListView.getRefreshableView();
         //设置适配器
         adapter.setList(list);
+        Log.d(TAG, "排行榜----总数: "+list.size());
         if (pageAction.getCurrentPage() > 0 && size > 0) { //设置上拉刷新后停留的地方
             int index = refreshableView.getFirstVisiblePosition();
             View v = refreshableView.getChildAt(0);
@@ -560,6 +561,7 @@ public class Rank012345Fragment extends BaseSearchFragment {
             mTabLayout2_ExRadioGroup.check(0);
             mTabLayout0.getTabAt(0).select();
         }
+        tab2_Id=0;
         tab0_Id = tab0_Id_Arr[tabIndex];
         getRankList();
     }
