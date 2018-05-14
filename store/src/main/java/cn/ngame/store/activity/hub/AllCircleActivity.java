@@ -42,10 +42,10 @@ import cn.ngame.store.util.ToastUtil;
  * Created by liguoliang on 2017/11/23 0023.
  */
 @SuppressLint("WrongConstant")
-public class HubPostsActivity extends BaseFgActivity {
-    protected static final String TAG = HubPostsActivity.class.getSimpleName();
+public class AllCircleActivity extends BaseFgActivity {
+    protected static final String TAG = AllCircleActivity.class.getSimpleName();
     private LinearLayout ll_back;
-    private HubPostsActivity mContext;
+    private AllCircleActivity mContext;
     private TextView titleTv;
     private RecyclerView mRecyclerView;
     private HubAdapter mAdapter;
@@ -56,7 +56,7 @@ public class HubPostsActivity extends BaseFgActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hub_posts);
+        setContentView(R.layout.activity_all_circle);
         initStatusBar();
         mContext = this;
         init();

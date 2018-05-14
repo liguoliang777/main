@@ -61,7 +61,7 @@ import cn.ngame.store.StoreApplication;
 import cn.ngame.store.activity.BaseFgActivity;
 import cn.ngame.store.activity.classify.AllClassifyActivity;
 import cn.ngame.store.activity.classify.DiscoverFragment;
-import cn.ngame.store.activity.hub.HubPostsActivity;
+import cn.ngame.store.activity.hub.AllCircleActivity;
 import cn.ngame.store.activity.manager.DownloadCenterActivity;
 import cn.ngame.store.activity.manager.ManagerFragment;
 import cn.ngame.store.activity.rank.Rank012345Fragment;
@@ -842,7 +842,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                 startActivity(intent);
                 break;
             case R.id.main_hub_bt:
-                startActivity(new Intent(context, HubPostsActivity.class));
+                startActivity(new Intent(context, AllCircleActivity.class));
                 break;
             case R.id.main_all_category_bt:
                 startActivity(new Intent(context, AllClassifyActivity.class));

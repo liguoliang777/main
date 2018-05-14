@@ -13,7 +13,7 @@ import java.util.List;
 
 import cn.ngame.store.R;
 import cn.ngame.store.activity.hub.CircleActivity;
-import cn.ngame.store.activity.hub.HubPostsActivity;
+import cn.ngame.store.activity.hub.AllCircleActivity;
 import cn.ngame.store.bean.PostsInfo;
 import cn.ngame.store.core.utils.ImageUtil;
 import cn.ngame.store.core.utils.KeyConstant;
@@ -27,12 +27,12 @@ public class HubAdapter extends RecyclerView.Adapter<HubAdapter.ViewHolder> {
     private LayoutInflater mInflater;
     private List<PostsInfo.DataBean> mDatas;
     private TextView tv, tvPostNum;
-    private HubPostsActivity mContext;
+    private AllCircleActivity mContext;
     private View itemView;
     private LinearLayout.LayoutParams params;
     private List<PostsInfo.DataBean.ShowPostCategoryListBean> showPostCategoryList;
 
-    public HubAdapter(HubPostsActivity context, List<PostsInfo.DataBean> datats) {
+    public HubAdapter(AllCircleActivity context, List<PostsInfo.DataBean> datats) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
         mDatas = datats;

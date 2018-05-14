@@ -19,6 +19,7 @@
             android:id="@+id/recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingBottom="@dimen/dm015"
             android:overScrollMode="never"/>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </LinearLayout>
