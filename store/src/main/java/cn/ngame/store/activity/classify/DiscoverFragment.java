@@ -137,7 +137,6 @@ public class DiscoverFragment extends BaseSearchFragment implements View.OnClick
 
         mClassifyAllRv = headView.findViewById(R.id.discover_head_rv_classify);//条目
         mClassifyAllRv.setLayoutManager(lLManager);
-        categroyAllList.add(new ClassifyTopBean("键鼠", 120, R.drawable.ic_jianshu));
         categroyAllList.add(new ClassifyTopBean("手柄", 101, R.drawable.ic_shoubin));
         categroyAllList.add(new ClassifyTopBean("破解", 103, R.drawable.ic_pojie));
         categroyAllList.add(new ClassifyTopBean("模拟器", 153, R.drawable.ic_moniqi));

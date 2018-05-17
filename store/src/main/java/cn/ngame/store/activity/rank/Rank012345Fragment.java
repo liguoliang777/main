@@ -225,7 +225,7 @@ public class Rank012345Fragment extends BaseSearchFragment {
         });
         //点击事件
         refreshableView = pullListView.getRefreshableView();
-        adapter = new Ranking012345Adapter(content, fm, list, 0);
+        adapter = new Ranking012345Adapter(content, fm, list, tab0_Id);
     /*    mTopCheckedTv.measure(0, 0);
         int measuredWidth = mTopCheckedTv.getMeasuredWidth();
         int measuredH = mTopCheckedTv.getMeasuredHeight();
@@ -241,6 +241,7 @@ public class Rank012345Fragment extends BaseSearchFragment {
                 if (position > 0) {
                     Intent intent = new Intent(getActivity(), GameDetailActivity.class);
                     intent.putExtra(KeyConstant.ID, list.get(position - 1).getId());
+                    intent.putExtra(KeyConstant.IS_YUYUE_GAME, tab0_Id == 164 ? true : false);
                     startActivity(intent);
                 }
             }
@@ -513,7 +514,7 @@ public class Rank012345Fragment extends BaseSearchFragment {
         ListView refreshableView = pullListView.getRefreshableView();
         //设置适配器
         adapter.setList(list);
-        Log.d(TAG, "排行榜----总数: "+list.size());
+        Log.d(TAG, "排行榜----总数: " + list.size());
         if (pageAction.getCurrentPage() > 0 && size > 0) { //设置上拉刷新后停留的地方
             int index = refreshableView.getFirstVisiblePosition();
             View v = refreshableView.getChildAt(0);
@@ -553,16 +554,25 @@ public class Rank012345Fragment extends BaseSearchFragment {
     }
 
     public void setTab(int tabIndex) {
+        tab2_Id = 0;
+        tab0_Id = tab0_Id_Arr[tabIndex];
         if (refreshableView != null && adapter != null) {
             list.clear();
             adapter.setList(list);
+            adapter.setType(tab0_Id);
             pageAction.setCurrentPage(0);
             refreshableView.setSelection(0);
             mTabLayout2_ExRadioGroup.check(0);
             mTabLayout0.getTabAt(0).select();
         }
-        tab2_Id=0;
-        tab0_Id = tab0_Id_Arr[tabIndex];
+        if (tabIndex == 1) {
+            mTabLayout2_ExRadioGroup.setVisibility(View.GONE);
+            mTabLayout0.setVisibility(View.GONE);
+        } else {
+            mTabLayout0.setVisibility(View.VISIBLE);
+            mTabLayout2_ExRadioGroup.setVisibility(View.VISIBLE);
+
+        }
         getRankList();
     }
 }

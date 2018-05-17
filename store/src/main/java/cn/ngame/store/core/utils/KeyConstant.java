@@ -56,4 +56,5 @@ public class KeyConstant {
     public static final int EXTRA_LIKE = 0;
     public static final int EXTRA_NECESSARY = 1;
     public static final String signValue = "signValue";
+    public static final String IS_YUYUE_GAME = "is_yuyue_game";
 }

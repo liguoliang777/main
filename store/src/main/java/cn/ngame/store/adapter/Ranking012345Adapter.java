@@ -60,7 +60,7 @@ public class Ranking012345Adapter extends BaseAdapter {
     private Activity context;
     private FragmentManager fm;
     private List<LikeListBean.DataBean.GameListBean> list;
-    private int type;
+    private int type = 163;
     private static Handler uiHandler = new Handler();
 
     public Ranking012345Adapter(Activity context, FragmentManager fm, List<LikeListBean.DataBean
@@ -75,6 +75,10 @@ public class Ranking012345Adapter extends BaseAdapter {
     public void setList(List<LikeListBean.DataBean.GameListBean> list) {
         this.list = list;
         notifyDataSetChanged();
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 
     @Override
@@ -107,7 +111,8 @@ public class Ranking012345Adapter extends BaseAdapter {
             convertView = LayoutInflater.from(context).inflate(R.layout.ranking_list_item,
                     parent, false);
             holder = new ViewHolder(context, fm);
-            holder.img01234 = (SimpleDraweeView) convertView.findViewById(R.id.rank01234_list_item_sdv);
+            holder.img01234 = (SimpleDraweeView) convertView.findViewById(R.id
+                    .rank01234_list_item_sdv);
             holder.tv_position = (TextView) convertView.findViewById(R.id.tv_position);
             holder.tv_title = (TextView) convertView.findViewById(R.id.tv_title);
             holder.tv_percentage = (TextView) convertView.findViewById(R.id.text1);
@@ -192,84 +197,95 @@ public class Ranking012345Adapter extends BaseAdapter {
                 tv_title.setText(gameName);
             }
             //更多按钮
-            moreBt.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(final View v) {
-                    moreBt.setSelected(true);
+            if (type == 164) {
+                moreBt.setVisibility(View.GONE);
+            } else {
+                moreBt.setVisibility(View.VISIBLE);
+                moreBt.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(final View v) {
+                        moreBt.setSelected(true);
 
-                    View popView = LayoutInflater.from(context).inflate(R.layout
-                            .layout_rank_more_popup, null);
-                    //===================进度条==========================================
-                    progressBar = (GameLoadProgressBar) popView.findViewById(R.id.progress_bar);
-                    //设置进度条状态
-                    final GameFileStatus fileLoadStatus = fileLoad.getGameFileLoadStatus(gameInfo
-                            .getFilename(), gameInfo
-                            .getGameLink(), gameInfo.getPackages(), ConvUtil.NI(gameInfo
-                            .getVersionCode()));
-                    progressBar.setLoadState(fileLoadStatus);
-                    //必须设置，否则点击进度条后无法进行响应操作
-                    FileLoadInfo fileLoadInfo = new FileLoadInfo(gameInfo.getFilename(), gameInfo
-                            .getGameLink(), gameInfo
-                            .getMd5(), gameInfo.getVersionCode(), gameInfo.getGameName(),
-                            gameInfo.getGameLogo(), gameInfo
-                            .getId(), FileLoadInfo.TYPE_GAME);
-                    fileLoadInfo.setPackageName(gameInfo.getPackages());
-                    progressBar.setFileLoadInfo(fileLoadInfo);
-                    progressBar.setOnStateChangeListener(new ProgressBarStateListener(context, fm));
-                    progressBar.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            progressBar.toggle();
-                        }
-                    });
-                    final Timer timer = new Timer();
-                    timer.schedule(new TimerTask() {
-                        @Override
-                        public void run() {
-                            uiHandler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    progressBar.setLoadState(fileLoad.getGameFileLoadStatus
-                                            (gameInfo.getFilename(), gameInfo
-                                                            .getGameLink(), gameInfo.getPackages(),
-                                                    ConvUtil.NI
-                                                            (gameInfo.getVersionCode())));
-                                }
-                            });
-                        }
-                    }, 0, 500);
-                    //============================================================================
-                    //版本信息
-                    TextView versionTv = (TextView) popView.findViewById(R.id.rank_popupp_vesion);
-                    textSpan = new SpannableString("版本\n" + gameInfo.getVersionName());
-                    textSpan.setSpan(new TextAppearanceSpan(context, R.style.style_14dp_989999),
-                            0, 2, Spanned
-                                    .SPAN_EXCLUSIVE_EXCLUSIVE);
-                    versionTv.setText(textSpan);
+                        View popView = LayoutInflater.from(context).inflate(R.layout
+                                .layout_rank_more_popup, null);
+                        //===================进度条==========================================
+                        progressBar = (GameLoadProgressBar) popView.findViewById(R.id.progress_bar);
+                        //设置进度条状态
+                        final GameFileStatus fileLoadStatus = fileLoad.getGameFileLoadStatus
+                                (gameInfo
+                                        .getFilename(), gameInfo
+                                        .getGameLink(), gameInfo.getPackages(), ConvUtil.NI(gameInfo
+                                        .getVersionCode()));
+                        progressBar.setLoadState(fileLoadStatus);
+                        //必须设置，否则点击进度条后无法进行响应操作
+                        FileLoadInfo fileLoadInfo = new FileLoadInfo(gameInfo.getFilename(),
+                                gameInfo
+                                        .getGameLink(), gameInfo
+                                .getMd5(), gameInfo.getVersionCode(), gameInfo.getGameName(),
+                                gameInfo.getGameLogo(), gameInfo
+                                .getId(), FileLoadInfo.TYPE_GAME);
+                        fileLoadInfo.setPackageName(gameInfo.getPackages());
+                        progressBar.setFileLoadInfo(fileLoadInfo);
+                        progressBar.setOnStateChangeListener(new ProgressBarStateListener
+                                (context, fm));
+                        progressBar.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                progressBar.toggle();
+                            }
+                        });
+                        final Timer timer = new Timer();
+                        timer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                uiHandler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        progressBar.setLoadState(fileLoad.getGameFileLoadStatus
+                                                (gameInfo.getFilename(), gameInfo
+                                                                .getGameLink(), gameInfo
+                                                                .getPackages(),
+                                                        ConvUtil.NI
+                                                                (gameInfo.getVersionCode())));
+                                    }
+                                });
+                            }
+                        }, 0, 500);
+                        //============================================================================
+                        //版本信息
+                        TextView versionTv = (TextView) popView.findViewById(R.id
+                                .rank_popupp_vesion);
+                        textSpan = new SpannableString("版本\n" + gameInfo.getVersionName());
+                        textSpan.setSpan(new TextAppearanceSpan(context, R.style.style_14dp_989999),
+                                0, 2, Spanned
+                                        .SPAN_EXCLUSIVE_EXCLUSIVE);
+                        versionTv.setText(textSpan);
 
-                    //更新的时间
-                    TextView updateTimeTv = (TextView) popView.findViewById(R.id
-                            .rank_popupp_update_time);
-                    String updateTime = new SimpleDateFormat("yyyy-MM").format(new Date(gameInfo
-                            .getUpdateTime()));
-                    textSpan = new SpannableString("更新时间\n" + updateTime);
-                    textSpan.setSpan(new TextAppearanceSpan(context, R.style.style_14dp_989999),
-                            0, 4, Spanned
-                                    .SPAN_EXCLUSIVE_EXCLUSIVE);
-                    updateTimeTv.setText(textSpan);
-                    int dp120 = CommonUtil.dip2px(context, 128);
-                    int dp132 = CommonUtil.dip2px(context, 140);
-                    popupWindow = ImageUtil.showPopupWindow(context, moreBt, popView, dp132, dp120);
-                    popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-                        @Override
-                        public void onDismiss() {
-                            v.setSelected(false);
-                            timer.cancel();
-                        }
-                    });
+                        //更新的时间
+                        TextView updateTimeTv = (TextView) popView.findViewById(R.id
+                                .rank_popupp_update_time);
+                        String updateTime = new SimpleDateFormat("yyyy-MM").format(new Date(gameInfo
+                                .getUpdateTime()));
+                        textSpan = new SpannableString("更新时间\n" + updateTime);
+                        textSpan.setSpan(new TextAppearanceSpan(context, R.style.style_14dp_989999),
+                                0, 4, Spanned
+                                        .SPAN_EXCLUSIVE_EXCLUSIVE);
+                        updateTimeTv.setText(textSpan);
+                        int dp120 = CommonUtil.dip2px(context, 128);
+                        int dp132 = CommonUtil.dip2px(context, 140);
+                        popupWindow = ImageUtil.showPopupWindow(context, moreBt, popView, dp132,
+                                dp120);
+                        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                            @Override
+                            public void onDismiss() {
+                                v.setSelected(false);
+                                timer.cancel();
+                            }
+                        });
 
-                }
-            });
+                    }
+                });
+            }
             tv_position.setText(position + 1 + "");
             int color123 = R.color.cccccc;
             if (position < 3) {

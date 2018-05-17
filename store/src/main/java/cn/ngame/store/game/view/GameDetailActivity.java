@@ -98,7 +98,8 @@ import cn.ngame.store.view.StickyScrollView;
  * Created by Administrator on 2017/6/13 0013.
  */
 @SuppressLint("WrongConstant")
-public class GameDetailActivity extends BaseFgActivity implements StickyScrollView.OnScrollChangedListener,
+public class GameDetailActivity extends BaseFgActivity implements StickyScrollView
+        .OnScrollChangedListener,
         HomeFragmentChangeLayoutListener {
     private RelativeLayout rl_top;
     private StickyScrollView scrollView;
@@ -137,6 +138,7 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
     private NgameJZVideoPlayerStandard jzVideoPlayerStandard;
     private AudioManager mAudioManager;
     private GridLayout mLayoutTags;
+    private boolean isYuYueGame = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,6 +155,7 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
         setContentView(R.layout.activity_game_detail);
         try {
             gameId = getIntent().getLongExtra(KeyConstant.ID, 0l);
+            isYuYueGame = getIntent().getBooleanExtra(KeyConstant.IS_YUYUE_GAME, false);
             Log.d(TAG, "游戏详情" + gameId);
         } catch (Exception e) {
         }
@@ -171,7 +174,8 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
     private void initView() {
         game_big_img = (SimpleDraweeView) findViewById(R.id.sdv_img);
         game_logo_img = (SimpleDraweeView) findViewById(R.id.img_1);
-        jzVideoPlayerStandard = (NgameJZVideoPlayerStandard) findViewById(R.id.game_detial_ngame_vp);
+        jzVideoPlayerStandard = (NgameJZVideoPlayerStandard) findViewById(R.id
+                .game_detial_ngame_vp);
         jzVideoPlayerStandard.topContainer.setVisibility(View.GONE);
         //jzVideoPlayerStandard.backButton.setVisibility(View.GONE);
         gameNameTv = (MarqueTextView) findViewById(R.id.tv_title);//游戏名字
@@ -187,7 +191,7 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
         likeIv = (ImageView) findViewById(R.id.game_detail_like_iv);//喜欢按钮
         mLayoutTags = (GridLayout) findViewById(R.id.layout_tags);//喜欢按钮
         progressBar = (GameLoadProgressBar) findViewById(R.id.game_detail_progress_bar);//下载按钮
-
+        progressBar.setVisibility(isYuYueGame ? View.GONE : View.VISIBLE);
         likeIv.setOnClickListener(gameDetailClickListener);
         feedbackTv.setOnClickListener(gameDetailClickListener);
         percentageTv.setOnClickListener(gameDetailClickListener);
@@ -202,18 +206,22 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
                 }
                 final UMShareAPI umShareAPI = UMShareAPI.get(content);
                 final UMWeb web = new UMWeb(getString(R.string.app_download_url_yyb));
-                //final UMWeb web = new UMWeb("http://m.app.so.com/detail/index?pname=cn.ngame.store&id=3419150");
+                //final UMWeb web = new UMWeb("http://m.app.so.com/detail/index?pname=cn.ngame
+                // .store&id=3419150");
                 web.setTitle(gameName);
                 web.setThumb(mUMImage);
                 web.setDescription(getString(R.string.share_description));//描述
 
-                new ShareAction(content).setDisplayList(SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA
+                new ShareAction(content).setDisplayList(SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE,
+                        SHARE_MEDIA
                         .WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE).
                         setShareboardclickCallback(new ShareBoardlistener() {
                             @Override
                             public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
-                                if (umShareAPI.isInstall(content, share_media) && share_media != null) {
-                                    new ShareAction(content).setPlatform(share_media).withMedia(web).setCallback
+                                if (umShareAPI.isInstall(content, share_media) && share_media !=
+                                        null) {
+                                    new ShareAction(content).setPlatform(share_media).withMedia
+                                            (web).setCallback
                                             (umShareListener).share();
                                 } else {
                                     ToastUtil.show(content, "未安装该应用哦~");
@@ -232,12 +240,14 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch (keyCode) {
             case KeyEvent.KEYCODE_VOLUME_UP:
-                mAudioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_RAISE, AudioManager
+                mAudioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager
+                        .ADJUST_RAISE, AudioManager
                         .FLAG_PLAY_SOUND |
                         AudioManager.FLAG_SHOW_UI);
                 return true;
             case KeyEvent.KEYCODE_VOLUME_DOWN:
-                mAudioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_LOWER, AudioManager
+                mAudioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager
+                        .ADJUST_LOWER, AudioManager
                         .FLAG_PLAY_SOUND |
                         AudioManager.FLAG_SHOW_UI);
                 return true;
@@ -260,6 +270,7 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
         super.onStart();
         hasStop = false;
     }
+
     private UMShareListener umShareListener = new UMShareListener() {
         /**
          * @descrption 分享开始的回调
@@ -328,7 +339,8 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
                     jzVideoPlayerStandard.thumbImageView.setVisibility(View.VISIBLE);
                     Picasso.with(content).load(videoInfo.gameImageLink).into(jzVideoPlayerStandard
                             .thumbImageView);
-                    jzVideoPlayerStandard.setUp(videoInfo.gameVideoLink, JZVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, "");
+                    jzVideoPlayerStandard.setUp(videoInfo.gameVideoLink, JZVideoPlayerStandard
+                            .SCREEN_LAYOUT_NORMAL, "");
                     jzVideoPlayerStandard.backButton.setVisibility(View.GONE);
                     if (NetUtil.isWifiConnected(content)) {
                         jzVideoPlayerStandard.startVideo();
@@ -402,7 +414,8 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        GameFileStatus fileStatus = fileLoad.getGameFileLoadStatus(gameInfo.filename, gameInfo.gameLink,
+                        GameFileStatus fileStatus = fileLoad.getGameFileLoadStatus(gameInfo
+                                        .filename, gameInfo.gameLink,
                                 gameInfo.packages, ConvUtil.NI(gameInfo.versionCode));
                         progressBar.setLoadState(fileStatus);
                     }
@@ -416,7 +429,8 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
         if (gameLogoList != null) {
             mLayoutTags.setVisibility(View.VISIBLE);
             int screenWidth2 = ImageUtil.getScreenWidth(content) / 2;
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(screenWidth2, ViewGroup.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(screenWidth2,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
             LayoutInflater from = LayoutInflater.from(this);
             View view;
             TextView tv;
@@ -442,7 +456,8 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
 
     private void getGameInfo() {
         String url = Constant.WEB_SITE + Constant.URL_GAME_DETAIL;
-        Response.Listener<JsonResult<GameInfo>> successListener = new Response.Listener<JsonResult<GameInfo>>() {
+        Response.Listener<JsonResult<GameInfo>> successListener = new Response
+                .Listener<JsonResult<GameInfo>>() {
             @Override
             public void onResponse(JsonResult<GameInfo> result) {
                 if (result == null || result.code != 0) {
@@ -452,15 +467,19 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
                 gameInfo = result.data;
                 if (gameInfo != null) {
                     //设置进度条状态
-                    progressBar.setLoadState(fileLoad.getGameFileLoadStatus(gameInfo.filename, gameInfo.gameLink, gameInfo
+                    progressBar.setLoadState(fileLoad.getGameFileLoadStatus(gameInfo.filename,
+                            gameInfo.gameLink, gameInfo
                             .packages, ConvUtil.NI(gameInfo.versionCode)));
                     //必须设置，否则点击进度条后无法进行响应操作
-                    FileLoadInfo fileLoadInfo = new FileLoadInfo(gameInfo.filename, gameInfo.gameLink, gameInfo.md5, ConvUtil
-                            .NI(gameInfo.versionCode), gameInfo.gameName, gameInfo.gameLogo, gameInfo.id, FileLoadInfo.TYPE_GAME);
+                    FileLoadInfo fileLoadInfo = new FileLoadInfo(gameInfo.filename, gameInfo
+                            .gameLink, gameInfo.md5, ConvUtil
+                            .NI(gameInfo.versionCode), gameInfo.gameName, gameInfo.gameLogo,
+                            gameInfo.id, FileLoadInfo.TYPE_GAME);
                     progressBar.setFileLoadInfo(fileLoadInfo);
                     fileLoadInfo.setPackageName(gameInfo.packages);
                     fileLoadInfo.setVersionCode(ConvUtil.NI(gameInfo.versionCode));
-                    progressBar.setOnStateChangeListener(new ProgressBarStateListener(GameDetailActivity.this,
+                    progressBar.setOnStateChangeListener(new ProgressBarStateListener
+                            (GameDetailActivity.this,
                             GameDetailActivity.this.getSupportFragmentManager()));
                     progressBar.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -493,7 +512,8 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
             }
         };
 
-        Request<JsonResult<GameInfo>> request = new GsonRequest<JsonResult<GameInfo>>(Request.Method.POST, url,
+        Request<JsonResult<GameInfo>> request = new GsonRequest<JsonResult<GameInfo>>(Request
+                .Method.POST, url,
                 successListener, errorListener, new TypeToken<JsonResult<GameInfo>>() {
         }.getType()) {
 
@@ -513,7 +533,8 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
     private void initViewPager() {
         viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onPageScrolled(int position, float positionOffset, int
+                    positionOffsetPixels) {
 
             }
 
@@ -567,7 +588,8 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
     @Override
     public void changeLayoutHeight(int height) {
         Log.d(TAG, "高度:" + height);
-        ViewGroup.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup
+        ViewGroup.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup
+                .LayoutParams.MATCH_PARENT, ViewGroup
                 .LayoutParams.MATCH_PARENT);
         layoutParams.height = height;
         viewpager.setLayoutParams(layoutParams);
@@ -838,7 +860,8 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
                 params.put(KeyConstant.system, android.os.Build.VERSION.RELEASE);//系统
                 params.put(KeyConstant.cpu, android.os.Build.CPU_ABI);//蓝牙
                 params.put(KeyConstant.isSupportOTG, "0");//是否支持OTG（0表示不支持，1表示支持）
-                params.put(KeyConstant.updateOrDownloadTips, String.valueOf(UPDATE_TIPS_OR_DOWNLOAD_EXCEPTION));
+                params.put(KeyConstant.updateOrDownloadTips, String.valueOf
+                        (UPDATE_TIPS_OR_DOWNLOAD_EXCEPTION));
                 return params;
             }
         };
@@ -850,7 +873,8 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
         final Dialog mUnboundDialog = new Dialog(content);
         mUnboundDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         //填充对话框的布局
-        View percentView = LayoutInflater.from(content).inflate(R.layout.layout_percentage_dialog, null);
+        View percentView = LayoutInflater.from(content).inflate(R.layout
+                .layout_percentage_dialog, null);
 
         //用户头像+昵称
         SimpleDraweeView iconIv = (SimpleDraweeView) percentView.findViewById(R.id.ic_percent_icon);
@@ -906,7 +930,8 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
     //评论
     private void submitPercent(final Dialog mUnboundDialog) {
         String url = Constant.WEB_SITE + Constant.URL_COMMENT_ADD_COMMENT;
-        Response.Listener<JsonResult<Token>> successListener = new Response.Listener<JsonResult<Token>>() {
+        Response.Listener<JsonResult<Token>> successListener = new Response
+                .Listener<JsonResult<Token>>() {
             @Override
             public void onResponse(JsonResult<Token> result) {
                 DialogHelper.hideWaiting(getSupportFragmentManager());
@@ -935,7 +960,8 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
             }
         };
 
-        Request<JsonResult<Token>> versionRequest = new GsonRequest<JsonResult<Token>>(Request.Method.POST, url,
+        Request<JsonResult<Token>> versionRequest = new GsonRequest<JsonResult<Token>>(Request
+                .Method.POST, url,
                 successListener, errorListener, new TypeToken<JsonResult<Token>>() {
         }.getType()) {
             @Override
@@ -959,6 +985,7 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
         hasStop = true;
         UMShareAPI.get(this).release();
     }
+
     @Override
     public void onBackPressed() {
         if (JZVideoPlayerStandard.backPress()) {

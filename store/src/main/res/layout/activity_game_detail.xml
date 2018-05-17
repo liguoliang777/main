@@ -240,43 +240,48 @@
                     android:textColor="@color/b3"
                     android:textSize="@dimen/dp_10" />
                 <!--下载按钮-->
-                <cn.ngame.store.view.GameLoadProgressBar
-                    android:id="@+id/game_detail_progress_bar"
-                    android:layout_width="48dp"
-                    android:layout_height="26dp"
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_below="@id/game_detail_item_llay"
-                    android:layout_marginTop="10dp"
-                    android:clickable="true"
-                    android:text="@string/download"
-                    android:textColor="@color/white"
-                    android:textSize="14dp"
-                    ngame:progress="0" /><!--文字大小不能引用 资源的dp-->
-                <TextView
-                    android:id="@+id/game_detail_feedback_bt"
-                    android:layout_width="@dimen/game_detail_feedback_bt_width"
-                    android:layout_height="@dimen/game_detail_feedback_bt_height"
-                    android:layout_below="@id/game_detail_item_llay"
-                    android:layout_marginRight="@dimen/dp_10"
                     android:layout_marginTop="@dimen/dp_10"
-                    android:layout_toLeftOf="@id/game_detail_progress_bar"
-                    android:background="@drawable/shape_corner4dp_white_3ecc7a"
-                    android:clickable="true"
-                    android:gravity="center"
-                    android:text="反馈"
-                    android:textColor="@color/download_bt_nomal"
-                    android:textSize="@dimen/dp_14" />
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/game_detail_like_iv"
-                    android:layout_width="@dimen/dm040"
-                    android:layout_height="@dimen/dm036"
-                    android:layout_below="@id/game_detail_item_llay"
-                    android:layout_marginRight="@dimen/dp_20"
-                    android:layout_marginTop="@dimen/dp_12"
-                    android:layout_toLeftOf="@id/game_detail_feedback_bt"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/selector_game_detail_like_bt" />
+                    <ImageView
+                        android:id="@+id/game_detail_like_iv"
+                        android:layout_width="@dimen/dm040"
+                        android:layout_height="@dimen/dm036"
+                        android:layout_marginRight="@dimen/dp_20"
+                        android:layout_marginTop="@dimen/dp_2"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/selector_game_detail_like_bt" />
+
+                    <TextView
+                        android:id="@+id/game_detail_feedback_bt"
+                        android:layout_width="@dimen/game_detail_feedback_bt_width"
+                        android:layout_height="@dimen/game_detail_feedback_bt_height"
+                        android:background="@drawable/shape_corner4dp_white_3ecc7a"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:text="反馈"
+                        android:textColor="@color/download_bt_nomal"
+                        android:textSize="@dimen/dp_14" />
+
+                    <cn.ngame.store.view.GameLoadProgressBar
+                        android:id="@+id/game_detail_progress_bar"
+                        android:layout_width="48dp"
+                        android:layout_height="26dp"
+                        android:layout_marginLeft="@dimen/dp_20"
+                        android:clickable="true"
+                        android:text="@string/download"
+                        android:textColor="@color/white"
+                        android:textSize="14dp"
+                        ngame:progress="0" /><!--文字大小不能引用 资源的dp-->
+
+                </LinearLayout>
+
 
                 <TextView
                     android:id="@+id/game_detail_percentage_tv"
@@ -322,10 +327,10 @@
                 tabs:xTabSelectedBackgroundColor="@color/white"
                 tabs:xTabSelectedTextColor="@color/mainColor"
                 tabs:xTabSelectedTextSize="@dimen/dm028"
-                tabs:xTabTextSize="@dimen/dm028"
                 tabs:xTabTextAllCaps="false"
                 tabs:xTabTextColor="@color/aaaaaa"
-                tabs:xTabTextSelectedBold="true" />
+                tabs:xTabTextSelectedBold="true"
+                tabs:xTabTextSize="@dimen/dm028" />
 
 
             <cn.ngame.store.view.AutoHeightViewPager
