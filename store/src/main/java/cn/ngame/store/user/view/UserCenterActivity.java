@@ -90,6 +90,7 @@ public class UserCenterActivity extends BaseFgActivity {
     private ArrayAdapter<String> mAdapter;
     private Dialog defAvatarDialog;
     private FragmentManager fm;
+    private Uri fileUri;
 
 
     @Override
@@ -326,7 +327,7 @@ public class UserCenterActivity extends BaseFgActivity {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         String fileName = "Temp_camera" + String.valueOf(System.currentTimeMillis());
         File cropFile = new File(mTempDir, fileName);
-        Uri fileUri = Uri.fromFile(cropFile);
+        fileUri = FileUtil.getUriForFile(content, cropFile);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file
 
         mCurrentPhotoPath = fileUri.getPath();
@@ -341,8 +342,8 @@ public class UserCenterActivity extends BaseFgActivity {
             } else if (requestCode == Crop.REQUEST_CROP) {
                 handleCrop(resultCode, result);
             } else if (requestCode == REQUEST_CODE_CAPTURE_CAMERA) {
-                if (mCurrentPhotoPath != null) {
-                    beginCrop(Uri.fromFile(new File(mCurrentPhotoPath)));
+                if (fileUri != null) {
+                    beginCrop(fileUri);
                 }
             }
         }
