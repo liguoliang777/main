@@ -99,6 +99,7 @@ import cn.ngame.store.search.view.SearchActivity;
 import cn.ngame.store.user.view.LoginActivity;
 import cn.ngame.store.user.view.UserCenterActivity;
 import cn.ngame.store.util.ToastUtil;
+import cn.ngame.store.util.Utils;
 import cn.ngame.store.view.DialogModel;
 import cn.ngame.store.view.FloatView;
 
@@ -1013,7 +1014,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
                 null);
         TextView tv_title = (TextView) contentView.findViewById(R.id.tv_title);
 
-        String fileSizeStr = Formatter.formatFileSize(context, versionInfo.fileSize);
+        String fileSizeStr = Utils.get_KB_MB_GB_Size(versionInfo.fileSize);
 
         tv_title.setText("有新版本：V" + versionInfo.versionName + "（" + fileSizeStr + "）");
         TextView tv_summary = (TextView) contentView.findViewById(R.id.tv_summary);

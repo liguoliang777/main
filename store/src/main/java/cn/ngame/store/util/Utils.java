@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.security.MessageDigest;
+import java.text.DecimalFormat;
 
 /**
  * Created by gp on 16/10/8.
@@ -168,5 +169,19 @@ public class Utils {
         }
         return result;
     }
-
+    public static String get_KB_MB_GB_Size(long fileSize) {
+        //如果字节数少于1024，则直接以B为单位，否则先除于1024，后3位因太少无意义
+        DecimalFormat df = new DecimalFormat("#.00");
+        String fileSizeString="";
+        if (fileSize < 1024) {
+            fileSizeString = df.format((double) fileSize) + "B";
+        } else if (fileSize < 1048576) {
+            fileSizeString = df.format((double) fileSize / 1024) + "K";
+        } else if (fileSize < 1073741824) {
+            fileSizeString = df.format((double) fileSize / 1048576) + "M";
+        } else {
+            fileSizeString = df.format((double) fileSize / 1073741824) + "G";
+        }
+        return fileSizeString;
+    }
 }

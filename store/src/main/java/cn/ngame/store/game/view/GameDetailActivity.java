@@ -25,6 +25,7 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -87,6 +88,7 @@ import cn.ngame.store.core.utils.UMEventNameConstant;
 import cn.ngame.store.game.presenter.HomeFragmentChangeLayoutListener;
 import cn.ngame.store.util.ConvUtil;
 import cn.ngame.store.util.ToastUtil;
+import cn.ngame.store.util.Utils;
 import cn.ngame.store.view.AutoHeightViewPager;
 import cn.ngame.store.view.GameLoadProgressBar;
 import cn.ngame.store.view.MarqueTextView;
@@ -214,7 +216,7 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
 
                 new ShareAction(content).setDisplayList(SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE,
                         SHARE_MEDIA
-                        .WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE).
+                                .WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE).
                         setShareboardclickCallback(new ShareBoardlistener() {
                             @Override
                             public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
@@ -395,7 +397,8 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
                 gameType3.setVisibility(View.VISIBLE);
             }*/
         }
-        gameSizeTv.setText(Formatter.formatFileSize(content, gameInfo.gameSize));//大小
+        //gameSizeTv.setText(Formatter.formatFileSize(content, Long.valueOf(gameInfo.gameSize)));//大小
+        gameSizeTv.setText(Utils.get_KB_MB_GB_Size(gameInfo.gameSize));//大小
         downLoadCountTv.setText(gameInfo.downloadCount + "");//下载次数
         //percentageTv.setText(gameInfo.percentage + "");//评分0
         percentageTv.setText("5.0");//评分0
@@ -469,7 +472,7 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
                     //设置进度条状态
                     progressBar.setLoadState(fileLoad.getGameFileLoadStatus(gameInfo.filename,
                             gameInfo.gameLink, gameInfo
-                            .packages, ConvUtil.NI(gameInfo.versionCode)));
+                                    .packages, ConvUtil.NI(gameInfo.versionCode)));
                     //必须设置，否则点击进度条后无法进行响应操作
                     FileLoadInfo fileLoadInfo = new FileLoadInfo(gameInfo.filename, gameInfo
                             .gameLink, gameInfo.md5, ConvUtil
@@ -480,7 +483,7 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
                     fileLoadInfo.setVersionCode(ConvUtil.NI(gameInfo.versionCode));
                     progressBar.setOnStateChangeListener(new ProgressBarStateListener
                             (GameDetailActivity.this,
-                            GameDetailActivity.this.getSupportFragmentManager()));
+                                    GameDetailActivity.this.getSupportFragmentManager()));
                     progressBar.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

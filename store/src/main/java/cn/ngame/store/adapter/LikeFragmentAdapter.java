@@ -41,6 +41,7 @@ import cn.ngame.store.core.fileload.FileLoadInfo;
 import cn.ngame.store.core.fileload.FileLoadManager;
 import cn.ngame.store.core.fileload.IFileLoad;
 import cn.ngame.store.util.ConvUtil;
+import cn.ngame.store.util.Utils;
 import cn.ngame.store.view.GameLoadProgressBar;
 import cn.ngame.store.view.QuickAction;
 
@@ -120,13 +121,15 @@ public class LikeFragmentAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
 
-        final LikeListBean.DataBean.GameListBean fileInfo = (fileInfoList == null) ? null : fileInfoList.get(position);
+        final LikeListBean.DataBean.GameListBean fileInfo = (fileInfoList == null) ? null :
+                fileInfoList.get(position);
 
         ViewHolder holder;
         if (convertView == null) {
 
             holder = new ViewHolder(context, fm);
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_lv_like, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_lv_like, parent,
+                    false);
             holder.img = (SimpleDraweeView) convertView.findViewById(R.id.img_1);
             holder.tv_title = (TextView) convertView.findViewById(tv_title);
             holder.versionTv = (TextView) convertView.findViewById(R.id.tv_version_time);
@@ -190,8 +193,10 @@ public class LikeFragmentAdapter extends BaseAdapter {
                     uiHandler.post(new Runnable() {
                         @Override
                         public void run() {
-                            progressBar.setLoadState(fileLoad.getGameFileLoadStatus(gameInfo.getFilename(), gameInfo
-                                    .getGameLink(), gameInfo.getPackages(), ConvUtil.NI(gameInfo.getVersionCode())));
+                            progressBar.setLoadState(fileLoad.getGameFileLoadStatus(gameInfo
+                                    .getFilename(), gameInfo
+                                    .getGameLink(), gameInfo.getPackages(), ConvUtil.NI(gameInfo
+                                    .getVersionCode())));
                             progressBar.setVisibility(View.VISIBLE);
                         }
                     });
@@ -207,17 +212,20 @@ public class LikeFragmentAdapter extends BaseAdapter {
             if (null != gameName) {
                 tv_title.setText(gameName);
             }
-            tv_size.setText(Formatter.formatFileSize(context, gameInfo.getGameSize()));
+            tv_size.setText(Utils.get_KB_MB_GB_Size(gameInfo.getGameSize()));
             String timeLike = new SimpleDateFormat("yyyy-MM-dd").format(new Date(gameInfo
                     .getUpdateTime()));
             versionTv.setText("V" + gameInfo.getVersionName() + " / " + timeLike);
             progressBar.setVisibility(View.INVISIBLE);
             //设置进度条状态
             progressBar.setLoadState(fileLoad.getGameFileLoadStatus(gameInfo.getFilename(), gameInfo
-                    .getGameLink(), gameInfo.getPackages(), ConvUtil.NI(gameInfo.getVersionCode())));
+                    .getGameLink(), gameInfo.getPackages(), ConvUtil.NI(gameInfo.getVersionCode()
+            )));
             //必须设置，否则点击进度条后无法进行响应操作
-            FileLoadInfo fileLoadInfo = new FileLoadInfo(gameInfo.getFilename(), gameInfo.getGameLink(), gameInfo
-                    .getMd5(), gameInfo.getVersionCode(), gameInfo.getGameName(), gameInfo.getGameLogo(), gameInfo
+            FileLoadInfo fileLoadInfo = new FileLoadInfo(gameInfo.getFilename(), gameInfo
+                    .getGameLink(), gameInfo
+                    .getMd5(), gameInfo.getVersionCode(), gameInfo.getGameName(), gameInfo
+                    .getGameLogo(), gameInfo
                     .getId(), FileLoadInfo.TYPE_GAME);
             fileLoadInfo.setPackageName(gameInfo.getPackages());
             progressBar.setFileLoadInfo(fileLoadInfo);

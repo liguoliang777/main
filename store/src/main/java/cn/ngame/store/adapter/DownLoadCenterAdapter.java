@@ -39,6 +39,7 @@ import cn.ngame.store.core.fileload.FileLoadInfo;
 import cn.ngame.store.core.fileload.FileLoadManager;
 import cn.ngame.store.core.fileload.GameFileStatus;
 import cn.ngame.store.core.fileload.IFileLoad;
+import cn.ngame.store.util.Utils;
 import cn.ngame.store.view.GameLoadProgressBar;
 import cn.ngame.store.view.QuickAction;
 
@@ -63,7 +64,8 @@ public class DownLoadCenterAdapter extends BaseAdapter {
     private Handler uiHandler = new Handler();
     private int mPosition;
 
-    public DownLoadCenterAdapter(Context context, FragmentManager fm, QuickAction mItemClickQuickAction) {
+    public DownLoadCenterAdapter(Context context, FragmentManager fm, QuickAction
+            mItemClickQuickAction) {
         super();
         this.context = context;
         this.mItemClickQuickAction = mItemClickQuickAction;
@@ -118,7 +120,8 @@ public class DownLoadCenterAdapter extends BaseAdapter {
         if (convertView == null) {
 
             holder = new ViewHolder(context, fm);
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_lv_download_center, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_lv_download_center,
+                    parent, false);
             holder.img = (SimpleDraweeView) convertView.findViewById(R.id.img_1);
             holder.tv_title = (TextView) convertView.findViewById(tv_title);
             // holder.tv_percent = (TextView) convertView.findViewById(R.id.tv_percent);
@@ -187,7 +190,8 @@ public class DownLoadCenterAdapter extends BaseAdapter {
                     uiHandler.post(new Runnable() {
                         @Override
                         public void run() {
-                            GameFileStatus fileStatus = fileLoad.getGameFileLoadStatus(fileInfo.getName(), fileInfo.getUrl(),
+                            GameFileStatus fileStatus = fileLoad.getGameFileLoadStatus(fileInfo
+                                            .getName(), fileInfo.getUrl(),
                                     fileInfo.getPackageName(), fileInfo.getVersionCode());
 
                             progressBar.setLoadState(fileStatus);
@@ -196,13 +200,14 @@ public class DownLoadCenterAdapter extends BaseAdapter {
                             if (finished == total) {
                                 tv_finished.setText("");
                             } else {
-                                tv_finished.setText(Formatter.formatFileSize(context, finished) + "/");
+                                tv_finished.setText(Utils.get_KB_MB_GB_Size(finished) + "/");
                             }
-                            tv_size.setText(Formatter.formatFileSize(context, total));
+                            tv_size.setText(Utils.get_KB_MB_GB_Size(total));
                             if (fileStatus == null) {
                                 return;
                             }
-                            int process = (int) ((double) fileStatus.getFinished() / (double) fileStatus.getLength() * 100);
+                            int process = (int) ((double) fileStatus.getFinished() / (double)
+                                    fileStatus.getLength() * 100);
                             if (process >= 100) {
                                 process = 0;
                             }
@@ -228,7 +233,8 @@ public class DownLoadCenterAdapter extends BaseAdapter {
                                 pb.setVisibility(View.VISIBLE);
                             } else if (status == GameFileStatus.STATE_HAS_DOWNLOAD) {
                                 pb.setVisibility(View.INVISIBLE);
-                                if (tv_size != null && tv_size.getText().toString().endsWith("KB")) {
+                                if (tv_size != null && tv_size.getText().toString().endsWith
+                                        ("KB")) {
                                     tv_state.setText("安装包异常");
                                 } else {
                                     tv_state.setText("已完成");
@@ -254,10 +260,11 @@ public class DownLoadCenterAdapter extends BaseAdapter {
             //tv_percent .setText("");
             tv_state.setText("");
             pb.setVisibility(View.INVISIBLE);
-            tv_size.setText(Formatter.formatFileSize(context, fileInfo.getLength()));
+            tv_size.setText(Utils.get_KB_MB_GB_Size(fileInfo.getLength()));
             progressBar.setVisibility(View.INVISIBLE);
             //设置进度条状态
-            progressBar.setLoadState(fileLoad.getGameFileLoadStatus(fileInfo.getName(), fileInfo.getPreviewUrl(), fileInfo
+            progressBar.setLoadState(fileLoad.getGameFileLoadStatus(fileInfo.getName(), fileInfo
+                    .getPreviewUrl(), fileInfo
                     .getPackageName(), fileInfo.getVersionCode()));
             //必须设置，否则点击进度条后无法进行响应操作
             progressBar.setFileLoadInfo(fileInfo);

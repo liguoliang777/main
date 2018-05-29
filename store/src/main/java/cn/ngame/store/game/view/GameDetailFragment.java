@@ -37,6 +37,7 @@ import cn.ngame.store.fragment.ImageDialogFragment;
 import cn.ngame.store.game.presenter.HomeFragmentChangeLayoutListener;
 import cn.ngame.store.gamehub.view.ShowViewActivity;
 import cn.ngame.store.util.ToastUtil;
+import cn.ngame.store.util.Utils;
 import cn.ngame.store.view.AutoHeightViewPager;
 
 import static cn.ngame.store.R.id.tv_show_all2;
@@ -232,7 +233,7 @@ public class GameDetailFragment extends Fragment implements View.OnClickListener
                 }
             });
             tv_version.setText(this.gameInfo.versionName);
-            tv_game_size.setText(Formatter.formatFileSize(context, this.gameInfo.gameSize));
+            tv_game_size.setText(Utils.get_KB_MB_GB_Size(gameInfo.gameSize));
             tv_download_count.setText(this.gameInfo.downloadCount + "");
             tv_time.setText(df.format(new Date(this.gameInfo.updateTime)));
             String gameAgent = gameInfo.gameAgent;

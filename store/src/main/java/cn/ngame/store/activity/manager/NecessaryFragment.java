@@ -34,6 +34,7 @@ import cn.ngame.store.core.net.GsonRequest;
 import cn.ngame.store.core.utils.Constant;
 import cn.ngame.store.core.utils.KeyConstant;
 import cn.ngame.store.core.utils.UrlConstant;
+import cn.ngame.store.util.Utils;
 import cn.ngame.store.view.ActionItem;
 import cn.ngame.store.view.QuickAction;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
@@ -195,7 +196,7 @@ public class NecessaryFragment extends BaseSearchFragment {
                     mToolInfo = singeToolList.get(j);
                     mNecessaryList.add(new NecessaryItemData(id + "", toolName, mToolInfo.getId()
                             , mToolInfo.getToolName()
-                            , mToolInfo.getInstallDesc(), Formatter.formatFileSize(content,
+                            , mToolInfo.getInstallDesc(), Utils.get_KB_MB_GB_Size(
                             mToolInfo.getFileSize()),
                             mToolInfo.getToolLogo(), mToolInfo.getToolURL(), mToolInfo.getMd5(),
                             mToolInfo.getFileName(),
