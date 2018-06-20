@@ -6,17 +6,34 @@
     android:descendantFocusability="blocksDescendants"
     android:orientation="vertical">
 
+    <cn.ngame.store.view.PullScrollView
+        android:id="@+id/recommend_2_mall"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_recommend1_bg"
+        android:scrollbars="none"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:id="@+id/recommend_2_mall_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="false"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/dm016"></LinearLayout>
+    </cn.ngame.store.view.PullScrollView>
+
     <cn.ngame.store.widget.pulllistview.PullToRefreshListView
         android:id="@+id/pullListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/f5f5f5"
         android:divider="@null"
-        android:visibility="visible"
         android:paddingTop="@dimen/dm004"
-        android:scrollbars="none" />
+        android:scrollbars="none"
+        android:visibility="visible" />
 
-    <ScrollView
+    <cn.ngame.store.view.PullScrollView
         android:id="@+id/recommend_1_boutique"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -26,14 +43,15 @@
 
         <LinearLayout
             android:id="@+id/horizontalView_container"
-            android:paddingLeft="@dimen/dm032"
-            android:paddingRight="@dimen/dm032"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:focusable="false"
             android:orientation="vertical"
+            android:paddingLeft="@dimen/dm032"
+            android:paddingRight="@dimen/dm032"
             android:paddingTop="@dimen/dm015"></LinearLayout>
-    </ScrollView>
+    </cn.ngame.store.view.PullScrollView>
+
 
     <cn.ngame.store.view.LoadStateView xmlns:ngame="http://schemas.android.com/apk/res-auto"
         android:id="@+id/load_state_view2"

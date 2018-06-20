@@ -45,6 +45,7 @@ import cn.ngame.store.core.utils.UMEventNameConstant;
 import cn.ngame.store.game.view.GameDetailActivity;
 import cn.ngame.store.util.ToastUtil;
 import cn.ngame.store.view.LoadStateView;
+import cn.ngame.store.view.PullScrollView;
 import cn.ngame.store.widget.pulllistview.PullToRefreshBase;
 import cn.ngame.store.widget.pulllistview.PullToRefreshListView;
 
@@ -66,7 +67,7 @@ public class RecommendFragment extends BaseSearchFragment {
     public static int PAGE_SIZE = 8;
     List<RecommendListBean.DataBean> topList = new ArrayList<>();
     List<RecommendListBean.DataBean> list = new ArrayList<>();
-    private LinearLayout horizontalViewContainer;
+    private LinearLayout horizontalViewContainer,mallLayout;
     private FragmentActivity context;
     private Intent singeTopicsDetailIntent = new Intent();
     private LinearLayout.LayoutParams hParams;
@@ -74,8 +75,8 @@ public class RecommendFragment extends BaseSearchFragment {
     private boolean mIsShow = false;
     private ListView refreshableView;
     private Picasso picasso;
-    private LinearLayout parent;
-    private ScrollView boutiqueLayout;
+    private PullScrollView boutiqueLayout;
+    private PullScrollView shopMallLayout;
 
     public static RecommendFragment newInstance(int arg) {
         RecommendFragment fragment = new RecommendFragment();
@@ -137,6 +138,78 @@ public class RecommendFragment extends BaseSearchFragment {
 
     private List<YunduanBean.DataBean> gameInfo;
 
+    private void getHorizontalData2() {
+        YunduanBodyBean bodyBean = new YunduanBodyBean();
+        new YunduanClient(context, bodyBean).observable()
+                .subscribe(new ObserverWrapper<YunduanBean>() {
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @SuppressLint("NewApi")
+                    @Override
+                    public void onNext(YunduanBean result) {
+                        if (result != null && result.getCode() == 0) {
+                            gameInfo = result.getData();
+                            if (null == gameInfo || gameInfo.size() == 0) {
+                                Log.d(TAG, "HTTP请求成功：服务端返回错误！");
+                            } else {
+                                mallLayout.removeAllViews();
+                                int size = gameInfo.size();
+                                Resources resources = getResources();
+                                int pxRound = resources.getDimensionPixelOffset(R.dimen.dm000);
+                                int pxTop = resources.getDimensionPixelOffset(R.dimen.dm007);
+                                int pxHeight = resources.getDimensionPixelOffset(R.dimen.dm500);
+
+                                for (int i = 0; i < size; i++) {
+                                    final YunduanBean.DataBean info = gameInfo.get(i);
+                                    final String gameImage = info.getLogoUrl();//获取每一张图片
+                                    simpleImageView = new SimpleDraweeView(context);
+                                    RoundingParams roundingParams = RoundingParams
+                                            .fromCornersRadius(pxRound);
+                                    GenericDraweeHierarchy hierarchy = GenericDraweeHierarchyBuilder
+                                            .newInstance(resources)
+                                            .setPlaceholderImage(R.color.e5e5e5)
+                                            .setFailureImage(R.color.e5e5e5)
+                                            .setActualImageScaleType(ScalingUtils.ScaleType.FOCUS_CROP)
+                                            .setRoundingParams(roundingParams)
+                                            .setFadeDuration(0)
+                                            .build();
+                                    simpleImageView.setHierarchy(hierarchy);
+                                    simpleImageView.setBackgroundResource(android.R.drawable
+                                            .dialog_holo_light_frame);
+                                    //为  PicassoImageView设置属性
+                                    hParams = new LinearLayout.LayoutParams(
+                                            ViewGroup.LayoutParams.MATCH_PARENT, pxHeight);
+                                    // hParams.height = pxHeight;
+                                    //有多个图片的话
+                                    hParams.setMargins(0, 0, 0, pxTop);
+                                    simpleImageView.setLayoutParams(hParams);
+                                    //加载网络图片
+                                    simpleImageView.setImageURI(gameImage);
+                                    simpleImageView.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            singeTopicsDetailIntent.putExtra(KeyConstant
+                                                    .category_Id, info.getId());
+                                            singeTopicsDetailIntent.putExtra(KeyConstant.TITLE,
+                                                    info.getTypeName());
+                                            singeTopicsDetailIntent.putExtra(KeyConstant.DESC,
+                                                    info.getTypeDesc());
+                                            singeTopicsDetailIntent.putExtra(KeyConstant.URL,
+                                                    gameImage);
+                                            startActivity(singeTopicsDetailIntent);
+                                        }
+                                    });
+                                    mallLayout.addView(simpleImageView, i);
+                                }
+                            }
+                        } else {
+                        }
+                    }
+                });
+    }
+
     private void getHorizontalData() {
         YunduanBodyBean bodyBean = new YunduanBodyBean();
         new YunduanClient(context, bodyBean).observable()
@@ -154,6 +227,7 @@ public class RecommendFragment extends BaseSearchFragment {
                                 Log.d(TAG, "HTTP请求成功：服务端返回错误！");
                             } else {
                                 horizontalViewContainer.removeAllViews();
+                                mallLayout.removeAllViews();
                                 int size = gameInfo.size();
                                 Resources resources = getResources();
                                 int pxRound = resources.getDimensionPixelOffset(R.dimen.dm005);
@@ -201,6 +275,7 @@ public class RecommendFragment extends BaseSearchFragment {
                                         }
                                     });
                                     horizontalViewContainer.addView(simpleImageView, i);
+                                    //mallLayout.addView(simpleImageView);
                                 }
                             }
                         } else {
@@ -284,7 +359,9 @@ public class RecommendFragment extends BaseSearchFragment {
         pageAction.setPageSize(PAGE_SIZE);
         loadStateView = (LoadStateView) view.findViewById(R.id.load_state_view2);
         horizontalViewContainer = (LinearLayout) view.findViewById(R.id.horizontalView_container);
-        boutiqueLayout = (ScrollView) view.findViewById(R.id.recommend_1_boutique);
+        mallLayout = (LinearLayout) view.findViewById(R.id.recommend_2_mall_layout);
+        boutiqueLayout = (PullScrollView) view.findViewById(R.id.recommend_1_boutique);
+        shopMallLayout = (PullScrollView) view.findViewById(R.id.recommend_2_mall);
         loadStateView.isShowLoadBut(false);
         pullListView = (PullToRefreshListView) view.findViewById(R.id.pullListView);
         pullListView.setPullLoadEnabled(true);
@@ -314,7 +391,6 @@ public class RecommendFragment extends BaseSearchFragment {
                 } else {
                     //下拉请求数据
                     getGameList();//竖着的,游戏位
-                    getHorizontalData();//横着 精选位游戏
                 }
                 pullListView.setLastUpdatedLabel(new Date().toLocaleString());
             }
@@ -401,6 +477,7 @@ public class RecommendFragment extends BaseSearchFragment {
         } else {
             getGameList();
             getHorizontalData();
+            getHorizontalData2();
         }
     }
 
@@ -637,7 +714,7 @@ public class RecommendFragment extends BaseSearchFragment {
     public void setTab(int position) {
         boutiqueLayout.setVisibility(0 == position ? View.VISIBLE : View.GONE);
         pullListView.setVisibility(1 == position ? View.VISIBLE : View.GONE);
-        //pullListView.setVisibility(0 == position?View.VISIBLE:View.GONE);
+        shopMallLayout.setVisibility(2 == position?View.VISIBLE:View.GONE);
         //pullListView.setVisibility(0 == position?View.VISIBLE:View.GONE);
 
     }
