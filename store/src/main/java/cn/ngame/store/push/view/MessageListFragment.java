@@ -19,7 +19,6 @@ import java.util.List;
 import cn.ngame.store.R;
 import cn.ngame.store.push.model.PushMessage;
 import cn.ngame.store.push.presenter.IPushMsgListPresenter;
-import cn.ngame.store.push.presenter.PushMsgListPresenter;
 import cn.ngame.store.view.ActionItem;
 import cn.ngame.store.view.QuickAction;
 
@@ -49,7 +48,7 @@ public class MessageListFragment extends Fragment implements IPushMsgListView {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getActivity();
-        presenter = new PushMsgListPresenter(context, this);
+        //presenter = new PushMsgListPresenter(context, this);
 
     }
 

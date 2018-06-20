@@ -1,9 +1,5 @@
 package cn.ngame.store.util;
 
-import org.joda.time.DateTime;
-import org.joda.time.Days;
-import org.joda.time.Interval;
-import org.joda.time.Minutes;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -52,105 +48,6 @@ public class DateUtil {
         }
         return false;
     }
-
-    public static String getShowTime(DateTime target, String str) {
-        if (target == null) {
-            return "";
-        }
-        DateTime now = getNowServerTime();
-        long target_millis = target.getMillis();
-        long now_millis = now.getMillis();
-        Interval interval = new Interval(target_millis <= now_millis ? target_millis : now_millis, target_millis <= now_millis ? now_millis : target_millis);
-        int minute = Minutes.minutesIn(interval).getMinutes();
-        int days = Days.daysIn(interval).getDays();
-        if (minute < 1) {
-            return target.toString("刚刚");
-        }
-        return target.toString(IsDayAndYesterday(target, str));
-
-//        if (minute > 1) {
-//            int hours = Hours.hoursIn(interval).getHours();
-//            if (hours < 1) {
-//                int minutes = Minutes.minutesIn(interval).getMinutes();
-//                if (minutes < 2) {
-//                    return "一会儿之前";
-//                }
-//                return minutes + "分钟之前";
-//            }
-
-//            return hours + "小时之前";
-//            return target.toString("今天" + "HH:mm");
-//        }
-//        if (days < 1) {
-//            return target.toString("昨天" + "HH:mm");
-//        }
-//        if (days >= 1 && days < 2) {
-//            return target.toString("前天" + "HH:mm");
-//        }
-//        if (days >= 2) {
-//            return target.toString("yyyy-MM-dd HH:mm");
-//        }
-//        if (days < 7) {
-//            return days + "天之前";
-//        }
-//        if (days < 14) {
-//            return "一周之前";
-//        }
-//        int years = Years.yearsIn(interval).getYears();
-//        if (years < 1) {
-//            return target.toString("MM-dd");
-//        }
-//        return target.toString("yyyy-MM-dd");
-    }
-
-    public static DateTime getNowServerTime() {
-        return new DateTime(System.currentTimeMillis());
-    }
-
-    /**
-     * 判断是否为昨天(效率比较高)
-     *
-     * @param day 传入的 时间  "2016.06.28 10:10:30" "2016.06.28" 都可以
-     * @return true今天 false不是
-     * @throws ParseException
-     */
-    public static String IsDayAndYesterday(DateTime target, String day) {
-        try {
-            Calendar pre = Calendar.getInstance();
-            Date predate = new Date(System.currentTimeMillis());
-            pre.setTime(predate);
-
-            Calendar cal = Calendar.getInstance();
-            Date date = new SimpleDateFormat("yyyy.MM.dd").parse(day);
-            cal.setTime(date);
-
-            if (cal.get(Calendar.YEAR) == (pre.get(Calendar.YEAR))) {
-                int diffDay = cal.get(Calendar.DAY_OF_YEAR)
-                        - pre.get(Calendar.DAY_OF_YEAR);
-                if (diffDay == 0) {
-                    return "今天" + target.toString("HH:mm");
-                }
-                if (diffDay == -1) {
-                    return "昨天" + target.toString("HH:mm");
-                }
-                if (diffDay == -2) {
-                    return "前天" + target.toString("HH:mm");
-                }
-            } else {
-                return target.toString("yyyy-MM-dd HH:mm");
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return target.toString("yyyy-MM-dd HH:mm");
-    }
-
-//    public static SimpleDateFormat getDateFormat() {
-//        if (null == DateLocal.get()) {
-//            DateLocal.set(new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA));
-//        }
-//        return DateLocal.get();
-//    }
 
     /**
      * 将时间戳转为字符串 ，格式：yyyy.MM.dd

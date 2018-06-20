@@ -18,7 +18,7 @@
 			[
 				
 				{
-					"flags" : "  --target=i686-none-linux-android --gcc-toolchain=D:/sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/windows-x86_64 --sysroot=D:/sdk/ndk-bundle/sysroot  -Dnative_lib_EXPORTS -isystem D:\\sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem D:\\sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\x86\\include -isystem D:\\sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -isystem D:/sdk/ndk-bundle/sysroot/usr/include/i686-linux-android -D__ANDROID_API__=19 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -Wa,--noexecstack -Wformat -Werror=format-security  -frtti -fexceptions -O0 -fno-limit-debug-info  -fPIC    -c ",
+					"flags" : "  --target=i686-none-linux-android --gcc-toolchain=D:/sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/windows-x86_64 --sysroot=D:/sdk/ndk-bundle/sysroot  -Dnative_lib_EXPORTS -isystem D:\\sdk\\ndk-bundle\\sources\\cxx-stl\\llvm-libc++\\include -isystem D:\\sdk\\ndk-bundle\\sources\\android\\support\\include -isystem D:\\sdk\\ndk-bundle\\sources\\cxx-stl\\llvm-libc++abi\\include  -isystem D:/sdk/ndk-bundle/sysroot/usr/include/i686-linux-android -D__ANDROID_API__=19 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -Wa,--noexecstack -Wformat -Werror=format-security -std=c++11 -frtti -fexceptions -O0 -fno-limit-debug-info  -fPIC    -c ",
 					"src" : "D:/projects/main/Pad/src/main/cpp/native-lib.cpp",
 					"workingDirectory" : "D:/projects/main/Pad/.externalNativeBuild/cmake/debug/x86"
 				}

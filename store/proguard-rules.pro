@@ -84,6 +84,7 @@
 ##-------------------- mySelf ---------------------------
 
 -keep class com.google.vr.** {*;}
+-keep class com.google.** { *;}
 -keep class com.soundcloud.android.crop.** {*;}
 
 -dontwarn com.nineoldandroids.*

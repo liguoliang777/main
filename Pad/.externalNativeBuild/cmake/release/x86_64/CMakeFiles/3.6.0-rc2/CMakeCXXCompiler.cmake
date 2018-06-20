@@ -63,6 +63,6 @@ endif()
 
 
 
-set(CMAKE_CXX_IMPLICIT_LINK_LIBRARIES "stdc++;m;dl;c;dl")
-set(CMAKE_CXX_IMPLICIT_LINK_DIRECTORIES "D:/sdk/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/lib64/clang/5.0.300080/lib/linux/x86_64;D:/sdk/ndk-bundle/toolchains/x86_64-4.9/prebuilt/windows-x86_64/lib/gcc/x86_64-linux-android/4.9.x;D:/sdk/ndk-bundle/toolchains/x86_64-4.9/prebuilt/windows-x86_64/x86_64-linux-android/lib64;D:/sdk/ndk-bundle/platforms/android-21/arch-x86_64/usr/lib64;D:/sdk/ndk-bundle/toolchains/x86_64-4.9/prebuilt/windows-x86_64/x86_64-linux-android/lib;D:/sdk/ndk-bundle/platforms/android-21/arch-x86_64/usr/lib")
+set(CMAKE_CXX_IMPLICIT_LINK_LIBRARIES "m;dl;c;dl")
+set(CMAKE_CXX_IMPLICIT_LINK_DIRECTORIES "D:/sdk/ndk-bundle/sources/cxx-stl/llvm-libc++/libs/x86_64;D:/sdk/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/lib64/clang/6.0.2/lib/linux/x86_64;D:/sdk/ndk-bundle/toolchains/x86_64-4.9/prebuilt/windows-x86_64/lib/gcc/x86_64-linux-android/4.9.x;D:/sdk/ndk-bundle/toolchains/x86_64-4.9/prebuilt/windows-x86_64/x86_64-linux-android/lib64;D:/sdk/ndk-bundle/platforms/android-21/arch-x86_64/usr/lib64;D:/sdk/ndk-bundle/toolchains/x86_64-4.9/prebuilt/windows-x86_64/x86_64-linux-android/lib;D:/sdk/ndk-bundle/platforms/android-21/arch-x86_64/usr/lib")
 set(CMAKE_CXX_IMPLICIT_LINK_FRAMEWORK_DIRECTORIES "")

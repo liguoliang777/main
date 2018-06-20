@@ -559,30 +559,6 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
 //        return fragmentlist;
 //    }
 
-
-    //请求广告图片地址
-    private void showAdverDialog() {
-        BrowseHistoryBodyBean bean = new BrowseHistoryBodyBean();
-        bean.setType(41);
-        new AppCarouselClient(this, bean).observable()
-//                .compose(this.<DiscountListBean>bindToLifecycle())
-                .subscribe(new ObserverWrapper<AppCarouselBean>() {
-                    @Override
-                    public void onError(Throwable e) {
-//                        ToastUtil.show(MainHomeActivity.this, APIErrorUtils.getMessage(e));
-                    }
-
-                    @Override
-                    public void onNext(AppCarouselBean result) {
-                        if (result != null && result.getCode() == 0) {
-                            showCarousel(result);
-                        } else {
-//                            ToastUtil.show(MainHomeActivity.this, result.getMsg());
-                        }
-                    }
-                });
-    }
-
     public void showCarousel(final AppCarouselBean result) {
         imgUrl = result.getData().get(0).getAdvImageLink();
         final DialogModel dialogModel = new DialogModel(context, imgUrl);

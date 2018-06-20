@@ -8,7 +8,7 @@ android {
 
     signingConfigs {
     }
-    compileSdkVersion 26
+    compileSdkVersion 27
     packagingOptions {
         exclude '.readme'
         exclude 'LICENSE.txt'
@@ -30,13 +30,13 @@ android {
     defaultConfig {
         applicationId "cn.ngame.store"
         minSdkVersion 19
-        targetSdkVersion 26
-        versionCode 500006
-        versionName "V5.0.6."
+        targetSdkVersion 27
+        versionCode 500007
+        versionName "V5.0.7."
 
         ndk {
             moduleName "Crc8Jni"
-            abiFilters "armeabi", "armeabi-v7a", "x86",'armeabi-v8a'
+            abiFilters "armeabi", "armeabi-v7a", "x86", 'armeabi-v8a'
         }
         // Enabling multidex support.
         multiDexEnabled true
@@ -58,6 +58,10 @@ android {
 
     buildTypes {
         debug {
+            lintOptions {
+                checkReleaseBuilds false
+                abortOnError false
+            }
             // 显示Log
             buildConfigField "boolean", "LOG_DEBUG", "true"
             /* //minifyEnabled false
@@ -72,6 +76,12 @@ android {
 
         }
         release {
+            lintOptions {
+
+                checkReleaseBuilds false
+
+                abortOnError false
+            }
             //signingConfig signingConfigs.release
             /*minifyEnabled false
             signingConfigs signingConfigs.debug
@@ -132,45 +142,49 @@ android {
 
 }
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation 'junit:junit:4.12'
     // compile 'com.android.support:appcompat-v7:26.+'
     //RxJava
+    implementation 'io.reactivex:rxjava:1.0.9'
+    implementation 'io.reactivex:rxandroid:0.24.0'
+    implementation 'com.squareup.retrofit:retrofit:1.9.0'
     //compile 'io.reactivex.rxjava2:rxjava:2.0.1'
     //compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     //引入gson
     //图片加载缓存
-    compile 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
     //图片加载+gif
-    compile 'com.facebook.fresco:fresco:0.11.0'
+    implementation 'com.facebook.fresco:fresco:0.11.0'
     //zip4j压缩
-    compile 'net.lingala.zip4j:zip4j:1.3.2'
+    implementation 'net.lingala.zip4j:zip4j:1.3.2'
     //友盟
-    compile 'com.umeng.analytics:analytics:latest.integration'
-    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+    implementation 'com.umeng.analytics:analytics:latest.integration'
+    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     //引入.aar文件
-    compile(name: 'common', ext: 'aar')
-    compile(name: 'commonwidget', ext: 'aar')
-    compile(name: 'videowidget', ext: 'aar')
-    compile project(path: ':RestfulApi')
-    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
-    compile 'com.android.support:design:26.1.0'
+    implementation(name: 'common', ext: 'aar')
+    implementation(name: 'commonwidget', ext: 'aar')
+    implementation(name: 'videowidget', ext: 'aar')
+    implementation project(path: ':RestfulApi')
+    implementation 'com.google.android.gms:play-services-appindexing:8.4.0'
+    implementation 'com.android.support:design:27.1.1'
     //引入名为imagelib的第三方库（图片截取库）
-    compile project(path: ':imagelib')
-    compile project(':sliding_menu')
+    implementation project(path: ':imagelib')
+    implementation project(':sliding_menu')
     implementation files('libs/mpermissions.jar')
     //解决 dex file cannot execute 64K [multidex]
-    compile 'com.android.support:multidex:1.0.2'
-    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
-    compile 'se.emilsjolander:stickylistheaders:2.7.0'
-    compile 'com.daimajia.numberprogressbar:library:1.4@aar'
+    implementation 'com.android.support:multidex:1.0.2'
+    implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+    implementation 'se.emilsjolander:stickylistheaders:2.7.0'
+    implementation 'com.daimajia.numberprogressbar:library:1.4@aar'
     //广告
     //compile 'com.inmobi.monetization:inmobi-ads:7.0.0'
     //compile files('libs/InMobi-7.0.0-China.jar')26
-    compile 'cn.jzvd:jiaozivideoplayer:6.1.1'
-    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.4'
-    compile 'fm.jiecao:jiecaovideoplayer:5.8.1'
+    implementation 'cn.jzvd:jiaozivideoplayer:6.1.1'
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.4'
+    implementation 'fm.jiecao:jiecaovideoplayer:5.8.1'
     implementation project(':Pad')
-
-    compile 'com.androidkun:XTabLayout:1.1.3'
+    implementation 'com.androidkun:XTabLayout:1.1.3'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'org.greenrobot:eventbus:3.0.0'
 }
