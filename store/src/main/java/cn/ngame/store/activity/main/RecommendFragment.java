@@ -158,7 +158,7 @@ public class RecommendFragment extends BaseSearchFragment {
                                 int size = gameInfo.size();
                                 Resources resources = getResources();
                                 int pxRound = resources.getDimensionPixelOffset(R.dimen.dm000);
-                                int pxTop = resources.getDimensionPixelOffset(R.dimen.dm007);
+                                int pxTop = resources.getDimensionPixelOffset(R.dimen.dm016);
                                 int pxHeight = resources.getDimensionPixelOffset(R.dimen.dm500);
 
                                 for (int i = 0; i < size; i++) {
@@ -176,8 +176,6 @@ public class RecommendFragment extends BaseSearchFragment {
                                             .setFadeDuration(0)
                                             .build();
                                     simpleImageView.setHierarchy(hierarchy);
-                                    simpleImageView.setBackgroundResource(android.R.drawable
-                                            .dialog_holo_light_frame);
                                     //为  PicassoImageView设置属性
                                     hParams = new LinearLayout.LayoutParams(
                                             ViewGroup.LayoutParams.MATCH_PARENT, pxHeight);
