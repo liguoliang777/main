@@ -8,11 +8,9 @@ import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
-import android.text.format.Formatter;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -25,7 +23,6 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.NumberPicker;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -112,7 +109,7 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
     private AutoHeightViewPager viewpager;
     private ArrayList<Fragment> fragments;
     private DCViewPagerAdapter adapter;
-    private String[] tabList = {"详情", "必读"};
+    private String[] tabList = {"详情", "圈子", "必读"};
     private long gameId = 0;
     private GameInfo gameInfo;
     private GameLoadProgressBar progressBar;
@@ -141,6 +138,7 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
     private AudioManager mAudioManager;
     private GridLayout mLayoutTags;
     private boolean isYuYueGame = false;
+    private GameDetailHubFragment detailHubFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -397,7 +395,8 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
                 gameType3.setVisibility(View.VISIBLE);
             }*/
         }
-        //gameSizeTv.setText(Formatter.formatFileSize(content, Long.valueOf(gameInfo.gameSize)));//大小
+        //gameSizeTv.setText(Formatter.formatFileSize(content, Long.valueOf(gameInfo.gameSize)));
+        // 大小
         gameSizeTv.setText(Utils.get_KB_MB_GB_Size(gameInfo.gameSize));//大小
         downLoadCountTv.setText(gameInfo.downloadCount + "");//下载次数
         //percentageTv.setText(gameInfo.percentage + "");//评分0
@@ -494,6 +493,7 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
                     //设置ViewPager
                     fragments = new ArrayList<>();
                     fragments.add(new GameDetailFragment(viewpager, gameInfo));
+                    fragments.add(detailHubFragment);
                     fragments.add(new GameReadFragment(viewpager, gameInfo));
                     if (null != adapter && !hasStop) {
                         adapter.setList(fragments, tabList);
@@ -554,15 +554,16 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
         viewpager.resetHeight(0);
         fragments = new ArrayList<>();
         fragments.add(new GameDetailFragment(viewpager, gameInfo));
+        detailHubFragment = new GameDetailHubFragment(viewpager, gameInfo, scrollView);
+        fragments.add(detailHubFragment);
         fragments.add(new GameReadFragment(viewpager, gameInfo));
+
         adapter = new DCViewPagerAdapter(fm, fragments, tabList);//getChildFragmentManager()
         viewpager.setAdapter(adapter);
     }
 
     private void initTabs() {
         tablayout.setupWithViewPager(viewpager);
-        tablayout.setTabMode(TabLayout.MODE_FIXED); //固定模式
-        tablayout.setTabGravity(TabLayout.GRAVITY_FILL);
     }
 
     @Override
@@ -620,9 +621,8 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
     private void initTabViewPager() {
         scrollView = (StickyScrollView) findViewById(R.id.scrollView);
         scrollView.setOnScrollListener(this);
-        tablayout = (XTabLayout) findViewById(R.id.tablayout);
+        tablayout = (XTabLayout) findViewById(R.id.game_detail_tablayout);
         viewpager = (AutoHeightViewPager) findViewById(R.id.viewpager);
-        viewpager.setOffscreenPageLimit(2);
         initViewPager();
         initTabs();
     }

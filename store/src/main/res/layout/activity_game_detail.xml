@@ -314,12 +314,14 @@
 
             <!--===============================详情  必读 ↓===========================-->
             <com.androidkun.xtablayout.XTabLayout xmlns:tabs="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/tablayout"
+                android:id="@+id/game_detail_tablayout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dm080"
                 android:layout_marginTop="@dimen/dm015"
                 android:background="@color/e6e6e6"
                 android:paddingBottom="@dimen/dm001"
+                tabs:xTabDisplayNum="3"
+                tabs:xTabMode="scrollable"
                 android:tag="sticky"
                 tabs:xTabBackgroundColor="@color/white"
                 tabs:xTabDividerGravity="center"
@@ -337,7 +339,7 @@
             <cn.ngame.store.view.AutoHeightViewPager
                 android:id="@+id/viewpager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@color/f5f5f5" />
         </LinearLayout>
     </cn.ngame.store.view.StickyScrollView>

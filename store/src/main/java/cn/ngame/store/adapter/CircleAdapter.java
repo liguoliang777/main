@@ -1,7 +1,10 @@
 package cn.ngame.store.adapter;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,11 +31,11 @@ import cn.ngame.store.core.utils.KeyConstant;
 public class CircleAdapter extends BaseAdapter {
     LayoutInflater mInflater;
     List<CirclePostsInfo.DataBean> list;
-    CircleActivity mContext;
+    FragmentActivity mContext;
     LinearLayout.LayoutParams params_height_dm196;
     LinearLayout.LayoutParams params_height_dm296;
 
-    public CircleAdapter(CircleActivity context, List<CirclePostsInfo.DataBean> datats) {
+    public CircleAdapter(FragmentActivity context, List<CirclePostsInfo.DataBean> datats) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
         list = datats;

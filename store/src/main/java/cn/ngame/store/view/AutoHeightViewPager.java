@@ -57,7 +57,7 @@ public class AutoHeightViewPager extends ViewPager {
             if (layoutParams == null) {
                 layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, height);
             } else {
-                if (1 == current) {
+                if (1== current) {
                     layoutParams.height = 500;
                 } else {
                     layoutParams.height = height;

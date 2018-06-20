@@ -110,7 +110,7 @@ public class GameReadFragment extends Fragment {
             contentTv.setLayoutParams(params);
             readLL.addView(contentTv);
         }
-        vp.setObjectForPosition(view, 1);
+        vp.setObjectForPosition(view, 2);
         return view;
     }
 
