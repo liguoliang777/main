@@ -116,7 +116,7 @@ public class Recommend0Adapter extends BaseAdapter {
         final String gameImage = info.getLogoUrl();//获取每一张图片
         final String gameVideoLink = info.getLogoUrl();//获取每一张图片
 
-        if (null != gameImage) {
+        if (null == gameImage) {
             holder.recommend_rl_video_layout.setVisibility(View.INVISIBLE);
             holder.game_big_img.setVisibility(View.VISIBLE);
             holder.game_big_img.setImageURI(gameImage);//游戏 -大图
