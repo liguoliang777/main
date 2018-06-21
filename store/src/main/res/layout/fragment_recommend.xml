@@ -12,6 +12,8 @@
         android:layout_height="match_parent"
         android:background="@color/color_recommend1_bg"
         android:scrollbars="none"
+        android:fadingEdge="none"
+        android:overScrollMode="never"
         android:visibility="visible">
 
         <LinearLayout
@@ -37,19 +39,27 @@
         android:id="@+id/recommend_1_boutique"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_recommend1_bg"
+        android:background="@color/f5f5f5"
+        android:fadingEdge="none"
+        android:overScrollMode="never"
         android:scrollbars="none"
         android:visibility="visible">
 
         <LinearLayout
-            android:id="@+id/horizontalView_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:focusable="false"
-            android:orientation="vertical"
-            android:paddingLeft="@dimen/dm032"
-            android:paddingRight="@dimen/dm032"
-            android:paddingTop="@dimen/dm015"></LinearLayout>
+            android:layout_height="wrap_content">
+
+            <ListView
+                android:id="@+id/horizontalView_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@color/transparent"
+                android:orientation="vertical"
+                android:overScrollMode="never"
+                android:paddingLeft="@dimen/dm036"
+                android:paddingRight="@dimen/dm036"
+                android:scrollbars="none"></ListView>
+        </LinearLayout>
     </cn.ngame.store.view.PullScrollView>
 
 

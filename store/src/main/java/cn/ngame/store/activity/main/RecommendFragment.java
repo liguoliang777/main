@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.facebook.drawee.drawable.ScalingUtils;
@@ -35,6 +35,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import cn.ngame.store.R;
+import cn.ngame.store.adapter.Recommend0Adapter;
 import cn.ngame.store.adapter.RecommendListAdapter;
 import cn.ngame.store.base.fragment.BaseSearchFragment;
 import cn.ngame.store.bean.PageAction;
@@ -67,7 +68,7 @@ public class RecommendFragment extends BaseSearchFragment {
     public static int PAGE_SIZE = 8;
     List<RecommendListBean.DataBean> topList = new ArrayList<>();
     List<RecommendListBean.DataBean> list = new ArrayList<>();
-    private LinearLayout horizontalViewContainer,mallLayout;
+    private LinearLayout mallLayout;
     private FragmentActivity context;
     private Intent singeTopicsDetailIntent = new Intent();
     private LinearLayout.LayoutParams hParams;
@@ -77,6 +78,8 @@ public class RecommendFragment extends BaseSearchFragment {
     private Picasso picasso;
     private PullScrollView boutiqueLayout;
     private PullScrollView shopMallLayout;
+    private ListView listView0;
+    private Recommend0Adapter list0Adapter;
 
     public static RecommendFragment newInstance(int arg) {
         RecommendFragment fragment = new RecommendFragment();
@@ -171,7 +174,8 @@ public class RecommendFragment extends BaseSearchFragment {
                                             .newInstance(resources)
                                             .setPlaceholderImage(R.color.e5e5e5)
                                             .setFailureImage(R.color.e5e5e5)
-                                            .setActualImageScaleType(ScalingUtils.ScaleType.FOCUS_CROP)
+                                            .setActualImageScaleType(ScalingUtils.ScaleType
+                                                    .FOCUS_CROP)
                                             .setRoundingParams(roundingParams)
                                             .setFadeDuration(0)
                                             .build();
@@ -219,67 +223,37 @@ public class RecommendFragment extends BaseSearchFragment {
                     @SuppressLint("NewApi")
                     @Override
                     public void onNext(YunduanBean result) {
-                        if (result != null && result.getCode() == 0) {
+                        if (result != null && result.getCode() == 0 && context != null) {
                             gameInfo = result.getData();
                             if (null == gameInfo || gameInfo.size() == 0) {
                                 Log.d(TAG, "HTTP请求成功：服务端返回错误！");
                             } else {
-                                horizontalViewContainer.removeAllViews();
-                                mallLayout.removeAllViews();
-                                int size = gameInfo.size();
-                                Resources resources = getResources();
-                                int pxRound = resources.getDimensionPixelOffset(R.dimen.dm005);
-                                int px32 = resources.getDimensionPixelOffset(R.dimen.dm032);
-                                int pxHeight = resources.getDimensionPixelOffset(R.dimen.dm720);
-
-                                for (int i = 0; i < size; i++) {
-                                    final YunduanBean.DataBean info = gameInfo.get(i);
-                                    final String gameImage = info.getLogoUrl();//获取每一张图片
-                                    simpleImageView = new SimpleDraweeView(context);
-                                    RoundingParams roundingParams = RoundingParams
-                                            .fromCornersRadius(pxRound);
-                                    GenericDraweeHierarchy hierarchy = GenericDraweeHierarchyBuilder
-                                            .newInstance(resources)
-                                            .setPlaceholderImage(R.color.e5e5e5)
-                                            .setFailureImage(R.color.e5e5e5)
-                                            .setActualImageScaleType(ScalingUtils.ScaleType.FIT_XY)
-                                            .setRoundingParams(roundingParams)
-                                            .setFadeDuration(0)
-                                            .build();
-                                    simpleImageView.setHierarchy(hierarchy);
-                                    simpleImageView.setBackgroundResource(android.R.drawable
-                                            .dialog_holo_light_frame);
-                                    //为  PicassoImageView设置属性
-                                    hParams = new LinearLayout.LayoutParams(
-                                            ViewGroup.LayoutParams.MATCH_PARENT, pxHeight);
-                                    // hParams.height = pxHeight;
-                                    //有多个图片的话
-                                    hParams.setMargins(0, 0, 0, px32);
-                                    simpleImageView.setLayoutParams(hParams);
-                                    //加载网络图片
-                                    simpleImageView.setImageURI(gameImage);
-                                    simpleImageView.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            singeTopicsDetailIntent.putExtra(KeyConstant
-                                                    .category_Id, info.getId());
-                                            singeTopicsDetailIntent.putExtra(KeyConstant.TITLE,
-                                                    info.getTypeName());
-                                            singeTopicsDetailIntent.putExtra(KeyConstant.DESC,
-                                                    info.getTypeDesc());
-                                            singeTopicsDetailIntent.putExtra(KeyConstant.URL,
-                                                    gameImage);
-                                            startActivity(singeTopicsDetailIntent);
-                                        }
-                                    });
-                                    horizontalViewContainer.addView(simpleImageView, i);
-                                    //mallLayout.addView(simpleImageView);
-                                }
+                                list0Adapter.setDate(gameInfo);
+                                setListViewHeightBasedOnChildren(listView0);
                             }
                         } else {
+
                         }
                     }
                 });
+    }
+
+    public void setListViewHeightBasedOnChildren(ListView listView) {
+        //获得adapter
+        Recommend0Adapter adapter = (Recommend0Adapter) listView.getAdapter();
+        if (adapter == null) {
+            return;
+        }
+        int totalHeight = 0;
+        for (int i = 0; i < adapter.getCount(); i++) {
+            View listItem = adapter.getView(i, null, listView);
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (adapter.getCount() - 1));
+        listView.setLayoutParams(params);
     }
 
     public void listData(RecommendListBean result) {
@@ -356,7 +330,10 @@ public class RecommendFragment extends BaseSearchFragment {
         pageAction.setCurrentPage(0);
         pageAction.setPageSize(PAGE_SIZE);
         loadStateView = (LoadStateView) view.findViewById(R.id.load_state_view2);
-        horizontalViewContainer = (LinearLayout) view.findViewById(R.id.horizontalView_container);
+        listView0 = (ListView) view.findViewById(R.id.horizontalView_container);
+        list0Adapter = new Recommend0Adapter(context, gameInfo);
+        listView0.setAdapter(list0Adapter);
+
         mallLayout = (LinearLayout) view.findViewById(R.id.recommend_2_mall_layout);
         boutiqueLayout = (PullScrollView) view.findViewById(R.id.recommend_1_boutique);
         shopMallLayout = (PullScrollView) view.findViewById(R.id.recommend_2_mall);
@@ -712,7 +689,7 @@ public class RecommendFragment extends BaseSearchFragment {
     public void setTab(int position) {
         boutiqueLayout.setVisibility(0 == position ? View.VISIBLE : View.GONE);
         pullListView.setVisibility(1 == position ? View.VISIBLE : View.GONE);
-        shopMallLayout.setVisibility(2 == position?View.VISIBLE:View.GONE);
+        shopMallLayout.setVisibility(2 == position ? View.VISIBLE : View.GONE);
         //pullListView.setVisibility(0 == position?View.VISIBLE:View.GONE);
 
     }

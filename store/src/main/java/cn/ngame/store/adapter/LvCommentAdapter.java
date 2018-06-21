@@ -103,7 +103,7 @@ public class LvCommentAdapter extends BaseAdapter {
 
             holder = new ViewHolder(context);
 
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_lv_comment, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_recommend_list_view0_item, parent, false);
             holder.ratingBar = (RatingBar) convertView.findViewById(R.id.rating_bar);
             holder.img = (ImageView) convertView.findViewById(R.id.img_1);
             holder.tv_nickname = (TextView) convertView.findViewById(R.id.tv_nickname);
