@@ -43,12 +43,6 @@ import cn.ngame.store.core.utils.KeyConstant;
 import cn.ngame.store.core.utils.NetUtil;
 import cn.ngame.store.view.NgameJZVideoPlayerStandard;
 
-/**
- * 视频评论的Listview控件适配器
- *
- * @author zeng
- * @since 2016-05-30
- */
 public class Recommend0Adapter extends BaseAdapter {
 
     private static final String TAG = Recommend0Adapter.class.getSimpleName();
@@ -127,7 +121,9 @@ public class Recommend0Adapter extends BaseAdapter {
             holder.jzVideoPlayerStandard.thumbImageView.setVisibility(View.VISIBLE);
             Picasso.with(context).load(gameImage).into(holder.jzVideoPlayerStandard
                     .thumbImageView);
-            holder.jzVideoPlayerStandard.setUp(gameVideoLink, JZVideoPlayerStandard
+            holder.jzVideoPlayerStandard.setUp(
+                    "http://s1.xflqv.cn/topvideo/%E6%A0%BC%E5%BC%8F%E5%B7%A5%E5%8E%82CF%E6%89%8B%E6%B8%B8%E5%B9%B4%E" +
+                            "5%BA%A6%E5%AE%A3%E4%BC%A0%E7%89%87%20-%20%E5%88%80%E9%94%8B%E7%AF%87.mp4", JZVideoPlayerStandard
                     .SCREEN_LAYOUT_NORMAL, "");
             holder.jzVideoPlayerStandard.backButton.setVisibility(View.GONE);
             if (NetUtil.isWifiConnected(context)) {

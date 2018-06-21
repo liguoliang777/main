@@ -56,6 +56,7 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import cn.jzvd.JZVideoPlayerStandard;
 import cn.ngame.store.R;
 import cn.ngame.store.StoreApplication;
 import cn.ngame.store.activity.BaseFgActivity;
@@ -1192,4 +1193,15 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
         }
     }
 
+    /**
+     * backPress函数判断了点击回退按钮的相应，
+     * 如果全屏会退出全屏播放，如果不是全屏则会交给Activity
+     */
+    @Override
+    public void onBackPressed() {
+        if(JZVideoPlayerStandard.backPress()){
+            return;
+        }
+        super.onBackPressed();
+    }
 }

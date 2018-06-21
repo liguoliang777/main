@@ -19,27 +19,26 @@
     <TextView
         android:id="@+id/recommend_lv0_week_tv"
         android:layout_width="wrap_content"
-        android:layout_below="@id/recommend_lv0_time_tv"
         android:layout_height="wrap_content"
+        android:layout_below="@id/recommend_lv0_time_tv"
+        android:layout_marginBottom="@dimen/dm020"
         android:maxLines="1"
         android:paddingTop="@dimen/dm005"
         android:text="星期一"
-        android:layout_marginBottom="@dimen/dm020"
         android:textColor="@color/color_333333"
         android:textSize="@dimen/dm044" />
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_below="@id/recommend_lv0_week_tv"
-        android:layout_height="@dimen/dm480"
         android:id="@+id/recommend_rl_video_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dm480"
+        android:layout_below="@id/recommend_lv0_week_tv"
         android:background="@drawable/shape_recommend_lv0_bg">
 
         <cn.ngame.store.view.NgameJZVideoPlayerStandard
             android:id="@+id/recommend_lv0_vidio"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dm308"
-            android:visibility="invisible" />
+            android:layout_height="@dimen/dm308" />
 
         <TextView
             android:id="@+id/recommend_lv0_title_tv"
@@ -69,12 +68,11 @@
 
     </RelativeLayout>
 
-    <com.facebook.drawee.view.SimpleDraweeView
-        xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    <com.facebook.drawee.view.SimpleDraweeView xmlns:fresco="http://schemas.android.com/apk/res-auto"
         android:id="@+id/recommend_lv0_sdv"
-        android:layout_below="@id/recommend_lv0_week_tv"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dm480"
+        android:layout_below="@id/recommend_lv0_week_tv"
         android:scaleType="fitXY"
         fresco:actualImageScaleType="centerCrop"
         fresco:failureImage="@drawable/ic_def_logo_412_200"

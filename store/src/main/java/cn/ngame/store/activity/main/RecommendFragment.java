@@ -35,6 +35,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import cn.jzvd.JZVideoPlayerStandard;
 import cn.ngame.store.R;
 import cn.ngame.store.adapter.Recommend0Adapter;
 import cn.ngame.store.adapter.RecommendListAdapter;
@@ -51,6 +52,7 @@ import cn.ngame.store.view.LoadStateView;
 import cn.ngame.store.view.PullScrollView;
 import cn.ngame.store.widget.pulllistview.PullToRefreshBase;
 import cn.ngame.store.widget.pulllistview.PullToRefreshListView;
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 
 /**
  * 精选
@@ -688,6 +690,12 @@ public class RecommendFragment extends BaseSearchFragment {
         super.onDestroy();
         adapter = null;
         list = null;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        JCVideoPlayer.releaseAllVideos();
     }
 
     public void setShow(boolean isShow) {
