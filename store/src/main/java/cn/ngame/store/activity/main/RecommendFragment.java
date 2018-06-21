@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.facebook.drawee.drawable.ScalingUtils;
@@ -39,6 +40,7 @@ import cn.ngame.store.adapter.Recommend0Adapter;
 import cn.ngame.store.adapter.RecommendListAdapter;
 import cn.ngame.store.base.fragment.BaseSearchFragment;
 import cn.ngame.store.bean.PageAction;
+import cn.ngame.store.core.utils.ImageUtil;
 import cn.ngame.store.core.utils.KeyConstant;
 import cn.ngame.store.core.utils.Log;
 import cn.ngame.store.core.utils.NetUtil;
@@ -239,20 +241,25 @@ public class RecommendFragment extends BaseSearchFragment {
     }
 
     public void setListViewHeightBasedOnChildren(ListView listView) {
-        //获得adapter
-        Recommend0Adapter adapter = (Recommend0Adapter) listView.getAdapter();
-        if (adapter == null) {
+        ListAdapter listAdapter = listView.getAdapter();
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        if (listAdapter == null) {
+            // pre-condition
             return;
         }
         int totalHeight = 0;
-        for (int i = 0; i < adapter.getCount(); i++) {
-            View listItem = adapter.getView(i, null, listView);
-            listItem.measure(0, 0);
-            totalHeight += listItem.getMeasuredHeight();
+        View view;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            view = listAdapter.getView(i, null, listView);
+            //宽度为屏幕宽度
+            int i1 = View.MeasureSpec.makeMeasureSpec(ImageUtil.getScreenWidth(context),
+                    View.MeasureSpec.EXACTLY);
+            //根据屏幕宽度计算高度
+            int i2 = View.MeasureSpec.makeMeasureSpec(i1, View.MeasureSpec.UNSPECIFIED);
+            view.measure(i1, i2);
+            totalHeight += view.getMeasuredHeight();
         }
-
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (adapter.getCount() - 1));
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
     }
 
@@ -332,6 +339,7 @@ public class RecommendFragment extends BaseSearchFragment {
         loadStateView = (LoadStateView) view.findViewById(R.id.load_state_view2);
         listView0 = (ListView) view.findViewById(R.id.horizontalView_container);
         list0Adapter = new Recommend0Adapter(context, gameInfo);
+        listView0.setFocusable(false);
         listView0.setAdapter(list0Adapter);
 
         mallLayout = (LinearLayout) view.findViewById(R.id.recommend_2_mall_layout);

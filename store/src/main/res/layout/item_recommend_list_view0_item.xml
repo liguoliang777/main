@@ -3,13 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/f5f5f5"
+    android:paddingBottom="@dimen/dm020"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/recommend_lv0_time_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dm020"
+        android:paddingTop="@dimen/dm020"
         android:maxLines="1"
         android:text="五月一日"
         android:textColor="@color/color_808080"
@@ -19,7 +20,7 @@
         android:id="@+id/recommend_lv0_week_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dm005"
+        android:paddingTop="@dimen/dm005"
         android:maxLines="1"
         android:text="星期一"
         android:textColor="@color/color_333333"
@@ -64,6 +65,6 @@
             android:text="这是副标题这是副标题这是副标题这是副标题这是副标题这是副标题这是副标题"
             android:textColor="@color/color_808080"
             android:textSize="@dimen/dm020" />
-    </RelativeLayout>
 
+    </RelativeLayout>
 </LinearLayout>
