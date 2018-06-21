@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/f5f5f5"
-    android:paddingBottom="@dimen/dm020"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/dm020">
 
     <TextView
         android:id="@+id/recommend_lv0_time_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/dm020"
         android:maxLines="1"
+        android:paddingTop="@dimen/dm020"
         android:text="五月一日"
         android:textColor="@color/color_808080"
         android:textSize="@dimen/dm020" />
@@ -19,25 +19,27 @@
     <TextView
         android:id="@+id/recommend_lv0_week_tv"
         android:layout_width="wrap_content"
+        android:layout_below="@id/recommend_lv0_time_tv"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/dm005"
         android:maxLines="1"
+        android:paddingTop="@dimen/dm005"
         android:text="星期一"
+        android:layout_marginBottom="@dimen/dm020"
         android:textColor="@color/color_333333"
         android:textSize="@dimen/dm044" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dm020"
+        android:layout_below="@id/recommend_lv0_week_tv"
+        android:layout_height="@dimen/dm480"
+        android:id="@+id/recommend_rl_video_layout"
         android:background="@drawable/shape_recommend_lv0_bg">
 
-
-        <View
+        <cn.ngame.store.view.NgameJZVideoPlayerStandard
             android:id="@+id/recommend_lv0_vidio"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dm308"
-            android:background="@color/mainColor"></View>
+            android:visibility="invisible" />
 
         <TextView
             android:id="@+id/recommend_lv0_title_tv"
@@ -67,4 +69,18 @@
             android:textSize="@dimen/dm020" />
 
     </RelativeLayout>
-</LinearLayout>
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        xmlns:fresco="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/recommend_lv0_sdv"
+        android:layout_below="@id/recommend_lv0_week_tv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dm480"
+        android:scaleType="fitXY"
+        fresco:actualImageScaleType="centerCrop"
+        fresco:failureImage="@drawable/ic_def_logo_412_200"
+        fresco:placeholderImage="@drawable/ic_def_logo_412_200"
+        fresco:placeholderImageScaleType="centerCrop"
+        fresco:progressBarImage="@drawable/ic_def_logo_412_200"
+        fresco:roundedCornerRadius="@dimen/dm036" />
+</RelativeLayout>

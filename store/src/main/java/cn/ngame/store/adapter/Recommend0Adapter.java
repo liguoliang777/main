@@ -25,15 +25,23 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.jzt.hol.android.jkda.sdk.bean.main.YunduanBean;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import cn.jzvd.JZVideoPlayerStandard;
 import cn.ngame.store.R;
 import cn.ngame.store.activity.main.TopicsDetailActivity;
+import cn.ngame.store.bean.GameImage;
+import cn.ngame.store.bean.VideoInfo;
 import cn.ngame.store.core.utils.KeyConstant;
+import cn.ngame.store.core.utils.NetUtil;
+import cn.ngame.store.view.NgameJZVideoPlayerStandard;
 
 /**
  * 视频评论的Listview控件适配器
@@ -90,10 +98,15 @@ public class Recommend0Adapter extends BaseAdapter {
 
             convertView = LayoutInflater.from(context).inflate(R.layout
                     .item_recommend_list_view0_item, parent, false);
-            holder.video = convertView.findViewById(R.id.recommend_lv0_vidio);
+            holder.jzVideoPlayerStandard = convertView.findViewById(R.id.recommend_lv0_vidio);
+            holder.jzVideoPlayerStandard.topContainer.setVisibility(View.GONE);
 
             holder.tv_title = (TextView) convertView.findViewById(R.id.recommend_lv0_title_tv);
+            holder.recommend_rl_video_layout = (RelativeLayout) convertView.findViewById(R.id
+                    .recommend_rl_video_layout);
             holder.tv_content = (TextView) convertView.findViewById(R.id.recommend_lv0_content_tv);
+            holder.game_big_img = (SimpleDraweeView) convertView.findViewById(R.id
+                    .recommend_lv0_sdv);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -101,7 +114,27 @@ public class Recommend0Adapter extends BaseAdapter {
 
         final YunduanBean.DataBean info = listOData.get(position);
         final String gameImage = info.getLogoUrl();//获取每一张图片
+        final String gameVideoLink = info.getLogoUrl();//获取每一张图片
 
+        if (null != gameImage) {
+            holder.recommend_rl_video_layout.setVisibility(View.INVISIBLE);
+            holder.game_big_img.setVisibility(View.VISIBLE);
+            holder.game_big_img.setImageURI(gameImage);//游戏 -大图
+        } else {
+            holder.game_big_img.setVisibility(View.INVISIBLE);
+            //视频播放
+            holder.recommend_rl_video_layout.setVisibility(View.VISIBLE);
+            holder.jzVideoPlayerStandard.thumbImageView.setVisibility(View.VISIBLE);
+            Picasso.with(context).load(gameImage).into(holder.jzVideoPlayerStandard
+                    .thumbImageView);
+            holder.jzVideoPlayerStandard.setUp(gameVideoLink, JZVideoPlayerStandard
+                    .SCREEN_LAYOUT_NORMAL, "");
+            holder.jzVideoPlayerStandard.backButton.setVisibility(View.GONE);
+            if (NetUtil.isWifiConnected(context)) {
+                holder.jzVideoPlayerStandard.startVideo();
+            }
+
+        }
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,8 +156,10 @@ public class Recommend0Adapter extends BaseAdapter {
     }
 
     class ViewHolder {
-        public View video;
+        public NgameJZVideoPlayerStandard jzVideoPlayerStandard;
+        public RelativeLayout recommend_rl_video_layout;
         public TextView tv_title, tv_content;
+        public SimpleDraweeView game_big_img;
     }
 }
 
