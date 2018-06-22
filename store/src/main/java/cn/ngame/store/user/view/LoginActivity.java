@@ -52,7 +52,7 @@ import cn.ngame.store.util.ToastUtil;
  */
 public class LoginActivity extends BaseFgActivity implements View.OnClickListener {
 
-    public static final String TAG = LoginActivity.class.getSimpleName();
+    public String TAG = LoginActivity.class.getSimpleName();
 
     private EditText et_user, et_pwd;
     private String userName, password;
@@ -345,7 +345,8 @@ public class LoginActivity extends BaseFgActivity implements View.OnClickListene
         dialogHelper.showAlert("正在登录...", true);
         String url = Constant.WEB_SITE + Constant.URL_USER_LOGIN;
 
-        Response.Listener<JsonResult<User>> succesListener = new Response.Listener<JsonResult<User>>() {
+        Response.Listener<JsonResult<User>> succesListener = new Response
+                .Listener<JsonResult<User>>() {
             @Override
             public void onResponse(JsonResult<User> result) {
                 if (result == null) {
@@ -394,7 +395,8 @@ public class LoginActivity extends BaseFgActivity implements View.OnClickListene
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            IWatchRecordModel watchRecordModel = new WatchRecordModel(LoginActivity.this);
+                            IWatchRecordModel watchRecordModel = new WatchRecordModel
+                                    (LoginActivity.this);
                             watchRecordModel.synchronizeWatchRecord();
                         }
                     }).start();
@@ -419,7 +421,8 @@ public class LoginActivity extends BaseFgActivity implements View.OnClickListene
                 }
             }
         };
-        Request<JsonResult<User>> versionRequest1 = new GsonRequest<JsonResult<User>>(Request.Method.POST, url,
+        Request<JsonResult<User>> versionRequest1 = new GsonRequest<JsonResult<User>>(Request
+                .Method.POST, url,
                 succesListener, errorListener, new TypeToken<JsonResult<User>>() {
         }.getType()) {
             @Override
@@ -436,7 +439,8 @@ public class LoginActivity extends BaseFgActivity implements View.OnClickListene
             }
         };
         StoreApplication.requestQueue.add(versionRequest1);
-       /* Request<JsonResult<Token>> versionRequest = new GsonRequest<JsonResult<Token>>(Request.Method.POST, url,
+       /* Request<JsonResult<Token>> versionRequest = new GsonRequest<JsonResult<Token>>(Request
+       .Method.POST, url,
                 successListener, errorListener, new TypeToken<JsonResult<Token>>() {
         }.getType()) {
             @Override
@@ -464,7 +468,8 @@ public class LoginActivity extends BaseFgActivity implements View.OnClickListene
    /* private void getUserInfo() {
 
         final String url = Constant.WEB_SITE + Constant.URL_USER_INFO;
-        Response.Listener<JsonResult<User>> successListener = new Response.Listener<JsonResult<User>>() {
+        Response.Listener<JsonResult<User>> successListener = new Response
+        .Listener<JsonResult<User>>() {
             @Override
             public void onResponse(JsonResult<User> result) {
                 DialogHelper.hideWaiting(getSupportFragmentManager());
@@ -495,7 +500,8 @@ public class LoginActivity extends BaseFgActivity implements View.OnClickListene
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            IWatchRecordModel watchRecordModel = new WatchRecordModel(LoginActivity.this);
+                            IWatchRecordModel watchRecordModel = new WatchRecordModel
+                            (LoginActivity.this);
                             watchRecordModel.synchronizeWatchRecord();
                         }
                     }).start();
@@ -519,7 +525,8 @@ public class LoginActivity extends BaseFgActivity implements View.OnClickListene
             }
         };
 
-        Request<JsonResult<User>> versionRequest = new GsonRequest<JsonResult<User>>(Request.Method.POST, url,
+        Request<JsonResult<User>> versionRequest = new GsonRequest<JsonResult<User>>(Request
+        .Method.POST, url,
                 successListener, errorListener, new TypeToken<JsonResult<User>>() {
         }.getType()) {
             @Override
@@ -532,7 +539,6 @@ public class LoginActivity extends BaseFgActivity implements View.OnClickListene
         };
         StoreApplication.requestQueue.add(versionRequest);
     }*/
-
     @Override
     protected void onStop() {
         super.onStop();
@@ -540,6 +546,7 @@ public class LoginActivity extends BaseFgActivity implements View.OnClickListene
             @Override
             public void onStart(SHARE_MEDIA share_media) {
             }
+
             @Override
             public void onComplete(SHARE_MEDIA share_media, int i, Map<String, String> map) {
 

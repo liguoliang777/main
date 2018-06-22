@@ -332,8 +332,9 @@
             android:screenOrientation="portrait"
             />
         <activity
-            android:name=".activity.rank.RankActivity"
-            android:configChanges="orientation|keyboard|keyboardHidden|navigation"
+            android:name=".activity.main.VideoActivity"
+            android:theme="@style/AppTheme_NoActionBar_Fullscreen"
+            android:configChanges="orientation|keyboard|keyboardHidden"
             android:screenOrientation="portrait"
             />
         <activity

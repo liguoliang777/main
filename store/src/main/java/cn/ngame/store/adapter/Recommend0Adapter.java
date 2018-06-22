@@ -38,6 +38,7 @@ import cn.jzvd.JZVideoPlayer;
 import cn.jzvd.JZVideoPlayerStandard;
 import cn.ngame.store.R;
 import cn.ngame.store.activity.main.TopicsDetailActivity;
+import cn.ngame.store.activity.main.VideoActivity;
 import cn.ngame.store.bean.GameImage;
 import cn.ngame.store.bean.VideoInfo;
 import cn.ngame.store.core.utils.KeyConstant;
@@ -119,15 +120,23 @@ public class Recommend0Adapter extends BaseAdapter {
             //视频播放
             holder.recommend_rl_video_layout.setVisibility(View.VISIBLE);
             holder.jzVideoPlayerStandard.thumbImageView.setVisibility(View.VISIBLE);
+            final String url = "http://jzvd.nathen.cn/6ea7357bc3fa4658b29b7933ba575008" +
+                    "/fbbba953374248eb913cb1408dc61d85-5287d2089db37e62345123a1be272f8b" +
+                    ".mp4";
             holder.jzVideoPlayerStandard.setUp(
-                    "http://jzvd.nathen.cn/6ea7357bc3fa4658b29b7933ba575008" +
-                            "/fbbba953374248eb913cb1408dc61d85-5287d2089db37e62345123a1be272f8b" +
-                            ".mp4",
-                    JZVideoPlayer
-                            .SCREEN_LAYOUT_LIST, "");
+                    url, JZVideoPlayer.SCREEN_LAYOUT_LIST, "");
             Picasso.with(context).load(gameImage).into(holder.jzVideoPlayerStandard
                     .thumbImageView);
             holder.jzVideoPlayerStandard.backButton.setVisibility(View.GONE);
+            holder.jzVideoPlayerStandard.fullscreenButton.setOnClickListener(new View
+                    .OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, VideoActivity.class);
+                    intent.putExtra("videoUrl",url);
+                    context.startActivity(intent);
+                }
+            });
             if (position == 0 && NetUtil.isWifiConnected(context)) {
                 holder.jzVideoPlayerStandard.startVideo();
             }
