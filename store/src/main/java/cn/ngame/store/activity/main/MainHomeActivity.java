@@ -56,6 +56,7 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import cn.jzvd.JZVideoPlayer;
 import cn.jzvd.JZVideoPlayerStandard;
 import cn.ngame.store.R;
 import cn.ngame.store.StoreApplication;
@@ -387,6 +388,7 @@ public class MainHomeActivity extends BaseFgActivity implements View.OnClickList
     protected void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);
+        JZVideoPlayer.releaseAllVideos();
     }
 
     //侧边栏

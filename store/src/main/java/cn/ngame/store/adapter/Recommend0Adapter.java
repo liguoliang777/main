@@ -34,6 +34,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import cn.jzvd.JZVideoPlayer;
 import cn.jzvd.JZVideoPlayerStandard;
 import cn.ngame.store.R;
 import cn.ngame.store.activity.main.TopicsDetailActivity;
@@ -45,8 +46,7 @@ import cn.ngame.store.view.NgameJZVideoPlayerStandard;
 
 public class Recommend0Adapter extends BaseAdapter {
 
-    private static final String TAG = Recommend0Adapter.class.getSimpleName();
-
+    private String TAG = Recommend0Adapter.class.getSimpleName();
     private List<YunduanBean.DataBean> listOData;
     private Context context;
 
@@ -119,14 +119,16 @@ public class Recommend0Adapter extends BaseAdapter {
             //视频播放
             holder.recommend_rl_video_layout.setVisibility(View.VISIBLE);
             holder.jzVideoPlayerStandard.thumbImageView.setVisibility(View.VISIBLE);
+            holder.jzVideoPlayerStandard.setUp(
+                    "http://jzvd.nathen.cn/6ea7357bc3fa4658b29b7933ba575008" +
+                            "/fbbba953374248eb913cb1408dc61d85-5287d2089db37e62345123a1be272f8b" +
+                            ".mp4",
+                    JZVideoPlayer
+                            .SCREEN_LAYOUT_LIST, "");
             Picasso.with(context).load(gameImage).into(holder.jzVideoPlayerStandard
                     .thumbImageView);
-            holder.jzVideoPlayerStandard.setUp(
-                    "http://s1.xflqv.cn/topvideo/%E6%A0%BC%E5%BC%8F%E5%B7%A5%E5%8E%82CF%E6%89%8B%E6%B8%B8%E5%B9%B4%E" +
-                            "5%BA%A6%E5%AE%A3%E4%BC%A0%E7%89%87%20-%20%E5%88%80%E9%94%8B%E7%AF%87.mp4", JZVideoPlayerStandard
-                    .SCREEN_LAYOUT_NORMAL, "");
             holder.jzVideoPlayerStandard.backButton.setVisibility(View.GONE);
-            if (NetUtil.isWifiConnected(context)) {
+            if (position == 0 && NetUtil.isWifiConnected(context)) {
                 holder.jzVideoPlayerStandard.startVideo();
             }
 

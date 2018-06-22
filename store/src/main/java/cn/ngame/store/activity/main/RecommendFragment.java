@@ -3,10 +3,13 @@ package cn.ngame.store.activity.main;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -35,6 +38,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import cn.jzvd.JZVideoPlayer;
 import cn.jzvd.JZVideoPlayerStandard;
 import cn.ngame.store.R;
 import cn.ngame.store.adapter.Recommend0Adapter;
@@ -53,6 +57,8 @@ import cn.ngame.store.view.PullScrollView;
 import cn.ngame.store.widget.pulllistview.PullToRefreshBase;
 import cn.ngame.store.widget.pulllistview.PullToRefreshListView;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
+
+import static android.content.Context.SENSOR_SERVICE;
 
 /**
  * 精选
@@ -84,6 +90,8 @@ public class RecommendFragment extends BaseSearchFragment {
     private PullScrollView shopMallLayout;
     private ListView listView0;
     private Recommend0Adapter list0Adapter;
+    private SensorManager sensorManager;
+    private JZVideoPlayer.JZAutoFullscreenListener sensorEventListener;
 
     public static RecommendFragment newInstance(int arg) {
         RecommendFragment fragment = new RecommendFragment();
@@ -315,7 +323,7 @@ public class RecommendFragment extends BaseSearchFragment {
         } else {
             pullListView.setPullLoadEnabled(true);
         }*/
-        //设置上拉刷新后停留的地方  // TODO: 2017/7/17 0017
+        //设置上拉刷新后停留的地方
 
         if (0 == pageAction.getCurrentPage() && result.getData().size() <= 2) {
             //pullListView.setScrollLoadEnabled(false);
@@ -334,6 +342,15 @@ public class RecommendFragment extends BaseSearchFragment {
         pullListView.setLastUpdatedLabel(new Date().toLocaleString()); //全名  功夫  最终
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Sensor accelerometerSensor = sensorManager.
+                getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        sensorManager.registerListener(sensorEventListener,
+                accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
     public void initListView(final View view) {
         pageAction = new PageAction();
         pageAction.setCurrentPage(0);
@@ -343,6 +360,19 @@ public class RecommendFragment extends BaseSearchFragment {
         list0Adapter = new Recommend0Adapter(context, gameInfo);
         listView0.setFocusable(false);
         listView0.setAdapter(list0Adapter);
+        listView0.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                JZVideoPlayer.onScrollReleaseAllVideos(view, firstVisibleItem, visibleItemCount, totalItemCount);
+            }
+        });
+        sensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+        sensorEventListener = new JZVideoPlayer.JZAutoFullscreenListener();
 
         mallLayout = (LinearLayout) view.findViewById(R.id.recommend_2_mall_layout);
         boutiqueLayout = (PullScrollView) view.findViewById(R.id.recommend_1_boutique);
@@ -695,6 +725,7 @@ public class RecommendFragment extends BaseSearchFragment {
     @Override
     public void onPause() {
         super.onPause();
+        sensorManager.unregisterListener(sensorEventListener);
         JCVideoPlayer.releaseAllVideos();
     }
 

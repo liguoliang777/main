@@ -324,7 +324,6 @@
             android:name=".activity.main.MainHomeActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|navigation"
             android:screenOrientation="portrait"
-            android:launchMode="singleTask"
             />
 
         <activity
