@@ -92,6 +92,7 @@ public class RecommendFragment extends BaseSearchFragment {
     private Recommend0Adapter list0Adapter;
     private SensorManager sensorManager;
     private JZVideoPlayer.JZAutoFullscreenListener sensorEventListener;
+    private int firstVisibleItem;
 
     public static RecommendFragment newInstance(int arg) {
         RecommendFragment fragment = new RecommendFragment();
@@ -351,34 +352,28 @@ public class RecommendFragment extends BaseSearchFragment {
                 accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
+    @SuppressLint("NewApi")
     public void initListView(final View view) {
         pageAction = new PageAction();
         pageAction.setCurrentPage(0);
         pageAction.setPageSize(PAGE_SIZE);
         loadStateView = (LoadStateView) view.findViewById(R.id.load_state_view2);
+
+        boutiqueLayout = (PullScrollView) view.findViewById(R.id.recommend_1_boutique);
+        mallLayout = (LinearLayout) view.findViewById(R.id.recommend_2_mall_layout);
+
         listView0 = (ListView) view.findViewById(R.id.horizontalView_container);
         list0Adapter = new Recommend0Adapter(context, gameInfo);
         listView0.setFocusable(false);
         listView0.setAdapter(list0Adapter);
-        listView0.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
 
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                JZVideoPlayer.onScrollReleaseAllVideos(view, firstVisibleItem, visibleItemCount, totalItemCount);
-            }
-        });
         sensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
         sensorEventListener = new JZVideoPlayer.JZAutoFullscreenListener();
 
-        mallLayout = (LinearLayout) view.findViewById(R.id.recommend_2_mall_layout);
-        boutiqueLayout = (PullScrollView) view.findViewById(R.id.recommend_1_boutique);
         shopMallLayout = (PullScrollView) view.findViewById(R.id.recommend_2_mall);
         loadStateView.isShowLoadBut(false);
         pullListView = (PullToRefreshListView) view.findViewById(R.id.pullListView);
+
         pullListView.setPullLoadEnabled(true);
         pullListView.setPullRefreshEnabled(true);
         pullListView.setScrollLoadEnabled(true);
