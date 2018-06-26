@@ -248,4 +248,5 @@
     <string name="inject_server_state_off">未开启</string>
     <string name="inject_server_name">hello</string>
     <string name="add_game"><u>添加游戏</u></string>
+    <string name="open_unknowApk_permision">请打开“允许安装未知应用来源”的权限</string>
 </resources>

@@ -13,6 +13,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.ngame.store.R;
 import cn.ngame.store.util.ToastUtil;
 
 /**
@@ -98,6 +99,7 @@ public class AppInstallHelper {
                                 .canRequestPackageInstalls();
                         if (!canInstalls) {
                             //请求安装未知应用来源的权限
+                            ToastUtil.show(context,context.getString(R.string.open_unknowApk_permision));
                             Intent intent1 = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES);
                             context.startActivity(intent1);
 
