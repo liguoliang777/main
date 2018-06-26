@@ -10,13 +10,11 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.facebook.drawee.drawable.ScalingUtils;
@@ -42,7 +40,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import cn.jzvd.JZVideoPlayer;
-import cn.jzvd.JZVideoPlayerStandard;
 import cn.ngame.store.R;
 import cn.ngame.store.adapter.Recommend0Adapter;
 import cn.ngame.store.adapter.RecommendListAdapter;
@@ -153,7 +150,7 @@ public class RecommendFragment extends BaseSearchFragment {
     }
 
 
-    private List<YunduanBean.DataBean> gameInfo;
+    private List<YunduanBean.DataBean> videoInfo;
 
     private void getHorizontalData2() {
         RecommendListBody bodyBean = new RecommendListBody();
@@ -224,28 +221,28 @@ public class RecommendFragment extends BaseSearchFragment {
     }
 
     private void getHorizontalData() {
-        loadStateView.setVisibility(View.VISIBLE);
-        loadStateView.setState(LoadStateView.STATE_ING);
         YunduanBodyBean bodyBean = new YunduanBodyBean();
         new YunduanClient(context, bodyBean).observable()
                 .subscribe(new ObserverWrapper<YunduanBean>() {
                     @Override
                     public void onError(Throwable e) {
+                        loadStateView.setVisibility(View.VISIBLE);
+                        loadStateView.setState(LoadStateView.STATE_END, getString(R.string
+                                .server_exception));
                     }
 
                     @SuppressLint("NewApi")
                     @Override
                     public void onNext(YunduanBean result) {
                         if (result != null && result.getCode() == 0 && context != null) {
-                            gameInfo = result.getData();
-                            if (null == gameInfo || gameInfo.size() == 0) {
-                                Log.d(TAG, "HTTP请求成功：服务端返回错误！");
+                            videoInfo = result.getData();
+                            if (null == videoInfo || videoInfo.size() == 0) {
                                 loadStateView.setVisibility(View.VISIBLE);
                                 loadStateView.setState(LoadStateView.STATE_END, getString(R.string
                                         .no_data));
                             } else {
                                 loadStateView.setVisibility(View.GONE);
-                                list0Adapter.setDate(gameInfo);
+                                list0Adapter.setDate(videoInfo);
                                 setListViewHeightBasedOnChildren(listView0);
                             }
                         } else {
@@ -369,7 +366,7 @@ public class RecommendFragment extends BaseSearchFragment {
         mallLayout = (LinearLayout) view.findViewById(R.id.recommend_2_mall_layout);
 
         listView0 = (ListView) view.findViewById(R.id.horizontalView_container);
-        list0Adapter = new Recommend0Adapter(context, gameInfo);
+        list0Adapter = new Recommend0Adapter(context,videoInfo);
         listView0.setFocusable(false);
         listView0.setAdapter(list0Adapter);
 
@@ -489,6 +486,7 @@ public class RecommendFragment extends BaseSearchFragment {
             }
         } else {
             getGameList();
+            loadStateView.setState(LoadStateView.STATE_ING);
             getHorizontalData();
             getHorizontalData2();
         }

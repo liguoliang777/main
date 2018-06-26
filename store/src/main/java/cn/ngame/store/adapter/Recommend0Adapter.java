@@ -18,6 +18,7 @@ package cn.ngame.store.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,7 @@ import cn.ngame.store.activity.main.TopicsDetailActivity;
 import cn.ngame.store.activity.main.VideoActivity;
 import cn.ngame.store.core.utils.KeyConstant;
 import cn.ngame.store.core.utils.NetUtil;
+import cn.ngame.store.core.utils.TextUtil;
 import cn.ngame.store.util.DateUtil;
 import cn.ngame.store.view.NgameJZVideoPlayerStandard;
 
@@ -112,9 +114,10 @@ public class Recommend0Adapter extends BaseAdapter {
         holder.tv_content.setText(info.getTypeDesc() == null ? "" : info.getTypeDesc());
         //时间
         long updateTime = info.getUpdateTime();
+        Log.d(TAG, updateTime+","+info.getTypeName() + ",视频:" + gameVideoLink);
         holder.tvTime.setText(DateUtil.formatDates(updateTime));
         holder.tvWeek.setText(DateUtil.formatWeek(updateTime));
-        if (null == gameVideoLink) {
+        if (TextUtil.isEmpty(gameVideoLink)) {
             holder.recommend_rl_video_layout.setVisibility(View.INVISIBLE);
             holder.game_big_img.setVisibility(View.VISIBLE);
             holder.game_big_img.setImageURI(gameImage);//游戏 -大图
