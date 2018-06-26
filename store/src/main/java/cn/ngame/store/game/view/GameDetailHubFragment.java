@@ -53,24 +53,22 @@ public class GameDetailHubFragment extends Fragment {
     public String TAG = GameDetailHubFragment.class.getSimpleName();
     private int SCREEN_HEIGHT = 2200;
     private AutoHeightViewPager vp;
-    private GameInfo gameInfo;
-    private int postId = 35;
+    private List<CirclePostsInfo.DataBean> mDatas;
     private List<CirclePostsInfo.DataBean> mDataList = new ArrayList<>();
     private ListView mListView;
     private CircleAdapter mAdapter;
     private LinearLayout mTopLayout;
     private View mTopItemBt;
     private TextView mTopTv;
-    private int pageSize = 50;
     private CirclePostsInfo.DataBean.ShowPostCategoryBean showPostCategoryBean;
     private String postCategoryName = "";
     private TextView mEmptyTv;
     private FragmentActivity context;
 
-    public GameDetailHubFragment(AutoHeightViewPager vp, GameInfo gameInfo, StickyScrollView
+    public GameDetailHubFragment(AutoHeightViewPager vp, List<CirclePostsInfo.DataBean> gameInfo, StickyScrollView
             scrollView) {
 
-        this.gameInfo = gameInfo;
+        this.mDatas = gameInfo;
         this.scrollView = scrollView;
         this.vp = vp;
     }
@@ -83,23 +81,24 @@ public class GameDetailHubFragment extends Fragment {
         View view = inflater.inflate(R.layout.activity_game_detail_hub, container, false);
 
         mListView = (ListView) view.findViewById(R.id.hub_circle_lv);
+        mEmptyTv = view.findViewById(R.id.game_detail_empty_tv);
         //头部
         View headerView = inflater.inflate(R.layout.item_game_detail_hub_circle_header, null);
         mTopLayout = headerView.findViewById(R.id.circle_post_top_layout);
-        mEmptyTv = headerView.findViewById(R.id.circle_empty_tv);
 
         mListView.addHeaderView(headerView);
         //设置布局管理器
         mAdapter = new CircleAdapter(context, mDataList);
         mListView.setAdapter(mAdapter);
 
-        getDatas(view);
-        Log.d(TAG, "设置");
-        vp.setObjectForPosition(view,1);
+        vp.setObjectForPosition(view, 1);
+        if (mDatas != null) {
+            setView(mDatas);
+        }
         return view;
     }
 
-    public  void setListViewHeightBasedOnChildren(ListView listView) {
+    public void setListViewHeightBasedOnChildren(ListView listView) {
         ListAdapter listAdapter = listView.getAdapter();
         if (listAdapter == null) {
             return;
@@ -119,90 +118,49 @@ public class GameDetailHubFragment extends Fragment {
         listView.setLayoutParams(params);
     }
 
-    private void getDatas(final View view) {
-        String url = Constant.WEB_SITE + Constant.URL_CIRCLE_POSTS_LIST;
-        Response.Listener<CirclePostsInfo> successListener = new Response
-                .Listener<CirclePostsInfo>() {
-            @Override
-            public void onResponse(CirclePostsInfo result) {
-                if (context == null) {
-                    return;
-                }
-                if (result == null || result.getCode() != 0) {
-                    ToastUtil.show(context, getString(R.string.server_exception));
-                    return;
-                }
-                List<CirclePostsInfo.DataBean> mDatas = result.getData();
-                if (mDatas != null) {
-                    int size = mDatas.size();
-                    if (size <= 0) {
-                        mEmptyTv.setVisibility(View.VISIBLE);
-                    } else {
-                        mEmptyTv.setVisibility(View.GONE);
-                        mTopLayout.setPadding(0, context.getResources().getDimensionPixelSize(R
-                                .dimen
-                                .dm012), 0, context.getResources().getDimensionPixelSize(R.dimen
-                                .dm010));
-                        mTopLayout.removeAllViews();
-                        mDataList.clear();
-                        for (final CirclePostsInfo.DataBean mData : mDatas) {
-                            if (mData != null) {
-                                //顶部
-                                if (showPostCategoryBean == null) {
-                                    showPostCategoryBean = mData.getShowPostCategory();
-                                }
-                                //置顶帖子
-                                if (mData.getOrderNO() == 1) {
-                                    mTopItemBt = LayoutInflater.from(context).inflate(R.layout
-                                            .layout_circle_top_item, null);
-                                    mTopTv = mTopItemBt.findViewById(R.id.circle_top_title_tv);
-                                    mTopTv.setText(mData.getPostTitle());
-                                    mTopItemBt.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            Intent intent = new Intent();
-                                            intent.putExtra(KeyConstant.ID, mData.getId());
-                                            intent.setClass(context, HubItemActivity.class);
-                                            context.startActivity(intent);
-                                        }
-                                    });
-                                    mTopLayout.addView(mTopItemBt);
-                                } else {
-                                    //不是置顶的帖子
-                                    mDataList.add(mData);
-                                }
-                            }
-                        }
+    private void setView(List<CirclePostsInfo.DataBean> mDatas) {
+        int size = mDatas.size();
+        if (size <= 0) {
+            mEmptyTv.setVisibility(View.VISIBLE);
+        } else {
+            mEmptyTv.setVisibility(View.GONE);
+            mTopLayout.setPadding(0, context.getResources().getDimensionPixelSize(R
+                    .dimen
+                    .dm012), 0, context.getResources().getDimensionPixelSize(R.dimen
+                    .dm010));
+            mTopLayout.removeAllViews();
+            mDataList.clear();
+            for (final CirclePostsInfo.DataBean mData : mDatas) {
+                if (mData != null) {
+                    //顶部
+                    if (showPostCategoryBean == null) {
+                        showPostCategoryBean = mData.getShowPostCategory();
                     }
-                    mAdapter.setData(mDataList);
-                    setListViewHeightBasedOnChildren(mListView);
+                    //置顶帖子
+                    if (mData.getOrderNO() == 1) {
+                        mTopItemBt = LayoutInflater.from(context).inflate(R.layout
+                                .layout_circle_top_item, null);
+                        mTopTv = mTopItemBt.findViewById(R.id.circle_top_title_tv);
+                        mTopTv.setText(mData.getPostTitle());
+                        mTopItemBt.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent();
+                                intent.putExtra(KeyConstant.ID, mData.getId());
+                                intent.setClass(context, HubItemActivity.class);
+                                context.startActivity(intent);
+                            }
+                        });
+                        mTopLayout.addView(mTopItemBt);
+                    } else {
+                        //不是置顶的帖子
+                        mDataList.add(mData);
+                    }
                 }
             }
-        };
-
-        Response.ErrorListener errorListener = new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-            }
-        };
-
-        Request<CirclePostsInfo> request = new GsonRequest<CirclePostsInfo>(Request.Method.POST,
-                url,
-                successListener, errorListener, new TypeToken<CirclePostsInfo>() {
-        }.getType()) {
-
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-
-                Map<String, String> params = new HashMap<>();
-                params.put(KeyConstant.postCategoryId, String.valueOf(postId));
-                params.put(KeyConstant.pageIndex, String.valueOf(0));
-                params.put(KeyConstant.PAGE_SIZE, String.valueOf(pageSize));
-                params.put(KeyConstant.APP_TYPE_ID, Constant.APP_TYPE_ID_0_ANDROID);
-                return params;
-            }
-        };
-        StoreApplication.requestQueue.add(request);
+        }
+        mAdapter.setData(mDataList);
+        setListViewHeightBasedOnChildren(mListView);
     }
 
 

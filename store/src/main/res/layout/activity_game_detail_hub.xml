@@ -3,21 +3,33 @@
     xmlns:tabs="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:minHeight="@dimen/dm900"
     android:background="@color/f5f5f5"
     android:descendantFocusability="afterDescendants"
-    android:orientation="vertical">
+    android:minHeight="@dimen/dm900"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/dm010">
 
 
     <ListView
         android:id="@+id/hub_circle_lv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
+        android:layout_height="wrap_content"
         android:background="@android:color/white"
         android:divider="@null"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:listSelector="@android:color/transparent"
         android:overScrollMode="never"
         android:scrollbars="none" />
+
+    <TextView
+        android:id="@+id/game_detail_empty_tv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:paddingTop="@dimen/dm230"
+        android:text="@string/empty_data"
+        android:textColor="@color/color999999"
+        android:textSize="@dimen/dm026"
+        android:visibility="gone" />
 </LinearLayout>

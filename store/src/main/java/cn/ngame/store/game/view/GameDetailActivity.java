@@ -63,6 +63,7 @@ import cn.ngame.store.StoreApplication;
 import cn.ngame.store.activity.BaseFgActivity;
 import cn.ngame.store.adapter.DCViewPagerAdapter;
 import cn.ngame.store.adapter.ProgressBarStateListener;
+import cn.ngame.store.bean.CirclePostsInfo;
 import cn.ngame.store.bean.GameImage;
 import cn.ngame.store.bean.GameInfo;
 import cn.ngame.store.bean.JsonResult;
@@ -138,7 +139,7 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
     private AudioManager mAudioManager;
     private GridLayout mLayoutTags;
     private boolean isYuYueGame = false;
-    private GameDetailHubFragment detailHubFragment;
+    private List<CirclePostsInfo.DataBean> mData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -315,9 +316,6 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
 
     //设置数据
     private void setView() {
-        if (gameInfo == null) {
-            return;
-        }
         List<GameImage> imagesList = gameInfo.gameDetailsImages;
         List<VideoInfo> gameVideoList = gameInfo.gameVideoList;
         if (null == gameVideoList) {
@@ -454,7 +452,57 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
 
     }
 
-    boolean hasStop;
+    private boolean hasStop;
+    private int pageSize = 50;
+    private String gameCircleId = "0";
+
+    private void getHubData() {
+        gameCircleId = gameInfo.gameCircleId;
+        String url = Constant.WEB_SITE + Constant.URL_CIRCLE_POSTS_LIST;
+        Response.Listener<CirclePostsInfo> successListener = new Response
+                .Listener<CirclePostsInfo>() {
+            @Override
+            public void onResponse(CirclePostsInfo result) {
+                if (content == null) {
+                    return;
+                }
+                mData = result.getData();
+                fragments.add(new GameDetailFragment(viewpager, gameInfo));
+                fragments.add(new GameDetailHubFragment(viewpager, mData, scrollView));
+                fragments.add(new GameReadFragment(viewpager, gameInfo));
+                if (null != adapter && !hasStop) {
+                    adapter.setList(fragments, tabList);
+                    if (null != viewpager) {
+                        viewpager.setAdapter(adapter);
+                    }
+                }
+            }
+        };
+
+        Response.ErrorListener errorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+            }
+        };
+
+        Request<CirclePostsInfo> request = new GsonRequest<CirclePostsInfo>(Request.Method.POST,
+                url,
+                successListener, errorListener, new TypeToken<CirclePostsInfo>() {
+        }.getType()) {
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String, String> params = new HashMap<>();
+                params.put(KeyConstant.postCategoryId, gameCircleId);
+                params.put(KeyConstant.pageIndex, String.valueOf(0));
+                params.put(KeyConstant.PAGE_SIZE, String.valueOf(pageSize));
+                params.put(KeyConstant.APP_TYPE_ID, Constant.APP_TYPE_ID_0_ANDROID);
+                return params;
+            }
+        };
+        StoreApplication.requestQueue.add(request);
+    }
 
     private void getGameInfo() {
         String url = Constant.WEB_SITE + Constant.URL_GAME_DETAIL;
@@ -492,15 +540,8 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
 
                     //设置ViewPager
                     fragments = new ArrayList<>();
-                    fragments.add(new GameDetailFragment(viewpager, gameInfo));
-                    fragments.add(detailHubFragment);
-                    fragments.add(new GameReadFragment(viewpager, gameInfo));
-                    if (null != adapter && !hasStop) {
-                        adapter.setList(fragments, tabList);
-                        if (null != viewpager) {
-                            viewpager.setAdapter(adapter);
-                        }
-                    }
+
+                    getHubData();
                     setView();
                 } else {
                     Log.d(TAG, "HTTP请求成功：服务端返回错误！");
@@ -554,8 +595,7 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
         viewpager.resetHeight(0);
         fragments = new ArrayList<>();
         fragments.add(new GameDetailFragment(viewpager, gameInfo));
-        detailHubFragment = new GameDetailHubFragment(viewpager, gameInfo, scrollView);
-        fragments.add(detailHubFragment);
+        fragments.add(new GameDetailHubFragment(viewpager, mData, scrollView));
         fragments.add(new GameReadFragment(viewpager, gameInfo));
 
         adapter = new DCViewPagerAdapter(fm, fragments, tabList);//getChildFragmentManager()
@@ -989,13 +1029,6 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
         UMShareAPI.get(this).release();
     }
 
-    @Override
-    public void onBackPressed() {
-        if (JZVideoPlayerStandard.backPress()) {
-            return;
-        }
-        super.onBackPressed();
-    }
 
     @Override
     protected void onPause() {
