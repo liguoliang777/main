@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -23,11 +24,13 @@ import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
 import com.facebook.drawee.generic.RoundingParams;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.jzt.hol.android.jkda.sdk.bean.main.MallBean;
 import com.jzt.hol.android.jkda.sdk.bean.main.YunduanBean;
 import com.jzt.hol.android.jkda.sdk.bean.main.YunduanBodyBean;
 import com.jzt.hol.android.jkda.sdk.bean.recommend.RecommendListBean;
 import com.jzt.hol.android.jkda.sdk.bean.recommend.RecommendListBody;
 import com.jzt.hol.android.jkda.sdk.rx.ObserverWrapper;
+import com.jzt.hol.android.jkda.sdk.services.main.MallClient;
 import com.jzt.hol.android.jkda.sdk.services.main.YunduanClient;
 import com.jzt.hol.android.jkda.sdk.services.recommend.RecommendClient;
 import com.squareup.picasso.Picasso;
@@ -75,7 +78,7 @@ public class RecommendFragment extends BaseSearchFragment {
     private LoadStateView loadStateView;
     private RecommendListAdapter adapter;
     private PageAction pageAction;
-    public static int PAGE_SIZE = 8;
+    public int PAGE_SIZE = 8;
     List<RecommendListBean.DataBean> topList = new ArrayList<>();
     List<RecommendListBean.DataBean> list = new ArrayList<>();
     private LinearLayout mallLayout;
@@ -155,31 +158,33 @@ public class RecommendFragment extends BaseSearchFragment {
     private List<YunduanBean.DataBean> gameInfo;
 
     private void getHorizontalData2() {
-        YunduanBodyBean bodyBean = new YunduanBodyBean();
-        new YunduanClient(context, bodyBean).observable()
-                .subscribe(new ObserverWrapper<YunduanBean>() {
+        RecommendListBody bodyBean = new RecommendListBody();
+        bodyBean.setPageIndex(1);
+        bodyBean.setPageSize(50);
+        new MallClient(context, bodyBean).observable()
+                .subscribe(new ObserverWrapper<MallBean>() {
                     @Override
                     public void onError(Throwable e) {
                     }
 
-                    @SuppressLint("NewApi")
                     @Override
-                    public void onNext(YunduanBean result) {
+                    public void onNext(MallBean result) {
                         if (result != null && result.getCode() == 0) {
-                            gameInfo = result.getData();
-                            if (null == gameInfo || gameInfo.size() == 0) {
+                            List<MallBean.DataBean> data = result.getData();
+                            if (null == data || data.size() == 0) {
                                 Log.d(TAG, "HTTP请求成功：服务端返回错误！");
                             } else {
                                 mallLayout.removeAllViews();
-                                int size = gameInfo.size();
+                                int size = data.size();
                                 Resources resources = getResources();
                                 int pxRound = resources.getDimensionPixelOffset(R.dimen.dm000);
                                 int pxTop = resources.getDimensionPixelOffset(R.dimen.dm016);
                                 int pxHeight = resources.getDimensionPixelOffset(R.dimen.dm500);
 
                                 for (int i = 0; i < size; i++) {
-                                    final YunduanBean.DataBean info = gameInfo.get(i);
-                                    final String gameImage = info.getLogoUrl();//获取每一张图片
+                                    MallBean.DataBean info = data.get(i);
+                                    final String gameImage = info.getMallImg();
+                                    final String mallUrl = info.getMallLink();
                                     simpleImageView = new SimpleDraweeView(context);
                                     RoundingParams roundingParams = RoundingParams
                                             .fromCornersRadius(pxRound);
@@ -205,15 +210,10 @@ public class RecommendFragment extends BaseSearchFragment {
                                     simpleImageView.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
-                                            singeTopicsDetailIntent.putExtra(KeyConstant
-                                                    .category_Id, info.getId());
-                                            singeTopicsDetailIntent.putExtra(KeyConstant.TITLE,
-                                                    info.getTypeName());
-                                            singeTopicsDetailIntent.putExtra(KeyConstant.DESC,
-                                                    info.getTypeDesc());
-                                            singeTopicsDetailIntent.putExtra(KeyConstant.URL,
-                                                    gameImage);
-                                            startActivity(singeTopicsDetailIntent);
+                                            Intent intent = new Intent();
+                                            intent.setAction("android.intent.action.VIEW");
+                                            intent.setData(Uri.parse(mallUrl));
+                                            startActivity(intent);
                                         }
                                     });
                                     mallLayout.addView(simpleImageView, i);

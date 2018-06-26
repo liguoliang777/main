@@ -29,6 +29,7 @@ import com.jzt.hol.android.jkda.sdk.bean.gamehub.ReportPostBodyBean;
 import com.jzt.hol.android.jkda.sdk.bean.gamehub.VoteListBean;
 import com.jzt.hol.android.jkda.sdk.bean.gamehub.VoteRankBodyBean;
 import com.jzt.hol.android.jkda.sdk.bean.main.DiscoverListBean;
+import com.jzt.hol.android.jkda.sdk.bean.main.MallBean;
 import com.jzt.hol.android.jkda.sdk.bean.main.YunduanBean;
 import com.jzt.hol.android.jkda.sdk.bean.main.YunduanBodyBean;
 import com.jzt.hol.android.jkda.sdk.bean.manager.LikeListBean;
@@ -216,6 +217,10 @@ public interface GameService {
     @POST("game/queryGameByTypeAndLabel")
     Observable<GameRankListBean> queryGameForSelect(@Header("content-type") String type,
                                                           @Body GameListBody bean);
+    // 专题精选 - 游戏列表
+    @POST("mall/listMall")
+    Observable<MallBean> queryMall(@Header("content-type") String type,
+                                                          @Body RecommendListBody bean);
 
     // 系统消息
     @POST("message/querySystemMessList")
@@ -226,4 +231,5 @@ public interface GameService {
     @POST("gameRecommend/queryGameRecommendList")
     Observable<RecommendListBean> queryGameRecommendList(@Header("content-type") String type,
                                                          @Body RecommendListBody bean);
+
 }
