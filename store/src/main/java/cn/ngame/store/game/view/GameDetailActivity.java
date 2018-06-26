@@ -522,7 +522,7 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
 
                     //设置ViewPager
                     fragments = new ArrayList<>();
-
+                    setView();
                     getHubData();
                 } else {
                     Log.d(TAG, "HTTP请求成功：服务端返回错误！");
