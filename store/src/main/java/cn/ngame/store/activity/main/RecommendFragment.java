@@ -118,8 +118,6 @@ public class RecommendFragment extends BaseSearchFragment {
     }
 
     private void getGameList() {
-        loadStateView.setVisibility(View.VISIBLE);
-        loadStateView.setState(LoadStateView.STATE_ING);
         RecommendListBody bodyBean = new RecommendListBody();
         bodyBean.setPageIndex(pageAction.getCurrentPage());
         bodyBean.setPageSize(PAGE_SIZE);
@@ -226,6 +224,8 @@ public class RecommendFragment extends BaseSearchFragment {
     }
 
     private void getHorizontalData() {
+        loadStateView.setVisibility(View.VISIBLE);
+        loadStateView.setState(LoadStateView.STATE_ING);
         YunduanBodyBean bodyBean = new YunduanBodyBean();
         new YunduanClient(context, bodyBean).observable()
                 .subscribe(new ObserverWrapper<YunduanBean>() {
@@ -240,12 +240,18 @@ public class RecommendFragment extends BaseSearchFragment {
                             gameInfo = result.getData();
                             if (null == gameInfo || gameInfo.size() == 0) {
                                 Log.d(TAG, "HTTP请求成功：服务端返回错误！");
+                                loadStateView.setVisibility(View.VISIBLE);
+                                loadStateView.setState(LoadStateView.STATE_END, getString(R.string
+                                        .no_data));
                             } else {
+                                loadStateView.setVisibility(View.GONE);
                                 list0Adapter.setDate(gameInfo);
                                 setListViewHeightBasedOnChildren(listView0);
                             }
                         } else {
-
+                            loadStateView.setVisibility(View.VISIBLE);
+                            loadStateView.setState(LoadStateView.STATE_END, getString(R.string
+                                    .no_data));
                         }
                     }
                 });
@@ -275,10 +281,10 @@ public class RecommendFragment extends BaseSearchFragment {
     }
 
     public void listData(RecommendListBean result) {
-        loadStateView.setVisibility(View.GONE);
         if (result.getData() == null) {
             return;
         }
+        loadStateView.setVisibility(View.GONE);
         if (pageAction.getCurrentPage() == 0) {//当前页
             if (list != null) {
                 this.list.clear(); //清除数据
@@ -381,7 +387,6 @@ public class RecommendFragment extends BaseSearchFragment {
         pullListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-                loadStateView.setVisibility(View.GONE);
                 pullListView.setPullLoadEnabled(true);
                 pageAction.setCurrentPage(0);
                 if (!NetUtil.isNetworkConnected(context)) {
@@ -394,9 +399,7 @@ public class RecommendFragment extends BaseSearchFragment {
                         ToastUtil.show(context, getString(R.string.no_network));
                     } else {
                         ToastUtil.show(context, getString(R.string.no_network));
-                        loadStateView.setVisibility(View.VISIBLE);
-                        loadStateView.setState(LoadStateView.STATE_END, getString(R.string
-                                .no_network));
+
                     }
                 } else {
                     //下拉请求数据

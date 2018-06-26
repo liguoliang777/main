@@ -119,7 +119,7 @@ public class Recommend0Adapter extends BaseAdapter {
             holder.game_big_img.setVisibility(View.VISIBLE);
             holder.game_big_img.setImageURI(gameImage);//游戏 -大图
         } else {
-            holder.game_big_img.setVisibility(View.INVISIBLE);
+            holder.game_big_img.setVisibility(View.GONE);
             //视频播放
             holder.recommend_rl_video_layout.setVisibility(View.VISIBLE);
             holder.jzVideoPlayerStandard.thumbImageView.setVisibility(View.VISIBLE);
