@@ -124,13 +124,9 @@ public class RecommendFragment extends BaseSearchFragment {
                     @Override
                     public void onError(Throwable e) {
                         if (list != null && list.size() > 0) {
-                            loadStateView.setVisibility(View.GONE);
                             ToastUtil.show(context, getString(R.string
                                     .server_exception_2_pullrefresh));
                         } else {
-                            loadStateView.setState(LoadStateView.STATE_END, getString(R.string
-                                    .server_exception_2_pullrefresh));
-                            loadStateView.setVisibility(View.VISIBLE);
                         }
                         pullListView.onPullUpRefreshComplete();
                         pullListView.onPullDownRefreshComplete();
@@ -141,7 +137,6 @@ public class RecommendFragment extends BaseSearchFragment {
                         if (result != null && result.getCode() == 0) {
                             listData(result);
                         } else {
-                            loadStateView.setVisibility(View.GONE);
                             pullListView.onPullUpRefreshComplete();
                             pullListView.onPullDownRefreshComplete();
                         }
@@ -241,6 +236,7 @@ public class RecommendFragment extends BaseSearchFragment {
                                 loadStateView.setState(LoadStateView.STATE_END, getString(R.string
                                         .no_data));
                             } else {
+                                loadStateView.setState(LoadStateView.STATE_END, "");
                                 loadStateView.setVisibility(View.GONE);
                                 list0Adapter.setDate(videoInfo);
                                 setListViewHeightBasedOnChildren(listView0);

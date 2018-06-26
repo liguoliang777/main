@@ -374,26 +374,7 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
                 gameType3.setVisibility(View.VISIBLE);
             }
 
-           /*
-               int typeSize = typeList.size();
-           if (typeSize > 0) {
-                gameType0.setText(typeList.get(0).typeName);
-                gameType0.setVisibility(View.VISIBLE);
-            }
-            if (typeSize > 1) {
-                gameType1.setText(typeList.get(1).typeName);
-                gameType1.setVisibility(View.VISIBLE);
-            }
-            if (typeSize > 2) {
-                gameType2.setText(typeList.get(2).typeName);
-                gameType2.setVisibility(View.VISIBLE);
-            }
-            if (typeSize > 3) {
-                gameType3.setText(typeList.get(3).typeName);
-                gameType3.setVisibility(View.VISIBLE);
-            }*/
         }
-        //gameSizeTv.setText(Formatter.formatFileSize(content, Long.valueOf(gameInfo.gameSize)));
         // 大小
         gameSizeTv.setText(Utils.get_KB_MB_GB_Size(gameInfo.gameSize));//大小
         downLoadCountTv.setText(gameInfo.downloadCount + "");//下载次数
@@ -458,6 +439,7 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
 
     private void getHubData() {
         gameCircleId = gameInfo.gameCircleId;
+
         String url = Constant.WEB_SITE + Constant.URL_CIRCLE_POSTS_LIST;
         Response.Listener<CirclePostsInfo> successListener = new Response
                 .Listener<CirclePostsInfo>() {
@@ -542,7 +524,6 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
                     fragments = new ArrayList<>();
 
                     getHubData();
-                    setView();
                 } else {
                     Log.d(TAG, "HTTP请求成功：服务端返回错误！");
                 }
