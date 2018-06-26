@@ -79,7 +79,8 @@ public class DateUtil {
      */
     public static String getStrTime_ymd_hm(long cc_time) {
         String re_StrTime = null;
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy" + "年" + "MM" + "月" + "dd" + "日 " + "HH:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy" + "年" + "MM" + "月" + "dd" + "日 " +
+                "HH:mm");
         sdf.setTimeZone(TimeZone.getTimeZone("GMT+08"));
         re_StrTime = sdf.format(new Date(cc_time));
         return re_StrTime;
@@ -123,45 +124,44 @@ public class DateUtil {
 
 
     //格式化yyyy-MM-dd的时间格式
-    public static String formatDatesToDate(String dateStr) {
-        if (dateStr == null || dateStr.length() == 0) {
-            return "";
-        } else {
-            if (dateStr != null && dateStr.contains("T")) {
-                dateStr.replace("T", " ");
-            }
+    public static String formatWeek(long time) {
+        final Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(time);
+        c.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+        String mWay = String.valueOf(c.get(Calendar.DAY_OF_WEEK));
+        if ("1".equals(mWay)) {
+            mWay = "日";
+        } else if ("2".equals(mWay)) {
+            mWay = "一";
+        } else if ("3".equals(mWay)) {
+            mWay = "二";
+        } else if ("4".equals(mWay)) {
+            mWay = "三";
+        } else if ("5".equals(mWay)) {
+            mWay = "四";
+        } else if ("6".equals(mWay)) {
+            mWay = "五";
+        } else if ("7".equals(mWay)) {
+            mWay = "六";
         }
-        String dateFormat = "";
-        try {
-            DateFormat dft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date date = dft.parse(dateStr);
-            DateFormat dft2 = new SimpleDateFormat("yyyy-MM-dd");
-            dateFormat = dft2.format(date);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return dateFormat;
+        return "星期" + mWay;
     }
 
 
     //格式化yyyy-MM-dd HH:mm的时间格式
-    public static String formatDates(String dateStr) {
+    public static String formatDates(long dateStr) {
         // 2015-09-07T01:58:31.000+0000
         String dateFormat = "";
-        if (dateStr == null || dateStr.length() == 0) {
+        if (dateStr == 0) {
             return "";
         } else {
             try {
-                if (dateStr.contains("T")) {
-                    dateStr = dateStr.replace("T", " ");
-                    if (dateStr.contains(".")) {
-                        dateStr = dateStr.substring(0, dateStr.indexOf("."));
-                    }
-                }
-                DateFormat dft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                Date date = dft.parse(dateStr);
-                DateFormat dft2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                dateFormat = dft2.format(date);
+                Calendar calendar2 = Calendar.getInstance();
+                calendar2.setTimeInMillis(dateStr);
+                int month = calendar2.get(Calendar.MONTH);
+                int day = calendar2.get(Calendar.DAY_OF_MONTH);
+
+                dateFormat = month + 1 + "月" + day + "日";
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -196,33 +196,6 @@ public class DateUtil {
         }
     }
 
-    public static String getWeek(int i) {
-        String week = "";
-        switch (i) {
-            case 1:
-                week = "周一";
-                break;
-            case 2:
-                week = "周二";
-                break;
-            case 3:
-                week = "周三";
-                break;
-            case 4:
-                week = "周四";
-                break;
-            case 5:
-                week = "周五";
-                break;
-            case 6:
-                week = "周六";
-                break;
-            case 7:
-                week = "周日";
-                break;
-        }
-        return week;
-    }
 
     /**
      * \根据指定时间获取一周的日期
@@ -248,7 +221,8 @@ public class DateUtil {
      * @param returnPattern 0\1\2\3\4\5
      * @return
      */
-    public static long getBetween(String beginTime, String endTime, String formatPattern, int returnPattern) throws ParseException {
+    public static long getBetween(String beginTime, String endTime, String formatPattern, int
+            returnPattern) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(formatPattern);
         Date beginDate = simpleDateFormat.parse(beginTime);
         Date endDate = simpleDateFormat.parse(endTime);
@@ -261,7 +235,8 @@ public class DateUtil {
             case 0: //年
                 return getByField(beginCalendar, endCalendar, Calendar.YEAR);
             case 1: //月
-                return getByField(beginCalendar, endCalendar, Calendar.YEAR) * 12 + getByField(beginCalendar, endCalendar, Calendar.MONTH);
+                return getByField(beginCalendar, endCalendar, Calendar.YEAR) * 12 + getByField
+                        (beginCalendar, endCalendar, Calendar.MONTH);
             case 2: //日
                 return getTime(beginDate, endDate) / (24 * 60 * 60 * 1000);
             case 3: //时
@@ -275,7 +250,8 @@ public class DateUtil {
         }
     }
 
-    private static long getByField(Calendar beginCalendar, Calendar endCalendar, int calendarField) {
+    private static long getByField(Calendar beginCalendar, Calendar endCalendar, int
+            calendarField) {
         return endCalendar.get(calendarField) - beginCalendar.get(calendarField);
     }
 

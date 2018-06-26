@@ -82,8 +82,26 @@ public class YunduanBean {
         private int parentId;
         private int appTypeId;
         private String logoUrl;
+        private String logoVideo;
         private int iosCompany;
+        private long updateTime;
         private String text;
+
+        public String getLogoVideo() {
+            return logoVideo;
+        }
+
+        public void setLogoVideo(String logoVideo) {
+            this.logoVideo = logoVideo;
+        }
+
+        public long getUpdateTime() {
+            return updateTime;
+        }
+
+        public void setUpdateTime(long updateTime) {
+            this.updateTime = updateTime;
+        }
 
         public String getTypeDesc() {
             return typeDesc;

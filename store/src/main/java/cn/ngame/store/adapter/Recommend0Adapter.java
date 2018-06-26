@@ -22,9 +22,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -35,14 +32,12 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import cn.jzvd.JZVideoPlayer;
-import cn.jzvd.JZVideoPlayerStandard;
 import cn.ngame.store.R;
 import cn.ngame.store.activity.main.TopicsDetailActivity;
 import cn.ngame.store.activity.main.VideoActivity;
-import cn.ngame.store.bean.GameImage;
-import cn.ngame.store.bean.VideoInfo;
 import cn.ngame.store.core.utils.KeyConstant;
 import cn.ngame.store.core.utils.NetUtil;
+import cn.ngame.store.util.DateUtil;
 import cn.ngame.store.view.NgameJZVideoPlayerStandard;
 
 public class Recommend0Adapter extends BaseAdapter {
@@ -97,6 +92,8 @@ public class Recommend0Adapter extends BaseAdapter {
             holder.jzVideoPlayerStandard.topContainer.setVisibility(View.GONE);
 
             holder.tv_title = (TextView) convertView.findViewById(R.id.recommend_lv0_title_tv);
+            holder.tvTime = (TextView) convertView.findViewById(R.id.recommend_lv0_time_tv);
+            holder.tvWeek = (TextView) convertView.findViewById(R.id.recommend_lv0_week_tv);
             holder.recommend_rl_video_layout = (RelativeLayout) convertView.findViewById(R.id
                     .recommend_rl_video_layout);
             holder.tv_content = (TextView) convertView.findViewById(R.id.recommend_lv0_content_tv);
@@ -109,9 +106,15 @@ public class Recommend0Adapter extends BaseAdapter {
 
         final YunduanBean.DataBean info = listOData.get(position);
         final String gameImage = info.getLogoUrl();//获取每一张图片
-        final String gameVideoLink = info.getLogoUrl();//获取每一张图片
+        final String gameVideoLink = info.getLogoVideo();//获取每一张图片
 
-        if (null == gameImage) {
+        holder.tv_title.setText(info.getTypeName() == null ? "" : info.getTypeName());
+        holder.tv_content.setText(info.getTypeDesc() == null ? "" : info.getTypeDesc());
+        //时间
+        long updateTime = info.getUpdateTime();
+        holder.tvTime.setText(DateUtil.formatDates(updateTime));
+        holder.tvWeek.setText(DateUtil.formatWeek(updateTime));
+        if (null == gameVideoLink) {
             holder.recommend_rl_video_layout.setVisibility(View.INVISIBLE);
             holder.game_big_img.setVisibility(View.VISIBLE);
             holder.game_big_img.setImageURI(gameImage);//游戏 -大图
@@ -120,11 +123,8 @@ public class Recommend0Adapter extends BaseAdapter {
             //视频播放
             holder.recommend_rl_video_layout.setVisibility(View.VISIBLE);
             holder.jzVideoPlayerStandard.thumbImageView.setVisibility(View.VISIBLE);
-            final String url = "http://jzvd.nathen.cn/6ea7357bc3fa4658b29b7933ba575008" +
-                    "/fbbba953374248eb913cb1408dc61d85-5287d2089db37e62345123a1be272f8b" +
-                    ".mp4";
             holder.jzVideoPlayerStandard.setUp(
-                    url, JZVideoPlayer.SCREEN_LAYOUT_LIST, "");
+                    gameVideoLink, JZVideoPlayer.SCREEN_LAYOUT_LIST, "");
             Picasso.with(context).load(gameImage).into(holder.jzVideoPlayerStandard
                     .thumbImageView);
             holder.jzVideoPlayerStandard.backButton.setVisibility(View.GONE);
@@ -133,7 +133,7 @@ public class Recommend0Adapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, VideoActivity.class);
-                    intent.putExtra("videoUrl",url);
+                    intent.putExtra("videoUrl", gameVideoLink);
                     context.startActivity(intent);
                 }
             });
@@ -165,7 +165,7 @@ public class Recommend0Adapter extends BaseAdapter {
     class ViewHolder {
         public NgameJZVideoPlayerStandard jzVideoPlayerStandard;
         public RelativeLayout recommend_rl_video_layout;
-        public TextView tv_title, tv_content;
+        public TextView tv_title, tvTime, tvWeek, tv_content;
         public SimpleDraweeView game_big_img;
     }
 }
