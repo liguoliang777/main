@@ -120,9 +120,7 @@ public class GameDetailHubFragment extends Fragment {
 
     private void setView(List<CirclePostsInfo.DataBean> mDatas) {
         int size = mDatas.size();
-        if (size <= 0) {
-            mEmptyTv.setVisibility(View.VISIBLE);
-        } else {
+        if (size > 0) {
             mEmptyTv.setVisibility(View.GONE);
             mTopLayout.setPadding(0, context.getResources().getDimensionPixelSize(R
                     .dimen

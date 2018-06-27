@@ -440,7 +440,7 @@ public class GameDetailActivity extends BaseFgActivity implements StickyScrollVi
     private void getHubData() {
         gameCircleId = gameInfo.gameCircleId;
         if (gameCircleId == null) {
-            return;
+            gameCircleId = "-1";
         }
         String url = Constant.WEB_SITE + Constant.URL_CIRCLE_POSTS_LIST;
         Response.Listener<CirclePostsInfo> successListener = new Response
