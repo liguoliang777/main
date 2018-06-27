@@ -31,5 +31,5 @@
         android:text="@string/empty_data"
         android:textColor="@color/color999999"
         android:textSize="@dimen/dm026"
-        android:visibility="gone" />
+        />
 </LinearLayout>
